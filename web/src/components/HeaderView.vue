@@ -5,14 +5,14 @@
                 USD $116.38 &bullet; CN¥ 806.21
             </span>
 
-            <select class="h-10 rounded-lg text-sm shadow-md">
-                <option value="AVAX/NEX" disabled>Avalanche (AVAX)</option>
-                <option value="BCH/NEX" selected>Bitcoin Cash (BCH)</option>
-                <option value="BNB/NEX" disabled>Binance (BNB)</option>
-                <option value="BTC/NEX" disabled>Bitcoin (BTC)</option>
-                <option value="DAI/NEX" disabled>Dai (DAI)</option>
-                <option value="ETHNEX" disabled>Ethereum (ETH)</option>
-                <option value="USDT/NEX" disabled>Tether (USDT)</option>
+            <select v-model="tradePair" class="h-10 rounded-lg text-sm shadow-md">
+                <option value="NEX/AVAX" disabled>Avalanche (AVAX)</option>
+                <option value="NEX/BCH">Bitcoin Cash (BCH)</option>
+                <option value="NEX/BNB" disabled>Binance (BNB)</option>
+                <option value="NEX/BTC" disabled>Bitcoin (BTC)</option>
+                <option value="NEX/DAI">Dai (DAI)</option>
+                <option value="NEX/ETH" disabled>Ethereum (ETH)</option>
+                <option value="NEX/USDT" disabled>Tether (USDT)</option>
             </select>
 
         </div>
@@ -56,8 +56,15 @@ import moment from 'moment'
 
 export default {
     data: () => ({
-        //
+        tradePair: null,
     }),
+    watch: {
+        tradePair: function (_tradePair) {
+            // console.log('TRADE PAIR UPDATED', _tradePair)
+
+            this.$emit('updatePair', _tradePair)
+        }
+    },
     computed: {
         curDate() {
             return moment().format('ll')
@@ -68,7 +75,8 @@ export default {
         //
     },
     created: function () {
-        //
+        // FOR DEV PURPOSES ONLY
+        this.tradePair = 'NEX/BCH'
     },
     mounted: function () {
         //

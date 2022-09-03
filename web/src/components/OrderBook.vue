@@ -7,27 +7,29 @@
 
             <div class="flex justify-center">
                 <span class="text-gray-500 text-xs italic">
-                    updated 3.2 seconds ago
+                    updated <strong class="text-rose-500 text-sm">3.2</strong> seconds ago
                 </span>
             </div>
         </header>
 
         <div v-for="ask of askList" :key="ask.value" class="w-48 flex justify-center bg-red-500">
-            <span class="text-base font-medium">
-                {{formatOrderBookValue(ask.value)}}
-            </span>
+            <span
+                class="text-base font-medium"
+                v-html="formatOrderBookValue(ask.value)"
+            />
         </div>
 
         <div class="py-3 flex justify-center bg-gray-100 border-t-2 border-b-2 border-yellow-500">
             <span class="text-xl font-bold">
-                1 163 800 NEX
+                0 . <small>000</small> <small>001</small> 164 {{quotePair}}
             </span>
         </div>
 
         <div v-for="bid of bidList" :key="bid.value" class="w-48 flex justify-center bg-green-500">
-            <span class="text-base font-medium">
-                {{formatOrderBookValue(bid.value)}}
-            </span>
+            <span
+                class="text-base font-medium"
+                v-html="formatOrderBookValue(bid.value)"
+            />
         </div>
 
     </main>
@@ -35,9 +37,12 @@
 
 <script>
 /* Import moduels. */
-import numeral from 'numeral'
+// import numeral from 'numeral'
 
 export default {
+    props: {
+        tradePair: String,
+    },
     data: () => ({
         asks: null,
         bids: null,
@@ -65,37 +70,70 @@ export default {
             // return cloned.reverse()
             return cloned
         },
+
+        quotePair() {
+console.log('quoete pair is seeing', this.tradePair);
+            if (!this.tradePair) return 'BCH'
+
+            switch(this.tradePair) {
+            case 'NEX/BCH':
+                return 'BCH'
+            case 'NEX/DAI':
+                return 'DAI'
+            default:
+                return 'BCH'
+            }
+        },
+
     },
     methods: {
-        initFormat() {
-            numeral.register('locale', 'nex', {
-                delimiters: {
-                    thousands: ' ',
-                    decimal: '.',
-                },
-                abbreviations: {
-                    thousand: 'k',
-                    million: 'm',
-                    billion: 'b',
-                    trillion: 't',
-                },
-                ordinal : function (number) {
-                    return number === 1 ? '' : 's'
-                },
-                currency: {
-                    symbol: '$'
-                }
-            });
-
-            // switch between locales
-            numeral.locale('nex')
-        },
+        // initFormat() {
+        //     numeral.register('locale', 'nex', {
+        //         delimiters: {
+        //             thousands: ' ',
+        //             decimal: '.',
+        //         },
+        //         abbreviations: {
+        //             thousand: 'k',
+        //             million: 'm',
+        //             billion: 'b',
+        //             trillion: 't',
+        //         },
+        //         ordinal : function (number) {
+        //             return number === 1 ? '' : 's'
+        //         },
+        //         currency: {
+        //             symbol: '$'
+        //         }
+        //     });
+        //
+        //     // switch between locales
+        //     numeral.locale('nex')
+        // },
 
         formatOrderBookValue(_value) {
             // numeral.locale('de')
-            numeral.localeData('en').delimiters.thousands = ' '
+            // numeral.localeData('en').delimiters.thousands = ' '
 
-            return numeral(_value).format('0,0') + '  NEX'
+            // return numeral(_value).format('0,0.000[00000]') + ' NEX'
+
+            if (_value < 100000000) {
+                const val = '00000' + _value.toString()
+
+                const parsed = '0 . <small>' + val.slice(0, 3) + '</small> ' + val.slice(3, 6) + ' ' + val.slice(6)
+
+                if (val.length < 7) {
+                    return parsed + '000 '
+                } else if (val.length < 8) {
+                    return parsed + '00 '
+                } else if (val.length < 9) {
+                    return parsed + '0 '
+                } else {
+                    return parsed + ' '
+                }
+            } else {
+                return _value + ' '
+            }
         },
 
     },
@@ -103,32 +141,32 @@ export default {
         this.asks = []
         this.bids = []
 
-        this.initFormat()
+        // this.initFormat()
 
         this.asks.push({
-            value: 1350000,
+            value: 135,
         })
         this.asks.push({
-            value: 1550000,
+            value: 155,
         })
         this.asks.push({
-            value: 1450000,
+            value: 145,
         })
         this.asks.push({
-            value: 1750000,
+            value: 175,
         })
 
         this.bids.push({
-            value: 1050000,
+            value: 105,
         })
         this.bids.push({
-            value: 950000,
+            value: 95,
         })
         this.bids.push({
-            value: 650000,
+            value: 65,
         })
         this.bids.push({
-            value: 750000,
+            value: 75,
         })
     },
     mounted: function () {

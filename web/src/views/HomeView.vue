@@ -2,7 +2,10 @@
     <main class="max-w-4xl p-5 bg-rose-100 rounded-2xl border-8 border-rose-300">
         <div class="flex flex-row">
             <div class="">
-                <HeaderView class="h-10" />
+                <HeaderView
+                    class="h-10"
+                    @updatePair="updatePair"
+                />
 
                 <div class="mt-7">
                     <div class="mr-3 mb-5 border-t border-rose-300" />
@@ -43,7 +46,10 @@
                 </div>
             </div>
 
-            <OrderBook class="w-48 h-96 shrink" />
+            <OrderBook
+                class="w-48 h-96 shrink"
+                :tradePair="tradePair"
+            />
         </div>
 
     </main>
@@ -64,13 +70,20 @@ export default {
         OrderBook,
     },
     data: () => ({
-        //
+        tradePair: null,
     }),
     computed: {
         //
     },
     methods: {
-        //
+        updatePair(_tradePair) {
+            console.log('HOME TRADE UPDATE', _tradePair);
+
+            /* Update trade pair. */
+            // NOTE: This will filter throughout the app.
+            // TODO: Create a store.
+            this.tradePair = _tradePair
+        },
     },
     created: function () {
         //
