@@ -1,5 +1,5 @@
 <template>
-    <main class="bg-gray-200 border-2 border-rose-500 rounded-lg shadow-md">
+    <main class="flex flex-col justify-between bg-gray-200 border-2 border-rose-500 rounded-lg shadow-md">
         <header class="py-1 mb-3 border-b border-red-600">
             <h1 class="text-gray-700 text-xl font-bold text-center">
                 Order Book
@@ -12,43 +12,56 @@
             </div>
         </header>
 
-        <div v-for="ask of askList" :key="ask.value" class="w-48 flex justify-center bg-red-500">
-            <span
-                class="text-base font-medium"
-                v-html="formatOrderBookValue(ask.value)"
-            />
-        </div>
+        <section class="">
+            <div v-for="ask of askList" :key="ask.value" class="w-48 flex justify-center bg-red-500">
+                <span
+                    class="text-base font-medium"
+                    v-html="formatOrderBookValue(ask.value)"
+                />
+            </div>
 
-        <div class="w-48 flex justify-center bg-red-400 border-t border-b-2 border-red-600">
-            <span class="text-red-100 text-xs font-medium tracking-widest">
-                ASKING
+            <div class="w-48 flex justify-center bg-red-400 border-t border-b-2 border-red-600">
+                <span class="text-red-100 text-xs font-medium tracking-widest">
+                    ASKING
+                </span>
+            </div>
+
+            <div class="py-3 flex flex-col items-center bg-gray-100">
+                <span class="text-gray-400 text-xl font-bold">
+                    <span class="mx-1 text-gray-800">0 .</span>
+                    <small>000</small> <small>00</small><span class="text-gray-800">1</span> <span class="text-gray-800">164</span>
+                    <span class="mx-1 text-gray-800">{{quotePair}}</span>
+                </span>
+
+                <span class="text-gray-500 text-xs italic lowercase">
+                    Last Trade was <strong class="text-rose-500">3 mins</strong> ago
+                </span>
+            </div>
+
+            <div class="w-48 flex justify-center bg-green-400 border-t-2 border-b border-green-600">
+                <span class="text-green-900 text-xs font-medium tracking-widest">
+                    BIDDING
+                </span>
+            </div>
+
+            <div v-for="bid of bidList" :key="bid.value" class="w-48 flex justify-center bg-green-500">
+                <span
+                    class="text-base font-medium"
+                    v-html="formatOrderBookValue(bid.value)"
+                />
+            </div>
+        </section>
+
+        <footer class="py-2 flex flex-col items-center justify-center">
+            <span class="block text-xs font-medium">
+                <span class="italic">100% <strong class="text-sm">Non-</strong>Custodial</span>
+                <span class="mx-1 text-xl">🛡️</span>
             </span>
-        </div>
 
-        <div class="py-3 flex flex-col items-center bg-gray-100">
-            <span class="text-gray-400 text-xl font-bold">
-                <span class="mx-1 text-gray-800">0 .</span>
-                <small>000</small> <small>00</small><span class="text-gray-800">1</span> <span class="text-gray-800">164</span>
-                <span class="mx-1 text-gray-800">{{quotePair}}</span>
+            <span class="block text-xs font-medium italic">
+                <strong class="text-sm">Your</strong> Keys! ... <strong class="text-sm">Your</strong> Coins!
             </span>
-
-            <span class="text-gray-500 text-xs italic lowercase">
-                Last Trade was <strong class="text-rose-500">3 mins</strong> ago
-            </span>
-        </div>
-
-        <div class="w-48 flex justify-center bg-green-400 border-t-2 border-b border-green-600">
-            <span class="text-green-900 text-xs font-medium tracking-widest">
-                BIDDING
-            </span>
-        </div>
-
-        <div v-for="bid of bidList" :key="bid.value" class="w-48 flex justify-center bg-green-500">
-            <span
-                class="text-base font-medium"
-                v-html="formatOrderBookValue(bid.value)"
-            />
-        </div>
+        </footer>
 
     </main>
 </template>
