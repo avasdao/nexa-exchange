@@ -2,7 +2,7 @@
     <main class="flex flex-col justify-between bg-gray-200 border-2 border-rose-500 rounded-lg shadow-md">
         <header class="py-1 mb-3 border-b border-red-600">
             <h1 class="text-gray-700 text-xl font-bold text-center">
-                Order Book
+                Trading View
             </h1>
 
             <div class="flex justify-center">
