@@ -2,7 +2,7 @@
     <main class="flex flex-col justify-between bg-gray-200 border-2 border-rose-500 rounded-lg shadow-md">
         <header class="py-1 mb-3 border-b border-red-600">
             <h1 class="text-gray-700 text-xl font-bold text-center">
-                Order Book
+                Market Feed
             </h1>
 
             <div class="flex justify-center">
@@ -21,8 +21,8 @@
             </div>
 
             <div class="w-48 flex justify-center bg-red-400 border-t border-b-2 border-red-600">
-                <span class="text-red-100 text-xs font-medium tracking-widest">
-                    ASKING
+                <span class="text-red-100 text-xs font-medium tracking-widest uppercase">
+                    Asking
                 </span>
             </div>
 
@@ -34,13 +34,13 @@
                 </span>
 
                 <span class="text-gray-500 text-xs italic lowercase">
-                    Last Trade was <strong class="text-rose-500">3 mins</strong> ago
+                    Last trade was <strong class="text-rose-500">3 mins</strong> ago
                 </span>
             </div>
 
             <div class="w-48 flex justify-center bg-green-400 border-t-2 border-b border-green-600">
-                <span class="text-green-900 text-xs font-medium tracking-widest">
-                    BIDDING
+                <span class="text-green-900 text-xs font-medium tracking-widest uppercase">
+                    Bidding
                 </span>
             </div>
 
@@ -103,7 +103,6 @@ export default {
         },
 
         quotePair() {
-console.log('quoete pair is seeing', this.tradePair);
             if (!this.tradePair) return 'DAI'
 
             switch(this.tradePair) {

@@ -2,7 +2,7 @@
     <main class="flex flex-col justify-between bg-gray-200 border-2 border-rose-500 rounded-lg shadow-md">
         <header class="py-1 mb-3 border-b border-red-600">
             <h1 class="text-gray-700 text-xl font-bold text-center">
-                Trading View
+                Bridge Feed
             </h1>
 
             <div class="flex justify-center">
@@ -22,7 +22,7 @@
 
             <div class="w-48 flex justify-center bg-red-400 border-t border-b-2 border-red-600">
                 <span class="text-red-100 text-xs font-medium tracking-widest">
-                    ASKING
+                    Real-time Transfers
                 </span>
             </div>
 
@@ -34,33 +34,34 @@
                 </span>
 
                 <span class="text-gray-500 text-xs italic lowercase">
-                    Last Trade was <strong class="text-rose-500">3 mins</strong> ago
+                    Last transfer was <strong class="text-rose-500">5 hours</strong> ago
                 </span>
             </div>
 
             <div class="w-48 flex justify-center bg-green-400 border-t-2 border-b border-green-600">
                 <span class="text-green-900 text-xs font-medium tracking-widest">
-                    BIDDING
+                    Featured Chains
                 </span>
             </div>
 
-            <div v-for="bid of bidList" :key="bid.value" class="w-48 flex justify-center bg-green-500">
+            <div v-for="featured of featuredList" :key="featured.value" class="w-48 flex justify-center bg-green-500">
                 <span
                     class="text-base font-medium"
-                    v-html="formatOrderBookValue(bid.value)"
+                    v-html="formatOrderBookValue(featured.value)"
                 />
             </div>
         </section>
 
-        <footer class="py-2 flex flex-col items-center justify-center">
-            <span class="block text-xs font-medium">
-                <span class="italic">100% <strong class="text-sm">Non-</strong>Custodial</span>
-                <span class="mx-1 text-xl">🛡️</span>
+        <footer class="p-2 flex flex-col items-center justify-center">
+            <span class="block text-xs font-medium text-center">
+                <span class="italic">
+                    Secured &amp; managed by a
+                    <strong class="text-sm text-indigo-800">Decentralized Federation</strong> 
+                    <br />of NEX stakeholders
+                </span>
             </span>
 
-            <span class="block text-xs font-medium italic">
-                <strong class="text-sm">Your</strong> Keys! ... <strong class="text-sm">Your</strong> Coins!
-            </span>
+            <span class="text-2xl">🛡️</span>
         </footer>
 
     </main>
@@ -75,27 +76,27 @@ export default {
         tradePair: String,
     },
     data: () => ({
-        asks: null,
-        bids: null,
+        bridgeActivity: null,
+        chainFeatures: null,
     }),
     computed: {
         askList() {
-            /* Validate asks. */
-            if (!this.asks || this.asks.length === 0) return []
+            /* Validate bridgeActivity. */
+            if (!this.bridgeActivity || this.bridgeActivity.length === 0) return []
 
             /* Clone array. */
-            const cloned = [...this.asks]
+            const cloned = [...this.bridgeActivity]
 
             /* Return reversed array. */
             return cloned.reverse()
         },
 
-        bidList() {
-            /* Validate bids. */
-            if (!this.bids || this.bids.length === 0) return []
+        featuredList() {
+            /* Validate chain features. */
+            if (!this.chainFeatures || this.chainFeatures.length === 0) return []
 
             /* Clone array. */
-            const cloned = [...this.bids]
+            const cloned = [...this.chainFeatures]
 
             /* Return reversed array. */
             // return cloned.reverse()
@@ -103,7 +104,6 @@ export default {
         },
 
         quotePair() {
-console.log('quoete pair is seeing', this.tradePair);
             if (!this.tradePair) return 'DAI'
 
             switch(this.tradePair) {
@@ -175,41 +175,41 @@ console.log('quoete pair is seeing', this.tradePair);
 
     },
     created: function () {
-        this.asks = []
-        this.bids = []
+        this.bridgeActivity = []
+        this.chainFeatures = []
 
         // this.initFormat()
 
-        this.asks.push({
+        this.bridgeActivity.push({
+            value: 210,
+        })
+        this.bridgeActivity.push({
+            value: 195,
+        })
+        this.bridgeActivity.push({
             value: 170,
         })
-        this.asks.push({
+        this.bridgeActivity.push({
             value: 135,
         })
-        this.asks.push({
+        this.bridgeActivity.push({
             value: 155,
         })
-        this.asks.push({
+        this.bridgeActivity.push({
             value: 145,
         })
-        this.asks.push({
+        this.bridgeActivity.push({
             value: 175,
         })
 
-        this.bids.push({
+        this.chainFeatures.push({
             value: 105,
         })
-        this.bids.push({
+        this.chainFeatures.push({
             value: 95,
         })
-        this.bids.push({
+        this.chainFeatures.push({
             value: 65,
-        })
-        this.bids.push({
-            value: 75,
-        })
-        this.bids.push({
-            value: 55,
         })
     },
     mounted: function () {

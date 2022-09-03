@@ -62,7 +62,7 @@
                 </section>
             </div>
 
-            <TradingView
+            <MarketFeed
                 class=""
                 :tradePair="tradePair"
             />
@@ -82,7 +82,7 @@ import AdminView from '@/components/AdminView'
 import FooterView from '@/components/FooterView'
 import HeaderView from '@/components/HeaderView'
 import ManagerView from '@/components/ManagerView'
-import TradingView from '@/components/TradingView'
+import MarketFeed from '@/components/BridgeFeed'
 import { v4 as uuidv4 } from 'uuid'
 
 export default {
@@ -91,7 +91,7 @@ export default {
         FooterView,
         HeaderView,
         ManagerView,
-        TradingView,
+        MarketFeed,
     },
     data: () => ({
         showingMenu: null,
