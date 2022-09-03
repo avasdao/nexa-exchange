@@ -1,18 +1,34 @@
+![Cryptocurrency Exchange Platform - Baseapp](https://github.com/openware/meta/raw/main/images/github_peatio.png)
+
+<h3 align="center">
+<a href="https://www.openware.com/sdk/docs.html#peatio">Guide</a> <span>&vert;</span>
+<a href="https://www.openware.com/sdk/api/peatio/peatio-user-api-v2.html">API Docs</a> <span>&vert;</span>
+<a href="https://www.openware.com/">Consulting</a> <span>&vert;</span>
+<a href="https://t.me/peatio">Community</a>
+</h3>
+<h6 align="center">Component part of <a href="https://github.com/openware/opendax">OpenDAX Trading Platform</a></h6>
+
+---
+
 # Nexa Exchange
+
+[![Build Status](https://ci.openware.work/api/badges/openware/peatio/status.svg)](https://ci.openware.work/openware/peatio)
+[![Telegram Chat](https://cdn.rawgit.com/Patrolavia/telegram-badge/8fe3382b/chat.svg)](https://t.me/peatio)
 
 ### https://nexa.exchange
 
 Nexa Exchange is a high performance exchange trading server. The core matching engine is a fully async, single threaded, memory based matching engine with thousands of TPS.
 
-### Features:
+### Features
 - order matching
 - order state change notification
 - user balance management
 - market data
 
-### Non Features:
+### Non Features
 - user account system
 - cryptocurrency deposit/withdraw
+
 
 ## Technical Details
 
@@ -24,16 +40,11 @@ Persistence: (a)Append operation log and (b)Redis-like fork-and-save persistence
 
 The architecture is heavily inspired by Redis and [Viabtc Exchange](https://github.com/viabtc/viabtc_exchange_server)
 
+
 ## Prerequisite
 
 * cmake
 * librdkafka
-
-### MacOS
-
-```
-$ brew install cmake librdkafka
-```
 
 ### Ubuntu / Debian
 
@@ -47,11 +58,17 @@ $ brew install cmake librdkafka
 # dnf install cmake librdkafka-devel
 ```
 
+### MacOS
+
+```
+$ brew install cmake librdkafka
+```
+
 
 ## Todos
 
-* push notifications using GRPC/websockets
-* API Documentation
+* push notifications using websockets
+* API documentation
 * Better test coverage
 
 ## Example
@@ -59,10 +76,12 @@ $ brew install cmake librdkafka
 ```
 # Simple test
 $ cd $DingirExchangeDir
+
 # Lanuch the external dependency services like Postgresql and Kafka
 $ docker-compose --file "./orchestra/docker/docker-compose.yaml" up --detach
 $ make startall # or `cargo run --bin matchengine` to start only core service
 $ cd $DingirExchangeDir/examples/js ; npm i
+
 # This script will put orders into the exchange.
 # Then you will find some orders got matched, trades generated,
 # and users' balances updated accordingly.
