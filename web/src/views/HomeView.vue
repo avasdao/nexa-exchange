@@ -4,7 +4,9 @@
             <div class="">
                 <HeaderView class="h-10" />
 
-                <div class="mt-3">
+                <div class="mt-7">
+                    <div class="mr-3 mb-5 border-t border-rose-300" />
+
                     TRADING PAIRS
 
                     <p>
@@ -46,20 +48,18 @@
 
     </main>
 
-    <footer>
-        <div class="mt-2 flex text-sm text-rose-500 font-bold justify-center">
-            brought to you with ❤️ by <a href="https://avasdao.org" target="_blank" class="ml-1 hover:underline hover:text-rose-700">Ava's DAO</a>
-        </div>
-    </footer>
+    <FooterView />
 </template>
 
 <script>
 /* Import components. */
+import FooterView from '@/components/FooterView'
 import HeaderView from '@/components/HeaderView'
 import OrderBook from '@/components/OrderBook'
 
 export default {
     components: {
+        FooterView,
         HeaderView,
         OrderBook,
     },
