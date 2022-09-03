@@ -63,7 +63,7 @@
             </div>
 
             <MarketFeed
-                class=""
+                class="w-48"
                 :tradePair="tradePair"
             />
         </div>
