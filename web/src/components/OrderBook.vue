@@ -7,7 +7,7 @@
 
             <div class="flex justify-center">
                 <span class="text-gray-500 text-xs italic">
-                    updated <strong class="text-rose-500 text-sm">3.2</strong> seconds ago
+                    last updated <strong class="text-rose-500 text-sm">4.1</strong> secs ago
                 </span>
             </div>
         </header>
@@ -19,9 +19,27 @@
             />
         </div>
 
-        <div class="py-3 flex justify-center bg-gray-100 border-t-2 border-b-2 border-yellow-500">
-            <span class="text-xl font-bold">
-                0 . <small>000</small> <small>001</small> 164 {{quotePair}}
+        <div class="w-48 flex justify-center bg-red-400 border-t border-b-2 border-red-600">
+            <span class="text-red-100 text-xs font-medium tracking-widest">
+                ASKING
+            </span>
+        </div>
+
+        <div class="py-3 flex flex-col items-center bg-gray-100">
+            <span class="text-gray-400 text-xl font-bold">
+                <span class="mx-1 text-gray-800">0 .</span>
+                <small>000</small> <small>00</small><span class="text-gray-800">1</span> <span class="text-gray-800">164</span>
+                <span class="mx-1 text-gray-800">{{quotePair}}</span>
+            </span>
+
+            <span class="text-gray-500 text-xs italic lowercase">
+                Last Trade was <strong class="text-rose-500">3 mins</strong> ago
+            </span>
+        </div>
+
+        <div class="w-48 flex justify-center bg-green-400 border-t-2 border-b border-green-600">
+            <span class="text-green-900 text-xs font-medium tracking-widest">
+                BIDDING
             </span>
         </div>
 
@@ -73,7 +91,7 @@ export default {
 
         quotePair() {
 console.log('quoete pair is seeing', this.tradePair);
-            if (!this.tradePair) return 'BCH'
+            if (!this.tradePair) return 'DAI'
 
             switch(this.tradePair) {
             case 'NEX/BCH':
@@ -81,7 +99,7 @@ console.log('quoete pair is seeing', this.tradePair);
             case 'NEX/DAI':
                 return 'DAI'
             default:
-                return 'BCH'
+                return 'DAI'
             }
         },
 
@@ -123,16 +141,16 @@ console.log('quoete pair is seeing', this.tradePair);
                 const parsed = '0 . <small>' + val.slice(0, 3) + '</small> ' + val.slice(3, 6) + ' ' + val.slice(6)
 
                 if (val.length < 7) {
-                    return parsed + '000 '
+                    return parsed + '000 <small>000</small>'
                 } else if (val.length < 8) {
-                    return parsed + '00 '
+                    return parsed + '00 <small>000</small>'
                 } else if (val.length < 9) {
-                    return parsed + '0 '
+                    return parsed + '0 <small>000</small>'
                 } else {
-                    return parsed + ' '
+                    return parsed + ' <small>000</small>'
                 }
             } else {
-                return _value + ' '
+                return _value
             }
         },
 
@@ -143,6 +161,9 @@ console.log('quoete pair is seeing', this.tradePair);
 
         // this.initFormat()
 
+        this.asks.push({
+            value: 170,
+        })
         this.asks.push({
             value: 135,
         })
@@ -167,6 +188,9 @@ console.log('quoete pair is seeing', this.tradePair);
         })
         this.bids.push({
             value: 75,
+        })
+        this.bids.push({
+            value: 55,
         })
     },
     mounted: function () {

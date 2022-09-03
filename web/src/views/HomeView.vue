@@ -47,7 +47,7 @@
             </div>
 
             <OrderBook
-                class="w-48 h-96 shrink"
+                class=""
                 :tradePair="tradePair"
             />
         </div>

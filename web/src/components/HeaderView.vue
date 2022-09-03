@@ -76,7 +76,7 @@ export default {
     },
     created: function () {
         // FOR DEV PURPOSES ONLY
-        this.tradePair = 'NEX/BCH'
+        this.tradePair = 'NEX/DAI'
     },
     mounted: function () {
         //
