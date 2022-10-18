@@ -24,10 +24,10 @@
                     @updatePair="updatePair"
                 />
 
-                <section class="mt-7">
-                    <div class="mr-3 mb-5 border-t border-rose-300" />
+                <section class="mt-7 mr-4">
+                    <div class="mb-5 border-t border-rose-300" />
 
-                    <div class="px-3 py-1 mr-3 flex flex-row justify-between bg-pink-500 border-4 border-pink-700 rounded-md">
+                    <div class="px-3 py-1 flex flex-row justify-between bg-pink-500 border-4 border-pink-700 rounded-md">
                         <div class="space-x-4">
                             <router-link to="/">
                                 Home

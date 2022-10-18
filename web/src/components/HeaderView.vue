@@ -6,13 +6,14 @@
             </span>
 
             <select v-model="tradePair" class="h-10 rounded-lg text-sm shadow-md">
+                <option value="NEX/AVAS" disabled>Ava's DAO ( AVAS )</option>
                 <option value="NEX/AVAX" disabled>Avalanche ( AVAX )</option>
                 <option value="NEX/BCH">Bitcoin Cash ( BCH )</option>
                 <option value="NEX/BNB" disabled>Binance ( BNB )</option>
                 <option value="NEX/BTC" disabled>Bitcoin ( BTC )</option>
                 <option value="NEX/DAI">Dai ( DAI )</option>
                 <option value="NEX/ETH" disabled>Ethereum ( ETH )</option>
-                <option value="NEX/USDT" disabled>Tether ( USDT )</option>
+                <option value="NEX/NUSD" disabled>Nexa USD ( NUSD )</option>
             </select>
 
         </div>

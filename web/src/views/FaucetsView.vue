@@ -4,7 +4,7 @@
 
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-        <section class="mr-3 p-3 bg-yellow-500 border-4 border-yellow-800 rounded-md">
+        <section class="p-3 bg-yellow-500 border-4 border-yellow-800 rounded-md">
             <h1>
                 NEX
             </h1>

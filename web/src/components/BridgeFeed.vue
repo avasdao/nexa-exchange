@@ -40,7 +40,7 @@
 
             <div class="w-48 flex justify-center bg-green-400 border-t-2 border-b border-green-600">
                 <span class="text-green-900 text-xs font-medium tracking-widest">
-                    Featured Chains
+                    Network Summary
                 </span>
             </div>
 
@@ -56,7 +56,7 @@
             <span class="block text-xs font-medium text-center">
                 <span class="italic">
                     Secured &amp; managed by a
-                    <strong class="text-sm text-indigo-800">Decentralized Federation</strong> 
+                    <strong class="text-sm text-indigo-800">Decentralized Federation</strong>
                     <br />of NEX stakeholders
                 </span>
             </span>
