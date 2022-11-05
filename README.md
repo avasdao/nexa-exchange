@@ -1,21 +1,21 @@
-![Cryptocurrency Exchange Platform - Baseapp](https://github.com/openware/meta/raw/main/images/github_peatio.png)
+![Nexa Exchange banner](assets/banner.png)
 
 <h3 align="center">
-<a href="https://www.openware.com/sdk/docs.html#peatio">Guide</a> <span>&vert;</span>
-<a href="https://www.openware.com/sdk/api/peatio/peatio-user-api-v2.html">API Docs</a> <span>&vert;</span>
-<a href="https://www.openware.com/">Consulting</a> <span>&vert;</span>
-<a href="https://t.me/peatio">Community</a>
+<a href="javascript://">Guide</a> <span>&vert;</span>
+<a href="javascript://">API Docs</a> <span>&vert;</span>
+<a href="javascript://">Consulting</a> <span>&vert;</span>
+<a href="javascript://">Community</a>
 </h3>
-<h6 align="center">Component part of <a href="https://github.com/openware/opendax">OpenDAX Trading Platform</a></h6>
+<h6 align="center">Built with ♥︎ by <a href="https://github.com/avasdao">Ava's DAO</a></h6>
 
 ---
 
 # Nexa Exchange
 
 [![Build Status](https://ci.openware.work/api/badges/openware/peatio/status.svg)](https://ci.openware.work/openware/peatio)
-[![Telegram Chat](https://cdn.rawgit.com/Patrolavia/telegram-badge/8fe3382b/chat.svg)](https://t.me/peatio)
+[![Telegram Chat](https://cdn.rawgit.com/Patrolavia/telegram-badge/8fe3382b/chat.svg)](https://t.me/nexacoin)
 
-### https://nexa.exchange
+### ↳ https://nexa.exchange
 
 Nexa Exchange is a high performance exchange trading server. The core matching engine is a fully async, single threaded, memory based matching engine with thousands of TPS.
 
