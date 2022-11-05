@@ -1,0 +1,19 @@
+{
+  "name": "nexa-exchange-docs",
+  "version": "22.8.16",
+  "description": "Premier NEXA exchange.",
+  "main": "index.js",
+  "authors": {
+    "name": "",
+    "email": ""
+  },
+  "repository": "/nexa-exchange",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
