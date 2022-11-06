@@ -1,88 +1,8 @@
 <template>
-    <!--
-    This example requires some changes to your config:
-
-    ```
-    // tailwind.config.js
-    const colors = require('tailwindcss/colors')
-
-    module.exports = {
-        // ...
-        theme: {
-        extend: {
-            colors: {
-            teal: colors.teal,
-            cyan: colors.cyan,
-            },
-        },
-        },
-        plugins: [
-        // ...
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/aspect-ratio'),
-        ],
-    }
-    ```
-    -->
     <div class="bg-white">
         <div class="relative overflow-hidden">
             <main>
-                <div class="bg-gray-900 pt-10 sm:pt-16 lg:overflow-hidden lg:pt-8 lg:pb-14">
-                    <div class="mx-auto max-w-7xl lg:px-8">
-                        <div class="lg:grid lg:grid-cols-2 lg:gap-8">
-                            <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:flex lg:items-center lg:px-0 lg:text-left">
-                                <div class="lg:py-24">
-                                    <a href="#" class="inline-flex items-center rounded-full bg-black p-1 pr-2 text-white hover:text-gray-200 sm:text-base lg:text-sm xl:text-base">
-                                        <span class="rounded-full bg-gradient-to-r from-teal-500 to-cyan-600 px-3 py-0.5 text-sm font-semibold leading-5 text-white">We're hiring</span>
-                                        <span class="ml-4 text-sm">Visit our careers page</span>
-                                        <!-- Heroicon name: mini/chevron-right -->
-                                        <svg class="ml-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                    <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                                        <span class="block">A better way to</span>
-                                        <span class="block bg-gradient-to-r from-teal-200 to-cyan-400 bg-clip-text pb-3 text-transparent sm:pb-5">ship web apps</span>
-                                    </h1>
-                                    <p class="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui Lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat.</p>
-                                    <div class="mt-10 sm:mt-12">
-                                        <form action="#" class="sm:mx-auto sm:max-w-xl lg:mx-0">
-                                            <div class="sm:flex">
-                                                <div class="min-w-0 flex-1">
-                                                    <label for="email" class="sr-only">Email address</label>
-                                                    <input
-                                                        id="email"
-                                                        type="email"
-                                                        placeholder="Enter your email"
-                                                        class="block w-full rounded-md border-0 px-4 py-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
-                                                    />
-                                                </div>
-                                                <div class="mt-3 sm:mt-0 sm:ml-3">
-                                                    <button
-                                                        type="submit"
-                                                        class="block w-full rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-3 px-4 font-medium text-white shadow hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
-                                                    >
-                                                        Start free trial
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <p class="mt-3 text-sm text-gray-300 sm:mt-4">
-                                                Start your free 14-day trial, no credit card necessary. By providing your email, you agree to our <a href="#" class="font-medium text-white">terms of service</a>.
-                                            </p>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-12 -mb-16 sm:-mb-48 lg:relative lg:m-0">
-                                <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
-                                    <!-- Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ -->
-                                    <img class="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none" src="https://tailwindui.com/img/component-images/cloud-illustration-teal-cyan.svg" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <WelcomeView />
                 <!-- Feature section with screenshot -->
                 <div class="relative bg-gray-50 pt-16 sm:pt-24 lg:pt-32">
                     <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
@@ -285,16 +205,16 @@
                                 <div class="flex flex-1 flex-col justify-between bg-white p-6">
                                     <div class="flex-1">
                                         <p class="text-sm font-medium text-cyan-600">
-                                            <a href="#" class="hover:underline">Article</a>
+                                            <a href="javascript://" class="hover:underline">Article</a>
                                         </p>
-                                        <a href="#" class="mt-2 block">
+                                        <a href="javascript://" class="mt-2 block">
                                             <p class="text-xl font-semibold text-gray-900">Boost your conversion rate</p>
                                             <p class="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.</p>
                                         </a>
                                     </div>
                                     <div class="mt-6 flex items-center">
                                         <div class="flex-shrink-0">
-                                            <a href="#">
+                                            <a href="javascript://">
                                                 <img
                                                     class="h-10 w-10 rounded-full"
                                                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -304,7 +224,7 @@
                                         </div>
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900">
-                                                <a href="#" class="hover:underline">Roel Aufderehar</a>
+                                                <a href="javascript://" class="hover:underline">Roel Aufderehar</a>
                                             </p>
                                             <div class="flex space-x-1 text-sm text-gray-500">
                                                 <time datetime="2020-03-16">Mar 16, 2020</time>
@@ -323,9 +243,9 @@
                                 <div class="flex flex-1 flex-col justify-between bg-white p-6">
                                     <div class="flex-1">
                                         <p class="text-sm font-medium text-cyan-600">
-                                            <a href="#" class="hover:underline">Video</a>
+                                            <a href="javascript://" class="hover:underline">Video</a>
                                         </p>
-                                        <a href="#" class="mt-2 block">
+                                        <a href="javascript://" class="mt-2 block">
                                             <p class="text-xl font-semibold text-gray-900">How to use search engine optimization to drive sales</p>
                                             <p class="mt-3 text-base text-gray-500">
                                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo
@@ -335,7 +255,7 @@
                                     </div>
                                     <div class="mt-6 flex items-center">
                                         <div class="flex-shrink-0">
-                                            <a href="#">
+                                            <a href="javascript://">
                                                 <img
                                                     class="h-10 w-10 rounded-full"
                                                     src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -345,7 +265,7 @@
                                         </div>
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900">
-                                                <a href="#" class="hover:underline">Brenna Goyette</a>
+                                                <a href="javascript://" class="hover:underline">Brenna Goyette</a>
                                             </p>
                                             <div class="flex space-x-1 text-sm text-gray-500">
                                                 <time datetime="2020-03-10">Mar 10, 2020</time>
@@ -364,9 +284,9 @@
                                 <div class="flex flex-1 flex-col justify-between bg-white p-6">
                                     <div class="flex-1">
                                         <p class="text-sm font-medium text-cyan-600">
-                                            <a href="#" class="hover:underline">Case Study</a>
+                                            <a href="javascript://" class="hover:underline">Case Study</a>
                                         </p>
-                                        <a href="#" class="mt-2 block">
+                                        <a href="javascript://" class="mt-2 block">
                                             <p class="text-xl font-semibold text-gray-900">Improve your customer experience</p>
                                             <p class="mt-3 text-base text-gray-500">
                                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.
@@ -375,7 +295,7 @@
                                     </div>
                                     <div class="mt-6 flex items-center">
                                         <div class="flex-shrink-0">
-                                            <a href="#">
+                                            <a href="javascript://">
                                                 <img
                                                     class="h-10 w-10 rounded-full"
                                                     src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -385,7 +305,7 @@
                                         </div>
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900">
-                                                <a href="#" class="hover:underline">Daniela Metz</a>
+                                                <a href="javascript://" class="hover:underline">Daniela Metz</a>
                                             </p>
                                             <div class="flex space-x-1 text-sm text-gray-500">
                                                 <time datetime="2020-02-12">Feb 12, 2020</time>
@@ -416,7 +336,7 @@
                             </p>
                             <div class="mt-8">
                                 <div class="inline-flex rounded-md shadow">
-                                    <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                    <a href="javascript://" class="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50">
                                         Visit the help center
                                         <!-- Heroicon name: mini/arrow-top-right-on-square -->
                                         <svg class="-mr-1 ml-3 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

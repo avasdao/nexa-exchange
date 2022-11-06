@@ -1,7 +1,7 @@
 <template>
     <main class="max-w-5xl mx-auto py-5 px-3">
         <h1 class="text-4xl font-medium text-indigo-600">
-            Blank
+            Transparency
         </h1>
     </main>
 </template>
@@ -15,7 +15,7 @@ export default {
         //
     }),
     head: () => ({
-        title: 'Blank — Nexa Exchange',
+        title: 'Transparency — Nexa Exchange',
         meta: [
             {
                 hid: 'description', // `vmid` for it as it will not work
