@@ -8,7 +8,7 @@
                     <img class="h-16" src="~/assets/logo.png" alt="Nexa Exchange Logo" />
 
                     <p class="text-base text-gray-500">
-                        Providing the community with the safest place to store, trade and mint your Nexa assets.
+                        A 100% non-custodial, community-built platform offering the most effective way to <strong>Store</strong>, <strong>Swap</strong>, <strong>Bridge</strong> and <strong>Mint</strong> your precious Nexa assets.
                     </p>
 
                     <div class="flex space-x-6">
@@ -73,31 +73,35 @@
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div>
                             <h3 class="text-base font-medium text-gray-900">
-                                Solutions
+                                Services
                             </h3>
 
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Marketing
+                                    <a href="https://instant.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
+                                        Instant Exchange
+                                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Analytics
+                                    <a href="https://pro.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
+                                        Pro Exchange
+                                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Commerce
+                                    <a href="https://bridge.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
+                                        Asset Bridge
+                                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Insights
+                                    <a href="https://wallet.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
+                                        Asset Wallet
+                                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 </li>
                             </ul>
@@ -110,20 +114,20 @@
 
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Pricing
-                                    </a>
+                                    <NuxtLink to="/help" class="text-base text-gray-500 hover:text-gray-900">
+                                        Support Center
+                                    </NuxtLink>
                                 </li>
 
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
+                                    <a href="https://wallet.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
                                         Documentation
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Guides
+                                    <a href="https://blog.nexa.exchange" class="text-base text-gray-500 hover:text-gray-900">
+                                        Our Blog
                                     </a>
                                 </li>
 
@@ -139,19 +143,13 @@
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div>
                             <h3 class="text-base font-medium text-gray-900">
-                                Company
+                                Resources
                             </h3>
 
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
                                     <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        About
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Blog
+                                        Crypto trading 101
                                     </a>
                                 </li>
 
@@ -177,26 +175,26 @@
 
                         <div class="mt-12 md:mt-0">
                             <h3 class="text-base font-medium text-gray-900">
-                                Legal
+                                Compliance
                             </h3>
 
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
-                                    <router-link to="/transparency" class="text-base text-gray-500 hover:text-gray-900">
+                                    <NuxtLink to="/transparency" class="text-base text-gray-500 hover:text-gray-900">
                                         Transparency
-                                    </router-link>
+                                    </NuxtLink>
                                 </li>
 
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
+                                    <NuxtLink to="/privacy" class="text-base text-gray-500 hover:text-gray-900">
                                         Privacy
-                                    </a>
+                                    </NuxtLink>
                                 </li>
 
                                 <li>
-                                    <router-link to="/tos" class="text-base text-gray-500 hover:text-gray-900">
+                                    <NuxtLink to="/tos" class="text-base text-gray-500 hover:text-gray-900">
                                         Terms of Service
-                                    </router-link>
+                                    </NuxtLink>
                                 </li>
                             </ul>
                         </div>

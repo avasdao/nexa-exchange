@@ -52,7 +52,7 @@
 
                             <p class="mt-3 text-sm text-gray-300 sm:mt-4">
                                 Type or paste your receiving address above to start the exchange process.
-                                Start your free 14-day trial, no credit card necessary. By continuing, you agree to our <router-link to="/tos" class="font-medium text-white">terms of service</router-link>.
+                                Start your free 14-day trial, no credit card necessary. By continuing, you agree to our <NuxtLink to="/tos" class="font-medium text-white">terms of service</NuxtLink>.
                             </p>
                         </div>
                     </div>
