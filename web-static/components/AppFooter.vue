@@ -182,9 +182,9 @@
 
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Claim
-                                    </a>
+                                    <router-link to="/transparency" class="text-base text-gray-500 hover:text-gray-900">
+                                        Transparency
+                                    </router-link>
                                 </li>
 
                                 <li>

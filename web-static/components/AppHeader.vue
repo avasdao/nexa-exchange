@@ -6,8 +6,8 @@
             <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 sm:py-4 md:justify-start md:space-x-10 lg:px-8">
                 <div>
                     <a href="javascript://" class="flex">
-                        <span class="sr-only">Your Company</span>
-                        <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+                        <span class="sr-only">Nexa Exchange</span>
+                        <img class="h-10 w-auto sm:h-14" src="~/assets/logo.png" alt="Nexa Exchange Logo" />
                     </a>
                 </div>
 
@@ -24,6 +24,7 @@
                         </svg>
                     </button>
                 </div>
+
                 <div class="hidden md:flex md:flex-1 md:items-center md:justify-between">
                     <nav class="flex space-x-10">
                         <div>
@@ -164,6 +165,7 @@
                                         </div>
                                     </a>
                                 </div>
+
                                 <div class="bg-gray-50">
                                     <div class="mx-auto max-w-7xl space-y-6 px-4 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-6 lg:px-8">
                                         <div class="flow-root">
@@ -245,10 +247,14 @@
                                     <div class="w-1/2 bg-white"></div>
                                     <div class="w-1/2 bg-gray-50"></div>
                                 </div>
+
                                 <div class="relative mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
                                     <nav class="grid gap-y-10 bg-white px-4 py-8 sm:grid-cols-2 sm:gap-x-8 sm:py-12 sm:px-6 lg:px-8 xl:pr-12">
                                         <div>
-                                            <h3 class="text-base font-medium text-gray-500">Company</h3>
+                                            <h3 class="text-base font-medium text-gray-500">
+                                                Company
+                                            </h3>
+
                                             <ul role="list" class="mt-5 space-y-6">
                                                 <li class="flow-root">
                                                     <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
@@ -321,8 +327,12 @@
                                                 </li>
                                             </ul>
                                         </div>
+
                                         <div>
-                                            <h3 class="text-base font-medium text-gray-500">Resources</h3>
+                                            <h3 class="text-base font-medium text-gray-500">
+                                                Resources
+                                            </h3>
+
                                             <ul role="list" class="mt-5 space-y-6">
                                                 <li class="flow-root">
                                                     <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
@@ -382,9 +392,13 @@
                                             </ul>
                                         </div>
                                     </nav>
+
                                     <div class="bg-gray-50 px-4 py-8 sm:py-12 sm:px-6 lg:px-8 xl:pl-12">
                                         <div>
-                                            <h3 class="text-base font-medium text-gray-500">From the blog</h3>
+                                            <h3 class="text-base font-medium text-gray-500">
+                                                From the blog
+                                            </h3>
+
                                             <ul role="list" class="mt-6 space-y-6">
                                                 <li class="flow-root">
                                                     <a href="javascript://" class="-m-3 flex rounded-lg p-3 hover:bg-gray-100">
@@ -395,6 +409,7 @@
                                                                 alt=""
                                                             />
                                                         </div>
+
                                                         <div class="w-0 flex-1 sm:ml-8">
                                                             <h4 class="truncate text-base font-medium text-gray-900">Boost your conversion rate</h4>
                                                             <p class="mt-1 text-sm text-gray-500">Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor id mus.</p>
@@ -411,6 +426,7 @@
                                                                 alt=""
                                                             />
                                                         </div>
+
                                                         <div class="w-0 flex-1 sm:ml-8">
                                                             <h4 class="truncate text-base font-medium text-gray-900">How to use search engine optimization to drive traffic to your site</h4>
                                                             <p class="mt-1 text-sm text-gray-500">Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor id mus.</p>
@@ -419,6 +435,7 @@
                                                 </li>
                                             </ul>
                                         </div>
+
                                         <div class="mt-6 text-sm font-medium">
                                             <a href="javascript://" class="text-indigo-600 hover:text-indigo-500">
                                                 View all posts
@@ -430,9 +447,15 @@
                             </div>
                         </div>
                     </nav>
+
                     <div class="flex items-center md:ml-12">
-                        <a href="javascript://" class="text-base font-medium text-gray-500 hover:text-gray-900">Sign in</a>
-                        <a href="javascript://" class="ml-8 inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign up</a>
+                        <a href="javascript://" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                            Sign in
+                        </a>
+
+                        <a href="javascript://" class="ml-8 inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                            Sign up
+                        </a>
                     </div>
                 </div>
             </div>
@@ -455,6 +478,7 @@
                         <div>
                             <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
                         </div>
+
                         <div class="-mr-2">
                             <button
                                 type="button"
@@ -468,6 +492,7 @@
                             </button>
                         </div>
                     </div>
+
                     <div class="mt-6 sm:mt-8">
                         <nav>
                             <div class="grid gap-7 sm:grid-cols-2 sm:gap-y-8 sm:gap-x-4">
@@ -527,6 +552,7 @@
                                     <div class="ml-4 text-base font-medium text-gray-900">Integrations</div>
                                 </a>
                             </div>
+
                             <div class="mt-8 text-base">
                                 <a href="javascript://" class="font-medium text-indigo-600 hover:text-indigo-500">
                                     View all products
@@ -536,17 +562,39 @@
                         </nav>
                     </div>
                 </div>
+
                 <div class="py-6 px-5">
                     <div class="grid grid-cols-2 gap-4">
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">Pricing</a>
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">Docs</a>
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">Company</a>
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">Resources</a>
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">Blog</a>
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">Contact Sales</a>
+                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                            Pricing
+                        </a>
+
+                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                            Docs
+                        </a>
+
+                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                            Company
+                        </a>
+
+                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                            Resources
+                        </a>
+
+                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                            Blog
+                        </a>
+
+                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                            Contact Sales
+                        </a>
                     </div>
+
                     <div class="mt-6">
-                        <a href="javascript://" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Sign up</a>
+                        <a href="javascript://" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                            Sign up
+                        </a>
+
                         <p class="mt-6 text-center text-base font-medium text-gray-500">
                             Existing customer?
                             <a href="javascript://" class="text-indigo-600 hover:text-indigo-500">Sign in</a>
