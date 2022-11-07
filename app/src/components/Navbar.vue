@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-light bg-light navbar-expand-lg">
         <a class="navbar-brand text-primary" href="/">
-            Nexa <span class="text-info">Pro Exchange</span>
+            Nexa <span class="text-info">Exchange</span>
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
