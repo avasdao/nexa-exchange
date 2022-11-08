@@ -5,11 +5,18 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
     <header>
-        <img alt="Nexa Wallet Logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
+        <img
+            alt="Nexa Wallet Logo"
+            class="logo h-40 w-40"
+            src="@/assets/logo.png"
+        />
 
         <div class="wrapper">
-            <h1 class="text-6xl text-yellow-500 font-bold">
-                Nexa Wallet
+            <h1 class="text-6xl text-yellow-400 font-bold uppercase">
+                Nexa
+            </h1>
+            <h1 class="text-8xl text-gray-700 font-bold">
+                Wallet
             </h1>
 
             <nav>
