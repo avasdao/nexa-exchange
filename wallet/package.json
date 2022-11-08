@@ -1,6 +1,6 @@
 {
-  "name": "nexa-exchange-bridge",
-  "version": "22.11.6",
+  "name": "nexa-exchange-wallet",
+  "version": "22.11.7",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
