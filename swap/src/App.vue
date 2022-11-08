@@ -5,11 +5,18 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
     <header>
-        <img alt="Nexa Swap Logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
+        <img
+            alt="Nexa Swap Logo"
+            class="logo w-40 h-40"
+            src="@/assets/logo.png"
+        />
 
         <div class="wrapper">
-            <h1 class="text-6xl text-yellow-500 font-bold">
-                Nexa Swap
+            <h1 class="text-6xl text-yellow-400 font-bold uppercase">
+                Nexa
+            </h1>
+            <h1 class="text-9xl text-gray-500 font-bold">
+                Swap
             </h1>
 
             <nav>
@@ -19,7 +26,7 @@ import { RouterLink, RouterView } from 'vue-router'
             </nav>
 
             <h3 class="italic text-red-400">
-                ☠️ This project is in beta. Use at your own risk.
+                ☠️ This project is in alpha. Use at your own risk.
             </h3>
         </div>
     </header>

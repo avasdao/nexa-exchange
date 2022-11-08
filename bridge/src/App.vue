@@ -26,7 +26,7 @@ import { RouterLink, RouterView } from 'vue-router'
             </nav>
 
             <h3 class="italic text-red-400">
-                ☠️ This project is in beta. Use at your own risk.
+                ☠️ This project is in alpha. Use at your own risk.
             </h3>
         </div>
     </header>
