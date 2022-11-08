@@ -13,12 +13,14 @@ import SupportIcon from './icons/IconSupport.vue'
             <DocumentationIcon />
         </template>
 
-        <template #heading>Introduction -- My First Bridge</template>
+        <template #heading>Introduction</template>
 
-        Vue’s
-        <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
-        provides you with all information you need to get started.
-
+        Nexa Bridge is your gateway between foreign blockchains and your Nexa assets.
+        Get official support for the following projects:
+        <a href="javascript://" target="_blank" class="font-bold">Avalanche</a>,
+        <a href="javascript://" target="_blank" class="font-bold">Binance</a>,
+        <a href="javascript://" target="_blank" class="font-bold">Ethereum</a>, and
+        <a href="javascript://" target="_blank" class="font-bold">Polygon</a>.
     </WelcomeItem>
 
     <WelcomeItem>
@@ -28,11 +30,7 @@ import SupportIcon from './icons/IconSupport.vue'
 
         <template #heading>Coins &amp; Tokens</template>
 
-    This project is served and bundled with
-    <a href="https://vitejs.dev/guide/features.html" target="_blank" rel="noopener">Vite</a>. The
-    recommended IDE setup is
-    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a> +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank" rel="noopener">Volar</a>.
+        Move your precious coins and tokens between the Nexa blockchain and ANY supported blockchain for FREE.
     </WelcomeItem>
 
     <WelcomeItem>
@@ -42,11 +40,7 @@ import SupportIcon from './icons/IconSupport.vue'
 
         <template #heading>NFTs</template>
 
-    Get official tools and libraries for your project:
-    <a href="https://pinia.vuejs.org/" target="_blank" rel="noopener">Pinia</a>,
-    <a href="https://router.vuejs.org/" target="_blank" rel="noopener">Vue Router</a>,
-    <a href="https://test-utils.vuejs.org/" target="_blank" rel="noopener">Vue Test Utils</a>, and
-    <a href="https://github.com/vuejs/devtools" target="_blank" rel="noopener">Vue Dev Tools</a>.
+        Move your precious NFTs between Nexa and foreign blockchains in an instant, absolutely FREE.
     </WelcomeItem>
 
     <WelcomeItem>
@@ -56,12 +50,7 @@ import SupportIcon from './icons/IconSupport.vue'
 
         <template #heading>Community</template>
 
-    Got stuck? Ask your question on
-    <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Vue Land</a>, our official
-    Discord server, or
-    <a href="https://stackoverflow.com/questions/tagged/vue.js" target="_blank" rel="noopener"
-      >StackOverflow</a
-    >.
+        Got stuck? Ask your question on <a href="https://nexa.org" target="_blank">Reddit</a>, the official Matrix/TG server, or <a href="https://stackoverflow.com/questions/tagged/vue.js" target="_blank">StackOverflow</a>.
     </WelcomeItem>
 
     <WelcomeItem>
@@ -69,10 +58,8 @@ import SupportIcon from './icons/IconSupport.vue'
             <SupportIcon />
         </template>
 
-        <template #heading>Support Vue</template>
+        <template #heading>Support Nexa</template>
 
-    As an independent project, Vue relies on community backing for its sustainability. You can help
-    us by
-    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
+        As an independent project, Nexa relies on community backing for its sustainability. You can help us by <a href="https://nexa.org" target="_blank">becoming a sponsor</a>.
     </WelcomeItem>
 </template>

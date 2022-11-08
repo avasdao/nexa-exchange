@@ -5,11 +5,18 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
     <header>
-        <img alt="Nexa Bridge Logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
+        <img
+            alt="Nexa Bridge Logo"
+            class="logo w-48 h-48 sm:w-40 sm:h-40"
+            src="@/assets/logo.png"
+        />
 
         <div class="wrapper">
-            <h1 class="text-6xl text-yellow-500 font-bold">
-                Nexa Bridge
+            <h1 class="text-5xl text-yellow-500 text-center font-bold tracking-widest uppercase">
+                Nexa
+            </h1>
+            <h1 class="text-7xl sm:text-8xl text-gray-500 text-center font-bold">
+                Bridge
             </h1>
 
             <nav>
@@ -24,7 +31,9 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
     </header>
 
-    <RouterView />
+    <RouterView
+        class="h-screen p-3"
+    />
 </template>
 
 <style scoped>
