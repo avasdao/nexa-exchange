@@ -31,7 +31,9 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
     </header>
 
-    <RouterView />
+    <RouterView
+        class="h-screen p-3 bg-gradient-to-r from-yellow-400 to-yellow-500 border-l-2 border-r-2 border-yellow-600"
+    />
 </template>
 
 <style scoped>

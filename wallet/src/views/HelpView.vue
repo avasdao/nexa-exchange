@@ -1,15 +1,18 @@
 <template>
-  <div class="about">
-    <h1>Help &amp; Support Center</h1>
-  </div>
+    <main>
+        <section class="space-y-5">
+            <h1 class="text-4xl font-medium">
+                Help &amp; Support Center
+            </h1>
+
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro quos corrupti ratione est esse, soluta quaerat magni, totam itaque illum doloremque velit, ex asperiores dolorem ab nemo molestias placeat veritatis?
+            </p>
+        </section>
+
+    </main>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
+
 </style>

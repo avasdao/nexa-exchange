@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-gradient-to-r from-yellow-400 to-yellow-500 border-l-2 border-r-2 border-yellow-600">
+    <div class="">
         <aside class="py-6 px-2 sm:px-6">
             <nav class="space-y-1">
                 <!-- Current: "bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white", Default: "text-gray-900 hover:text-gray-900 hover:bg-gray-50" -->
