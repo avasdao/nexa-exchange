@@ -1,6 +1,6 @@
-# Nexa Rocks! API
+# Nexa Exchange API
 
-### https://api.nexa.rocks (v1)
+### https://api.nexa.exchange (v1)
 
 ## Endpoints
 
@@ -8,4 +8,4 @@
 
 `/v1/notifs`
 
-eg. https://api.nexa.rocks/v1/notifs
+eg. https://api.nexa.exchange/v1/notifs

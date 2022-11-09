@@ -1,7 +1,7 @@
 {
-  "name": "nexa-rocks-api",
-  "version": "22.10.8",
-  "description": "Nexa Rocks! API",
+  "name": "nexa-exchange-api",
+  "version": "22.11.8",
+  "description": "Nexa Exchange API",
   "author": "Ava's DAO <support@avasdao.org>",
   "main": "server.js",
   "scripts": {

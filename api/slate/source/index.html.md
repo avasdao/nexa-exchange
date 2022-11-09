@@ -75,7 +75,7 @@ Kittn expects for the API key to be included in all API requests to the server i
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-# Stratum v1
+# Asset Swaps
 
 ## Get All Kittens
 

@@ -1,7 +1,7 @@
 <script setup>
 import AssetButton from '../components/AssetButton.vue'
 
-const showLast = () => {
+const showPrev = () => {
     alert('show last')
 }
 
@@ -18,12 +18,12 @@ const showMore = () => {
             </h1>
 
             <nav class="mt-5 flex">
-                <button class="mr-3 flex items-center group cursor-not-allowed" @click="showLast">
+                <button class="mr-3 flex items-center group cursor-not-allowed" @click="showPrev">
                     <span class="ml-1 mb-3 text-7xl text-yellow-400">
                         ‹
                     </span>
                     <span class="text-xs text-yellow-400 font-bold">
-                        SHOW<br />LAST
+                        SHOW<br />PREV
                     </span>
                 </button>
 
@@ -64,12 +64,12 @@ const showMore = () => {
             </h1>
 
             <nav class="mt-5 flex">
-                <button class="mr-3 flex items-center group cursor-not-allowed" @click="showLast">
+                <button class="mr-3 flex items-center group cursor-not-allowed" @click="showPrev">
                     <span class="ml-1 mb-3 text-7xl text-sky-400">
                         ‹
                     </span>
                     <span class="text-xs text-sky-400 font-bold">
-                        SHOW<br />LAST
+                        SHOW<br />PREV
                     </span>
                 </button>
 
