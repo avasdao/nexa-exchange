@@ -11,7 +11,10 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - swift
 
 toc_footers:
-  - <a href='javascript://'>Sign Up for a Developer Key</a>
+  - <a href="javascript://" style='margin-top:5px'><span style='font-size:1.2em;'>Open Postman (v1) API</span></a>
+  - <a href="javascript://" style='margin-top:5px'><span style='font-size:1.2em;'>Open Swagger (v1) API</span></a>
+  - <span>&nbsp;</span>
+  - <a href='javascript://'>Request an Application Key</a>
   - <div style='margin-top:5px'><span style='font-size:1.2em;'>Recommended Links</span></div>
   - <span>&nbsp; &nbsp;</span> — <a href='https://avasdao.org' target='_blank'>avasdao.org</a>
 
