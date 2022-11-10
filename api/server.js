@@ -37,8 +37,8 @@ app.post('/v1/rpc', require('./routes/rpc'))
 /* Initialize Sessions route. */
 app.post('/v1/sessions', require('./routes/sessions'))
 
-/* Initialize Sideshift route. */
-app.post('/v1/sideshift', require('./routes/sideshift'))
+/* Initialize Profiles route. */
+app.post('/v1/profiles', require('./routes/profiles'))
 
 // TODO: Offer help.
 app.get('/v1', (req, res) => {
