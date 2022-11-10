@@ -206,11 +206,11 @@
                             </div>
                         </div>
 
-                        <a href="javascript://" class="text-base font-medium text-gray-100 hover:text-yellow-300">
-                            Pricing
-                        </a>
+                        <NuxtLink to="/alpha" class="text-base font-medium text-gray-100 hover:text-yellow-300">
+                            Bootstrap
+                        </NuxtLink>
 
-                        <a href="javascript://" class="text-base font-medium text-gray-100 hover:text-yellow-300">
+                        <a href="https://docs.nexa.exchange" target="_blank" class="text-base font-medium text-gray-100 hover:text-yellow-300">
                             Docs
                         </a>
 
@@ -569,19 +569,19 @@
                             Pricing
                         </a>
 
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
-                            Docs
-                        </a>
+                        <NuxtLink to="/alpha" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                            Alpha - Bootstrap
+                        </NuxtLink>
 
                         <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
                             Company
                         </a>
 
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
-                            Resources
+                        <a href="https://docs.nexa.exchange" target="_blank" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                            Docs
                         </a>
 
-                        <a href="javascript://" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                        <a href="https://blog.nexa.exchange" target="_blank" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
                             Blog
                         </a>
 

@@ -78,22 +78,22 @@
 
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
-                                    <a href="https://instant.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
-                                        Instant Exchange
+                                    <a href="https://swap.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
+                                        Instant Asset Swap
                                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="https://pro.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
-                                        Pro Exchange
+                                    <a href="https://app.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
+                                        Spot Exchange
                                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="https://bridge.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
-                                        Asset Bridge
+                                        Cross-chain Bridge
                                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 </li>
@@ -115,24 +115,24 @@
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
                                     <NuxtLink to="/help" class="text-base text-gray-500 hover:text-gray-900">
-                                        Support Center
+                                        Helpdesk
                                     </NuxtLink>
                                 </li>
 
                                 <li>
-                                    <a href="https://wallet.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
+                                    <a href="https://docs.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
                                         Documentation
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="https://blog.nexa.exchange" class="text-base text-gray-500 hover:text-gray-900">
+                                    <a href="https://blog.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
                                         Our Blog
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
+                                    <a href="https://status.nexa.exchange" target="_blank" class="text-base text-gray-500 hover:text-gray-900">
                                         API Status
                                     </a>
                                 </li>
