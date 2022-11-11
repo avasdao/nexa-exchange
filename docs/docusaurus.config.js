@@ -67,7 +67,7 @@ const config = {
           },
           {
             type: 'docSidebar',
-            sidebarId: 'builders',
+            sidebarId: 'build',
             position: 'left',
             label: 'For Builders',
           },
@@ -85,8 +85,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Getting Started',
-                to: '/docs/welcome',
+                label: '5 Minute Introduction',
+                to: '/intro',
               },
             ],
           },

@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Manage Docs Versions
+# Add a Widget to Your Website
 
 Docusaurus can manage multiple versions of your docs.
 

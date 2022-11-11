@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Translate your site
+# Create a Project Token
 
 Let's translate `docs/intro.md` to French.
 
