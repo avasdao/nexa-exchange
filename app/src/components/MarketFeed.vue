@@ -77,15 +77,15 @@ export default {
         },
 
         quotePair() {
-            if (!this.tradePair) return 'DAI'
+            if (!this.tradePair) return 'USDT'
 
             switch(this.tradePair) {
             case 'NEX/BCH':
                 return 'BCH'
-            case 'NEX/DAI':
-                return 'DAI'
+            case 'NEX/USDT':
+                return 'USDT'
             default:
-                return 'DAI'
+                return 'USDT'
             }
         },
 

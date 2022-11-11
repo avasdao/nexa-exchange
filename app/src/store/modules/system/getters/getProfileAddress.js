@@ -1,15 +1,15 @@
 /**
  * Get Profile Address
  *
- * The Bitcoin Please eternal database allows our applications
- * maintain a decentralized state, through use of an Ethereum
+ * Ava's DAO eternal database allows our applications
+ * to maintain a decentralized state, through use of an EVM
  * smart contract.
  *
  * NOTE: This address will never change.
  */
 const getProfileAddress = () => {
     /* Return address. */
-    return 'BlockHackGlobal#2020'
+    return 'nqtsq5g5frsp &middot; &middot; g9cqksurjh8v'
 }
 
 /* Export module. */

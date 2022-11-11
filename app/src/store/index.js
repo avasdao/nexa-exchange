@@ -5,18 +5,18 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 /* Import (local) modules. */
+import assets from './modules/assets'
 import system from './modules/system'
-import tokens from './modules/tokens'
 import utils from './modules/utils'
 
 Vue.use(Vuex)
 
 /* Set modules. */
 const modules = {
+    assets,
     // profile,
     // storage,
     system,
-    tokens,
     utils,
     // wallet,
 }

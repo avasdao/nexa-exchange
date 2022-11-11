@@ -30,8 +30,8 @@ const getToken = () => async (_tokenid) => {
     /* Return campaign. */
     return {
         tokenid: _tokenid,
-        title: 'Nexa',
-        symbol: 'NEX',
+        title: 'Bitcoin',
+        symbol: 'BTC',
     }
 }
 

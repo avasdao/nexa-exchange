@@ -29,21 +29,17 @@
 
                     <p>
                         The only official URLs for Nexa Exchange are:
-                        <br />&nbsp;&nbsp;&nbsp;&nbsp; <strong class="text-primary">https://nexa.exchange</strong>
-                        <br />&nbsp;&nbsp;&nbsp;&nbsp; <strong class="text-primary">https://ipfs.nexa.exchange</strong>
-                        <br />Bookmark it once and use the bookmark.
+                        <span class="block font-bold text-blue-400">https://nexa.exchange</span>
+                        <span class="block font-bold text-blue-400">https://nexaexchange.com</span>
+                        Bookmark it once and use the bookmark.
                     </p>
 
                     <p>
-                        Do not send your tokens directly to the smart contract, or they will be lost and unrecoverable.
+                        Do not send your assets directly to the exchange wallet, or they will be lost and unrecoverable.
                     </p>
 
                     <p>
-                        Use the Deposit form (upper-left) to send the proper deposit transaction.
-                    </p>
-
-                    <p>
-                        The only official representative in the chat room is <strong>Modenero Support.</strong>
+                        Use the Deposit form (under <strong>"My Account"</strong>) to send the proper deposit transaction.
                     </p>
 
                     <p class="text-danger">Disclaimer</p>

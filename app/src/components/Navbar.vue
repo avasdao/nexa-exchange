@@ -33,19 +33,20 @@
                     <ul class="dropdown-menu">
                         <li>
                             <form>
-                                <input type="search" class="form-control" id="searchToken" placeholder="Search coins &amp; tokens">
+                                <input
+                                    type="search"
+                                    class="form-control"
+                                    id="searchToken"
+                                    placeholder="Search all supported assets"
+                                >
                             </form>
                         </li>
 
                         <!-- separator -->
                         <li role="separator" class="dropdown-divider"></li>
 
-                        <li>
+                        <li class="mt-2">
                             <h5 class="text-center text-info">Featured Coins</h5>
-                        </li>
-
-                        <li class="dropdown-item btn text-primary">
-                            Nexa <small><small class="text-muted">[ <span class="text-primary">NEX</span> ]</small></small>
                         </li>
 
                         <li class="dropdown-item btn text-primary">
@@ -60,7 +61,7 @@
                             Ethereum <small><small class="text-muted">[ <span class="text-primary">ETH</span> ]</small></small>
                         </li>
 
-                        <li>
+                        <li class="mt-2">
                             <h5 class="text-center text-info">Featured Stablecoins</h5>
                         </li>
 
@@ -80,11 +81,7 @@
                         <li role="separator" class="dropdown-divider"></li>
 
                         <li class="dropdown-item btn text-primary text-center" data-toggle="modal" data-target="#loadMoreModal">
-                            Load more coins &amp; tokens...
-                        </li>
-
-                        <li class="dropdown-item btn text-primary text-center" data-toggle="modal" data-target="#customAssetModal">
-                            Add a custom asset?
+                            Load more assets ...
                         </li>
                     </ul>
                 </li>
@@ -98,13 +95,15 @@
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li class="dropdown-item">
                             <a href="javascript://">
-                                <span class="badge badge-success">Badger</span>
+                                <span class="px-2 py-1 bg-green-400 rounded text-xs text-gray-50 font-bold uppercase">
+                                    nexa:
+                                </span>
 
-                                <strong class="text-info">&nbsp; &nbsp; {{getProfileAddress}}</strong>
+                                <span class="mx-2 font-bold text-info" v-html="getProfileAddress"></span>
 
-                                <span class="text-muted">&nbsp; &middot; &middot; &nbsp;</span>
-
-                                <span class="badge badge-dark">0.013 BCH</span>
+                                <span class="px-2 py-1 bg-gray-800 rounded text-xs text-gray-50 font-bold uppercase">
+                                    1.337 MEX
+                                </span>
                             </a>
                         </li>
 
@@ -113,33 +112,35 @@
 
                         <li class="dropdown-item btn text-info">
                             <i class="fa fa-fw fa-piggy-bank"></i>
-                            Make a Deposit <small><small class="text-danger">(nexa Wallet)</small></small>
+                            Make a Deposit
+                            <span class="ml-1 text-xs text-yellow-500 lowercase">non-custodial</span>
                         </li>
 
                         <li class="dropdown-item btn text-info">
                             <i class="fa fa-fw fa-money-check-alt"></i>
-                            Withdraw Funds <small><small class="text-danger">(nexa Wallet)</small></small>
+                            Withdraw Funds
+                            <span class="ml-1 text-xs text-yellow-500 lowercase">non-custodial</span>
                         </li>
 
                         <!-- separator -->
                         <li role="separator" class="dropdown-divider"></li>
 
-                        <li class="dropdown-item btn text-info" @click="connectBadger">
+                        <li class="dropdown-item btn text-info" @click="connectNexaverse">
                             <i class="fa fa-fw fa-plug"></i>
-                            Connect Badger <small><small class="text-danger">(Plugin Wallet)</small></small>
+                            Connect Nexaverse
+                            <span class="ml-1 text-xs text-yellow-500 lowercase">Mobile</span>
                         </li>
 
                         <li class="dropdown-item btn text-info" @click="connectMetamask">
                             <i class="fa fa-fw fa-plug"></i>
-                            Connect MetaMask <small><small class="text-danger">(Plugin Wallet)</small></small>
+                            Connect MetaMask
+                            <span class="ml-1 text-xs text-yellow-500 lowercase">Browser plugin</span>
                         </li>
-
-                        <!-- separator -->
-                        <li role="separator" class="dropdown-divider"></li>
 
                         <li class="dropdown-item btn text-info">
                             <i class="fa fa-fw fa-plug"></i>
-                            Connect Ledger <small><small class="text-danger">(Hardware Wallet)</small></small>
+                            Connect Ledger
+                            <span class="ml-1 text-xs text-yellow-500 lowercase">Hardware</span>
                         </li>
                     </ul>
                 </li>
@@ -186,14 +187,14 @@
                         </li>
 
                         <li class="dropdown-item">
-                            <a href="http://riot.im/app" target="_blank">
+                            <a href="https://matrix.to/#/#nexacoin:matrix.org" target="_blank">
                                 <i class="far fa-fw fa-comment" aria-hidden="true"></i>
                                 <span>[ Matrix ]</span>
                             </a>
                         </li>
 
                         <li class="dropdown-item">
-                            <a href="https://github.com/modenero/nexa.exchange" target="_blank">
+                            <a href="https://github.com/avasdao/nexa-exchange" target="_blank">
                                 <i class="fab fa-fw fa-github" aria-hidden="true"></i>
                                 GitHub
                             </a>
@@ -283,7 +284,7 @@ export default {
             'getProfileAddress',
         ]),
 
-        ...mapGetters('tokens', [
+        ...mapGetters('assets', [
             'getToken'
         ]),
 
@@ -309,8 +310,8 @@ export default {
             //
         ]),
 
-        connectBadger() {
-            // console.log('TODO: connect Badger')
+        connectNexaverse() {
+            // console.log('TODO: connect Nexaverse')
         },
 
         connectMetamask() {
