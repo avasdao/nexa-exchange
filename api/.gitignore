@@ -2,6 +2,7 @@
 node_modules
 /dist
 /dbs
+/sandbox
 
 # local env files
 .env.local
