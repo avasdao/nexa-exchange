@@ -40,6 +40,10 @@ app.post('/v1/sessions', require('./routes/sessions'))
 /* Initialize Profiles route. */
 app.post('/v1/profiles', require('./routes/profiles'))
 
+/* Initialize Proxies route. */
+app.get('/v1/ticker/price/:assetid', require('./routes/proxy'))
+app.get('/v1/ticker/quote/:assetid', require('./routes/proxy'))
+
 // TODO: Offer help.
 app.get('/v1', (req, res) => {
     res.end('Oops! I think you forgot something.')
