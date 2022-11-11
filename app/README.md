@@ -1,6 +1,6 @@
 # Welcome to the Nexa Exchange Documenation
 
-![nexa Exchange](https://nexa.exchange/poster.jpg?1583883274)
+![Nexa Exchange](https://nexa.exchange/poster.jpg?1583883274)
 
 Website: __https://nexa.exchange__
 

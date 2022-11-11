@@ -105,7 +105,7 @@
                             </tr>
                             <tr>
                                 <td colspan="4" class="table-note">
-                                    Note: nexa Exchange will only show recent transactions.
+                                    Note: Nexa Exchange will only show recent transactions.
                                 </td>
                             </tr>
                         </tbody>

@@ -78,8 +78,8 @@
                             <thead>
                                 <tr>
                                     <th style="width:50%">Token name</th>
-                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance in your personal Ethereum wallet, which you have connected to nexa Exchange in the account dropdown (upper right).">Wallet</th>
-                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance you have deposited from your personal Ethereum wallet to the nexa Exchange smart contract.">Exchange</th>
+                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance in your personal Ethereum wallet, which you have connected to Nexa Exchange in the account dropdown (upper right).">Wallet</th>
+                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance you have deposited from your personal Ethereum wallet to the Nexa Exchange smart contract.">Exchange</th>
                                 </tr>
                             </thead>
 
@@ -119,8 +119,8 @@
                             <thead>
                                 <tr>
                                     <th style="width:50%">Token name</th>
-                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance in your personal Ethereum wallet, which you have connected to nexa Exchange in the account dropdown (upper right).">Wallet</th>
-                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance you have deposited from your personal Ethereum wallet to the nexa Exchange smart contract.">Exchange</th>
+                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance in your personal Ethereum wallet, which you have connected to Nexa Exchange in the account dropdown (upper right).">Wallet</th>
+                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance you have deposited from your personal Ethereum wallet to the Nexa Exchange smart contract.">Exchange</th>
                                 </tr>
                             </thead>
 
@@ -297,7 +297,7 @@ export default {
         // console.log('CURRENT TOKEN', this.token)
 
         /* Retrieve account balance. */
-        this.tokenBalance = await this.getWalletBalance('0x505A442B3E3E9AEDF06D54572a295F8D64f8F582', '0x830ad555fCe0547782E14d67d22002082916e660')
+        // this.tokenBalance = await this.getWalletBalance('0x505A442B3E3E9AEDF06D54572a295F8D64f8F582', '0x830ad555fCe0547782E14d67d22002082916e660')
         // console.log('BALANCE', this.tokenBalance)
 
         /* Retrieve exchange balance. */

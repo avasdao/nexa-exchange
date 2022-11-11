@@ -28,7 +28,7 @@
                     <p class="text-danger">IMPORTANT — PLEASE READ</p>
 
                     <p>
-                        The only official URLs for nexa Exchange are:
+                        The only official URLs for Nexa Exchange are:
                         <br />&nbsp;&nbsp;&nbsp;&nbsp; <strong class="text-primary">https://nexa.exchange</strong>
                         <br />&nbsp;&nbsp;&nbsp;&nbsp; <strong class="text-primary">https://ipfs.nexa.exchange</strong>
                         <br />Bookmark it once and use the bookmark.
@@ -49,7 +49,7 @@
                     <p class="text-danger">Disclaimer</p>
 
                     <p>
-                        nexa Exchange is a decentralized trading platform that lets you trade multiple cryptocurrencies.
+                        Nexa Exchange is a decentralized trading platform that lets you trade multiple cryptocurrencies.
                     </p>
 
                     <p>
@@ -61,23 +61,23 @@
                     </p>
 
                     <p>
-                        nexa Exchange is not responsible for your decisions, actions, or losses that result from using nexa Exchange.
+                        Nexa Exchange is not responsible for your decisions, actions, or losses that result from using Nexa Exchange.
                     </p>
 
                     <p>
-                        nexa Exchange makes no guarantee about the tokens that you trade using nexa Exchange.
+                        Nexa Exchange makes no guarantee about the tokens that you trade using Nexa Exchange.
                     </p>
 
                     <p>
-                        nexa Exchange does not hold your funds and does not offer refunds.
+                        Nexa Exchange does not hold your funds and does not offer refunds.
                     </p>
 
                     <p>
-                        While the information contained on nexa Exchange is periodically updated, no guarantee is given that the information provided on nexa Exchange is correct, complete, or up-to-date.
+                        While the information contained on Nexa Exchange is periodically updated, no guarantee is given that the information provided on Nexa Exchange is correct, complete, or up-to-date.
                     </p>
 
                     <p>
-                        By using nexa Exchange, you acknowledge this and agree to these terms.
+                        By using Nexa Exchange, you acknowledge this and agree to these terms.
                     </p>
                 </div>
             </div>

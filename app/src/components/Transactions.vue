@@ -33,7 +33,7 @@
 
                         <tbody>
                             <tr>
-                                <td colspan="5" class="table-note">Note: nexa Exchange will only show recent transactions.</td>
+                                <td colspan="5" class="table-note">Note: Nexa Exchange will only show recent transactions.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -75,7 +75,7 @@
 
                         <tbody>
                             <tr>
-                                <td colspan="5" class="table-note">Note: nexa Exchange will only show recent transactions.</td>
+                                <td colspan="5" class="table-note">Note: Nexa Exchange will only show recent transactions.</td>
                             </tr>
                         </tbody>
                     </table>

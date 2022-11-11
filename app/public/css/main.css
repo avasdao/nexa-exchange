@@ -8168,10 +8168,6 @@ a.text-dark:focus,a.text-dark:hover {
 	}
 }
 
-.vertical > div {
-	height: 100%
-}
-
 .vertical-split {
 	display: flex;
 	flex-direction: column;

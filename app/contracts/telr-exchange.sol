@@ -5,7 +5,7 @@ pragma solidity ^0.5.17;
  * Copyright (c) 2020 Modenero Corp.
  * Released under the MIT License.
  *
- * nexa Exchange - A 100% non-custodial, cross-chain exchange.
+ * Nexa Exchange - A 100% non-custodial, cross-chain exchange.
  *
  * Version 20.11.6
  *
@@ -149,7 +149,7 @@ contract ModeneroDbInterface {
 
 /*******************************************************************************
  *
- * @notice nexa Exchange
+ * @notice Nexa Exchange
  *
  * @dev Developer details.
  */
@@ -197,7 +197,7 @@ contract nexaExchange is Owned {
 
     /* Initialize revision depth. */
     // NOTE: Allows for balance and transaction aggregation
-    //       from legacy nexa Exchange contract instance(s).
+    //       from legacy Nexa Exchange contract instance(s).
     // FIXME Determine the MAXIMUM depth and set here.
     //       Estimated to be between 100-200
     uint private _MAX_REVISION_DEPTH = 0;
@@ -384,7 +384,7 @@ contract nexaExchange is Owned {
      * Withdraw
      *
      * We allow administrative withdrawls of tokens held
-     * in the nexa Exchange, FOR COMPLIANCE PURPOSES ONLY.
+     * in the Nexa Exchange, FOR COMPLIANCE PURPOSES ONLY.
      *
      * NOTE: This function is reserved for exclusive use by
      *       Modenero Administration ONLY.
@@ -403,7 +403,7 @@ contract nexaExchange is Owned {
     /**
      * Withdraw
      *
-     * Allows the withdrawl of tokens held in the nexa Exchange
+     * Allows the withdrawl of tokens held in the Nexa Exchange
      * back to the ORIGINAL owner.
      */
     function _withdraw(

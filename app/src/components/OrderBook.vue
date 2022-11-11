@@ -1,6 +1,6 @@
 <template>
-    <div class="vertical">
-        <div class="component component-full">
+    <div class="">
+        <div class="h-full component component-full">
             <div class="component-header text-warning">Order Book</div>
 
             <div id="orders">
@@ -18,6 +18,8 @@
                             </td>
                         </tr>
                     </table>
+
+                    <MarketFeed />
                 </div>
             </div>
         </div>
@@ -25,9 +27,12 @@
 </template>
 
 <script>
+/* Import components. */
+import MarketFeed from './MarketFeed'
+
 export default {
-    props: {
-        // msg: String
+    components: {
+        MarketFeed,
     },
     data: () => {
         return {
@@ -42,7 +47,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-/*  */
-</style>

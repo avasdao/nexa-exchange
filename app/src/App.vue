@@ -13,7 +13,7 @@ export default {
     data: () => {
         return {
             /* App Summary */
-            appTitle: 'nexa Exchange',
+            appTitle: 'Nexa Exchange',
             appDesc: 'The Official Bitcoin (DEX) Decentralized Exchange',
 
             /* Blockchain Summary */
