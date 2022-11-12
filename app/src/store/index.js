@@ -6,19 +6,20 @@ import createPersistedState from 'vuex-persistedstate'
 
 /* Import (local) modules. */
 import assets from './modules/assets'
+import profile from './modules/profile'
 import system from './modules/system'
 import utils from './modules/utils'
+import wallet from './modules/wallet'
 
 Vue.use(Vuex)
 
 /* Set modules. */
 const modules = {
     assets,
-    // profile,
-    // storage,
+    profile,
     system,
     utils,
-    // wallet,
+    wallet,
 }
 
 /* Set plugins. */
