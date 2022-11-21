@@ -2,9 +2,10 @@
 title: API Docs — Nexa Exchange
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - javascript
-  - python
-  - rust
+  - shell: cUrl
+  - javascript: JavaScript
+  - python: Python
+  - rust: Rust
 
 toc_footers:
   - <a href="javascript://" style='margin-top:5px'><span style='font-size:1.2em;'>Open Postman (v1) API</span></a>
