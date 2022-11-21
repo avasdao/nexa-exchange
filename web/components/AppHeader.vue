@@ -206,7 +206,7 @@
                             </div>
                         </div>
 
-                        <NuxtLink to="/alpha" class="text-base font-medium text-gray-100 hover:text-yellow-300">
+                        <NuxtLink to="/bootstrap" class="text-base font-medium text-gray-100 hover:text-yellow-300">
                             Bootstrap
                         </NuxtLink>
 
@@ -569,7 +569,7 @@
                             Pricing
                         </a>
 
-                        <NuxtLink to="/alpha" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                        <NuxtLink to="/bootstrap" class="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
                             Alpha - Bootstrap
                         </NuxtLink>
 

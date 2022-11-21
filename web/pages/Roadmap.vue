@@ -1,20 +1,24 @@
 <template>
     <main class="max-w-5xl mx-auto py-5 px-3">
         <h1 class="text-4xl font-medium text-indigo-600">
-            Alpha - Bootstrap
+            Exchange Roadmap
         </h1>
 
         <p>
-            WARNING: BEWARE OF DRAGONS
+            At this stage, the platform is stable and ready for public use.
+            Our focus will be on scaling and stability as well as expanding to service new communities.
         </p>
 
-        <p>
-            At this stage, we are working directly with early adopters to flush on the bugs with the platform before we move to <NuxtLink to="/beta" class="text-blue-500 font-medium hover:underline">Beta Testing</NuxtLink>.
-        </p>
+        <section class="mt-3">
+            <h1 class="text-3xl text-gray-600 font-medium">
+                Our Roadmap
+            </h1>
 
-        <p>
-            $200 per day for development
-        </p>
+            <ol class="mt-3 ml-10 list-decimal">
+                <li>Hard-fork updates</li>
+                <li>I18n</li>
+            </ol>
+        </section>
     </main>
 </template>
 
@@ -27,7 +31,7 @@ export default {
         //
     }),
     head: () => ({
-        title: 'Blank — Nexa Exchange',
+        title: 'Beta — Nexa Exchange',
         meta: [
             {
                 hid: 'description', // `vmid` for it as it will not work
