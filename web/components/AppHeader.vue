@@ -5,10 +5,10 @@
         <div class="relative z-20">
             <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 sm:py-4 md:justify-start md:space-x-10 lg:px-8">
                 <div>
-                    <a href="javascript://" class="flex">
+                    <NuxtLink to="/" class="flex">
                         <span class="sr-only">Nexa Exchange</span>
                         <img class="h-10 w-auto sm:h-14" src="~/assets/logo.png" alt="Nexa Exchange Logo" />
-                    </a>
+                    </NuxtLink>
                 </div>
 
                 <div class="-my-2 -mr-2 md:hidden">
