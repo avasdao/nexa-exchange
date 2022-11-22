@@ -154,9 +154,9 @@
                                 </li>
 
                                 <li>
-                                    <a href="javascript://" class="text-base text-gray-500 hover:text-gray-900">
-                                        Jobs
-                                    </a>
+                                    <NuxtLink to="/sponsors" class="text-base text-gray-500 hover:text-gray-900">
+                                        Our Sponsors
+                                    </NuxtLink>
                                 </li>
 
                                 <li>
