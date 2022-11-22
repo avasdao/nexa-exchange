@@ -4,7 +4,7 @@
 /* Import modules (actions). */
 // import toast from './utils/actions/toast'
 
-import { Magic} from 'magic-sdk'
+import { Magic } from 'magic-sdk'
 
 const magic = new Magic(process.env.VUE_APP_MAGIC_API_KEY)
 
@@ -45,13 +45,18 @@ const getters = {
 /* Actions. */
 const actions = {
     async signin ({ commit }, _auth) {
+        /* Request Magic login. */
         await magic.auth.loginWithMagicLink(_auth)
 
+        /* Request metadata. */
         const metadata = await magic.user.getMetadata()
         console.log('MAGIC (metadata):', metadata)
+
+        /* Request DID. */
         const token = await magic.user.getIdToken()
         console.log('MAGIC (token):', token)
 
+        /* Commit data. */
         commit('SET_USER_DATA', {
             metadata,
             token
@@ -59,8 +64,10 @@ const actions = {
     },
 
     async signout ({ commit }) {
+        /* Request Magic logout. */
         await magic.user.logout()
 
+        /* Commit data. */
         commit('CLEAR_USER_DATA')
     }
 }
@@ -71,6 +78,12 @@ const mutations = {
         /* Set user (from metadata). */
         state.user = _userData.metadata
 
+        /* Set email. */
+        state.email = _userData.metadata.email
+
+        /* Set address. */
+        state.address = _userData.metadata.publicAddress
+
         /* Set DID token. */
         state.didToken = _userData.token
 
@@ -79,10 +92,14 @@ const mutations = {
     },
 
     CLEAR_USER_DATA (state) {
-        state.user = null
         state.authenticated = false
 
-        this.$router.push('/')
+        state.address = null
+        state.didToken = null
+        state.email = null
+        state.user = null
+
+        // this.$router.push('/')
     }
 }
 

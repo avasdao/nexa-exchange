@@ -294,9 +294,9 @@ export default {
             //
         ]),
 
-        ...mapGetters('tokens', [
-            'getToken'
-        ]),
+        // ...mapGetters('tokens', [
+        //     'getToken'
+        // ]),
 
         tokenName() {
             if (!this.token) {
@@ -382,7 +382,7 @@ export default {
     },
     created: async function () {
         /* Retrieve current token. */
-        this.token = await this.getToken('0x505A442B3E3E9AEDF06D54572a295F8D64f8F582')
+        // this.token = await this.getToken('0x505A442B3E3E9AEDF06D54572a295F8D64f8F582')
         // console.log('CURRENT TOKEN', this.token)
 
         this.expirationTime = 7

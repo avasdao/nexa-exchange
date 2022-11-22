@@ -181,9 +181,9 @@ export default {
             //
         ]),
 
-        ...mapGetters('tokens', [
-            // 'getToken'
-        ]),
+        // ...mapGetters('tokens', [
+        //     // 'getToken'
+        // ]),
 
         today() {
             return moment().format('M/d')

@@ -29,9 +29,9 @@ export default {
             //
         ]),
 
-        ...mapGetters('tokens', [
-            // 'getToken'
-        ]),
+        // ...mapGetters('tokens', [
+        //     // 'getToken'
+        // ]),
 
     },
     methods: {

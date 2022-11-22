@@ -66,7 +66,8 @@ export default {
 
     },
     created: function () {
-        //
+        console.log('STARTING APP')
+        console.log('STATE', this.$store.state)
     },
     mounted: function () {
         //

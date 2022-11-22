@@ -174,7 +174,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a href="javascript://" class="nav-link text-danger" data-toggle="dropdown" role="button" aria-haspopup="true" data-offset="50,50" aria-expanded="false">
+                    <a href="javascript://" class="nav-link text-danger">
                         <i class="far fa-life-ring"></i>&nbsp;<span>Need Help?</span>
                     </a>
 
@@ -201,6 +201,12 @@
                         </li>
 
                     </ul>
+                </li>
+
+                <li v-if="authenticated">
+                    <button @click="signout" class="nav-link text-danger">
+                        <i class="far fa-life-ring"></i>&nbsp;<span>Signout</span>
+                    </button>
                 </li>
             </ul>
         </div>
@@ -284,9 +290,13 @@ export default {
             'getProfileAddress',
         ]),
 
-        ...mapGetters('assets', [
-            'getToken'
-        ]),
+        // ...mapGetters('assets', [
+        //     'getToken'
+        // ]),
+
+        authenticated () {
+            return this.$store.state.profile.authenticated
+        },
 
         tokenName() {
             if (!this.token) {
@@ -318,12 +328,19 @@ export default {
             // console.log('TODO: connect MetaMask')
         },
 
+        signout () {
+            console.info('Signing out..')
+
+            /* Request email auth. */
+            this.$store.dispatch('profile/signout')
+        }
+
     },
     created: async function () {
         // console.log('PROFILE ADDRESS', this.getProfileAddress)
 
         /* Retrieve current token. */
-        this.token = await this.getToken('0x505A442B3E3E9AEDF06D54572a295F8D64f8F582')
+        // this.token = await this.getToken('0x505A442B3E3E9AEDF06D54572a295F8D64f8F582')
         // console.log('CURRENT TOKEN', this.token)
 
     },
