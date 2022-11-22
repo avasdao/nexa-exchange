@@ -9,15 +9,15 @@ const { v4: uuidv4 } = require('uuid')
 const magicAdmin = new Magic(process.env.MAGIC_LINK_KEY)
 
 /* Initialize databases. */
-const usersDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/users`)
+const ordersDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/orders`)
 const logsDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/logs`)
 
 /**
- * Profiles Module
+ * Orders Module
  */
-const profiles = async function (req, res) {
-    const address = req.params.address
-    console.log('USER ADDRESS', address)
+const orders = async function (req, res) {
+    const orderid = req.params.orderid
+    console.log('QUERY ID', orderid)
 
     const body = req.body
     console.log('BODY', body)
@@ -40,15 +40,15 @@ const profiles = async function (req, res) {
 
 
     if (req.method === 'GET') {
-        if (address) {
+        if (orderid) {
             /* Request existing user. */
-            results = await usersDb.query('api/byAddress', {
-                key: address,
+            results = await ordersDb.query('api/byAddress', {
+                key: orderid,
                 include_docs: true,
             }).catch(err => {
                 console.error('DATA ERROR:', err)
             })
-            console.log('USERS RESULT (byAddress)', util.inspect(results, false, null, true))
+            console.log('ORDERS RESULT (byAddress)', util.inspect(results, false, null, true))
 
             if (!results || results.rows.length === 0) {
                 /* Set status. */
@@ -72,7 +72,9 @@ const profiles = async function (req, res) {
             return res.json(pkg)
         }
 
-        return res.json({})
+        return res.json({
+            msg: 'Order not found.'
+        })
     } else if (req.method === 'POST') {
         /* Initialize email. */
         let email
@@ -170,7 +172,7 @@ const profiles = async function (req, res) {
         }
 
         /* Retrieve results. */
-        results = await usersDb.put(pkg)
+        results = await ordersDb.put(pkg)
             .catch(err => {
                 console.error('AUTH ERROR:', err)
             })
@@ -184,4 +186,4 @@ const profiles = async function (req, res) {
 }
 
 /* Export module. */
-module.exports = profiles
+module.exports = orders

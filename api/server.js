@@ -31,14 +31,19 @@ app.post('/v1/magiclink', require('./routes/magiclink'))
 /* Initialize Notifications route. */
 app.post('/v1/notifs', require('./routes/notifs'))
 
+/* Initialize Orders route. */
+app.get('/v1/orders', require('./routes/orders'))
+app.get('/v1/orders/:orderid', require('./routes/orders'))
+app.post('/v1/orders', require('./routes/orders'))
+
+/* Initialize Profiles route. */
+app.post('/v1/profiles', require('./routes/profiles'))
+
 /* Initialize RPC route. */
 app.post('/v1/rpc', require('./routes/rpc'))
 
 /* Initialize Sessions route. */
 app.post('/v1/sessions', require('./routes/sessions'))
-
-/* Initialize Profiles route. */
-app.post('/v1/profiles', require('./routes/profiles'))
 
 /* Initialize Proxies route. */
 app.get('/v1/ticker/price/:assetid', require('./routes/proxy'))
