@@ -58,6 +58,10 @@ export default {
             //
         }),
 
+        authenticated () {
+            return this.$store.state.profile.authenticated
+        },
+
     },
     methods: {
         ...mapActions({

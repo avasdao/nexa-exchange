@@ -93,8 +93,21 @@
                         <i class="far fa-user-circle"></i> <span>My Account</span></a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="dropdown-item">
-                            <a href="javascript://">
+                        <li v-if="authenticated" class="dropdown-item">
+
+                            <a v-if="email" href="javascript://">
+                                <span class="px-2 py-1 bg-green-400 rounded text-xs text-gray-50 font-bold uppercase">
+                                    {{email}}
+                                </span>
+
+                                <span class="mx-2 font-bold text-info" v-html="abbr"></span>
+
+                                <span class="px-2 py-1 bg-gray-800 rounded text-xs text-gray-50 font-bold uppercase">
+                                    1.337 MEX
+                                </span>
+                            </a>
+
+                            <a v-else href="javascript://">
                                 <span class="px-2 py-1 bg-green-400 rounded text-xs text-gray-50 font-bold uppercase">
                                     nexa:
                                 </span>
@@ -106,6 +119,12 @@
                                 </span>
                             </a>
                         </li>
+
+                        <router-link v-else to="/auth" class="dropdown-item hover:bg-green-300">
+                            <span class="font-bold cursor-pointer">
+                                Sign In
+                            </span>
+                        </router-link>
 
                         <!-- separator -->
                         <li role="separator" class="dropdown-divider"></li>
@@ -141,6 +160,11 @@
                             <i class="fa fa-fw fa-plug"></i>
                             Connect Ledger
                             <span class="ml-1 text-xs text-yellow-500 lowercase">Hardware</span>
+                        </li>
+
+                        <li v-if="authenticated" class="dropdown-item text-red-500 cursor-pointer hover:text-red-50 hover:bg-red-500" @click="signout">
+                            <i class="fa fa-fw fa-life-ring"></i>
+                            Sign Out
                         </li>
                     </ul>
                 </li>
@@ -201,12 +225,6 @@
                         </li>
 
                     </ul>
-                </li>
-
-                <li v-if="authenticated">
-                    <button @click="signout" class="nav-link text-danger">
-                        <i class="far fa-life-ring"></i>&nbsp;<span>Signout</span>
-                    </button>
                 </li>
             </ul>
         </div>
@@ -296,6 +314,24 @@ export default {
 
         authenticated () {
             return this.$store.state.profile.authenticated
+        },
+
+        abbr () {
+            if (!this.$store.state.profile.address) {
+                return null
+            }
+
+            const address = this.$store.state.profile.address
+
+            return address.slice(0, 8) + ' .. ' + address.slice(-8)
+        },
+
+        address () {
+            return this.$store.state.profile.address
+        },
+
+        email () {
+            return this.$store.state.profile.email
         },
 
         tokenName() {

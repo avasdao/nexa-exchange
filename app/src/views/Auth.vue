@@ -9,7 +9,11 @@
                         <img class="h-16 w-auto" :src="require('@/assets/logo.png')" alt="Nexa Rocks! Logo" />
 
                         <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-100">
-                            Sign in to your account
+                            Authorization Required
+                        </h2>
+
+                        <h2 class="mt-6 text-3xl font-bold tracking-tight text-rose-400">
+                            Please use the Ava's DAO Magic.Link
                         </h2>
 
                         <p class="hidden mt-2 text-sm text-gray-600">
@@ -139,22 +143,34 @@ export default {
             //
         }),
 
+        authenticated () {
+            return this.$store.state.profile.authenticated
+        },
+
     },
     methods: {
         ...mapActions({
             //
         }),
 
-        signIn () {
+        async signIn () {
             if (!this.email) {
                 return alert('Please enter an email address')
             }
 
             /* Request email auth. */
-            this.$store.dispatch('profile/signin', { email: this.email })
+            await this.$store.dispatch('profile/signin', { email: this.email })
+
+            if (this.authenticated) {
+                return this.$router.push('/')
+            }
         }
     },
     created: function () {
+        if (this.authenticated) {
+            return this.$router.push('/')
+        }
+
         /* Initialize social medial logins. */
         this.enableSocials = false
 
