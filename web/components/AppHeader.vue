@@ -31,8 +31,9 @@
                             <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
                             <button
                                 type="button"
-                                class="text-gray-100 group inline-flex items-center rounded-md bg-gray-900 text-base font-medium hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                class="px-2 py-1 text-gray-100 group inline-flex items-center rounded-md bg-gray-900 text-base font-medium hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 aria-expanded="false"
+                                @click="toggleSolutions"
                             >
                                 <span>Solutions</span>
                                 <!--
@@ -55,9 +56,10 @@
                     From: "opacity-100 translate-y-0"
                     To: "opacity-0 -translate-y-1"
                 -->
-                            <div v-if="showMenu2" class="absolute inset-x-0 top-full z-10 hidden transform bg-white shadow-lg md:block">
+                            <div v-if="showSolutionsMenu" class="absolute inset-x-0 top-full z-10 hidden transform bg-white shadow-lg md:block">
                                 <div class="mx-auto grid max-w-7xl gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-12 xl:py-16">
-                                    <a href="javascript://" class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-50">
+
+                                    <a href="javascript://" class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-200" @click="launchApp">
                                         <div class="flex md:h-full lg:flex-col">
                                             <div class="flex-shrink-0">
                                                 <span class="inline-flex h-10 w-10 items-center justify-center rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
@@ -71,20 +73,27 @@
                                                     </svg>
                                                 </span>
                                             </div>
+
                                             <div class="ml-4 md:flex md:flex-1 md:flex-col md:justify-between lg:ml-0 lg:mt-4">
                                                 <div>
-                                                    <p class="text-base font-medium text-gray-900">Analytics</p>
-                                                    <p class="mt-1 text-sm text-gray-500">Get a better understanding of where your traffic is coming from.</p>
+                                                    <p class="text-lg font-medium text-gray-900">
+                                                        Asset Swap
+                                                    </p>
+
+                                                    <p class="mt-1 text-sm text-gray-500">
+                                                        Instantly swap your Nexa assets on a decentralized order book.
+                                                    </p>
                                                 </div>
-                                                <p class="mt-2 text-sm font-medium text-indigo-600 lg:mt-4">
-                                                    Learn more
+
+                                                <p class="mt-2 text-lg font-medium text-indigo-600 lg:mt-4">
+                                                    Launch app
                                                     <span aria-hidden="true"> &rarr;</span>
                                                 </p>
                                             </div>
                                         </div>
                                     </a>
 
-                                    <a href="javascript://" class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-50">
+                                    <a href="javascript://" class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-200" @click="launchApp">
                                         <div class="flex md:h-full lg:flex-col">
                                             <div class="flex-shrink-0">
                                                 <span class="inline-flex h-10 w-10 items-center justify-center rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
@@ -98,20 +107,27 @@
                                                     </svg>
                                                 </span>
                                             </div>
+
                                             <div class="ml-4 md:flex md:flex-1 md:flex-col md:justify-between lg:ml-0 lg:mt-4">
                                                 <div>
-                                                    <p class="text-base font-medium text-gray-900">Engagement</p>
-                                                    <p class="mt-1 text-sm text-gray-500">Speak directly to your customers in a more meaningful way.</p>
+                                                    <p class="text-lg font-medium text-gray-900">
+                                                        Pro Exchange
+                                                    </p>
+
+                                                    <p class="mt-1 text-sm text-gray-500">
+                                                        Professional Market Makers trade a decentralized order book of Nexa assets.
+                                                    </p>
                                                 </div>
-                                                <p class="mt-2 text-sm font-medium text-indigo-600 lg:mt-4">
-                                                    Learn more
+
+                                                <p class="mt-2 text-lg font-medium text-indigo-600 lg:mt-4">
+                                                    Open Exchange
                                                     <span aria-hidden="true"> &rarr;</span>
                                                 </p>
                                             </div>
                                         </div>
                                     </a>
 
-                                    <a href="javascript://" class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-50">
+                                    <a href="javascript://" class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-200">
                                         <div class="flex md:h-full lg:flex-col">
                                             <div class="flex-shrink-0">
                                                 <span class="inline-flex h-10 w-10 items-center justify-center rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
@@ -125,20 +141,27 @@
                                                     </svg>
                                                 </span>
                                             </div>
+
                                             <div class="ml-4 md:flex md:flex-1 md:flex-col md:justify-between lg:ml-0 lg:mt-4">
                                                 <div>
-                                                    <p class="text-base font-medium text-gray-900">Security</p>
-                                                    <p class="mt-1 text-sm text-gray-500">Your customers&#039; data will be safe and secure.</p>
+                                                    <p class="text-lg font-medium text-gray-900">
+                                                        Cross-chain Bridge
+                                                    </p>
+
+                                                    <p class="mt-1 text-sm text-gray-500">
+                                                        Bridge your Nexa assets across blockchains.
+                                                    </p>
                                                 </div>
-                                                <p class="mt-2 text-sm font-medium text-indigo-600 lg:mt-4">
-                                                    Learn more
+
+                                                <p class="mt-2 text-lg font-medium text-indigo-600 lg:mt-4">
+                                                    Open Bridge
                                                     <span aria-hidden="true"> &rarr;</span>
                                                 </p>
                                             </div>
                                         </div>
                                     </a>
 
-                                    <a href="javascript://" class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-50">
+                                    <a href="javascript://" class="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-200">
                                         <div class="flex md:h-full lg:flex-col">
                                             <div class="flex-shrink-0">
                                                 <span class="inline-flex h-10 w-10 items-center justify-center rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
@@ -152,13 +175,20 @@
                                                     </svg>
                                                 </span>
                                             </div>
+
                                             <div class="ml-4 md:flex md:flex-1 md:flex-col md:justify-between lg:ml-0 lg:mt-4">
                                                 <div>
-                                                    <p class="text-base font-medium text-gray-900">Integrations</p>
-                                                    <p class="mt-1 text-sm text-gray-500">Connect with third-party tools that you&#039;re already using.</p>
+                                                    <p class="text-lg font-medium text-gray-900">
+                                                        Asset Wallet
+                                                    </p>
+
+                                                    <p class="mt-1 text-sm text-gray-500">
+                                                        Safely manage your Nexa assets <em>(incl. coins + tokens)</em> with this user-friendly wallet.
+                                                    </p>
                                                 </div>
-                                                <p class="mt-2 text-sm font-medium text-indigo-600 lg:mt-4">
-                                                    Learn more
+
+                                                <p class="mt-2 text-lg font-medium text-indigo-600 lg:mt-4">
+                                                    Open Wallet
                                                     <span aria-hidden="true"> &rarr;</span>
                                                 </p>
                                             </div>
@@ -174,7 +204,7 @@
                                                 <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
                                                 </svg>
-                                                <span class="ml-3">Watch Demo</span>
+                                                <span class="ml-3">Watch Trading Demo</span>
                                             </a>
                                         </div>
 
@@ -184,7 +214,7 @@
                                                 <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
-                                                <span class="ml-3">View All Products</span>
+                                                <span class="ml-3">View All Solutions</span>
                                             </a>
                                         </div>
 
@@ -198,7 +228,7 @@
                                                         d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
                                                     />
                                                 </svg>
-                                                <span class="ml-3">Contact Sales</span>
+                                                <span class="ml-3">Contact Our Team</span>
                                             </a>
                                         </div>
                                     </div>
@@ -206,22 +236,23 @@
                             </div>
                         </div>
 
-                        <NuxtLink to="/bootstrap" class="text-base font-medium text-gray-100 hover:text-yellow-300">
-                            Bootstrap
+                        <NuxtLink to="/bootstrap" class="py-1 text-base font-medium text-gray-100 hover:text-yellow-300">
+                            Bootstrap Phase
                         </NuxtLink>
 
-                        <a href="https://docs.nexa.exchange" target="_blank" class="text-base font-medium text-gray-100 hover:text-yellow-300">
-                            Docs
+                        <a href="https://docs.nexa.exchange" target="_blank" class="py-1 text-base font-medium text-gray-100 hover:text-yellow-300">
+                            Read The Docs
                         </a>
 
                         <div>
                             <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
                             <button
                                 type="button"
-                                class="text-gray-100 group inline-flex items-center rounded-md bg-gray-900 text-base font-medium hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                class="px-2 py-1 text-gray-100 group inline-flex items-center rounded-md bg-gray-900 text-base font-medium hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 aria-expanded="false"
+                                @click="toggleExtras"
                             >
-                                <span>More</span>
+                                <span>Extras</span>
                                 <!--
                     Heroicon name: mini/chevron-down
 
@@ -242,7 +273,7 @@
                     From: "opacity-100 translate-y-0"
                     To: "opacity-0 -translate-y-1"
                 -->
-                            <div v-if="showMenu1" class="absolute inset-x-0 top-full z-10 hidden transform shadow-lg md:block">
+                            <div v-if="showExtrasMenu" class="absolute inset-x-0 top-full z-10 hidden transform shadow-lg md:block">
                                 <div class="absolute inset-0 flex">
                                     <div class="w-1/2 bg-white"></div>
                                     <div class="w-1/2 bg-gray-50"></div>
@@ -257,7 +288,7 @@
 
                                             <ul role="list" class="mt-5 space-y-6">
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/information-circle -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -271,7 +302,7 @@
                                                 </li>
 
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/building-office -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -285,7 +316,7 @@
                                                 </li>
 
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/newspaper -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -299,7 +330,7 @@
                                                 </li>
 
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/briefcase -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -313,7 +344,7 @@
                                                 </li>
 
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/shield-check -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -335,7 +366,7 @@
 
                                             <ul role="list" class="mt-5 space-y-6">
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/user-group -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -349,7 +380,7 @@
                                                 </li>
 
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/globe-alt -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -363,7 +394,7 @@
                                                 </li>
 
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/bookmark-square -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -377,7 +408,7 @@
                                                 </li>
 
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-50">
+                                                    <a href="javascript://" class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-200">
                                                         <!-- Heroicon name: outline/computer-desktop -->
                                                         <svg class="h-6 w-6 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                             <path
@@ -396,7 +427,7 @@
                                     <div class="bg-gray-50 px-4 py-8 sm:py-12 sm:px-6 lg:px-8 xl:pl-12">
                                         <div>
                                             <h3 class="text-base font-medium text-gray-500">
-                                                From the blog
+                                                From Our Blog
                                             </h3>
 
                                             <ul role="list" class="mt-6 space-y-6">
@@ -418,18 +449,23 @@
                                                 </li>
 
                                                 <li class="flow-root">
-                                                    <a href="javascript://" class="-m-3 flex rounded-lg p-3 hover:bg-gray-100">
+                                                    <a href="https://news.bitcoin.com/bitcoin%E2%80%A4com-announces-cex-education-program-to-reward-victims-of-centralized-crypto-failures-and-bolster-defi/" target="_blank" class="-m-3 flex rounded-lg p-3 hover:bg-gray-100">
                                                         <div class="hidden flex-shrink-0 sm:block">
                                                             <img
                                                                 class="h-20 w-32 rounded-md object-cover"
-                                                                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2300&q=80"
+                                                                src="https://i.ibb.co/GCtBt1d/image.png"
                                                                 alt=""
                                                             />
                                                         </div>
 
                                                         <div class="w-0 flex-1 sm:ml-8">
-                                                            <h4 class="truncate text-base font-medium text-gray-900">How to use search engine optimization to drive traffic to your site</h4>
-                                                            <p class="mt-1 text-sm text-gray-500">Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor id mus.</p>
+                                                            <h4 class="truncate text-base font-medium text-gray-900">
+                                                                CEX Education Program
+                                                            </h4>
+
+                                                            <p class="mt-1 text-sm text-gray-500">
+                                                                Bitcoin.com announced the creation of a program that will reward people affected by centralized crypto company insolvencies while encouraging the adoption of decentralized finance and self-custody.
+                                                            </p>
                                                         </div>
                                                     </a>
                                                 </li>
@@ -496,7 +532,7 @@
                     <div class="mt-6 sm:mt-8">
                         <nav>
                             <div class="grid gap-7 sm:grid-cols-2 sm:gap-y-8 sm:gap-x-4">
-                                <a href="javascript://" class="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
+                                <a href="javascript://" class="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-200">
                                     <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
                                         <!-- Heroicon name: outline/chart-bar -->
                                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -510,7 +546,7 @@
                                     <div class="ml-4 text-base font-medium text-gray-900">Analytics</div>
                                 </a>
 
-                                <a href="javascript://" class="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
+                                <a href="javascript://" class="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-200">
                                     <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
                                         <!-- Heroicon name: outline/cursor-arrow-rays -->
                                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -524,7 +560,7 @@
                                     <div class="ml-4 text-base font-medium text-gray-900">Engagement</div>
                                 </a>
 
-                                <a href="javascript://" class="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
+                                <a href="javascript://" class="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-200">
                                     <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
                                         <!-- Heroicon name: outline/shield-check -->
                                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -538,7 +574,7 @@
                                     <div class="ml-4 text-base font-medium text-gray-900">Security</div>
                                 </a>
 
-                                <a href="javascript://" class="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
+                                <a href="javascript://" class="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-200">
                                     <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
                                         <!-- Heroicon name: outline/squares-2x2 -->
                                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -611,8 +647,8 @@
 
 export default {
     data: () => ({
-        showMenu1: null,
-        showMenu2: null,
+        showExtrasMenu: null,
+        showSolutionsMenu: null,
         showMobileMenu: null,
     }),
     computed: {
@@ -621,11 +657,25 @@ export default {
         // })
     },
     methods: {
-        //
+        toggleSolutions () {
+            this.showExtrasMenu = false
+            this.showSolutionsMenu = !this.showSolutionsMenu
+        },
+
+        toggleExtras () {
+            this.showSolutionsMenu = false
+            this.showExtrasMenu = !this.showExtrasMenu
+        },
+
+        launchApp () {
+            this.showSolutionsMenu = false
+
+            window.open('https://app.nexa.exchange')
+        }
     },
     created: function () {
-        this.showMenu1 = false
-        this.showMenu2 = false
+        this.showExtrasMenu = false
+        this.showSolutionsMenu = false
         this.showMobileMenu = false
     },
     mounted: function () {

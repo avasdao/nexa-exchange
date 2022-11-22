@@ -1,5 +1,8 @@
 <template>
-    <SampleView />
+    <WelcomeView />
+    <SpotlightView />
+
+    <!-- <SampleView /> -->
 </template>
 
 <script>

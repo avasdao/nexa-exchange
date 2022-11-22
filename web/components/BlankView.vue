@@ -5,16 +5,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
     data: () => ({
         //
     }),
     computed: {
-        ...mapGetters({
-            // panelIsShowing: 'system/getPanelState'
-        })
+        // ...mapGetters({
+        //     // panelIsShowing: 'system/getPanelState'
+        // })
     },
     methods: {
         //
