@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Nexa Exchange Docs',
-  tagline: 'Your Keys. Your Coins. Since 2022',
+  tagline: 'Your Keys. Your Coins. Since Block # 0',
   url: 'https://docs.nexa.exchange',
   baseUrl: '/',
   onBrokenLinks: 'throw',

@@ -32,8 +32,8 @@ export default function Home() {
 
     return (
         <Layout
-            title={'Documentation for Nexa Exchange'}
-            description="Everything you ever wanted to know about Nexa Exchange.">
+            title={'Nexa Exchange Docs'}
+            description="Take a deep dive into how the Nexa Exchange can best serve your needs.">
             <HomepageHeader />
             <main>
                 <HomepageFeatures />
