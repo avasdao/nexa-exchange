@@ -35,6 +35,7 @@ _(expected start date: Monday, March 6th, 2023)_
 - [ ] Add support for $MATIC multi-sig wallets
 - [ ] Add support for $TRX multi-sig wallets
 - [ ] Add support for $XMR multi-sig wallets
+- [ ] Add trading bot support
 
 ### Final Launch
 

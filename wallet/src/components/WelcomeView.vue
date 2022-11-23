@@ -1,5 +1,5 @@
 <script setup>
-import AccountView from '@/components/AccountView'
+import AccountView from '@/components/AccountView.vue'
 </script>
 
 <template>

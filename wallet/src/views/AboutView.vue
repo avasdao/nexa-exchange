@@ -6,7 +6,7 @@
           </h1>
 
           <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro quos corrupti ratione est esse, soluta quaerat magni, totam itaque illum doloremque velit, ex asperiores dolorem ab nemo molestias placeat veritatis?
+            Nexa Wallet is a simple, secure, non-custodial wallet for storing Nexa assets.
           </p>
       </section>
 
