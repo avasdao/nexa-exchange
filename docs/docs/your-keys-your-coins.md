@@ -1,47 +1,35 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 # Your Keys. Your Coins.
 
-Let's discover **Docusaurus in less than 5 minutes**.
+You are __ALWAYS__ in 100% control of your own private keys.
 
-## Getting Started
 
-Get started by **creating a new site**.
+## Multi-sig Wallet
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+All exchange wallets are 2-of-4 multi-signature.
 
-### What you'll need
+__Key # 1 -__ Held in the client's web browser
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+__Key # 2 -__ Sent to the client's email
 
-## Generate a new site
+__Key # 3 -__ Held by Exchange "hot" wallet
 
-Generate a new Docusaurus site using the **classic template**.
+__Key # 4 -__ Managed by the Exchange's Security Provider (Modenero)
 
-The classic template will automatically be added to your project after you run the command:
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+## Unstoppable Withdrawals
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+### Option # 1
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+Use Key # 1 and Key # 3 for INSTANT withdrawls (EASY).
 
-## Start your site
+### Option # 2
 
-Run the development server:
+Use Key # 1 and Key # 2 for INSTANT withdrawls (ADVANCED).
 
-```bash
-cd my-website
-npm run start
-```
+### Option # 3
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+Use Key # 3 and Key # 4 for AUTHORIZED withdrawals (SLOWEST).
