@@ -12,10 +12,10 @@ import { RouterLink, RouterView } from 'vue-router'
         />
 
         <div class="wrapper">
-            <h1 class="text-6xl text-yellow-400 font-bold uppercase">
+            <h1 class="text-6xl text-yellow-400 font-bold uppercase bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-400 bg-clip-text text-transparent">
                 Nexa
             </h1>
-            <h1 class="text-9xl text-gray-500 font-bold">
+            <h1 class="text-9xl text-gray-500 font-bold bg-gradient-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text text-transparent">
                 Swap
             </h1>
 
