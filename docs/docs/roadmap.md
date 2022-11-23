@@ -6,16 +6,38 @@ sidebar_position: 4
 
 Our team is working hard to deliver the Bitcoin Cash and SmartBCH communities a AAA service to stabilize the future of peer-to-peer electronic cash for the world.
 
-Targeted goals for the __Alpha__ release:<br />
-_(expected release date: Monday, December 5, 2022)_
+### Alpha ([Bootstrap](https://nexa.exchange/bootstrap)) Phase
+
+_(expected start date: Monday, December 5, 2022)_
 
 - [x] Complete the initial documentation portal
-- [x] Complete the $NEX Treasury vault
-- [x] Complete the $BCH Treasury vault
-- [ ] Complete the $BTC Treasury vault
-- [ ] Complete the $ETH Treasury vault
+- [x] Add support for $NEX multi-sig wallets
+- [x] Add support for $BCH multi-sig wallets
+- [ ] Add support for $BTC multi-sig wallets
+- [ ] Add support for $ETH _(+ ERC-20)_ multi-sig wallets
+- [ ] Add two-factor authentication
+- [ ] Build an app to manage the [Subnet](https://docs.avax.network/subnets) Federation of Validators
 
-Targeted goals for the __Beta__ release:<br />
-_(expected release date: Monday, March 6th, 2023)_
+:::info
 
-- [ ] Build an app to manage the Subnet Federation of Validators responsible for effectively executing the transaction requests for the 2x Multi-signature Treasuries
+__Did you know? —__ You can donate to help support Exchange development.
+
+Checkout our [__Bootstrap Phase__](https://nexa.exchange/bootstrap) plans for more information.
+:::
+
+
+### Beta ([Integration](https://nexa.exchange/integration)) Phase
+
+_(expected start date: Monday, March 6th, 2023)_
+
+- [ ] Add support for $AVAX multi-sig wallets
+- [ ] Add support for $DASH multi-sig wallets
+- [ ] Add support for $MATIC multi-sig wallets
+- [ ] Add support for $TRX multi-sig wallets
+- [ ] Add support for $XMR multi-sig wallets
+
+### Final Launch
+
+_(expected launch date: Monday, January 1st, 2024)_
+
+_TBD_

@@ -25,11 +25,6 @@ Asset swap timeouts are very strict.
 Some **content** with _Markdown_ `syntax`. Check [this `api`](#).
 :::
 
-:::info
-
-Some **content** with _Markdown_ `syntax`. Check [this `api`](#).
-:::
-
 :::caution
 
 Some **content** with _Markdown_ `syntax`. Check [this `api`](#).

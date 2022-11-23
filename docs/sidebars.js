@@ -18,6 +18,8 @@ const sidebars = {
   build: [
     'build/add-widget',
     'build/create-token',
+    'build/federation',
+    'build/database',
   ],
 
   // But you can create a sidebar manually
