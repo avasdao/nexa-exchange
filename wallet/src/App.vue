@@ -7,15 +7,15 @@ import { RouterLink, RouterView } from 'vue-router'
     <header>
         <img
             alt="Nexa Wallet Logo"
-            class="logo h-40 w-40"
+            class="logo h-48 w-48 sm:h-40 sm:w-40"
             src="@/assets/logo.png"
         />
 
         <div class="wrapper">
-            <h1 class="text-6xl text-yellow-400 font-bold uppercase">
+            <h1 class="text-6xl font-bold uppercase bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-400 bg-clip-text text-transparent">
                 Nexa
             </h1>
-            <h1 class="text-8xl text-gray-700 font-bold">
+            <h1 class="text-8xl font-bold bg-gradient-to-r from-indigo-400 via-sky-600 to-indigo-400 bg-clip-text text-transparent">
                 Wallet
             </h1>
 
@@ -25,14 +25,14 @@ import { RouterLink, RouterView } from 'vue-router'
                 <RouterLink to="/help">Help</RouterLink>
             </nav>
 
-            <h3 class="italic text-red-400">
+            <h3 class="text-sm text-center italic text-red-400">
                 ☠️ This project is in alpha. Use at your own risk.
             </h3>
         </div>
     </header>
 
     <RouterView
-        class="h-screen p-3 bg-gradient-to-r from-yellow-400 to-yellow-500 border-l-2 border-r-2 border-yellow-600"
+        class="h-screen sm:p-3 sm:bg-gradient-to-r sm:from-yellow-400 sm:to-yellow-500 sm:border-l-2 sm:border-r-2 sm:border-yellow-600"
     />
 </template>
 

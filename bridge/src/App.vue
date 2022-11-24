@@ -12,10 +12,10 @@ import { RouterLink, RouterView } from 'vue-router'
         />
 
         <div class="wrapper">
-            <h1 class="text-5xl text-yellow-500 text-center font-bold tracking-widest uppercase bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-400 bg-clip-text text-transparent">
+            <h1 class="text-5xl text-center font-bold tracking-widest uppercase bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-400 bg-clip-text text-transparent">
                 Nexa
             </h1>
-            <h1 class="py-2 text-8xl text-gray-500 text-center font-bold bg-gradient-to-r from-purple-400 via-purple-600 to-purple-400 bg-clip-text text-transparent">
+            <h1 class="py-2 text-8xl text-center font-bold bg-gradient-to-r from-purple-400 via-purple-600 to-purple-400 bg-clip-text text-transparent">
                 Bridge
             </h1>
 

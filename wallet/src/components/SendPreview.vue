@@ -4,6 +4,9 @@ import AccountView from '@/components/AccountView.vue'
 
 <template>
     <div class="">
-        <AccountView />
+        <h2 class="text-3xl">Amount</h2>
+        <h2 class="text-3xl">Receiving address</h2>
+
+        <h1 class="text-8xl">$0.00</h1>
     </div>
 </template>

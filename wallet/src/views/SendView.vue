@@ -1,11 +1,11 @@
 <script setup>
 import NavView from '@/components/NavView.vue'
-import WelcomeView from '@/components/WelcomeView.vue'
+import SendPreview from '@/components/SendPreview.vue'
 </script>
 
 <template>
     <main>
         <NavView />
-        <WelcomeView />
+        <SendPreview />
     </main>
 </template>
