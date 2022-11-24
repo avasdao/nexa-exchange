@@ -32,7 +32,7 @@ import { RouterLink, RouterView } from 'vue-router'
     </header>
 
     <RouterView
-        class="h-screen sm:p-3 sm:bg-gradient-to-r sm:from-yellow-400 sm:to-yellow-500 sm:border-l-2 sm:border-r-2 sm:border-yellow-600"
+        class="main-win my-2 sm:p-3 sm:bg-gradient-to-r sm:from-yellow-400 sm:to-yellow-500 sm:border-l-2 sm:border-r-2 sm:border-yellow-600 rounded-2xl"
     />
 </template>
 
@@ -40,6 +40,10 @@ import { RouterLink, RouterView } from 'vue-router'
 header {
     line-height: 1.5;
     max-height: 100vh;
+}
+
+.main-win {
+    height: calc(100vh - 20px);
 }
 
 .logo {

@@ -22,7 +22,6 @@
             </p>
         </section>
 
-
         <section class="my-7 flex justify-between">
             <div class="p-7 flex flex-col items-center bg-sky-200 border-4 border-sky-500 rounded-xl">
                 <h2 class="text-2xl text-sky-900 font-medium">
@@ -89,7 +88,9 @@
                 Development will be supported by community donations which will then be sold on the Exchange.
                 A current limit of <strong>100,000,000 NEX</strong> will be sold for each trading pair.
             </p>
+        </section>
 
+        <section>
             <div class="mt-5 py-3 px-5 sm:max-w-2xl mx-auto border-2 bg-red-50 border-red-500 rounded-xl">
                 <h3 class="text-lg text-red-500 font-bold">
                     !! FRONTRUNNING ALERT !!
@@ -105,6 +106,23 @@
                 </p>
             </div>
         </section>
+
+        <div class="mt-10 p-3 bg-yellow-200 border-4 border-yellow-400 rounded-lg">
+            <h2 class="text-yellow-800 text-base font-medium">
+                Development / Donation Address
+            </h2>
+
+            <a href="https://explorer.nexa.org/address/nexa:nqtsq5g5v80h5ky86u5uc8uuyjqtsmxgn9rver6hzhqx6qt9" target="_blank" class="block my-3 text-2xl font-medium hover:text-blue-500 hover:underline">
+            <span class="font-bold text-yellow-800">nexa:</span> nqtsq5g5v80h 5ky86u5uc8uu yjqtsmxgn9rv er6hzhqx6qt9</a>
+
+            <input
+                type="text"
+                value="nexa:nqtsq5g5v80h5ky86u5uc8uuyjqtsmxgn9rver6hzhqx6qt9"
+                class="px-2 py-1 block w-full rounded"
+            />
+        </div>
+
+
     </main>
 </template>
 
