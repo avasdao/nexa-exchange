@@ -29,8 +29,7 @@
 
                     <p>
                         The only official URLs for Nexa Exchange are:
-                        <span class="block font-bold text-blue-400">https://nexa.exchange</span>
-                        <span class="block font-bold text-blue-400">https://nexaexchange.com</span>
+                        <span class="block font-bold text-blue-400">https://app.nexa.exchange</span>
                         Bookmark it once and use the bookmark.
                     </p>
 

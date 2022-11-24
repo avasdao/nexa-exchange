@@ -5,21 +5,23 @@ import AboutView from '../views/AboutView.vue'
 import HelpView from '../views/HelpView.vue'
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      component: HomeView
+    history: createWebHashHistory(import.meta.env.BASE_URL),
+    routes: [{
+        path: '/',
+        component: HomeView,
     },
     {
-      path: '/about',
-      component: AboutView
+        path: '/about',
+        component: AboutView,
     },
     {
-      path: '/help',
-      component: HelpView
+        path: '/help',
+        component: HelpView,
     },
-  ]
+    {
+        path: '/:pathMatch(.*)*',
+        component: HomeView,
+    }]
 })
 
 export default router

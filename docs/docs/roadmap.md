@@ -36,9 +36,10 @@ _(expected start date: Monday, March 6th, 2023)_
 - [ ] Add support for $TRX multi-sig wallets
 - [ ] Add support for $XMR multi-sig wallets
 - [ ] Add trading bot support
+- [ ] Migrate key management to SGX enclaves
 
 ### Final Launch
 
 _(expected launch date: Monday, January 1st, 2024)_
 
-_TBD_
+- [ ] Migrate key management to Federation of Validators

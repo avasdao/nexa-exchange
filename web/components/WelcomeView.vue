@@ -1,10 +1,21 @@
+<script setup>
+import { ref } from 'vue'
+
+const address = ref('')
+
+const startSwap = () => {
+    window.location = 'https://swap.nexa.exchange/#/' + address.value
+}
+</script>
+
 <template>
     <main class="bg-gray-900 pt-10 sm:pt-16 lg:overflow-hidden lg:pt-8 lg:pb-14">
         <div class="mx-auto max-w-7xl lg:px-8">
             <div class="lg:grid lg:grid-cols-2 lg:gap-8">
                 <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:flex lg:items-center lg:px-0 lg:text-left">
                     <div class="lg:py-24">
-                        <a href="javascript://" class="inline-flex items-center rounded-full bg-black p-1 pr-2 text-white hover:text-gray-200 sm:text-base lg:text-sm xl:text-base">
+
+                        <a href="javascript://" class="hidden sm:inline-flex items-center rounded-full bg-black p-1 pr-2 text-white hover:text-gray-200 sm:text-base lg:text-sm xl:text-base">
                             <span class="rounded-full bg-gradient-to-r from-teal-500 to-cyan-600 px-3 py-0.5 text-sm font-semibold leading-5 text-white">
                                 Join our community
                             </span>
@@ -19,18 +30,18 @@
                             </svg>
                         </a>
 
-                        <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:mt-5 sm:text-7xl lg:mt-6">
+                        <h1 class="mt-4 text-5xl font-bold tracking-tight text-white sm:mt-5 sm:text-7xl lg:mt-6">
                             <span class="block">Nexa Exchange</span>
 
                             <span class="mt-3 ml-10 text-3xl block bg-gradient-to-r from-teal-200 to-cyan-400 bg-clip-text pb-3 text-transparent sm:pb-5">
-                                Your Keys
-                                <br />Your Coins
+                                Your Keys.
+                                <br />Your Coins.
                                 <br />Since Block # 0
                             </span>
                         </h1>
 
                         <p class="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl">
-                            An open source suite of products and services allowing you to easily swap your precious assets <em>(from any place, at any time)</em> with the safety of a trustless, non-custodial wallet.
+                            An open source suite of products and services allowing you to easily swap your precious assets <em>(from any place, at any time)</em> with the safety of a non-custodial wallet.
                         </p>
 
                         <div class="mt-10 sm:mt-12">
@@ -41,7 +52,8 @@
                                     <input
                                         id="receiving-address"
                                         type="text"
-                                        placeholder="Enter your receiving address"
+                                        placeholder="Enter your wallet address"
+                                        v-model="address"
                                         class="block w-full rounded-md border-0 px-4 py-3 text-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
                                     />
                                 </div>
@@ -50,15 +62,16 @@
                                     <button
                                         type="button"
                                         class="block w-full rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-3 px-4 font-medium text-white text-2xl shadow hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                                        @click="startSwap"
                                     >
-                                        Start Exchange
+                                        Start Asset Swap
                                     </button>
                                 </div>
                             </div>
 
                             <p class="mt-3 text-sm text-gray-300 sm:mt-4">
-                                Type or paste your receiving address above to start the exchange process.
-                                Start your free 14-day trial, no credit card necessary. By continuing, you agree to our <NuxtLink to="/tos" class="font-medium text-white">terms of service</NuxtLink>.
+                                Scan or enter your wallet address to begin the exchange process.
+                                By continuing, you agree to our <NuxtLink to="/tos" class="font-medium text-white">terms of service</NuxtLink>.
                             </p>
                         </div>
                     </div>

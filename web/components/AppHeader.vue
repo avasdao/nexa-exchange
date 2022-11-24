@@ -11,11 +11,27 @@
                     </NuxtLink>
                 </div>
 
+                <section class="sm:hidden">
+                    <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
+                        NEX/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayQuote}}</span>
+                    </h2>
+
+                    <div class="flex justify-end">
+                        <span class="text-yellow-400 font-medium text-xs">
+                            <span class="">+1.28%</span>
+                            <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                            <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
+                            <span class="">2.31M</span>
+                        </span>
+                    </div>
+                </section>
+
                 <div class="-my-2 -mr-2 md:hidden">
                     <button
                         type="button"
                         class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                         aria-expanded="false"
+                        @click="showMobileMenu = !showMobileMenu"
                     >
                         <span class="sr-only">Open menu</span>
                         <!-- Heroicon name: outline/bars-3 -->
@@ -485,12 +501,23 @@
                     </nav>
 
                     <div class="flex items-center md:ml-12">
-                        <a href="javascript://" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                            Sign in
-                        </a>
+                        <section>
+                            <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
+                                NEX/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayQuote}}</span>
+                            </h2>
 
-                        <a href="javascript://" class="ml-8 inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
-                            Sign up
+                            <div class="flex justify-end">
+                                <span class="text-yellow-400 font-medium text-xs">
+                                    <span class="">+1.28%</span>
+                                    <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                    <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
+                                    <span class="">2.31M</span>
+                                </span>
+                            </div>
+                        </section>
+
+                        <a href="https://app.nexa.exchange" target="_blank" class="ml-8 inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                            Launch App
                         </a>
                     </div>
                 </div>
@@ -628,12 +655,13 @@
 
                     <div class="mt-6">
                         <a href="javascript://" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
-                            Sign up
+                            {{displayQuote}}
                         </a>
 
                         <p class="mt-6 text-center text-base font-medium text-gray-500">
-                            Existing customer?
-                            <a href="javascript://" class="text-indigo-600 hover:text-indigo-500">Sign in</a>
+                            <a href="https://app.nexa.exchange" target="_blank" class="text-indigo-600 hover:text-indigo-500">
+                                Launch App
+                            </a>
                         </p>
                     </div>
                 </div>
@@ -643,18 +671,32 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
+/* Import modules. */
+import numeral from 'numeral'
+
+/* Set API endpoint. */
+const API_ENDPOINT = 'https://api.nexa.exchange/v1/ticker/quote/NEX'
+
+/* Set app URL. */
+const APP_URL = 'https://app.nexa.exchange'
 
 export default {
     data: () => ({
         showExtrasMenu: null,
         showSolutionsMenu: null,
         showMobileMenu: null,
+
+        quoteHandler: null,
+        quote: null,
     }),
     computed: {
-        // ...mapGetters({
-        //     // panelIsShowing: 'system/getPanelState'
-        // })
+        displayQuote () {
+            if (!this.quote) {
+                return 'n/a'
+            }
+
+            return numeral(this.quote.price).format('$0,0.00[00]')
+        }
     },
     methods: {
         toggleSolutions () {
@@ -670,16 +712,25 @@ export default {
         launchApp () {
             this.showSolutionsMenu = false
 
-            window.open('https://app.nexa.exchange')
+            window.open(APP_URL)
+        },
+
+        async updateQuote () {
+            const response = await fetch(API_ENDPOINT)
+            this.quote = await response.json()
+            console.log('QUOTE', this.quote)
         }
     },
     created: function () {
         this.showExtrasMenu = false
         this.showSolutionsMenu = false
         this.showMobileMenu = false
-    },
-    mounted: function () {
-        //
+
+        // this.quoteHandler = setInterval(() => {
+        //     this.updateQuote()
+        // }, 30000)
+
+        this.updateQuote()
     }
 }
 </script>

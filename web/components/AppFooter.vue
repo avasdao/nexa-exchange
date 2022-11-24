@@ -203,8 +203,9 @@
             </div>
 
             <div class="mt-12 border-t border-gray-200 py-8">
-                <p class="text-base text-gray-400 xl:text-center">
-                    &copy; {{new Date().getFullYear()}} Nexa Exchange DAO. All rights reserved.
+                <p class="text-sm sm:text-base text-gray-400 xl:text-center">
+                    &copy; {{new Date().getFullYear()}} Nexa Exchange DAO.
+                    <span class="block sm:inline">All rights reserved.</span>
                 </p>
             </div>
         </div>
