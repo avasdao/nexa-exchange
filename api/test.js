@@ -19,6 +19,21 @@ const tronWeb = new TronWeb(
     privateKey
 )
 
+// ;(async () => {
+//     // create new account
+//     // const address = tronWeb.address.toHex()
+//     const address = tronWeb.address.fromPrivateKey(privateKey)
+//     console.log('ADDRESS (hex):', address)
+
+//     const balance = await tronWeb.trx.getBalance(address)
+//     console.log('BALANCE', balance)
+
+//     const account = await tronWeb.trx.getAccount(address)
+//     console.log('ACCOUNT', account)
+//     console.log('ACCOUNT (keys):', account.keys)
+
+// })()
+
 ;(async () => {
     // create new account
     // const address = tronWeb.address.toHex()

@@ -56,7 +56,7 @@ const orders = async function (req, res) {
 
                 /* Return error. */
                 return res.json({
-                    error: 'User not found.'
+                    error: 'Order not found.'
                 })
             }
 

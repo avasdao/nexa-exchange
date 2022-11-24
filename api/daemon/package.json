@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-daemon",
-  "version": "22.11.10",
+  "version": "22.11.24",
   "description": "Nexa Exchange daemon",
   "author": "Ava's DAO <support@avasdao.org>",
   "main": "server.js",
@@ -8,8 +8,10 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@bitauth/libauth": "1.19.1",
     "@magic-sdk/admin": "1.4.1",
     "bitcoin-core": "4.1.0",
+    "bitcore-lib-cash": "^8.25.40",
     "cors": "2.8.5",
     "csv-parser": "3.0.0",
     "ethers": "5.7.0",
