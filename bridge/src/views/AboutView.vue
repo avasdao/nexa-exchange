@@ -1,8 +1,8 @@
 <template>
-    <main class="bg-gradient-to-r from-sky-100 to-sky-200 border-l-2 border-r-2 border-sky-400">
+    <main class="bg-gradient-to-r from-purple-100 to-purple-200 border-l-2 border-r-2 border-purple-400">
         <section class="space-y-5">
             <div>
-                <h3 class="text-xl text-sky-400 font-medium uppercase">
+                <h3 class="text-xl text-purple-400 font-medium uppercase">
                     About
                 </h3>
 

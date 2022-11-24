@@ -7,15 +7,15 @@ import { RouterLink, RouterView } from 'vue-router'
     <header>
         <img
             alt="Nexa Bridge Logo"
-            class="logo w-48 h-48 sm:w-40 sm:h-40"
+            class="logo w-64 h-64 sm:w-40 sm:h-40"
             src="@/assets/logo.png"
         />
 
         <div class="wrapper">
-            <h1 class="text-5xl text-yellow-500 text-center font-bold tracking-widest uppercase">
+            <h1 class="text-5xl text-yellow-500 text-center font-bold tracking-widest uppercase bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-400 bg-clip-text text-transparent">
                 Nexa
             </h1>
-            <h1 class="text-7xl sm:text-8xl text-gray-500 text-center font-bold">
+            <h1 class="py-2 text-8xl text-gray-500 text-center font-bold bg-gradient-to-r from-purple-400 via-purple-600 to-purple-400 bg-clip-text text-transparent">
                 Bridge
             </h1>
 
@@ -25,14 +25,14 @@ import { RouterLink, RouterView } from 'vue-router'
                 <RouterLink to="/help">Help</RouterLink>
             </nav>
 
-            <h3 class="italic text-red-400">
+            <h3 class="text-sm italic text-red-400 text-center">
                 ☠️ This project is in alpha. Use at your own risk.
             </h3>
         </div>
     </header>
 
     <RouterView
-        class="h-screen p-3"
+        class="mt-16 sm:mt-0 h-screen sm:p-3"
     />
 </template>
 
