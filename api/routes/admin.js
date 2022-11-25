@@ -6,7 +6,7 @@ const util = require('util')
 const { v4: uuidv4 } = require('uuid')
 
 const { Magic } = require('@magic-sdk/admin')
-const { request } = require('http')
+// const { request } = require('http')
 
 const magicAdmin = new Magic(process.env.MAGIC_LINK_KEY)
 
@@ -58,7 +58,7 @@ const admin = async function (req, res) {
     /* Handle engine key. */
     // NOTE: This is a 3rd-party service provider.
     if (body.engineKey === process.env.TRADE_ENGINE_KEY) {
-        return request('./admin/trade-engine.js')(req, res)
+        return require('./admin/trade-engine.js')(req, res)
     }
 
     /* Set DID token. */

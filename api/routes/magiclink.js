@@ -12,7 +12,7 @@ const magicAdmin = new Magic(process.env.MAGIC_LINK_KEY)
 /* Initialize databases. */
 const logsDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/logs`)
 const sessionsDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/sessions`)
-const usersDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/users`)
+const profilesDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/profiles`)
 
 /**
  * Magic Module
@@ -92,13 +92,13 @@ const magic = async function (req, res) {
     }
 
     /* Request existing user. */
-    results = await usersDb.query('api/byEmail', {
+    results = await profilesDb.query('api/byEmail', {
         key: email,
         include_docs: true,
     }).catch(err => {
         console.error('DATA ERROR:', err)
     })
-    // console.log('USERS RESULT (byEmail)', util.inspect(results, false, null, true))
+    // console.log('PROFILES RESULT (byEmail)', util.inspect(results, false, null, true))
 
     if (!results || results.rows.length === 0) {
         id = uuidv4()
@@ -112,9 +112,9 @@ const magic = async function (req, res) {
         }
 
         /* Retrieve results. */
-        results = await usersDb.put(pkg)
+        results = await profilesDb.put(pkg)
             .catch(err => {
-                console.error('USERS ERROR:', err)
+                console.error('PROFILES ERROR:', err)
             })
         // console.log('RESULT (new user)', util.inspect(results, false, null, true))
     }
