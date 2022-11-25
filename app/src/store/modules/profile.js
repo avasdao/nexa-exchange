@@ -56,7 +56,7 @@ const actions = {
         const token = await magic.user.getIdToken()
         console.log('MAGIC (token):', token)
 
-        const endpoint = 'http://127.0.0.1:3000/v1/magiclink/'
+        const endpoint = 'https://api.nexa.exchange/v1/magiclink/'
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
