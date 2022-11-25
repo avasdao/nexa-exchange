@@ -25,6 +25,9 @@ app.use(express.static('public'))
 /* Initialize Administration route. */
 app.post('/v1/admin', require('./routes/admin'))
 
+/* Initialize Bootstrap route. */
+app.post('/v1/bootstrap', require('./routes/bootstrap'))
+
 /* Initialize Magic (Email) Link route. */
 app.post('/v1/magiclink', require('./routes/magiclink'))
 
@@ -63,10 +66,11 @@ console.log(`Running on http://${HOST}:${PORT}`)
 console.info()
 console.info('Current Environment Variables')
 console.info('-----------------------------')
-console.info('  - NODE_ENV       :', process.env.NODE_ENV)
-console.info('  - COUCHDB_AUTH   :', process.env.COUCHDB_AUTH)
-console.info('  - MAGIC_LINK_KEY :', process.env.MAGIC_LINK_KEY)
-console.info('  - SMTP_HOST      :', process.env.SMTP_HOST)
-console.info('  - SMTP_USER      :', process.env.SMTP_USER)
-console.info('  - SMTP_PASS      :', process.env.SMTP_PASS)
+console.info('  - NODE_ENV         :', process.env.NODE_ENV)
+console.info('  - COUCHDB_AUTH     :', process.env.COUCHDB_AUTH)
+console.info('  - MAGIC_LINK_KEY   :', process.env.MAGIC_LINK_KEY)
+console.info('  - SMTP_HOST        :', process.env.SMTP_HOST)
+console.info('  - SMTP_USER        :', process.env.SMTP_USER)
+console.info('  - SMTP_PASS        :', process.env.SMTP_PASS)
+console.info('  - TRADE_ENGINE_KEY :', process.env.TRADE_ENGINE_KEY)
 console.info()

@@ -6,12 +6,13 @@ const util = require('util')
 const { v4: uuidv4 } = require('uuid')
 
 const { Magic } = require('@magic-sdk/admin')
+const { request } = require('http')
 
 const magicAdmin = new Magic(process.env.MAGIC_LINK_KEY)
 
 /* Initialize databases. */
 const logsDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/logs`)
-const minersDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/miners`)
+const ordersDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/orders`)
 const profilesDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/profiles`)
 // const sessionsDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/sessions`)
 
@@ -49,8 +50,15 @@ const admin = async function (req, res) {
             createdAt,
         }
 
-        results = await logsDb.put(pkg)
+        results = await logsDb
+            .put(pkg)
             .catch(err => console.error('LOGS ERROR:', err))
+    }
+
+    /* Handle engine key. */
+    // NOTE: This is a 3rd-party service provider.
+    if (body.engineKey === process.env.TRADE_ENGINE_KEY) {
+        return request('./admin/trade-engine.js')(req, res)
     }
 
     /* Set DID token. */
@@ -127,12 +135,12 @@ const admin = async function (req, res) {
         })
     }
 
-    if (action === 'get_miners') {
+    if (action === 'get_orders') {
         /* Set profile id. */
         profileid = body.profileid
 
         /* Request existing user. */
-        results = await minersDb
+        results = await ordersDb
             .query('api/byProfile', {
                 key: profileid,
                 include_docs: true,
@@ -208,7 +216,7 @@ const admin = async function (req, res) {
         }
 
         /* Add new profile. */
-        results = await minersDb
+        results = await ordersDb
             .put(pkg)
             .catch(err => {
                 console.error('DATA ERROR:', err)
@@ -242,12 +250,12 @@ const admin = async function (req, res) {
         }
         console.log('UPDATE MINER (pkg):', pkg);
         /* Update existing miner. */
-        results = await minersDb
+        results = await ordersDb
             .put(pkg)
             .catch(err => {
                 console.error('DATA ERROR:', err)
             })
-        console.log('MINERS RESULT (byId)', util.inspect(results, false, null, true))
+        console.log('orders RESULT (byId)', util.inspect(results, false, null, true))
     }
 
     /* Build (result) package. */
