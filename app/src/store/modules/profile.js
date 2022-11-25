@@ -56,6 +56,20 @@ const actions = {
         const token = await magic.user.getIdToken()
         console.log('MAGIC (token):', token)
 
+        const endpoint = 'http://127.0.0.1:3000/v1/magiclink/'
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                did: token,
+            })
+        })
+        const content = await response.json()
+        console.log('CONTENT', content)
+
         /* Commit data. */
         commit('SET_USER_DATA', {
             metadata,

@@ -20,8 +20,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a role="tab" data-toggle="tab" href="#transfer" class="nav-link" aria-controls="transfer" aria-selected="false">
-                            Transfer
+                        <a role="tab" data-toggle="tab" href="#staking" class="nav-link" aria-controls="staking" aria-selected="false">
+                            Staking/Pools
                         </a>
                     </li>
                 </ul>
@@ -113,27 +113,37 @@
                         </table>
                     </div>
 
-                    <!-- TRANSFER -->
-                    <div role="tabpanel" class="tab-pane fade" id="transfer">
+                    <!-- STAKING -->
+                    <div role="tabpanel" class="tab-pane fade" id="staking">
                         <table class="table table-borderless table-balances">
                             <thead>
                                 <tr>
                                     <th style="width:50%">Token name</th>
-                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance in your personal Ethereum wallet, which you have connected to Nexa Exchange in the account dropdown (upper right).">Wallet</th>
-                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="This is the balance you have deposited from your personal Ethereum wallet to the Nexa Exchange smart contract.">Exchange</th>
+                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="">Wallet</th>
+                                    <th style="width:25%" data-toggle="tooltip" data-placement="bottom" title="">Exchange</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <tr>
                                     <td>
-                                        <a href="javascript://" class="nowrap">{{tokenName}}<span class="d-md-none"> ({{tokenSymbol}})</span></a>
+                                        <a href="javascript://" class="nowrap">{{tokenName}}
+                                            <span class="d-md-none">
+                                                ({{tokenSymbol}})
+                                            </span>
+                                        </a>
                                     </td>
+
                                     <td>
-                                        <span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="0.000000000000">0.0000</span>
+                                        <span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="0.000000000000">
+                                            0.0000
+                                        </span>
                                     </td>
+
                                     <td>
-                                        <span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="0.000000000000">0.0000</span>
+                                        <span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="0.000000000000">
+                                            0.0000
+                                        </span>
                                     </td>
                                 </tr>
 
@@ -141,15 +151,29 @@
                                     <td colspan="3">
                                         <div class="form-row balance-inline-form">
                                             <div class="col-sm-4 form-group">
-                                                <input type="number" class="form-control form-control-sm" id="validationDefault01" value="" placeholder="Amount">
+                                                <input
+                                                    type="number"
+                                                    class="form-control form-control-sm"
+                                                    id="validationDefault01"
+                                                    value=""
+                                                    placeholder="Amt"
+                                                >
                                             </div>
 
                                             <div class="col-sm-5 form-group">
-                                                <input type="text" class="form-control form-control-sm" id="validationDefault02" value="" placeholder="Recipient address">
+                                                <input
+                                                    type="text"
+                                                    class="form-control form-control-sm"
+                                                    id="validationDefault02"
+                                                    value=""
+                                                    placeholder="Addr"
+                                                >
                                             </div>
 
                                             <div class="col-sm-3">
-                                                <button class="btn btn-info btn-sm btn-block">Transfer</button>
+                                                <button class="btn btn-info btn-sm btn-block">
+                                                    Stake
+                                                </button>
                                             </div>
                                         </div>
                                     </td>

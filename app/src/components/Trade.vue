@@ -385,8 +385,8 @@ export default {
         // this.token = await this.getToken('0x505A442B3E3E9AEDF06D54572a295F8D64f8F582')
         // console.log('CURRENT TOKEN', this.token)
 
-        this.expirationTime = 7
-        this.expirationMeasure = 'days'
+        this.expirationTime = 24
+        this.expirationMeasure = 'hours'
     },
     mounted: function () {
         //

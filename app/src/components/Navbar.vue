@@ -131,24 +131,24 @@
 
                         <li class="dropdown-item btn text-info">
                             <i class="fa fa-fw fa-piggy-bank"></i>
-                            Make a Deposit
+                            My Treasury
                             <span class="ml-1 text-xs text-yellow-500 lowercase">non-custodial</span>
                         </li>
 
                         <li class="dropdown-item btn text-info">
                             <i class="fa fa-fw fa-money-check-alt"></i>
-                            Withdraw Funds
+                            Staking / Pools
                             <span class="ml-1 text-xs text-yellow-500 lowercase">non-custodial</span>
                         </li>
 
                         <!-- separator -->
                         <li role="separator" class="dropdown-divider"></li>
 
-                        <li class="dropdown-item btn text-info" @click="connectNexaverse">
+                        <!-- <li class="dropdown-item btn text-info" @click="connectNexaverse">
                             <i class="fa fa-fw fa-plug"></i>
                             Connect Nexaverse
                             <span class="ml-1 text-xs text-yellow-500 lowercase">Mobile</span>
-                        </li>
+                        </li> -->
 
                         <li class="dropdown-item btn text-info" @click="connectMetamask">
                             <i class="fa fa-fw fa-plug"></i>
@@ -356,9 +356,9 @@ export default {
             //
         ]),
 
-        connectNexaverse() {
-            // console.log('TODO: connect Nexaverse')
-        },
+        // connectNexaverse() {
+        //     // console.log('TODO: connect Nexaverse')
+        // },
 
         connectMetamask() {
             // console.log('TODO: connect MetaMask')
