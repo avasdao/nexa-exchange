@@ -365,7 +365,7 @@ export default {
         },
 
         signout () {
-            console.info('Signing out..')
+            console.info('Signing out..') // eslint-disable-line no-console
 
             /* Request email auth. */
             this.$store.dispatch('profile/signout')
