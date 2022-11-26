@@ -50,11 +50,11 @@ const actions = {
 
         /* Request metadata. */
         const metadata = await magic.user.getMetadata()
-        console.log('MAGIC (metadata):', metadata)
+        // console.log('MAGIC (metadata):', metadata)
 
         /* Request DID. */
         const token = await magic.user.getIdToken()
-        console.log('MAGIC (token):', token)
+        // console.log('MAGIC (token):', token)
 
         const endpoint = 'https://api.nexa.exchange/v1/magiclink/'
         const response = await fetch(endpoint, {
@@ -67,8 +67,9 @@ const actions = {
                 did: token,
             })
         })
+
         const content = await response.json()
-        console.log('CONTENT', content)
+        console.log('Content', content) // eslint-disable-line no-console
 
         /* Commit data. */
         commit('SET_USER_DATA', {
