@@ -4,32 +4,29 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: '100% Non-Custodial',
+    Svg: require('@site/static/img/key-lock-protect.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Introducing the FIRST "trustless" crypto exchange where you will ALWAYS maintain 100% control of YOUR private keys and YOUR coins.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Mobile-friendly UI/UX',
+    Svg: require('@site/static/img/mobile-friendly.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Get the latest quotes and trade info on-the-go — enjoy a gallery of beautiful charts & graphs that look great on both phones and tablets.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Decentralized Security',
+    Svg: require('@site/static/img/network.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        A fully-audited, state-of-the-art security system that lives at the heart of the Exchange is operated by a Federation of AAA Validators.
       </>
     ),
   },

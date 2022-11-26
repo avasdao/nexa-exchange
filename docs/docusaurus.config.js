@@ -85,7 +85,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: '5 Minute Introduction',
+                label: '5 Minute Welcome Tour',
                 to: '/intro',
               },
             ],
@@ -94,16 +94,16 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Reddit',
+                href: 'https://www.reddit.com/r/nexa',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Matrix',
+                href: 'https://matrix.to/#/#nexa-general:matrix.org',
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: 'https://twitter.com/AvasDAO',
               },
             ],
           },

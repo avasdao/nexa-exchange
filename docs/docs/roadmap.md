@@ -43,3 +43,4 @@ _(expected start date: Monday, March 6th, 2023)_
 _(expected launch date: Monday, January 1st, 2024)_
 
 - [ ] Migrate key management to Federation of Validators
+- [ ] Perform risk assessment and monitoring of user activities against unexpected behaviour and fraudulent activity.
