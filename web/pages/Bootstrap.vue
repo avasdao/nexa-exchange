@@ -221,7 +221,7 @@
             />
         </div>
 
-        <section>
+        <section class="hidden">
             <div class="mt-5 py-3 px-5 sm:max-w-2xl mx-auto border-2 bg-red-50 border-red-500 rounded-xl">
                 <h3 class="text-lg text-red-500 font-bold">
                     !! FRONTRUNNING ALERT !!

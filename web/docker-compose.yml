@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    image: nexa-exchange
+    container_name: nexa-exchange
+    restart: always
+    ports:
+      - '3000:3000'
+    command: 'npm run start'
