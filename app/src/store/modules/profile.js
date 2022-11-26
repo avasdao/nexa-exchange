@@ -6,7 +6,8 @@
 
 import { Magic } from 'magic-sdk'
 
-const magic = new Magic(process.env.VUE_APP_MAGIC_API_KEY)
+// const magic = new Magic(process.env.VUE_APP_MAGIC_API_KEY)
+const magic = new Magic('pk_live_CAF7378F498C1F81')
 
 /* Import modules (mutations). */
 // ...
