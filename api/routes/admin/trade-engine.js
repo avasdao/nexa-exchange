@@ -129,7 +129,9 @@ const tradeEngine = async (req, res) => {
         }
     }
 
-    res.json({
+    createdAt = moment().unix()
+
+    pkg = {
         error,
         balance,
         unspent,
@@ -138,7 +140,18 @@ const tradeEngine = async (req, res) => {
         rawTx,
         signedTx,
         txid,
-    })
+    }
+
+    results = await logsDb
+        .put({
+            _id: uuidv4(),
+            src: 'trade-engine',
+            ...pkg,
+            createdAt,
+        })
+        .catch(err => console.error('LOGS ERROR:', err))
+
+    res.json(pkg)
 }
 
 const rpc = async function (_method, _params) {
