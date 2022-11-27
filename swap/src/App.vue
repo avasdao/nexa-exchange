@@ -11,7 +11,7 @@ const hostname = myLocation.hostname // localhost
 
 /* Validate all mirrors. */
 if (hostname === 'nexaswap.com') {
-    window.location.replace = 'https://swap.nexa.exchange' // NOTE: We have no history added here.
+    window.location.replace('https://swap.nexa.exchange') // NOTE: We have no history added here.
     // FIXME: Be sure to attach the "original" path or hash!!
 }
 
