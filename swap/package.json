@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-bridge",
-  "version": "22.11.26",
+  "version": "22.11.27",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,14 +11,18 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "moment": "2.29.4",
+    "numeral": "2.0.6",
     "pinia": "2.0.23",
     "qr-scanner": "1.4.2",
     "qrcode": "1.5.1",
+    "uuid": "9.0.0",
     "vue": "3.2.41",
     "vue-router": "4.1.5"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "1.1.4",
+    "@tailwindcss/typography": "0.5.8",
     "@vitejs/plugin-vue": "3.1.2",
     "@vue/eslint-config-prettier": "7.0.0",
     "@vue/test-utils": "2.1.0",

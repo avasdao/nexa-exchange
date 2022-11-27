@@ -1,6 +1,26 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+import numeral from 'numeral'
+
+/* Set API endpoint. */
+const API_ENDPOINT = 'https://api.nexa.exchange/v1/ticker/quote/NEX'
+
+// let quote = ref(0)
+let displayQuote = ref(null)
+
+const updateQuote = async () => {
+    const response = await fetch(API_ENDPOINT)
+    const quote = await response.json()
+    console.log('QUOTE', quote)
+
+    displayQuote.value = numeral(quote.price).format('$0,0.00[00]')
+}
+
+updateQuote()
+
+// let displayQuote = quote.value
+
 </script>
 
 <template>
@@ -28,6 +48,22 @@ import { RouterLink, RouterView } from 'vue-router'
             <h3 class="italic text-red-400">
                 ☠️ This project is in alpha. Use at your own risk.
             </h3>
+
+            <section class="mt-3 px-5 py-2 bg-gray-800 rounded-md">
+                <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
+                    NEX/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayQuote}}</span>
+                </h2>
+
+                <div class="flex justify-end">
+                    <span class="text-yellow-400 font-medium text-xs">
+                        <span class="">+1.28%</span>
+                        <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
+                        <span class="">2.31M</span>
+                    </span>
+                </div>
+            </section>
+
         </div>
     </header>
 
