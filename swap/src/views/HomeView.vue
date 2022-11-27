@@ -1,10 +1,14 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 import AssetButton from '../components/AssetButton.vue'
 
-import QRCode from 'qrcode'
 import QrScanner from 'qr-scanner'
 QrScanner.WORKER_PATH = './js/qr-scanner-worker.min.js'
+
+/* Initialize router. */
+const router = useRouter()
 
 const showPrev = () => {
     // alert('show last')
@@ -16,33 +20,27 @@ const showMore = () => {
 
 const ENDPOINT = 'https://api.telr.io/v1/concierge/'
 
-let depositAddress = ref(null)
+// let depositAddress = ref(null)
 let settleAddress = ref(null)
-let swap = ref(null)
-let amount = ref(0)
-let dataUrl = ref('')
+// let swap = ref(null)
+// let amount = ref(0)
+// let dataUrl = ref('')
 let showVideoPreview = ref(false)
 let videoPreviewClass = ref(null)
+let isShowingNexa = ref(false)
+let isValidAddress = ref(false)
 
 let video = null
 let scanner = null
 let cameraError = false
 
-/**
- * Generate QR Code
- *
- * @param {*} text
- */
- const generateQR = async text => {
-    try {
-        dataUrl.value = await QRCode.toDataURL(text)
-    } catch (err) {
-        console.error(err)
-    }
+const startNexa = () => {
+    isShowingNexa.value = true
 }
 
-const startNexa = () => {
-    // openScanner()
+const startBitcoinCash = () => {
+    /* Request swap. */
+    requestSwap(settleAddress.value)
 }
 
 const openScanner = () => {
@@ -57,9 +55,6 @@ const openScanner = () => {
 const setReceiver = (_result) => {
     // console.log('SET DESTINATION', _result)
 
-    /* Request swap. */
-    requestSwap(_result)
-
     // showVideoPreview = 'hidden'
     showVideoPreview.value = false
 
@@ -67,9 +62,6 @@ const setReceiver = (_result) => {
         scanner.destroy()
         scanner = null
     }
-
-    /* Go to loan page. */
-    // $router.push('/admin/loans/' + _result)
 }
 
 /**
@@ -109,14 +101,18 @@ const startScanner = async () => {
                 console.log('SCANNER DATA', _data)
 
                 // FIXME: Build a new link parser
-                const result = _data
-                // const result = parseLink(_data)
+                const address = _data
+                // const address = parseLink(_data)
 
-                /* Validate (scanner) result. */
-                if (result) {
-                    settleAddress.value = result
-                    setReceiver(result)
+                /* Validate (scanner) address. */
+                if (address) {
+                    settleAddress.value = address
+
+                    setReceiver(address)
                 }
+
+                // validateAddress(address)
+                validateAddress()
             })
 
             /* Start scanner. */
@@ -158,8 +154,50 @@ const requestSwap = async (_settleAddress) => {
     const response = await rawResponse.json()
     console.log('REQUEST SWAP', response)
 
-    depositAddress.value = response.depositAddress
-    generateQR(response.depositAddress)
+    /* Load monitoring page. */
+    router.push('/' + response.id)
+}
+
+/**
+ * Validate Address
+ *
+ * Makes a remote call to the the Core endpoint of the API.
+ */
+ const validateAddress = async () => {
+    if (!settleAddress.value || settleAddress.value === '') {
+        return false
+    }
+
+    const endpoint = 'https://api.nexa.exchange/v1/core/'
+
+    const rawResponse = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            action: 'validateaddress',
+            params: [settleAddress.value]
+        })
+    })
+
+    const content = await rawResponse.json()
+    console.log('CONTENT', content)
+
+    if (!content) {
+        console.error('API ERROR!')
+
+        return false
+    }
+
+    /* Validate address. */
+    if (content.isvalid) {
+        /* Set address flag. */
+        isValidAddress.value = true
+    }
+
+    // return content
 }
 
 </script>
@@ -223,15 +261,26 @@ const requestSwap = async (_settleAddress) => {
                 </button>
             </nav>
 
-            <div class="mt-7 flex flex-row gap-4">
+            <div
+                v-if="isShowingNexa"
+                class="mt-7 flex flex-row gap-4"
+                :class="[ isValidAddress ? 'opacity-30' : 'opacity-100' ]"
+            >
                 <input
                     type="text"
                     placeholder="Type or paste your :nexa address"
                     v-model="settleAddress"
+                    @keyup="validateAddress"
+                    @change="validateAddress"
+                    @paste="validateAddress"
+                    :disabled="isValidAddress"
                     class="px-3 py-1 w-full border-2 border-yellow-500 text-xl rounded"
                 />
 
-                <button @click="openScanner">
+                <button
+                    @click="openScanner"
+                    :disabled="isValidAddress"
+                >
                     <svg class="w-12 h-12 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
                 </button>
             </div>
@@ -240,24 +289,8 @@ const requestSwap = async (_settleAddress) => {
 
         <section
             class="my-5 p-5 bg-gradient-to-r from-sky-200 to-sky-300 border-4 border-sky-400 rounded-lg shadow-lg"
-            :class="[ dataUrl ? 'opacity-100' : 'opacity-30 cursor-not-allowed']"
+            :class="[ isValidAddress ? 'opacity-100' : 'opacity-30 cursor-not-allowed']"
         >
-            <div class="flex flex-col items-center">
-                <img
-                    v-if="dataUrl"
-                    :src="dataUrl"
-                    class="p-1 border-4 border-sky-500 w-64 h-64 rounded-lg shadow"
-                />
-
-                <h2 v-if="depositAddress" class="my-3 text-sky-700 font-medium text-base">
-                    {{depositAddress}}
-                </h2>
-
-                <p class="w-2/3 text-sm text-center">
-                    Scan the QR Code above or click on the Bitcoin Cash (BCH) address below to launch your payment app.
-                </p>
-            </div>
-
             <h1 class="text-4xl font-bold">
                 I have:
             </h1>
@@ -280,9 +313,11 @@ const requestSwap = async (_settleAddress) => {
                     />
 
                     <AssetButton
+                        @click="startBitcoinCash"
                         assetid="BCH"
                         asset-name="Bitcoin Cash"
                         class="w-full sm:w-36"
+                        :class="[ isValidAddress ? 'opacity-100' : 'opacity-50 cursor-not-allowed']"
                     />
 
                     <AssetButton
