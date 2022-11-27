@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import AssetButton from '../components/AssetButton.vue'
 
 import QrScanner from 'qr-scanner'
-QrScanner.WORKER_PATH = './js/qr-scanner-worker.min.js'
+// QrScanner.WORKER_PATH = './js/qr-scanner-worker.min.js'
 
 /* Initialize router. */
 const router = useRouter()
