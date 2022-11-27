@@ -5,7 +5,7 @@ import numeral from 'numeral'
 
 /* Verify the URL (location), for security reasons. */
 const myLocation = document.location
-console.log('MY LOCATION', myLocation)
+// console.log('MY LOCATION', myLocation)
 const hash = myLocation.hash // #/3f080076-d30b-4d32-b51a-120ae63f6905
 const hostname = myLocation.hostname // localhost
 
@@ -24,7 +24,7 @@ let displayQuote = ref(null)
 const updateQuote = async () => {
     const response = await fetch(API_ENDPOINT)
     const quote = await response.json()
-    console.log('QUOTE', quote)
+    // console.log('QUOTE', quote)
 
     displayQuote.value = numeral(quote.price).format('$0,0.00[00]')
 }
