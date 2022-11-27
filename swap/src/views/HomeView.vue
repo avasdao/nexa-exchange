@@ -11,20 +11,21 @@ const showPrev = () => {
 }
 
 const showMore = () => {
-    // alert('show more')
-    openScanner()
+    alert('Our team is hard at work! 💪\nMore assets are being added soon..')
 }
 
 const ENDPOINT = 'https://api.telr.io/v1/concierge/'
 
 let depositAddress = ref(null)
+let settleAddress = ref(null)
 let swap = ref(null)
 let amount = ref(0)
 let dataUrl = ref('')
+let showVideoPreview = ref(false)
+let videoPreviewClass = ref(null)
 
-let showVideoPreview = null
 let video = null
-let scanner= null
+let scanner = null
 let cameraError = false
 
 /**
@@ -40,9 +41,17 @@ let cameraError = false
     }
 }
 
+const startNexa = () => {
+    // openScanner()
+}
+
 const openScanner = () => {
-    /* Start scanner. */
-    startScanner()
+    showVideoPreview.value = true
+
+    setTimeout(() => {
+        /* Start scanner. */
+        startScanner()
+    }, 100)
 }
 
 const setReceiver = (_result) => {
@@ -51,7 +60,8 @@ const setReceiver = (_result) => {
     /* Request swap. */
     requestSwap(_result)
 
-    showVideoPreview = 'hidden'
+    // showVideoPreview = 'hidden'
+    showVideoPreview.value = false
 
     if (scanner) {
         scanner.destroy()
@@ -69,11 +79,13 @@ const setReceiver = (_result) => {
  *       However, it DOES work well on all iOS devices tested.
  */
 const startScanner = async () => {
+    console.log('SCANNER', scanner)
     if (scanner) {
         scanner.destroy()
         scanner = null
 
-        showVideoPreview = 'hidden'
+        // showVideoPreview = 'hidden'
+        showVideoPreview.value = false
 
         return
     }
@@ -91,7 +103,7 @@ const startScanner = async () => {
             /* Initialize video element. */
             video = document.getElementById('video-display')
 
-            showVideoPreview = 'flex w-full mt-5 bg-gray-100 border-4 border-gray-300 p-2 rounded-xl z-10'
+            videoPreviewClass.value = 'flex w-full bg-yellow-300 border-4 border-yellow-500 p-1 rounded z-10'
 
             scanner = new QrScanner(video, (_data) => {
                 console.log('SCANNER DATA', _data)
@@ -102,6 +114,7 @@ const startScanner = async () => {
 
                 /* Validate (scanner) result. */
                 if (result) {
+                    settleAddress.value = result
                     setReceiver(result)
                 }
             })
@@ -142,11 +155,11 @@ const requestSwap = async (_settleAddress) => {
     })
     console.log('RAW RESPONSE', rawResponse)
 
-    swap.value = await rawResponse.json()
-    console.log('REQUEST SWAP', swap.value)
+    const response = await rawResponse.json()
+    console.log('REQUEST SWAP', response)
 
-    depositAddress.value = swap.value.depositAddress
-    generateQR(swap.value.depositAddress)
+    depositAddress.value = response.depositAddress
+    generateQR(response.depositAddress)
 }
 
 </script>
@@ -154,21 +167,19 @@ const requestSwap = async (_settleAddress) => {
 <template>
     <main>
         <section class="my-5 p-5 bg-gradient-to-r from-yellow-200 to-yellow-300 border-4 border-yellow-400 rounded-lg shadow-lg">
-            <video :class="showVideoPreview" id="video-display" autoplay playsinline />
-            <img
-                :src="dataUrl"
-                class="m-5 w-48 h-48"
-            />
+            <video
+                v-if="showVideoPreview"
+                :class="videoPreviewClass"
+                id="video-display"
+                autoplay
+                playsinline
+            ></video>
 
-            <h2 class="mt-3 text-xl">
-                {{depositAddress}}
-            </h2>
-
-            <h1 class="text-4xl font-bold">
+            <h1 class="mt-3 text-4xl font-bold">
                 I want:
             </h1>
 
-            <nav class="mt-5 flex">
+            <nav class="mt-5 flex flex-col sm:flex-row">
                 <button class="mr-3 flex items-center group cursor-not-allowed" @click="showPrev">
                     <span class="ml-1 mb-3 text-7xl text-yellow-400">
                         ‹
@@ -178,20 +189,24 @@ const requestSwap = async (_settleAddress) => {
                     </span>
                 </button>
 
-                <ul class="flex gap-5">
+                <ul class="flex flex-col sm:flex-row gap-5">
                     <AssetButton
+                        @click="startNexa"
                         assetid="NEX"
                         asset-name="Nexa"
+                        class="w-full sm:w-36"
                     />
 
                     <AssetButton
                         assetid="BTC"
                         asset-name="Bitcoin"
+                        class="w-full sm:w-36 opacity-50 cursor-not-allowed"
                     />
 
                     <AssetButton
                         assetid="BCH"
                         asset-name="Bitcoin Cash"
+                        class="w-full sm:w-36 opacity-50 cursor-not-allowed"
                     />
 
                     <!-- <li>Tether (USDT)</li> -->
@@ -207,14 +222,47 @@ const requestSwap = async (_settleAddress) => {
                     </span>
                 </button>
             </nav>
+
+            <div class="mt-7 flex flex-row gap-4">
+                <input
+                    type="text"
+                    placeholder="Type or paste your :nexa address"
+                    v-model="settleAddress"
+                    class="px-3 py-1 w-full border-2 border-yellow-500 text-xl rounded"
+                />
+
+                <button @click="openScanner">
+                    <svg class="w-12 h-12 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                </button>
+            </div>
+
         </section>
 
-        <section class="opacity-30 cursor-not-allowed my-5 p-5 bg-gradient-to-r from-sky-200 to-sky-300 border-4 border-sky-400 rounded-lg shadow-lg">
+        <section
+            class="my-5 p-5 bg-gradient-to-r from-sky-200 to-sky-300 border-4 border-sky-400 rounded-lg shadow-lg"
+            :class="[ dataUrl ? 'opacity-100' : 'opacity-30 cursor-not-allowed']"
+        >
+            <div class="flex flex-col items-center">
+                <img
+                    v-if="dataUrl"
+                    :src="dataUrl"
+                    class="p-1 border-4 border-sky-500 w-64 h-64 rounded-lg shadow"
+                />
+
+                <h2 v-if="depositAddress" class="my-3 text-sky-700 font-medium text-base">
+                    {{depositAddress}}
+                </h2>
+
+                <p class="w-2/3 text-sm text-center">
+                    Scan the QR Code above or click on the Bitcoin Cash (BCH) address below to launch your payment app.
+                </p>
+            </div>
+
             <h1 class="text-4xl font-bold">
                 I have:
             </h1>
 
-            <nav class="mt-5 flex">
+            <nav class="mt-5 flex flex-col sm:flex-row">
                 <button class="mr-3 flex items-center group cursor-not-allowed" @click="showPrev">
                     <span class="ml-1 mb-3 text-7xl text-sky-400">
                         ‹
@@ -224,20 +272,23 @@ const requestSwap = async (_settleAddress) => {
                     </span>
                 </button>
 
-                <ul class="flex gap-5">
+                <ul class="flex flex-col sm:flex-row gap-5">
                     <AssetButton
                         assetid="BTC"
                         asset-name="Bitcoin"
+                        class="w-full sm:w-36 opacity-50 cursor-not-allowed"
                     />
 
                     <AssetButton
                         assetid="BCH"
                         asset-name="Bitcoin Cash"
+                        class="w-full sm:w-36"
                     />
 
                     <AssetButton
                         assetid="CASH"
                         asset-name="Ca$h Money"
+                        class="w-full sm:w-36 opacity-50 cursor-not-allowed"
                     />
                 </ul>
 
