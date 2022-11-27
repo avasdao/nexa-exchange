@@ -3,6 +3,18 @@ import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue'
 import numeral from 'numeral'
 
+/* Verify the URL (location), for security reasons. */
+const myLocation = document.location
+console.log('MY LOCATION', myLocation)
+const hash = myLocation.hash // #/3f080076-d30b-4d32-b51a-120ae63f6905
+const hostname = myLocation.hostname // localhost
+
+/* Validate all mirrors. */
+if (hostname === 'nexaswap.com') {
+    window.location.replace = 'https://swap.nexa.exchange' // NOTE: We have no history added here.
+    // FIXME: Be sure to attach the "original" path or hash!!
+}
+
 /* Set API endpoint. */
 const API_ENDPOINT = 'https://api.nexa.exchange/v1/ticker/quote/NEX'
 
@@ -19,8 +31,6 @@ const updateQuote = async () => {
 
 updateQuote()
 
-// let displayQuote = quote.value
-
 </script>
 
 <template>
@@ -31,11 +41,11 @@ updateQuote()
             src="@/assets/logo.png"
         />
 
-        <div class="wrapper">
-            <h1 class="text-6xl text-yellow-400 font-bold uppercase bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-400 bg-clip-text text-transparent">
+        <div class="">
+            <h1 class="text-6xl font-bold uppercase bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-400 bg-clip-text text-transparent">
                 Nexa
             </h1>
-            <h1 class="text-9xl text-gray-500 font-bold bg-gradient-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text text-transparent">
+            <h1 class="text-9xl font-bold bg-gradient-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text text-transparent">
                 Swap
             </h1>
 
