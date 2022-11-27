@@ -49,6 +49,7 @@ app.post('/v1/rpc', require('./routes/rpc'))
 app.post('/v1/sessions', require('./routes/sessions'))
 
 /* Initialize Proxies route. */
+app.get('/v1/swaps/:orderid', require('./routes/proxy'))
 app.get('/v1/ticker/price/:assetid', require('./routes/proxy'))
 app.get('/v1/ticker/quote/:assetid', require('./routes/proxy'))
 
