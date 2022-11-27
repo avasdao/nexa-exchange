@@ -1,10 +1,10 @@
 <template>
     <main class="mt-5 flex flex-col space-y-5 items-center">
-        <h1 class="text-3xl sm:text-4xl text-gray-500 font-medium text-center tracking-widest">
+        <h1 class="text-4xl sm:text-4xl text-gray-500 font-medium text-center tracking-widest">
             Monitoring Station
         </h1>
 
-        <p class="w-2/3 text-red-500 font-medium text-center cursor-help">
+        <p class="sm:w-2/3 text-red-500 font-medium text-center cursor-help">
             Please <strong>SAVE</strong> or <strong>BOOKMARK</strong> this page to easily track your order status and tx details.
         </p>
 
@@ -20,7 +20,7 @@
 
         <hr />
 
-        <div class="flex flex-col items-center">
+        <div v-if="status" class="flex flex-col items-center">
             <div
                 v-if="status === 'complete'"
                 class="absolute w-full h-full bg-white opacity-80 cursor-not-allowed z-10">
@@ -43,6 +43,14 @@
             </p>
         </div>
 
+        <div v-else>
+            <h1 class="text-4xl text-gray-500 font-medium italic">
+                Loading Your
+                <br />Order Details...
+            </h1>
+        </div>
+
+        <!-- Waiting message -->
         <section v-if="status === 'waiting'" class="flex flex-col items-center">
             <h3 class="text-2xl font-medium">
                 Now <strong class="text-indigo-700">waiting</strong> for your payment
@@ -52,7 +60,9 @@
                 Expires <strong class="text-indigo-700">{{expirationTime}}</strong>
             </h3>
         </section>
-        <section v-else class="flex flex-col items-center">
+
+        <!-- Complete message -->
+        <section v-if="status === 'complete'" class="flex flex-col items-center">
             <h3 class="text-2xl font-medium">
                 Your swap is <strong class="text-indigo-700">complete!</strong>
             </h3>
