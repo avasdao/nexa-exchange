@@ -51,10 +51,14 @@
         </div>
 
         <!-- Waiting message -->
-        <section v-if="status === 'waiting'" class="flex flex-col items-center">
-            <h3 class="text-2xl font-medium">
+        <section v-if="status === 'waiting'" class="mb-10 flex flex-col items-center">
+            <h2 class="text-2xl font-medium">
                 Now <strong class="text-indigo-700">waiting</strong> for your payment
-            </h3>
+            </h2>
+
+            <h2 class="text-2xl font-medium">
+                Send up to <strong class="text-indigo-700">{{paymentMax}}</strong> per swap
+            </h2>
 
             <h3 class="text-lg font-medium">
                 Expires <strong class="text-indigo-700">{{expirationTime}}</strong>
@@ -62,7 +66,7 @@
         </section>
 
         <!-- Complete message -->
-        <section v-if="status === 'complete'" class="flex flex-col items-center">
+        <section v-if="status === 'complete'" class="mb-10 flex flex-col items-center">
             <h3 class="text-2xl font-medium">
                 Your swap is <strong class="text-indigo-700">complete!</strong>
             </h3>
@@ -88,6 +92,7 @@ export default {
         dataUrl: null,
         status: null,
         expiresAt: null,
+        paymentMax: null,
 
         showVideoPreview: null,
         video: null,
@@ -149,6 +154,8 @@ export default {
 
         this.orderid = path.slice(1)
         console.log('Order ID', this.orderid)
+
+        this.paymentMax = 'US$100.00'
 
         this.init()
     },
