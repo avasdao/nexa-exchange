@@ -52,15 +52,15 @@
 
         <!-- Waiting message -->
         <section v-if="status === 'waiting'" class="mb-10 flex flex-col items-center">
-            <h2 class="text-2xl font-medium">
+            <h2 class="text-xl sm:text-2xl font-medium">
                 Now <strong class="text-indigo-700">waiting</strong> for your payment
             </h2>
 
-            <h2 class="text-2xl font-medium">
+            <h2 class="text-xl sm:text-2xl font-medium">
                 Send up to <strong class="text-indigo-700">{{paymentMax}}</strong> per swap
             </h2>
 
-            <h3 class="text-lg font-medium">
+            <h3 class="text-base sm:text-lg font-medium">
                 Expires <strong class="text-indigo-700">{{expirationTime}}</strong>
             </h3>
         </section>
