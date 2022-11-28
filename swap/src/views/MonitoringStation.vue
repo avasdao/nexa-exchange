@@ -139,8 +139,8 @@ export default {
         },
 
         makePayment () {
-            // window.open(`${this.depositAddress}&label=Nexa Exchange`)
-            window.location.href = `${this.depositAddress}&label=Nexa Exchange`
+            // window.location.href = `${this.depositAddress}&label=Nexa Exchange`
+            window.location.href = this.depositAddress
         }
     },
     created: function () {
