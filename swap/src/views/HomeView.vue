@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import AssetButton from '../components/AssetButton.vue'
@@ -33,6 +33,15 @@ let isValidAddress = ref(false)
 let video = null
 let scanner = null
 let cameraError = false
+
+/* Watch the settle address for "instant" handling of changes. */
+// NOTE: Watch is necessary to detect "pasting" on mobile.
+watch(settleAddress, (_address) => {
+    // console.log('SETTLE ADDRESS CHANGED', _address)
+
+    /* Request address validation. */
+    validateAddress()
+})
 
 const startNexa = () => {
     isShowingNexa.value = true
@@ -183,7 +192,7 @@ const requestSwap = async (_settleAddress) => {
     })
 
     const content = await rawResponse.json()
-    console.log('CONTENT', content)
+    // console.log('CONTENT', content)
 
     if (!content) {
         console.error('API ERROR!')
@@ -270,9 +279,6 @@ const requestSwap = async (_settleAddress) => {
                     type="text"
                     placeholder="Type or paste your :nexa address"
                     v-model="settleAddress"
-                    @keyup="validateAddress"
-                    @change="validateAddress"
-                    @paste="validateAddress"
                     :disabled="isValidAddress"
                     class="px-3 py-1 w-full border-2 border-yellow-500 text-xl rounded"
                 />
