@@ -39,8 +39,11 @@ let cameraError = false
 watch(settleAddress, (_address) => {
     // console.log('SETTLE ADDRESS CHANGED', _address)
 
-    /* Request address validation. */
-    validateAddress()
+    // FIXME: Verify that 20 chars is valid for all supported address formats.
+    if (_address && _address.length > 20) {
+        /* Request address validation. */
+        validateAddress()
+    }
 })
 
 const startNexa = () => {

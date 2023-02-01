@@ -1,6 +1,6 @@
 {
-  "name": "nexa-exchange-bridge",
-  "version": "22.11.27",
+  "name": "nexa-exchange-swap",
+  "version": "23.1.28",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
