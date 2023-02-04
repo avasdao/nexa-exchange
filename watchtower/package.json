@@ -1,0 +1,16 @@
+{
+  "name": "nexa-exchange-watchtower",
+  "version": "23.2.4",
+  "description": "A cross-chain daemon used by the Wardens to secure & transfer assets across the Bridge.",
+  "main": "index.js",
+  "repository": "https://github.com/avasdao/nexa-exchange",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.18.2",
+    "moment": "2.29.4",
+    "numeral": "2.0.6",
+    "superagent": "8.0.9",
+    "uuid": "9.0.0"
+  }
+}
