@@ -28,11 +28,11 @@ app.post('/v1/admin', require('./routes/admin'))
 /* Initialize Bootstrap route. */
 app.post('/v1/bootstrap', require('./routes/bootstrap'))
 
+/* Initialize Bridge route. */
+app.post('/v1/bridge', require('./routes/bridge'))
+
 /* Initialize Core (Node) route. */
 app.post('/v1/core', require('./routes/core'))
-
-/* Initialize Magic (Email) Link route. */
-app.post('/v1/magiclink', require('./routes/magiclink'))
 
 /* Initialize Notifications route. */
 app.post('/v1/notifs', require('./routes/notifs'))
