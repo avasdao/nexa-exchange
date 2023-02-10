@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    image: nexa-exchange
+    container_name: nexa-exchange
+    restart: always
+    ports:
+      - '127.0.0.1:3000:80'
