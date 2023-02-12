@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-api",
-  "version": "22.11.24",
+  "version": "23.2.12",
   "description": "Nexa Exchange API",
   "author": "Ava's DAO <support@avasdao.org>",
   "main": "server.js",
@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@bitauth/libauth": "1.19.1",
-    "@magic-sdk/admin": "1.4.1",
     "bitcoin-core": "4.1.0",
     "bitcore-lib-cash": "8.25.40",
     "cors": "2.8.5",

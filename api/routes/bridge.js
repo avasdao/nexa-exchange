@@ -1,5 +1,4 @@
 /* Import modules. */
-const { Magic } = require('@magic-sdk/admin')
 const moment = require('moment')
 const PouchDB = require('pouchdb')
 const superagent = require('superagent')
@@ -108,35 +107,6 @@ const bridge = async function (req, res) {
                 /* Return error. */
                 return res.json({
                     error: 'You MUST provide a DID token.'
-                })
-            }
-
-            /* Set issuer. */
-            const issuer = magicAdmin.token.getIssuer(token)
-
-            /* Validate issuer. */
-            if (!issuer) {
-                /* Set status. */
-                res.status(400)
-
-                /* Return error. */
-                return res.json({
-                    error: 'Could NOT retrieve this issuer.'
-                })
-            }
-
-            /* Set issuer metadata. */
-            const metadata = await magicAdmin.users.getMetadataByIssuer(issuer)
-            // console.log('MAGIC LOGIN (data):', JSON.stringify(metadata, null, 4))
-
-            /* Validate metadata. */
-            if (!metadata) {
-                /* Set status. */
-                res.status(400)
-
-                /* Return error. */
-                return res.json({
-                    error: 'Could NOT retrieve the email for this issuer.'
                 })
             }
 

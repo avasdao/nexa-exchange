@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-web",
-  "version": "22.11.6",
+  "version": "23.2.12",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -15,10 +15,9 @@
     "@nuxtjs/pwa": "3.3.5",
     "crypto-js": "4.1.1",
     "gravatar": "1.8.2",
-    "magic-sdk": "10.0.0",
     "moment": "2.29.4",
     "numeral": "2.0.6",
-    "nuxt": "3.0.0-rc.13",
+    "nuxt": "3.2.0",
     "nuxt-highcharts": "2.0.4",
     "qrcode": "1.5.1",
     "uuid": "9.0.0"

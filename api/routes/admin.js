@@ -5,11 +5,6 @@ const superagent = require('superagent')
 const util = require('util')
 const { v4: uuidv4 } = require('uuid')
 
-const { Magic } = require('@magic-sdk/admin')
-// const { request } = require('http')
-
-const magicAdmin = new Magic(process.env.MAGIC_LINK_KEY)
-
 /* Initialize databases. */
 const logsDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/logs`)
 const ordersDb = new PouchDB(`http://${process.env.COUCHDB_AUTH}@localhost:5984/orders`)
@@ -75,14 +70,6 @@ const admin = async function (req, res) {
         })
     }
 
-    /* Set issuer. */
-    issuer = magicAdmin.token.getIssuer(didToken)
-    // console.log('ISSUER', issuer)
-
-    /* Set (public) account/address. */
-    account = magicAdmin.token.getPublicAddress(didToken)
-    // console.log('ACCOUNT', account)
-
     if (!account) {
         /* Set status. */
         res.status(400)
@@ -92,10 +79,6 @@ const admin = async function (req, res) {
             error: 'Missing user (account) address.'
         })
     }
-
-    /* Set issuer metadata. */
-    metadata = await magicAdmin.users.getMetadataByIssuer(issuer)
-    // console.log('MAGIC LOGIN (data):', JSON.stringify(metadata, null, 4))
 
     /* Set email address. */
     email = metadata.email
