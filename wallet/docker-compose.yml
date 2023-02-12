@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    image: nexa-wallet
+    container_name: nexa-wallet
+    restart: always
+    ports:
+      - '127.0.0.1:3000:80'
