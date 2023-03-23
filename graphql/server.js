@@ -13,12 +13,19 @@ import schema from './src/schema.js'
 
 
 import { ApolloServer } from '@apollo/server'
-import { startStandaloneServer } from '@apollo/server/standalone'
-import { typeDefs, resolvers } from './schema'
+// import { startStandaloneServer } from '@apollo/server/standalone'
+import { expressMiddleware } from '@apollo/server/express4'
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+
+// import express from 'express';
+import http from 'http';
+// import cors from 'cors';
+import bodyParser from 'body-parser';
+import { typeDefs, resolvers } from './schema';
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
-const { url } = await startStandaloneServer(server, {
+const { url } = await expressMiddleware(server, {
     context: async ({ req }) => ({ token: req.headers.token }),
     listen: { port: 6000 },
 })
@@ -38,7 +45,7 @@ const txsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUC
 const app = express()
 
 /* Enable CORS. */
-app.use(cors())
+// app.use(cors())
 
 /* Set rate limits. */
 const limiter = rateLimit({
@@ -49,10 +56,39 @@ const limiter = rateLimit({
 })
 
 /* Apply the rate limiting middleware to all requests. */
-app.use(limiter)
+// app.use(limiter)
 
-app.set('trust proxy', 3) // NOTE: 0 is localhost, 1,2 are Cloudflare
-app.get('/ip', (request, response) => response.send(request.ip))
+// app.set('trust proxy', 3) // NOTE: 0 is localhost, 1,2 are Cloudflare
+// app.get('/ip', (request, response) => response.send(request.ip))
+
+const httpServer = http.createServer(app)
+
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+});
+// Ensure we wait for our server to start
+await server.start()
+
+
+app.use(
+  '/',
+  cors(),
+  // 50mb is the limit that `startStandaloneServer` uses, but you may configure this to suit your needs
+  bodyParser.json({ limit: '50mb' }),
+  // expressMiddleware accepts the same arguments:
+  // an Apollo Server instance and optional configuration options
+  expressMiddleware(server, {
+    context: async ({ req }) => ({ token: req.headers.token }),
+  }),
+);
+
+// Modified server startup
+await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+console.log(`🚀 Server ready at http://localhost:4000/`);
+
 
 // const server = new WebSocketServer({
 //   	port: 7000,
