@@ -1,5 +1,7 @@
+import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
+import http from 'http'
 import rateLimit from 'express-rate-limit'
 import PouchDB from 'pouchdb'
 import { WebSocketServer } from 'ws'
@@ -20,9 +22,7 @@ import { expressMiddleware } from '@apollo/server/express4'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 
 // import express from 'express';
-// import http from 'http';
 // import cors from 'cors';
-// import bodyParser from 'body-parser';
 // import { typeDefs, resolvers } from './schema';
 
 // const server = new ApolloServer({ typeDefs, resolvers })

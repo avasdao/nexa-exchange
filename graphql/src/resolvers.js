@@ -1,4 +1,16 @@
+const books = [{
+    title: 'Book 1',
+}, {
+    title: 'Book 2',
+}]
+
 export default {
+    Query: {
+        books: () => books,
+    },
+}
+
+const myResolver = {
     address: async (_args) => {
         /* Set base58. */
         // NOTE: Array of addresses.
