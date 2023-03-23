@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 const CMC_API_KEY = process.env.CMC_API_KEY
 
 /* Set endpoint. */
-const CMC_API_ENDPOINT: string = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
+const CMC_API_ENDPOINT = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
 
 /* Set (request) target. */
 const target = CMC_API_ENDPOINT + `?symbol=NEXA` // ID = 23380
