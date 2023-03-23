@@ -1,6 +1,6 @@
 import cors from 'cors'
 import express from 'express'
-import { graphqlHTTP } from 'express-graphql'
+// import { graphqlHTTP } from 'express-graphql'
 import rateLimit from 'express-rate-limit'
 import PouchDB from 'pouchdb'
 import { buildSchema } from 'graphql'
@@ -11,8 +11,8 @@ import { WebSocketServer } from 'ws'
 import { useServer } from 'graphql-ws/lib/use/ws'
 import { schema as _schema } from './src/schema.js'
 const server = new WebSocketServer({
-  	port: 7000,
-  	path: '/socket',
+  	port: PORT,
+  	path: '/graphql',
 })
 useServer({ schema: _schema }, server)
 console.log('GraphQL WS listening to port 7000')
@@ -48,7 +48,7 @@ app.get('/ip', (request, response) => response.send(request.ip))
 
 // NOTE: Construct a schema, using GraphQL schema language.
 const schema = buildSchema(`
-  "Welcome to the Nexa Exchange GraphQL online query manager for Builders."
+  "Welcome to the Nexa Exchange GraphQL online query manager for Traders."
   type Query {
 
     "Provides information about on-chain address: balance, first seen, # of transactions and more."
@@ -348,8 +348,8 @@ const graphiql = {
 #
 #  Welcome to the Nexa Exchange GraphiQL
 #
-#  Application builders can make great use of this tool for:
-#    - writing queries
+#  Nexa Traders should make great use of this tool for:
+#    ✔ Comprehensive market analysis
 #    - validating queries
 #    - and testing queries
 #
@@ -439,7 +439,7 @@ const graphqlOptions = {
 }
 
 /* Setup GraphQL endpoint. */
-app.use('/graphql', graphqlHTTP(graphqlOptions))
+// app.use('/graphql', graphqlHTTP(graphqlOptions))
 
-app.listen(PORT)
+// app.listen(PORT)
 console.log(`Running a GraphQL API server at http://localhost:${PORT}/graphql`)
