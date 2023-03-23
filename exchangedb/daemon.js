@@ -32,7 +32,7 @@ const update = async () => {
     })
     // console.log('API RESPONSE', response)
 
-    const data = response.json()
+    const data = await response.json()
     console.log('CMC DATA', data)
 
     let success
