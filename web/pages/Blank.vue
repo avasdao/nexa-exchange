@@ -1,3 +1,11 @@
+<script setup>
+/* Import modules. */
+import { ref } from 'vue'
+
+const holder = ref(null)
+
+</script>
+
 <template>
     <main class="max-w-5xl mx-auto py-5 px-3">
         <h1 class="text-4xl font-medium text-indigo-600">
@@ -7,13 +15,7 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
-
 export default {
-    // middleware: 'magic.auth',
-    data: () => ({
-        //
-    }),
     head: () => ({
         title: 'Blank — Nexa Exchange',
         meta: [
@@ -24,19 +26,5 @@ export default {
             }
         ]
     }),
-    computed: {
-        // ...mapGetters({
-        //     // panelIsShowing: 'system/getPanelState'
-        // })
-    },
-    created: function () {
-        //
-    },
-    mounted: function () {
-        //
-    },
-    methods: {
-        //
-    }
 }
 </script>
