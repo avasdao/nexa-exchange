@@ -51,7 +51,7 @@ const update = async () => {
     if (ticker?.data?.NEXA) {
         success = await tickerDb
             .put({
-                _id: moment().unix(),
+                _id: moment().unix().toString(),
                 ...ticker.data.NEXA
             })
         // console.log('SUCCESS (ticker):', success)
