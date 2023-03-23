@@ -10,6 +10,22 @@ import { useServer } from 'graphql-ws/lib/use/ws'
 
 import schema from './src/schema.js'
 
+
+
+import { ApolloServer } from '@apollo/server'
+import { startStandaloneServer } from '@apollo/server/standalone'
+import { typeDefs, resolvers } from './schema'
+
+const server = new ApolloServer({ typeDefs, resolvers })
+
+const { url } = await startStandaloneServer(server, {
+    context: async ({ req }) => ({ token: req.headers.token }),
+    listen: { port: 6000 },
+})
+console.log(`🚀  Server ready at ${url}`);
+
+
+
 /* Set port. */
 const PORT = 6000
 
@@ -38,12 +54,12 @@ app.use(limiter)
 app.set('trust proxy', 3) // NOTE: 0 is localhost, 1,2 are Cloudflare
 app.get('/ip', (request, response) => response.send(request.ip))
 
-const server = new WebSocketServer({
-  	port: 7000,
-  	path: '/socket',
-})
-useServer({ schema }, server)
-console.log('Listening for GraphQL /Socket requests on port 7000')
+// const server = new WebSocketServer({
+//   	port: 7000,
+//   	path: '/socket',
+// })
+// useServer({ schema }, server)
+// console.log('Listening for GraphQL /Socket requests on port 7000')
 
 // ------------------------
 
@@ -442,10 +458,10 @@ const graphqlOptions = {
 /* Setup GraphQL endpoint. */
 // app.use('/graphql', graphqlHTTP(graphqlOptions))
 
-app.all('/graphql', createHandler(graphqlOptions))
+// app.all('/graphql', createHandler(graphqlOptions))
 
-app.listen({ port: PORT })
-console.log(`Listening for /GraphQL requests on port ${PORT}`)
+// app.listen({ port: PORT })
+// console.log(`Listening for /GraphQL requests on port ${PORT}`)
 
 
 // app.listen(PORT)
