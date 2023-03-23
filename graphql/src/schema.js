@@ -14,7 +14,7 @@ import {
  *   greetings: String
  * }
  */
-export const schema = new GraphQLSchema({
+export default new GraphQLSchema({
 
     /* Query */
     query: new GraphQLObjectType({

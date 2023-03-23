@@ -1,22 +1,14 @@
 import cors from 'cors'
 import express from 'express'
-// import { graphqlHTTP } from 'express-graphql'
 import rateLimit from 'express-rate-limit'
 import PouchDB from 'pouchdb'
-import { buildSchema } from 'graphql'
-
-
-// NOTE: For WebSocket connections.
 import { WebSocketServer } from 'ws'
-import { useServer } from 'graphql-ws/lib/use/ws'
-import { schema as _schema } from './src/schema.js'
-const server = new WebSocketServer({
-  	port: PORT,
-  	path: '/graphql',
-})
-useServer({ schema: _schema }, server)
-console.log('GraphQL WS listening to port 7000')
 
+import { buildSchema } from 'graphql'
+import { queryHandler } from 'graphql-http/lib/use/express'
+import { useServer } from 'graphql-ws/lib/use/ws'
+
+import schema from './src/schema.js'
 
 /* Set port. */
 const PORT = 6000
@@ -26,7 +18,7 @@ const logsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COU
 const blocksDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/blocks`)
 const txsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/txs`)
 
-/* Initialize application. */
+/* Initialize Express application. */
 const app = express()
 
 /* Enable CORS. */
@@ -45,6 +37,24 @@ app.use(limiter)
 
 app.set('trust proxy', 3) // NOTE: 0 is localhost, 1,2 are Cloudflare
 app.get('/ip', (request, response) => response.send(request.ip))
+
+app.all('/graphql', queryHandler({ schema }))
+
+app.listen({ port: PORT })
+console.log(`Listening for /GraphQL requests on port ${PORT}`)
+
+const server = new WebSocketServer({
+  	port: 7000,
+  	path: '/socket',
+})
+useServer({ schema }, server)
+console.log('Listening for GraphQL /Socket requests on port 7000')
+
+
+
+
+
+
 
 // NOTE: Construct a schema, using GraphQL schema language.
 const schema = buildSchema(`
@@ -432,14 +442,14 @@ const graphiql = {
 }
 
 /* Set options. */
-const graphqlOptions = {
-    schema,
-    rootValue,
-    graphiql,
-}
+// const graphqlOptions = {
+//     schema,
+//     rootValue,
+//     graphiql,
+// }
 
 /* Setup GraphQL endpoint. */
 // app.use('/graphql', graphqlHTTP(graphqlOptions))
 
 // app.listen(PORT)
-console.log(`Running a GraphQL API server at http://localhost:${PORT}/graphql`)
+// console.log(`Running a GraphQL API server at http://localhost:${PORT}/graphql`)
