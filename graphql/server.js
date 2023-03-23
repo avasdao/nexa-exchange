@@ -48,7 +48,7 @@ app.get('/ip', (request, response) => response.send(request.ip))
 
 // NOTE: Construct a schema, using GraphQL schema language.
 const schema = buildSchema(`
-  "Welcome to the NexaShell GraphQL online query manager for Builders."
+  "Welcome to the Nexa Exchange GraphQL online query manager for Builders."
   type Query {
 
     "Provides information about on-chain address: balance, first seen, # of transactions and more."
@@ -346,35 +346,29 @@ const rootValue = {
 const graphiql = {
     defaultQuery: `######################################################################
 #
-#  Welcome to the NexaShell GraphiQL
+#  Welcome to the Nexa Exchange GraphiQL
 #
 #  Application builders can make great use of this tool for:
 #    - writing queries
 #    - validating queries
 #    - and testing queries
 #
-#  Sample queries from each (of 7) data categories shown below:
+#  Sample queries from each (of 5) data categories shown below:
 #
-#        Address:   Request transaction histories
+#        Assets:   Request transaction histories
 #                   and full balance details.
 #
-#          Block:   Request confirmation and transaction
+#          Markets:   Request confirmation and transaction
 #                   details.
 #
-#           Meta:   Request information from Meta (extended)
+#           Orders:   Request information from Meta (extended)
 #                   on-chain data.
 #
-#          Owner:   Request all available on-chain details for
+#          Reports:   Request all available on-chain details for
 #                   a specific Owner ID.
 #
-#         Script:   Request on-chain metadata details stored
+#         Swap:   Request on-chain metadata details stored
 #                   in a transaction's 'OP_RETURN' script area.
-#
-#          Token:   Request asset registration/genesis information
-#                   and activity details.
-#
-#    Transaction:   Request full on-chain activity details,
-#                   including block confirmation.
 #
 ######################################################################
 
