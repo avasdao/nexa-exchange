@@ -5,7 +5,7 @@ import PouchDB from 'pouchdb'
 import { WebSocketServer } from 'ws'
 
 import { buildSchema } from 'graphql'
-import { queryHandler } from 'graphql-http/lib/use/express'
+import { createHandler } from 'graphql-http/lib/use/express'
 import { useServer } from 'graphql-ws/lib/use/ws'
 
 import schema from './src/schema.js'
@@ -38,7 +38,7 @@ app.use(limiter)
 app.set('trust proxy', 3) // NOTE: 0 is localhost, 1,2 are Cloudflare
 app.get('/ip', (request, response) => response.send(request.ip))
 
-app.all('/graphql', queryHandler({ schema }))
+app.all('/graphql', createHandler({ schema }))
 
 app.listen({ port: PORT })
 console.log(`Listening for /GraphQL requests on port ${PORT}`)
