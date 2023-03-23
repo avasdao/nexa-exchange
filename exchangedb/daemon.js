@@ -24,12 +24,12 @@ const headers = {
 const logsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/logs`)
 const tickerDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/ticker`)
 
-const update = () => {
+const update = async () => {
     /* Request data. */
     const response = await fetch(target, {
         headers,
     })
-    // console.log('API RESPONSE', response)
+    console.log('API RESPONSE', response)
 
     let success
 
@@ -40,7 +40,7 @@ const update = () => {
             body: response,
             createdAt: moment().unix(),
         })
-    // console.log('SUCCESS (logs):', success)
+    console.log('SUCCESS (logs):', success)
 
     if (response?.data?.NEXA) {
         /* Set ticker to the response. */
@@ -52,7 +52,7 @@ const update = () => {
                 ...response.data.NEXA,
                 createdAt: moment().unix(),
             })
-        // console.log('SUCCESS (ticker):', success)
+        console.log('SUCCESS (ticker):', success)
     }
 }
 
