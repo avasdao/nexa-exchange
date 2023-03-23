@@ -23,7 +23,7 @@ import http from 'http';
 import bodyParser from 'body-parser';
 import { typeDefs, resolvers } from './schema';
 
-const server = new ApolloServer({ typeDefs, resolvers })
+// const server = new ApolloServer({ typeDefs, resolvers })
 
 const { url } = await expressMiddleware(server, {
     context: async ({ req }) => ({ token: req.headers.token }),
