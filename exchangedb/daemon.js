@@ -34,8 +34,8 @@ const update = async () => {
     })
     // console.log('API RESPONSE', response)
 
-    const data = await response.json()
-    console.log('CMC DATA', data)
+    const ticker = await response.json()
+    // console.log('CMC DATA', ticker)
 
     let success
 
@@ -43,22 +43,19 @@ const update = async () => {
         .put({
             _id: uuidv4(),
             source: 'ticker',
-            body: data,
+            body: ticker,
             createdAt: moment().unix(),
         })
     // console.log('SUCCESS (logs):', success)
 
-    if (data?.NEXA) {
-        /* Set ticker to the response. */
-        ticker = data.NEXA
-
+    if (ticker?.data?.NEXA) {
         success = await tickerDb
             .put({
                 _id: uuidv4(),
-                ...data.NEXA,
+                ...ticker.data.NEXA,
                 createdAt: moment().unix(),
             })
-        console.log('SUCCESS (ticker):', success)
+        // console.log('SUCCESS (ticker):', success)
     }
 }
 
