@@ -7,12 +7,10 @@ import { v4 as uuidv4 } from 'uuid'
 const logsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/logs`)
 const tickerDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/ticker`)
 
-export default defineEventHandler((event) => {
-
+export default defineEventHandler(async (event) => {
     const response = await tickerDb.get()
         .catch(err => console.error(err))
     console.log('RESPONSE', response)
-
 
     /* Set error message. */
     const errorMsg = {
