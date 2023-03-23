@@ -57,7 +57,7 @@ console.log('Listening for GraphQL /Socket requests on port 7000')
 
 
 // NOTE: Construct a schema, using GraphQL schema language.
-const schema = buildSchema(`
+const schema_REF = buildSchema(`
   "Welcome to the Nexa Exchange GraphQL online query manager for Traders."
   type Query {
 
@@ -200,7 +200,7 @@ const schema = buildSchema(`
 `)
 
 // NOTE: The root provides a resolver function for each API endpoint.
-const rootValue = {
+const rootValue_REF = {
     address: async (_args) => {
         /* Set base58. */
         // NOTE: Array of addresses.
@@ -353,7 +353,7 @@ const rootValue = {
 }
 
 /* Set interactive flag. */
-const graphiql = {
+const graphiql_REF = {
     defaultQuery: `######################################################################
 #
 #  Welcome to the Nexa Exchange GraphiQL
