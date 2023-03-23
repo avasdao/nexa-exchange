@@ -1,0 +1,17 @@
+{
+  "name": "exchangedb",
+  "version": "23.3.22",
+  "description": "Manages all indexing functions for the suite of Nexa Shell services.",
+  "main": "index.js",
+  "type": "module",
+  "repository": "https://github.com/avasdao/nexash",
+  "author": "Ava's DAO developers",
+  "license": "MIT",
+  "dependencies": {
+    "moment": "2.29.4",
+    "node-fetch": "3.3.1",
+    "numeral": "2.0.6",
+    "pouchdb": "8.0.1",
+    "uuid": "9.0.0"
+  }
+}
