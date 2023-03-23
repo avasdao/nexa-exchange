@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  graphql:
+    image: graphql
+    build: .
+    network_mode: 'host'
+    # ports:
+    #   - '127.0.0.1:6000:3000'
+    # volumes:
+    #   - './:/webapp/'
+    environment:
+      COUCHDB_USER: ${COUCHDB_USER} # change this to match your system's ENV
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD} # change this to match your system's ENV
+      HOST: 0.0.0.0
+      PORT: 6000

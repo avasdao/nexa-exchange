@@ -29,12 +29,6 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
     ],
 
-    server: {
-        // nuxt.js server options ( can be overrided by environment variables )
-        port: 3000,
-        host: '127.0.0.1',
-    },
-
     /* Route Rules */
     routeRules: {
         /* Disable server-side rendering for Admin area. */

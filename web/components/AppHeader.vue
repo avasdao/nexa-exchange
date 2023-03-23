@@ -1,3 +1,78 @@
+<script setup>
+/* Import modules. */
+import { ref } from 'vue'
+import numeral from 'numeral'
+
+/* Set API endpoint. */
+const API_ENDPOINT = 'https://nexa.exchange/ticker'
+
+/* Set app URL. */
+const APP_URL = 'https://app.nexa.exchange'
+
+const showExtrasMenu = ref(false)
+const showSolutionsMenu = ref(false)
+const showMobileMenu = ref(false)
+
+const tickerHandler = ref(null)
+const ticker = ref(null)
+
+const displayTicker = computed(() => {
+    if (!ticker.value) {
+        return 'n/a'
+    }
+
+    /* Set quote. */
+    const quote = ticker.value.quote
+
+    /* Validate quote. */
+    if (!quote) {
+        return 'n/a'
+    }
+
+    /* Set price. */
+    const price = quote?.USD?.price
+
+    /* Validate price. */
+    if (!price) {
+        return 'n/a'
+    }
+
+    /* Return formatted price. */
+    return numeral(price * 1000000).format('$0,0.00')
+})
+
+
+const toggleSolutions = () => {
+    showExtrasMenu.vaue = false
+    showSolutionsMenu.value = !showSolutionsMenu.value
+}
+
+const toggleExtras = () => {
+    showSolutionsMenu.value = false
+    showExtrasMenu.value = !showExtrasMenu.value
+}
+
+const launchApp = () => {
+    showSolutionsMenu.value = false
+
+    // window.open(APP_URL)
+}
+
+const updateTicker = async () => {
+    ticker.value = await $fetch('/ticker')
+        .catch(err => console.error(err))
+    console.info('Latest ticker:', ticker.value)
+}
+
+
+// this.tickerHandler = setInterval(() => {
+//     this.updateTicker()
+// }, 30000)
+
+updateTicker()
+
+</script>
+
 <template>
     <header class="relative bg-gray-900">
         <div class="pointer-events-none absolute inset-0 z-30 shadow" aria-hidden="true"></div>
@@ -13,7 +88,7 @@
 
                 <section class="sm:hidden">
                     <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
-                        NEX/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayQuote}}</span>
+                        1M NEXA/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayTicker}}</span>
                     </h2>
 
                     <div class="flex justify-end">
@@ -503,7 +578,7 @@
                     <div class="flex items-center md:ml-12">
                         <section>
                             <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
-                                NEX/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayQuote}}</span>
+                               1M NEXA/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayTicker}}</span>
                             </h2>
 
                             <div class="flex justify-end">
@@ -655,7 +730,7 @@
 
                     <div class="mt-6">
                         <a href="javascript://" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
-                            {{displayQuote}}
+                            {{displayTicker}}
                         </a>
 
                         <p class="mt-6 text-center text-base font-medium text-gray-500">
@@ -669,68 +744,3 @@
         </div>
     </header>
 </template>
-
-<script>
-/* Import modules. */
-import numeral from 'numeral'
-
-/* Set API endpoint. */
-const API_ENDPOINT = 'https://api.nexa.exchange/v1/ticker/quote/NEX'
-
-/* Set app URL. */
-const APP_URL = 'https://app.nexa.exchange'
-
-export default {
-    data: () => ({
-        showExtrasMenu: null,
-        showSolutionsMenu: null,
-        showMobileMenu: null,
-
-        quoteHandler: null,
-        quote: null,
-    }),
-    computed: {
-        displayQuote () {
-            if (!this.quote) {
-                return 'n/a'
-            }
-
-            return numeral(this.quote.price).format('$0,0.00[00]')
-        }
-    },
-    methods: {
-        toggleSolutions () {
-            this.showExtrasMenu = false
-            this.showSolutionsMenu = !this.showSolutionsMenu
-        },
-
-        toggleExtras () {
-            this.showSolutionsMenu = false
-            this.showExtrasMenu = !this.showExtrasMenu
-        },
-
-        launchApp () {
-            this.showSolutionsMenu = false
-
-            window.open(APP_URL)
-        },
-
-        async updateQuote () {
-            const response = await fetch(API_ENDPOINT)
-            this.quote = await response.json()
-            console.log('QUOTE', this.quote)
-        }
-    },
-    created: function () {
-        this.showExtrasMenu = false
-        this.showSolutionsMenu = false
-        this.showMobileMenu = false
-
-        // this.quoteHandler = setInterval(() => {
-        //     this.updateQuote()
-        // }, 30000)
-
-        this.updateQuote()
-    }
-}
-</script>
