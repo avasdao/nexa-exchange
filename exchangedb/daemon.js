@@ -35,7 +35,7 @@ const update = async () => {
     // console.log('API RESPONSE', response)
 
     const data = await response.json()
-    // console.log('CMC DATA', data)
+    console.log('CMC DATA', data)
 
     let success
 
@@ -58,7 +58,7 @@ const update = async () => {
                 ...data.NEXA,
                 createdAt: moment().unix(),
             })
-        // console.log('SUCCESS (ticker):', success)
+        console.log('SUCCESS (ticker):', success)
     }
 }
 
