@@ -38,11 +38,6 @@ app.use(limiter)
 app.set('trust proxy', 3) // NOTE: 0 is localhost, 1,2 are Cloudflare
 app.get('/ip', (request, response) => response.send(request.ip))
 
-app.all('/graphql', createHandler({ schema }))
-
-app.listen({ port: PORT })
-console.log(`Listening for /GraphQL requests on port ${PORT}`)
-
 const server = new WebSocketServer({
   	port: 7000,
   	path: '/socket',
@@ -50,11 +45,7 @@ const server = new WebSocketServer({
 useServer({ schema }, server)
 console.log('Listening for GraphQL /Socket requests on port 7000')
 
-
-
-
-
-
+// ------------------------
 
 // NOTE: Construct a schema, using GraphQL schema language.
 const schema_REF = buildSchema(`
@@ -200,7 +191,7 @@ const schema_REF = buildSchema(`
 `)
 
 // NOTE: The root provides a resolver function for each API endpoint.
-const rootValue_REF = {
+const rootValue = {
     address: async (_args) => {
         /* Set base58. */
         // NOTE: Array of addresses.
@@ -353,7 +344,7 @@ const rootValue_REF = {
 }
 
 /* Set interactive flag. */
-const graphiql_REF = {
+const graphiql = {
     defaultQuery: `######################################################################
 #
 #  Welcome to the Nexa Exchange GraphiQL
@@ -442,14 +433,20 @@ const graphiql_REF = {
 }
 
 /* Set options. */
-// const graphqlOptions = {
-//     schema,
-//     rootValue,
-//     graphiql,
-// }
+const graphqlOptions = {
+    schema,
+    rootValue,
+    graphiql,
+}
 
 /* Setup GraphQL endpoint. */
 // app.use('/graphql', graphqlHTTP(graphqlOptions))
+
+app.all('/graphql', createHandler(graphqlOptions))
+
+app.listen({ port: PORT })
+console.log(`Listening for /GraphQL requests on port ${PORT}`)
+
 
 // app.listen(PORT)
 // console.log(`Running a GraphQL API server at http://localhost:${PORT}/graphql`)
