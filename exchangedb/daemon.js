@@ -1,5 +1,6 @@
 /* Import modules. */
 import fetch from 'node-fetch'
+import moment from 'moment'
 import PouchDB from 'pouchdb'
 import { v4 as uuidv4 } from 'uuid'
 
