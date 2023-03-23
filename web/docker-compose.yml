@@ -10,7 +10,6 @@ services:
     # ports:
     #   - '127.0.0.1:3000:3000'
     environment:
-      - CMC_API_KEY=${CMC_API_KEY} # change this to match your system's ENV
       - TELR_API_KEY=${TELR_API_KEY} # change this to match your system's ENV
       - COUCHDB_USER=${COUCHDB_USER} # change this to match your system's ENV
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD} # change this to match your system's ENV
