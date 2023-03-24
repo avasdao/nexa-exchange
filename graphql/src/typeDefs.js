@@ -1,6 +1,7 @@
 export default `#graphql
 "Welcome to the Nexa Exchange GraphQL online query manager for Traders."
 type Query {
+  books: [Book]
 
   "Provides information about on-chain address: balance, first seen, # of transactions and more."
   address(
@@ -48,6 +49,11 @@ type Query {
       txidem: [String],
   ): [Transaction]
 
+}
+
+type Book {
+  title: String
+  author: String
 }
 
 "This is an ADDRESS type for the Docs."

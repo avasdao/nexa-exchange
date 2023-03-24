@@ -17,7 +17,6 @@ import resolvers from './src/resolvers.js'
 
 
 import { ApolloServer } from '@apollo/server'
-// import { startStandaloneServer } from '@apollo/server/standalone'
 import { expressMiddleware } from '@apollo/server/express4'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 
@@ -69,8 +68,11 @@ const httpServer = http.createServer(app)
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [
+        ApolloServerPluginDrainHttpServer({ httpServer }),
+    ],
 })
+
 // Ensure we wait for our server to start
 await server.start()
 

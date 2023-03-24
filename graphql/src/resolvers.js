@@ -1,8 +1,13 @@
-const books = [{
-    title: 'Book 1',
-}, {
-    title: 'Book 2',
-}]
+const books = [
+  {
+    title: 'The Awakening',
+    author: 'Kate Chopin',
+  },
+  {
+    title: 'City of Glass',
+    author: 'Paul Auster',
+  },
+]
 
 export default {
     Query: {
