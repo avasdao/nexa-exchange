@@ -9,7 +9,7 @@ import {
     GraphQLString,
 } from 'graphql'
 
-export default GraphQLObjectType({
+export default new GraphQLObjectType({
     name: 'Block',
     fields: () => ({
         hash: { type: GraphQLString },
