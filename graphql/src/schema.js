@@ -1,6 +1,8 @@
 import {
     GraphQLBoolean,
     GraphQLFloat,
+    GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
     GraphQLInt,
     GraphQLSchema,
@@ -62,7 +64,7 @@ const SAMPLE_BLOCK_MIN = {
 }
 
 setInterval(() => {
-    pubsub.publish('NEW_BLOCK', SAMPLE_BLOCK_MIN)
+    pubsub.publish('NEW_BLOCK', { block: SAMPLE_BLOCK_MIN })
 }, 5000)
 
 // pubsub.asyncIterator(['NEW_BLOCK'])
@@ -86,8 +88,10 @@ export default new GraphQLSchema({
             hello: {
                 type: GraphQLString,
                 resolve: () => 'world',
+                description: `Hello description goes here...`,
             },
         },
+        description: `Query description goes here...`,
     }),
 
     /* Mutation */
@@ -103,8 +107,10 @@ export default new GraphQLSchema({
                     // return blockchainController.broadcast(args)
                     return 'Broadcasted successfully!'
                 },
+                description: `Broadcast description goes here...`,
             },
         },
+        description: `Mutation description goes here...`,
     }),
 
     /* Subscription */
@@ -118,13 +124,18 @@ export default new GraphQLSchema({
                         yield { greetings: hi }
                     }
                 },
+                description: `Greetings description goes here...`,
             },
 
             block: {
                 type: BlockType,
                 subscribe: () => pubsub.asyncIterator(['NEW_BLOCK']),
+                description: `Block description goes here...`,
             },
         },
+        description: `Subscription description goes here...`,
     }),
+
+    description: `Default GraphQL description goes here...`,
 
 })
