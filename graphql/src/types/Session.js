@@ -9,7 +9,7 @@ import {
     GraphQLString,
 } from 'graphql'
 
-export default GraphQLObjectType({
+export default new GraphQLObjectType({
     name: 'Session',
     fields: () => ({
         errors: { type: GraphQLString },
