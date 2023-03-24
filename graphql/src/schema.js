@@ -1,14 +1,26 @@
 import {
-    GraphQLSchema,
+    GraphQLBoolean,
+    GraphQLFloat,
     GraphQLObjectType,
-    GraphQLString
+    GraphQLInt,
+    GraphQLSchema,
+    GraphQLString,
 } from 'graphql'
 
 import { PubSub } from 'graphql-subscriptions'
 
 const pubsub = new PubSub()
 
-const SAMPLE_BLOCK = {
+const BlockType = new GraphQLObjectType({
+    name: 'Block',
+    fields: () => ({
+        hash: { type: GraphQLString },
+        confirmations: { type: GraphQLInt },
+        height: { type: GraphQLInt },
+    })
+})
+
+const SAMPLE_BLOCK_FULL = {
   "hash": "78ee2c10c94e377a56c2d25e6478d75b3168043dec6a4bfaabc73421a03df8aa",
   "confirmations": 1,
   "height": 236856,
@@ -42,9 +54,18 @@ const SAMPLE_BLOCK = {
   ]
 }
 
+const SAMPLE_BLOCK_MIN = {
+  "hash": "78ee2c10c94e377a56c2d25e6478d75b3168043dec6a4bfaabc73421a03df8aa",
+  "confirmations": 1,
+  "height": 236856,
+}
+
 let counter = 1337
 setInterval(() => {
-    pubsub.publish('NEW_BLOCK', { block: SAMPLE_BLOCK })
+    pubsub.publish('NEW_BLOCK', { block: {
+        ...SAMPLE_BLOCK_MIN,
+        height: counter++,
+    } })
 }, 5000)
 
 // pubsub.asyncIterator(['NEW_BLOCK'])
@@ -103,7 +124,7 @@ export default new GraphQLSchema({
             },
 
             block: {
-                type: GraphQLObjectType,
+                type: BlockType,
                 subscribe: () => pubsub.asyncIterator(['NEW_BLOCK']),
             },
         },
