@@ -1,6 +1,8 @@
 /* Import modules. */
 import { v4 as uuidv4 } from 'uuid'
 
+import SessionType from '../types/Session.js'
+
 import {
     GraphQLBoolean,
     GraphQLFloat,
@@ -13,15 +15,15 @@ import {
 } from 'graphql'
 
 export default {
-    type: GraphQLString,
+    type: SessionType,
     resolve: (parent, args, params) => {
-        console.log('BLANK PARAMS:', params)
+        console.log('SESSION PARAMS:', params)
 
         /* Initialize holders. */
         let errors
         let sessionid
 
-        // FOR DEV PURPOSES ONLY
+        /* Create a new Session ID. */
         sessionid = uuidv4()
 
         return {
