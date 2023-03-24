@@ -10,8 +10,8 @@ const pubsub = new PubSub()
 
 let counter = 1337
 setInterval(() => {
-    pubsub.publish('NEW_BLOCK', counter++)
-})
+    pubsub.publish('NEW_BLOCK', { blocks: counter++ })
+}, 5000)
 
 // pubsub.asyncIterator(['NEW_BLOCK'])
 
