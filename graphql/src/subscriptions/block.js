@@ -13,9 +13,7 @@ import {
 } from 'graphql'
 
 export default (_pubsub) => {
-    return {
-        type: BlockType,
-        subscribe: () => _pubsub.asyncIterator(['NEW_BLOCK']),
-        description: `A Block subscription will report every new block that appears on the blockchain.`,
-    }
+    type: BlockType,
+    subscribe: () => _pubsub.asyncIterator(['NEW_BLOCK']),
+    description: `A Block subscription will report every new block that appears on the blockchain.`,
 }
