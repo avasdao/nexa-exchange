@@ -30,7 +30,7 @@ const name = 'Subscription'
 
 /* Set (Mutation) fields. */
 const fields = {
-    block,
+    block: block(pubsub),
     greetings,
 }
 
