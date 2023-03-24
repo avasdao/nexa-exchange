@@ -30,5 +30,5 @@ export default {
         console.log('AFFILIATE PARAMS:', params)
         return TEST_AFFILIATE
     },
-    description: `Blank description goes here.`,
+    description: `Add a new Affiliate to the Exchange Rewards program.`,
 }
