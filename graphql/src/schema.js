@@ -103,7 +103,7 @@ export default new GraphQLSchema({
             },
 
             block: {
-                type: GraphQLString,
+                type: GraphQLObjectType,
                 subscribe: () => pubsub.asyncIterator(['NEW_BLOCK']),
             },
         },
