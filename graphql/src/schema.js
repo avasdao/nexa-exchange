@@ -6,6 +6,7 @@ import BlockType from './types/Block.js'
 
 /* Import mutations. */
 import createOrder from './mutations/createOrder.js'
+import createSession from './mutations/createSession.js'
 
 import {
     GraphQLBoolean,
@@ -72,6 +73,7 @@ export default new GraphQLSchema({
                 description: `Broadcast description goes here...`,
             },
             createOrder,
+            createSession,
         },
         description: `Make authenticated requests to the entire suite of Nexa Exchange on-chain services.`,
     }),
