@@ -62,7 +62,7 @@ const SAMPLE_BLOCK_MIN = {
 }
 
 setInterval(() => {
-    pubsub.publish('NEW_BLOCK', { block: SAMPLE_BLOCK_MIN })
+    pubsub.publish('NEW_BLOCK', SAMPLE_BLOCK_MIN)
 }, 5000)
 
 // pubsub.asyncIterator(['NEW_BLOCK'])
