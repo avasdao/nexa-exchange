@@ -59,7 +59,7 @@ export default new GraphQLSchema({
                 subscribe: async function* () {
                     for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
                         yield { greetings: hi }
-                        yield { greetings: `${hi} there!` }
+                        yield { farewells: `${hi} bye!` }
                     }
                 },
             },
