@@ -1,6 +1,7 @@
 /* Import modules. */
 import { v4 as uuidv4 } from 'uuid'
 
+/* Import types. */
 import SessionType from '../types/Session.js'
 
 import {

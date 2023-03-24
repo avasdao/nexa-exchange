@@ -1,3 +1,6 @@
+/* Import types. */
+import Type from '../types/Type.js'
+
 import {
     GraphQLBoolean,
     GraphQLFloat,
