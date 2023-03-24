@@ -1,6 +1,11 @@
+/* Import modules. */
+import { PubSub } from 'graphql-subscriptions'
+
+/* Import types. */
 import BlockType from './types/Block.js'
 
-import { PubSub } from 'graphql-subscriptions'
+/* Import mutations. */
+import createOrder from './mutations/createOrder.js'
 
 import {
     GraphQLBoolean,
@@ -13,8 +18,10 @@ import {
     GraphQLString,
 } from 'graphql'
 
+/* Initialize PubSub. */
 const pubsub = new PubSub()
 
+// FOR DEV PURPOSES ONLY
 let counter = 1337
 const SAMPLE_BLOCK = {
   "hash": "78ee2c10c94e377a56c2d25e6478d75b3168043dec6a4bfaabc73421a03df8aa",
@@ -22,6 +29,7 @@ const SAMPLE_BLOCK = {
   "height": 0,
 }
 
+// FOR DEV PURPOSES ONLY
 setInterval(() => {
     pubsub.publish('NEW_BLOCK', { block: {
         ...SAMPLE_BLOCK,
@@ -30,14 +38,9 @@ setInterval(() => {
 }, 5000)
 
 /**
- * Construct a GraphQL schema and define the necessary resolvers.
+ * GraphQL Schema
  *
- * type Query {
- *   hello: String
- * }
- * type Subscription {
- *   greetings: String
- * }
+ * Construct a GraphQL schema and define the necessary resolvers.
  */
 export default new GraphQLSchema({
 
@@ -68,8 +71,9 @@ export default new GraphQLSchema({
                 },
                 description: `Broadcast description goes here...`,
             },
+            createOrder,
         },
-        description: `Mutation description goes here...`,
+        description: `Make authenticated requests to the entire suite of Nexa Exchange on-chain services.`,
     }),
 
     /* Subscription */
