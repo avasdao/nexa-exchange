@@ -34,7 +34,7 @@ export default new GraphQLSchema({
     }),
 
     /* Mutation */
-    subscription: new GraphQLObjectType({
+    mutation: new GraphQLObjectType({
         name: 'Mutation',
         fields: {
             broadcast: (parent, args, { blockchainController }) => {
