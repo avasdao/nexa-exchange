@@ -37,11 +37,15 @@ export default new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: 'Mutation',
         fields: {
-            broadcast: (parent, args, { blockchainController }) => {
-                // pubsub.publish('POST_CREATED', { postCreated: args })
+            broadcast: {
+                type: GraphQLString,
+                resolve: (parent, args, { blockchainController }) => {
+                    // pubsub.publish('POST_CREATED', { postCreated: args })
 
-                // Datastore logic lives in blockchainController
-                return blockchainController.broadcast(args)
+                    // Datastore logic lives in blockchainController
+                    // return blockchainController.broadcast(args)
+                    return 'Broadcasted successfully!'
+                },
             },
         },
     }),
