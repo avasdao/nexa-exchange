@@ -54,18 +54,15 @@ const SAMPLE_BLOCK_FULL = {
   ]
 }
 
+let counter = 1337
 const SAMPLE_BLOCK_MIN = {
   "hash": "78ee2c10c94e377a56c2d25e6478d75b3168043dec6a4bfaabc73421a03df8aa",
   "confirmations": 1,
-  "height": 236856,
+  "height": counter++,
 }
 
-let counter = 1337
 setInterval(() => {
-    pubsub.publish('NEW_BLOCK', { block: {
-        ...SAMPLE_BLOCK_MIN,
-        height: counter++,
-    } })
+    pubsub.publish('NEW_BLOCK', { block: SAMPLE_BLOCK_MIN })
 }, 5000)
 
 // pubsub.asyncIterator(['NEW_BLOCK'])
