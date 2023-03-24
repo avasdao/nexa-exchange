@@ -14,9 +14,10 @@ import {
 
 export default {
     type: GraphQLString,
-    resolve: (parent, args, params) => {
-        console.log('BLANK PARAMS:', params)
-        return 'Blank created successfully!'
+    subscribe: async function* () {
+        for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
+            yield { greetings: hi }
+        }
     },
-    description: `Blank description goes here.`,
+    description: `Greetings description goes here...`,
 }
