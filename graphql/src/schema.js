@@ -58,12 +58,14 @@ export default new GraphQLSchema({
                 type: GraphQLString,
                 subscribe: async function* () {
                     for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
-                        yield { greetings: hi };
+                        yield { greetings: hi }
+                        yield { greetings: `${hi} there!` }
                     }
                 },
             },
 
             blocks: {
+                type: GraphQLString,
                 subscribe: () => pubsub.asyncIterator(['NEW_BLOCK']),
             },
         },
