@@ -1,12 +1,11 @@
 /* Import modules. */
 import { PubSub } from 'graphql-subscriptions'
 
+/* Import (Schema) objects. */
+import mutation from './mutation.js'
+
 /* Import types. */
 import BlockType from './types/Block.js'
-
-/* Import mutations. */
-import createOrder from './mutations/createOrder.js'
-import createSession from './mutations/createSession.js'
 
 import {
     GraphQLBoolean,
@@ -39,68 +38,62 @@ setInterval(() => {
 }, 5000)
 
 /**
+ * Query
+ *
+ * Make requests for Exchagne data.
+ */
+const query = new GraphQLObjectType({
+    name: 'Query',
+    fields: {
+        hello: {
+            type: GraphQLString,
+            resolve: () => 'world',
+            description: `Hello description goes here...`,
+        },
+    },
+    description: `Query description goes here...`,
+})
+
+
+/**
+ * Subscription
+ *
+ * Allows for long-lived subscriptios to Exchange data.
+ */
+const subscription = new GraphQLObjectType({
+    name: 'Subscription',
+    fields: {
+        greetings: {
+            type: GraphQLString,
+            subscribe: async function* () {
+                for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
+                    yield { greetings: hi }
+                }
+            },
+            description: `Greetings description goes here...`,
+        },
+
+        block: {
+            type: BlockType,
+            subscribe: () => pubsub.asyncIterator(['NEW_BLOCK']),
+            description: `Block description goes here...`,
+        },
+    },
+    description: `Subscription description goes here...`,
+})
+
+/**
  * GraphQL Schema
  *
  * Construct a GraphQL schema and define the necessary resolvers.
  */
 export default new GraphQLSchema({
-
     /* Query */
-    query: new GraphQLObjectType({
-        name: 'Query',
-        fields: {
-            hello: {
-                type: GraphQLString,
-                resolve: () => 'world',
-                description: `Hello description goes here...`,
-            },
-        },
-        description: `Query description goes here...`,
-    }),
+    query,
 
     /* Mutation */
-    mutation: new GraphQLObjectType({
-        name: 'Mutation',
-        fields: {
-            broadcast: {
-                type: GraphQLString,
-                resolve: (parent, args, { blockchainController }) => {
-                    // Datastore logic lives in blockchainController
-                    // return blockchainController.broadcast(args)
-                    console.log('BLOCKCHAIN CONTROLLER:', blockchainController)
-                    return 'Broadcasted successfully!'
-                },
-                description: `Broadcast description goes here...`,
-            },
-            createOrder,
-            createSession,
-        },
-        description: `Make authenticated requests to the entire suite of Nexa Exchange on-chain services.`,
-    }),
+    mutation,
 
     /* Subscription */
-    subscription: new GraphQLObjectType({
-        name: 'Subscription',
-        fields: {
-            greetings: {
-                type: GraphQLString,
-                subscribe: async function* () {
-                    for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
-                        yield { greetings: hi }
-                    }
-                },
-                description: `Greetings description goes here...`,
-            },
-
-            block: {
-                type: BlockType,
-                subscribe: () => pubsub.asyncIterator(['NEW_BLOCK']),
-                description: `Block description goes here...`,
-            },
-        },
-        description: `Subscription description goes here...`,
-    }),
-
-    description: `Default GraphQL description goes here...`,
-
+    subscription,
 })
