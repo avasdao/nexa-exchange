@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-graphql",
-  "version": "23.3.23",
+  "version": "23.3.24",
   "description": "Manages GraphQL requests.",
   "main": "index.js",
   "type": "module",
