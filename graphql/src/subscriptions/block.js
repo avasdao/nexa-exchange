@@ -12,8 +12,8 @@ import {
     GraphQLString,
 } from 'graphql'
 
-export default (_pubsub) => {
+export default (_pubsub) => ({
     type: BlockType,
     subscribe: () => _pubsub.asyncIterator(['NEW_BLOCK']),
     description: `A Block subscription will report every new block that appears on the blockchain.`,
-}
+})
