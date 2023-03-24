@@ -8,6 +8,11 @@ import { PubSub } from 'graphql-subscriptions'
 
 const pubsub = new PubSub()
 
+let counter = 1337
+setInterval(() => {
+    pubsub.publish('NEW_BLOCK', counter++)
+})
+
 // pubsub.asyncIterator(['NEW_BLOCK'])
 
 /**
@@ -59,7 +64,6 @@ export default new GraphQLSchema({
                 subscribe: async function* () {
                     for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
                         yield { greetings: hi }
-                        yield { farewells: `${hi} bye!` }
                     }
                 },
             },
