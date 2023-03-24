@@ -4,6 +4,12 @@ import {
     GraphQLString
 } from 'graphql'
 
+import { PubSub } from 'graphql-subscriptions'
+
+const pubsub = new PubSub()
+
+// pubsub.asyncIterator(['NEW_BLOCK'])
+
 /**
  * Construct a GraphQL schema and define the necessary resolvers.
  *
@@ -27,6 +33,19 @@ export default new GraphQLSchema({
         },
     }),
 
+    /* Mutation */
+    subscription: new GraphQLObjectType({
+        name: 'Mutation',
+        fields: {
+            broadcast: (parent, args, { blockchainController }) => {
+                // pubsub.publish('POST_CREATED', { postCreated: args })
+
+                // Datastore logic lives in blockchainController
+                return blockchainController.broadcast(args)
+            },
+        },
+    }),
+
     /* Subscription */
     subscription: new GraphQLObjectType({
         name: 'Subscription',
@@ -38,6 +57,10 @@ export default new GraphQLSchema({
                         yield { greetings: hi };
                     }
                 },
+            },
+
+            blocks: {
+                subscribe: () => pubsub.asyncIterator(['NEW_BLOCK']),
             },
         },
     }),
