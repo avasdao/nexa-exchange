@@ -12,7 +12,7 @@ const CMC_API_ENDPOINT = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/qu
 /* Set (request) target. */
 const target = CMC_API_ENDPOINT + `?symbol=NEXA` // ID = 23380
 
-const UPDATE_INTERVAL = 30000 // default: 30 seconds
+const UPDATE_INTERVAL = 300000 // default: 5 minutes
 
 /* Initialize ticker. */
 let ticker
@@ -60,5 +60,8 @@ const update = async () => {
 
 /* Start (Update) interval. */
 setInterval(update, UPDATE_INTERVAL)
+
+/* Perform an update immediately (at startup). */
+update()
 
 console.info('\n\n  Starting Nexa Exchange Database daemon...\n')
