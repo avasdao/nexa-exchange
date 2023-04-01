@@ -2,8 +2,10 @@ version: '3.3'
 
 services:
   graphql:
-    image: graphql
     build: .
+    image: graphql
+    container_name: graphql
+    restart: always
     network_mode: 'host'
     # ports:
     #   - '127.0.0.1:6000:3000'

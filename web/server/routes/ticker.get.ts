@@ -19,8 +19,34 @@ export default defineEventHandler(async (event) => {
 
     /* Validate response. */
     if (response?.rows[0]?.doc) {
-        /* Return ticker. */
-        return response?.rows[0]?.doc
+        const doc = response?.rows[0]?.doc
+
+        const quote = {
+            USD: {
+                price: doc.quote.USD.price,
+                vol24: doc.quote.USD.volume_24h,
+                volChg24: doc.quote.USD.volume_change_24h,
+                pctChg1h: doc.quote.USD.percent_change_1h,
+                pctChg24h: doc.quote.USD.percent_change_24h,
+                pctChg7d: doc.quote.USD.percent_change_7d,
+                pctChg30d: doc.quote.USD.percent_change_30d,
+                marketCap: doc.quote.USD.market_cap,
+            }
+        }
+
+        const pkg = {
+            name: doc.name,
+            symbol: doc.symbol,
+            numMarkets: doc.num_market_pairs,
+            maxSupply: doc.max_supply,
+            circulatingSupply: doc.circulating_supply,
+            totalSupply: doc.total_supply,
+            updatedAt: doc.last_updated,
+            quote,
+        }
+
+        /* Return ticker (package). */
+        return pkg
     } else {
         /* Return error message. */
         return {

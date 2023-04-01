@@ -17,7 +17,9 @@ const fields = {
 }
 
 /* Set (Mutation) description. */
-const description = `Make authenticated requests to the entire suite of Nexa Exchange on-chain services.`
+const description = `
+Make authenticated requests to the entire suite of Nexa Exchange on-chain services.
+`.trim()
 
 /**
  * Mutation

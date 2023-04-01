@@ -1,18 +1,10 @@
+/* Import modules. */
+import { GraphQLSchema } from 'graphql'
+
 /* Import (Schema) objects. */
 import mutation from './mutation.js'
 import query from './query.js'
 import subscription from './subscription.js'
-
-import {
-    GraphQLBoolean,
-    GraphQLFloat,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLObjectType,
-    GraphQLInt,
-    GraphQLSchema,
-    GraphQLString,
-} from 'graphql'
 
 /**
  * GraphQL Schema

@@ -36,5 +36,21 @@ export default defineNuxtConfig({
 
         /* Add CORS headers to API. */
         '/api/**': { cors: true },
+
+        /* Add CORS headers to root (System) endpoints. */
+        '/auth': { cors: true },
+        '/stats': { cors: true },
+        '/status': { cors: true },
+
+        /* Add CORS headers to root (Market) endpoints. */
+        '/mcap': { cors: true },
+        '/mex': { cors: true },
+        '/nex': { cors: true },
+        '/price': { cors: true },
+        '/ticker': { cors: true },
+
+        /* Add CORS headers to root (Exchange) endpoints. */
+        '/mexc': { cors: true },
+        '/txbit': { cors: true },
     },
 })
