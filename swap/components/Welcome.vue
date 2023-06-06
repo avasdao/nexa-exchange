@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
-import AssetButton from '../components/AssetButton.vue'
+import AssetButton from './AssetButton.vue'
 
 import QrScanner from 'qr-scanner'
 // QrScanner.WORKER_PATH = './js/qr-scanner-worker.min.js'

@@ -3,8 +3,14 @@ version: '3.7'
 services:
   app:
     build: .
-    image: nexa-swap
-    container_name: nexa-swap
+    image: nexajs-dapp
+    container_name: nexajs-dapp
     restart: always
     ports:
-      - '127.0.0.1:3000:80'
+      - '127.0.0.1:3000:3000'   # use with proxy server (eg. Nginx)
+      # - '0.0.0.0:80:3000'     # use without proxy server
+    logging: # apply better controls to Docker overlay folder
+      driver: 'json-file'
+      options:
+        max-file: '5'
+        max-size: '10m'

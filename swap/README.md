@@ -1,57 +1,42 @@
-# bridge
+# NexaJS Vue + TypeScript Boilerplate
 
-This template should help get you started developing with Vue 3 in Vite.
+Look at the [NexaJS documentation](https://docs.nexajs.org) to learn more.
 
-## Recommended IDE Setup
+## Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Make sure to install the dependencies:
 
-## Customize configuration
+```bash
+# yarn
+yarn install
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+# npm
+npm install
 
-## Project Setup
-
-```sh
-yarn
+# pnpm
+pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+## Development Server
 
-```sh
-yarn dev
+Start the development server on http://localhost:3000
+
+```bash
+npm run dev
 ```
 
-### Compile and Minify for Production
+## Production
 
-```sh
-yarn build
+Build the application for production:
+
+```bash
+npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+Locally preview production build:
 
-```sh
-yarn test:unit
+```bash
+npm run preview
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-yarn test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-yarn build
-yarn test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-yarn lint
-```
+Check out the [deployment documentation](https://docs.nexajs.org/deployment) for more information.
