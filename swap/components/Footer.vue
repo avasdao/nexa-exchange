@@ -4,9 +4,9 @@
             <div class="w-full border-t border-gray-300"></div>
         </div>
 
-        <div class="-mt-5 relative flex justify-center">
+        <div class="-mt-3 relative flex justify-center">
             <span class="bg-white px-3 text-gray-500">
-                <img src="~/assets/logo.png" class="w-8 h-8" />
+                <img src="~/assets/logo.png" class="w-6 h-6" />
             </span>
         </div>
 

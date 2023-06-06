@@ -2,6 +2,9 @@
 // import { ref } from 'vue'
 import numeral from 'numeral'
 
+
+const curTab = ref(null)
+
 // /* Verify the URL (location), for security reasons. */
 // const myLocation = document.location
 // // console.log('MY LOCATION', myLocation)
@@ -30,6 +33,8 @@ const updateQuote = async () => {
 
 // updateQuote()
 
+curTab.value = 'swap'
+
 </script>
 
 <template>
@@ -50,18 +55,18 @@ const updateQuote = async () => {
                     Swap
                 </h1>
 
-                <nav class="w-full my-5 grid grid-cols-3 bg-amber-500">
-                    <NuxtLink to="/" class="text-center bg-gray-100 hover:bg-gray-200">
+                <nav class="w-full my-5 grid grid-cols-3 gap-3">
+                    <button @click="curTab = 'swap'" class="py-2 text-xl text-sky-700 font-medium text-center bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 rounded-lg shadow">
                         Home
-                    </NuxtLink>
+                    </button>
 
-                    <NuxtLink to="/about" class="text-center bg-gray-100 hover:bg-gray-200">
-                        About
-                    </NuxtLink>
+                    <button @click="curTab = 'guide'" class="py-2 text-xl text-sky-700 font-medium text-center bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 rounded-lg shadow">
+                        Guide
+                    </button>
 
-                    <NuxtLink to="/help" class="text-center bg-gray-100 hover:bg-gray-200">
+                    <button @click="curTab = 'help'" class="py-2 text-xl text-sky-700 font-medium text-center bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 rounded-lg shadow">
                         Help
-                    </NuxtLink>
+                    </button>
                 </nav>
 
                 <section class="w-full mt-3 px-5 py-2 bg-gray-800 rounded-md">
@@ -85,12 +90,14 @@ const updateQuote = async () => {
 
             </div>
 
-            <Footer />
+            <Footer class="px-5" />
         </div>
 
         <!-- <RouterView /> -->
         <div class="w-full h-screen bg-rose-500">
-            <!-- <Welcome /> -->
+            <Guide v-if="curTab === 'guide'" />
+            <Help v-if="curTab === 'help'" />
+            <Swap v-if="curTab === 'swap'" />
         </div>
     </main>
 </template>
