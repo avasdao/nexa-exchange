@@ -31,16 +31,16 @@ let vol24h = ref(null)
 const updateQuote = async () => {
     const response = await fetch(API_ENDPOINT)
     const ticker = await response.json()
-    console.log('TICKER', ticker)
+    // console.log('TICKER', ticker)
 
     const price = (ticker?.quote.USD.price * 1000000) || 'n/a'
-    console.log('PRICE', price)
+    // console.log('PRICE', price)
 
     const pctChg24h = numeral(ticker?.quote.USD.pctChg24h / 100.0).format('0.0%') || 'n/a'
-    console.log('PCT CHANGE 24H', pctChg24h)
+    // console.log('PCT CHANGE 24H', pctChg24h)
 
     const vol24 = numeral(ticker?.quote.USD.vol24).format('0,0.0a') || 'n/a'
-    console.log('VOLUME 24H', vol24)
+    // console.log('VOLUME 24H', vol24)
 
     displayQuote.value = numeral(price).format('$0,0.00')
 
