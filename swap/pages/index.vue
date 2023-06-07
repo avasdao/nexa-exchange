@@ -18,28 +18,48 @@ const curTab = ref(null)
 // }
 
 /* Set API endpoint. */
-const API_ENDPOINT = 'https://api.nexa.exchange/v1/ticker/quote/NEX'
+const API_ENDPOINT = 'https://nexa.exchange/ticker'
 
 // let quote = ref(0)
 let displayQuote = ref(null)
+let priceChg24h = ref(null)
+let vol24h = ref(null)
 
+/**
+ * Update Quote
+ */
 const updateQuote = async () => {
     const response = await fetch(API_ENDPOINT)
-    const quote = await response.json()
-    // console.log('QUOTE', quote)
+    const ticker = await response.json()
+    console.log('TICKER', ticker)
 
-    displayQuote.value = numeral(quote.price).format('$0,0.00[00]')
+    const price = (ticker?.quote.USD.price * 1000000) || 'n/a'
+    console.log('PRICE', price)
+
+    const pctChg24h = numeral(ticker?.quote.USD.pctChg24h / 100.0).format('0.0%') || 'n/a'
+    console.log('PCT CHANGE 24H', pctChg24h)
+
+    const vol24 = numeral(ticker?.quote.USD.vol24).format('0,0.0a') || 'n/a'
+    console.log('VOLUME 24H', vol24)
+
+    displayQuote.value = numeral(price).format('$0,0.00')
+
+    priceChg24h.value = pctChg24h
+
+    vol24h.value = vol24
 }
 
-// updateQuote()
+/* Start 30-second interval. */
+setInterval(updateQuote, 30000)
+updateQuote()
 
 curTab.value = 'swap'
 
 </script>
 
 <template>
-    <main class="w-screen h-screen grid grid-cols-2">
-        <div class="flex flex-col justify-between items-center">
+    <main class="w-screen h-screen grid lg:grid-cols-2 divide-x-4 divide-amber-300">
+        <div class="flex flex-col justify-between items-center bg-gradient-to-b from-amber-200 to-white">
             <img
                 alt="Nexa Swap Logo"
                 class="logo mt-12 w-32 h-32"
@@ -71,22 +91,36 @@ curTab.value = 'swap'
 
                 <section class="w-full mt-3 px-5 py-2 bg-gray-800 rounded-md">
                     <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
-                        NEX/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayQuote}}</span>
+                        mNEXA/USD
+                        <span class="ml-2 text-4xl text-yellow-500 group-hover:text-yellow-400">
+                            {{displayQuote}}
+                        </span>
                     </h2>
 
                     <div class="flex justify-end">
-                        <span class="text-yellow-400 font-medium text-xs">
-                            <span class="">+1.28%</span>
-                            <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                            <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
-                            <span class="">2.31M</span>
+                        <span class="text-yellow-400 font-medium text-2xl">
+                            <span class="">
+                                {{priceChg24h}}
+                            </span>
+
+                            <svg class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                            </svg>
+
+                            <span class="mx-1 text-yellow-700">
+                                &bullet; &bullet;
+                            </span>
+
+                            <span class="">
+                                {{vol24h}}
+                            </span>
                         </span>
                     </div>
                 </section>
 
-                <h3 class="my-3 italic text-red-400 text-center">
+                <!-- <h3 class="my-3 italic text-red-400 text-center">
                     ☠️ This project is in alpha. Use at your own risk.
-                </h3>
+                </h3> -->
 
             </div>
 
@@ -94,7 +128,7 @@ curTab.value = 'swap'
         </div>
 
         <!-- <RouterView /> -->
-        <div class="w-full h-screen bg-rose-500">
+        <div class="w-full sm:h-screen p-3 flex justify-center items-center bg-gradient-to-b from-gray-700 to-gray-300">
             <Guide v-if="curTab === 'guide'" />
             <Help v-if="curTab === 'help'" />
             <Swap v-if="curTab === 'swap'" />

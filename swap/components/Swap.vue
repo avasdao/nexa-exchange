@@ -50,7 +50,7 @@ const startNexa = () => {
     isShowingNexa.value = true
 }
 
-const startBitcoinCash = () => {
+const startTether = () => {
     /* Request swap. */
     requestSwap(settleAddress.value)
 }
@@ -242,20 +242,20 @@ const requestSwap = async (_settleAddress) => {
                 <ul class="flex flex-col sm:flex-row gap-5">
                     <AssetButton
                         @click="startNexa"
-                        assetid="NEX"
+                        assetid="NEXA"
                         asset-name="Nexa"
                         class="w-full sm:w-36"
                     />
 
                     <AssetButton
-                        assetid="BTC"
-                        asset-name="Bitcoin"
+                        assetid="USDT"
+                        asset-name="Tether"
                         class="w-full sm:w-36 opacity-50 cursor-not-allowed"
                     />
 
                     <AssetButton
-                        assetid="BCH"
-                        asset-name="Bitcoin Cash"
+                        assetid="BTC"
+                        asset-name="Bitcoin"
                         class="w-full sm:w-36 opacity-50 cursor-not-allowed"
                     />
 
@@ -316,17 +316,17 @@ const requestSwap = async (_settleAddress) => {
 
                 <ul class="flex flex-col sm:flex-row gap-5">
                     <AssetButton
-                        assetid="BTC"
-                        asset-name="Bitcoin"
-                        class="w-full sm:w-36 opacity-50 cursor-not-allowed"
+                        @click="startTether"
+                        assetid="USDT"
+                        asset-name="Tether"
+                        class="w-full sm:w-36"
+                        :class="[ isValidAddress ? 'opacity-100' : 'opacity-50 cursor-not-allowed']"
                     />
 
                     <AssetButton
-                        @click="startBitcoinCash"
-                        assetid="BCH"
-                        asset-name="Bitcoin Cash"
-                        class="w-full sm:w-36"
-                        :class="[ isValidAddress ? 'opacity-100' : 'opacity-50 cursor-not-allowed']"
+                        assetid="BTC"
+                        asset-name="Bitcoin"
+                        class="w-full sm:w-36 opacity-50 cursor-not-allowed"
                     />
 
                     <AssetButton
