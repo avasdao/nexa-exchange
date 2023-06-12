@@ -1,7 +1,7 @@
 /* Import modules. */
 import moment from 'moment'
 import PouchDB from 'pouchdb'
-import { Rpc } from 'nexajs'
+import { Rpc } from '@nexajs/rpc'
 
 /* Initialize databases. */
 const logsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/logs`)

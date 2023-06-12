@@ -4,7 +4,7 @@
             <h3 class="text-xs text-yellow-600 font-bold uppercase">Did you know?</h3>
 
             <p class="mt-2 text-gray-600">
-                Nexaverse assets are "officially" denoted with the <strong>0x</strong> as a prefixed subscript.
+                MetaNet assets are "officially" denoted with the <strong>0x</strong> as a prefixed subscript.
             </p>
 
             <p class="text-gray-800">
@@ -12,11 +12,11 @@
             </p>
 
             <p class="mt-2 text-gray-600">
-                ALL Nexaverse assets have been <em>"bridged"</em> to the sidechain, including the <strong><small class="text-gray-600">0x</small>NEX</strong> native gas token and other assets from the <a href="https://nexa.org" target="_blank" class="text-blue-500 hover:underline font-medium">Nexa</a> host chain.
+                ALL MetaNet assets have been <em>"bridged"</em> to the sidechain, including the <strong><small class="text-gray-600">0x</small>NEX</strong> native gas token and other assets from the <a href="https://nexa.org" target="_blank" class="text-blue-500 hover:underline font-medium">Nexa</a> host chain.
             </p>
 
             <p class="text-gray-800">
-                e.g. <strong>$BCH</strong> <small class="italic">Bitcoin Cash</small> &lt;=&gt; <strong>WBCH</strong> <small class="italic">Nexa</small> &lt;=&gt; <strong><small class="text-gray-600">0x</small>BCH</strong> <small class="italic">Nexaverse</small>
+                e.g. <strong>$BCH</strong> <small class="italic">Bitcoin Cash</small> &lt;=&gt; <strong>WBCH</strong> <small class="italic">Nexa</small> &lt;=&gt; <strong><small class="text-gray-600">0x</small>BCH</strong> <small class="italic">MetaNet</small>
             </p>
         </div>
 
@@ -42,7 +42,7 @@
                                 <tbody class="bg-white">
                                     <tr class="border-t border-gray-200">
                                         <th colspan="5" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                                            Nexa &amp; The Nexaverse
+                                            Nexa &amp; The MetaNet
                                         </th>
                                     </tr>
 
@@ -137,23 +137,3 @@
         </section>
     </main>
 </template>
-
-<script>
-export default {
-    data: () => ({
-        //
-    }),
-    computed: {
-        //
-    },
-    methods: {
-        //
-    },
-    created: function () {
-        //
-    },
-    mounted: function () {
-        //
-    },
-}
-</script>

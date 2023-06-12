@@ -1,5 +1,5 @@
 <script setup>
-// import { ref } from 'vue'
+/* Import modules. */
 import numeral from 'numeral'
 
 

@@ -240,10 +240,7 @@
 </template>
 
 <script>
-/* global ethereum */
-
 /* Import modules. */
-import { ethers } from 'ethers'
 import moment from 'moment'
 // import { v4 as uuidv4 } from 'uuid'
 
@@ -329,15 +326,6 @@ export default {
 
             this.accounts = accounts
             console.log('ACCOUNTS', accounts)
-
-            /* Initialize provider. */
-            const provider = new ethers
-                .providers
-                .Web3Provider(window.ethereum, 'any')
-
-            /* Set signer. */
-            const signer = provider.getSigner()
-            // console.log('SIGNER', signer)
 
             /* Set message name. */
             const name = 'Nexa Events'

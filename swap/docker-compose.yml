@@ -3,8 +3,8 @@ version: '3.7'
 services:
   app:
     build: .
-    image: nexajs-dapp
-    container_name: nexajs-dapp
+    image: nexa-swap
+    container_name: nexa-swap
     restart: always
     ports:
       - '127.0.0.1:3000:3000'   # use with proxy server (eg. Nginx)
