@@ -57,7 +57,7 @@ export default defineEventHandler(async (event) => {
     params = [
         addr,
         sig,
-        `awesomenexa.org_nexid_reg_${challenge}`,
+        `nexa.exchange_nexid_reg_${challenge}`,
     ]
     console.log('AUTH PARAMS', params)
 
