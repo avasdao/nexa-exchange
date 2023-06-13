@@ -1,17 +1,27 @@
 <script setup>
 /* Import modules. */
-import { ref } from 'vue'
+//
 
 /* Initialize stores. */
 import { useProfileStore } from '@/stores/profile'
+
+/* Initialize profile. */
+const Profile = useProfileStore()
+
+onBeforeMount(() => {
+    Profile.$state = JSON.parse(localStorage.getItem('profile'))
+})
+
+watch(Profile.$state, (_state) => {
+    localStorage.setItem('profile', JSON.stringify(_state))
+})
+
+
 
 /* Initialize constants. */
 const POLLING_FREQUENCY = 3000 // 3 seconds
 
 let pollingid
-
-/* Initialize Profile store. */
-const Profile = useProfileStore()
 
 const hasAuth = ref(false)
 const isLoading = ref(true)
@@ -69,16 +79,6 @@ const pollForAuth = async () => {
     }
 }
 
-/* Setup API polling. */
-// NOTE: ONLY RUN POLLING ON CLIENT
-if (process.client) {
-    pollForAuth()
-
-    /* Initialize authorization polling. */
-    // FIXME How can we implement WebSockets for more efficiency?
-    pollingid = setInterval(pollForAuth, POLLING_FREQUENCY)
-}
-
 /**
  * Sign Out
  *
@@ -97,7 +97,12 @@ if (process.client) {
 
 /* Handle mounting. */
 onMounted(() => {
-    console.log('MOUNTED!!!')
+    /* Setup API polling. */
+    pollForAuth()
+
+    /* Initialize authorization polling. */
+    // FIXME How can we implement WebSockets for more efficiency?
+    pollingid = setInterval(pollForAuth, POLLING_FREQUENCY)
 })
 
 onBeforeUnmount(() => {
