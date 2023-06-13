@@ -14,13 +14,13 @@ let regLink = ref(null)
 
 /* Initialize Profile store. */
 const Profile = useProfileStore()
-console.log('SESSION ID', Profile.sessionid)
-console.log('CHALLENGE', Profile.challenge)
+// console.log('SESSION ID', Profile.sessionid)
+// console.log('CHALLENGE', Profile.challenge)
 
 // NOTE: We ONLY request Session from the Client.
 if (!Profile.sessionid) {
     const session = await Profile.initSession()
-    console.log('NEW SESSION (auth page):', session)
+    // console.log('NEW SESSION (auth page):', session)
 }
 
 /**
@@ -36,8 +36,8 @@ const qr = computed(() => {
     let strValue = ''
 
     regLink.value = `${NEXID_ENDPOINT}?op=reg&proto=http&chal=${Profile.challenge}&cookie=${Profile.sessionid}&hdl=r&email=o`
-    console.log('CHALLENGE STRING', Profile.challenge)
-    console.log('REG STRING', regLink.value)
+    // console.log('CHALLENGE STRING', Profile.challenge)
+    // console.log('REG STRING', regLink.value)
 
     dataString = regLink.value
 
