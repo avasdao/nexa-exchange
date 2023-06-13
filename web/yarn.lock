@@ -614,7 +614,7 @@
     graphql-ws "5.12.0"
     ws "8.13.0"
 
-"@nexajs/rostrum@23.6.7":
+"@nexajs/rostrum@23.6.7", "@nexajs/rostrum@^23.6.7":
   version "23.6.7"
   resolved "https://registry.yarnpkg.com/@nexajs/rostrum/-/rostrum-23.6.7.tgz#a9e4af240cec292dff2821c6393b03b442ecdff5"
   integrity sha512-eGdH8+jFZaZxi7W2oQXLSQL8BuO0mHIEy+OZ/ED0vHgnkDzS/KzyY+yuCb6DGrhluD4sKE3mWII8paWMb6SJfg==
@@ -625,7 +625,7 @@
     uuid "9.0.0"
     ws "8.12.1"
 
-"@nexajs/rpc@^23.5.15":
+"@nexajs/rpc@23.5.15":
   version "23.5.15"
   resolved "https://registry.yarnpkg.com/@nexajs/rpc/-/rpc-23.5.15.tgz#d8bb94f8f5027019d9dd6b0c43b3bf33a90e79f0"
   integrity sha512-yq93deGbnpL4ccYCdXEh/G5sRkzN/kTQ/5ezg0LLaH+7ZjEyIayAEf7UcTw5VSjeWMutvj/BHMvlEYl+th1aVA==

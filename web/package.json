@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nexajs/address": "23.6.7",
+    "@nexajs/rostrum": "^23.6.7",
     "@nexajs/rpc": "23.5.15",
     "@nexajs/utils": "23.5.15",
     "@pinia/nuxt": "0.4.7",
