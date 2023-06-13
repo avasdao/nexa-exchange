@@ -12,19 +12,14 @@ export default defineEventHandler(async (event) => {
     let session
     let sessionid
 
-    /* Set (request) query. */
-    const query = getQuery(event)
-    console.log('QUERY', query)
-
     /* Set session id. */
-    sessionid = query?.sid
+    sessionid = event.context.params.sessionid
     console.log('SESSION ID', sessionid)
 
     /* Validate session id. */
     if (!sessionid) {
         return {
-            error: 'Not found',
-            query,
+            error: 'Session ID is required.',
         }
     }
 
@@ -37,8 +32,7 @@ export default defineEventHandler(async (event) => {
     /* Validate session. */
     if (!session) {
         return {
-            error: 'Not found',
-            query,
+            error: 'Session not found.',
         }
     }
 

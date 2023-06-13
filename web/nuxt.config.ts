@@ -35,7 +35,7 @@ export default defineNuxtConfig({
         '/admin/**': { ssr: false },
 
         /* Add CORS headers to API. */
-        '/api/**': { cors: true },
+        '/v1/**': { cors: true },
 
         /* Add CORS headers to root (System) endpoints. */
         '/auth': { cors: true },
@@ -48,9 +48,5 @@ export default defineNuxtConfig({
         '/nex': { cors: true },
         '/price': { cors: true },
         '/ticker': { cors: true },
-
-        /* Add CORS headers to root (Exchange) endpoints. */
-        '/mexc': { cors: true },
-        '/txbit': { cors: true },
     },
 })

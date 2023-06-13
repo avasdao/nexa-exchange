@@ -50,7 +50,7 @@ const pollForAuth = async () => {
     }
 
     /* Set target. */
-    const target = '/api/auth?sid=' + Profile.sessionid
+    const target = '/v1/session/' + Profile.sessionid
     console.log('TARGET', target)
 
     const session = await $fetch(target)
@@ -132,12 +132,6 @@ onBeforeUnmount(() => {
 
         <div v-else>
             <section v-if="hasAuth" class="py-10 flex flex-col items-center gap-10">
-                <!-- <p>
-                    Nickname
-
-                    [ {{nickname}} ]
-                </p> -->
-
                 <h2 class="text-3xl text-rose-500 font-bold">
                    Coming Soon...
                 </h2>
