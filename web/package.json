@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-web",
-  "version": "23.6.12",
+  "version": "23.6.15",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@nexajs/address": "23.6.7",
-    "@nexajs/rostrum": "^23.6.7",
+    "@nexajs/rostrum": "23.6.13",
     "@nexajs/rpc": "23.5.15",
     "@nexajs/utils": "23.5.15",
     "@pinia/nuxt": "0.4.7",
