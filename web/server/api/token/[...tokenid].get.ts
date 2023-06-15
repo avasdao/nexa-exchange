@@ -2,8 +2,6 @@
 import { getGenesisInfo } from '@nexajs/rostrum'
 
 export default defineEventHandler(async (event) => {
-    let docUrl
-    let jsonDoc
     let tokenid
     let tokenDetails
 
@@ -15,16 +13,6 @@ export default defineEventHandler(async (event) => {
         .catch(err => console.error(err))
     console.log('TOKEN DETAILS', tokenDetails)
 
-    if (tokenDetails?.document_url) {
-        docUrl = tokenDetails.document_url
-
-        jsonDoc = await $fetch(docUrl)
-            .catch(err => console.error(err))
-    }
-
-    return {
-        ...tokenDetails,
-        document: jsonDoc[0],
-        signature: jsonDoc[1],
-    }
+    /* Return token details. */
+    return tokenDetails
 })
