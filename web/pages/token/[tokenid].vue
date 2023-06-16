@@ -108,7 +108,7 @@ onMounted(async () => {
                         </div>
                     </div>
 
-                    <div class="aspect-h-1 aspect-w-1 w-full">
+                    <div class="mt-8 sm:mt-0 aspect-h-1 aspect-w-1 w-full">
                         <!-- Tab panel, show/hide based on tab state. -->
                         <div id="tabs-2-panel-1" aria-labelledby="tabs-2-tab-1" role="tabpanel" tabindex="0">
                             <div v-if="tokenIcon?.slice(0, 4) === 'http'" class="flex justify-center">
