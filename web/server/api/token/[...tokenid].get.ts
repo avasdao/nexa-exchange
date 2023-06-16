@@ -7,11 +7,11 @@ export default defineEventHandler(async (event) => {
 
     /* Set token id. */
     tokenid = event.context.params.tokenid
-    console.log('TOKEN ID', tokenid)
+    // console.log('TOKEN ID', tokenid)
 
     tokenDetails = await getGenesisInfo(tokenid)
         .catch(err => console.error(err))
-    console.log('TOKEN DETAILS', tokenDetails)
+    // console.log('TOKEN DETAILS', tokenDetails)
 
     /* Return token details. */
     return tokenDetails || {}

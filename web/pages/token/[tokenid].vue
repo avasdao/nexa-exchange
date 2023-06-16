@@ -16,11 +16,11 @@ const tokenDoc = ref(null)
 const isShowingGallery = ref(false)
 
 const tokenName = computed(() => {
-    return tokenDetails.value?.name || 'Anon Token'
+    return tokenDetails.value?.name || ''
 })
 
 const tokenTicker = computed(() => {
-    return tokenDetails.value?.ticker || '$ANON'
+    return tokenDetails.value?.ticker || ''
 })
 
 const tokenUrl = computed(() => {
@@ -28,7 +28,7 @@ const tokenUrl = computed(() => {
         return null
     }
 
-    return tokenDetails.value?.document_url || '...'
+    return tokenDetails.value?.document_url || null
 })
 
 const tokenIcon = computed(() => {
@@ -207,7 +207,7 @@ onMounted(async () => {
                             <h3 class="text-5xl font-bold text-indigo-600">
                                 $0.48<span class="text-2xl text-indigo-400">8800</span>
 
-                                <span class="ml-2 text-base">for each ${{tokenTicker}}</span>
+                                <span class="ml-2 text-base">per ${{tokenTicker}}</span>
                             </h3>
                         </section>
 
