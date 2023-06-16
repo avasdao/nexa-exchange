@@ -14,5 +14,5 @@ export default defineEventHandler(async (event) => {
     console.log('TOKEN DETAILS', tokenDetails)
 
     /* Return token details. */
-    return tokenDetails
+    return tokenDetails || {}
 })
