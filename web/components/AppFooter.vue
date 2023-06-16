@@ -8,7 +8,7 @@
                     <img class="h-16" src="~/assets/logo.png" alt="Nexa Exchange Logo" />
 
                     <p class="text-base text-gray-500">
-                        A non-custodial, DAO-managed platform offering you the most effective way to <strong>Store</strong>, <strong>Trade</strong> and <strong>Bridge</strong> your precious Nexa assets.
+                        Your non-custodial, DAO-managed platform offering you the most effective way to <strong>Store</strong>, <strong>Trade</strong> and <strong>Bridge</strong> your precious Nexa assets.
                     </p>
 
                     <div class="flex space-x-6">
