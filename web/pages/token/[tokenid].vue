@@ -186,63 +186,41 @@ onMounted(async () => {
                     <div class="mt-6">
                         <h3 class="sr-only">Description</h3>
 
-                        <div class="space-y-6 text-base text-gray-700">
+                        <h3 class="pl-3 text-lg font-bold leading-6 border-l-4 border-amber-500">
+                            {{tokenDoc?.[0].summary}}
+                        </h3>
+
+                        <div class="mt-3 space-y-6 text-base text-gray-700">
                             <p>
-                                The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and
-                                durable canvas construction keeps your goods protected for all-day use.
+                                {{tokenDoc?.[0].description}}
                             </p>
                         </div>
                     </div>
 
-                    <form class="mt-6">
-                        <!-- Colors -->
-                        <div>
-                            <h3 class="text-sm text-gray-600">Color</h3>
+                    <div class="mt-6">
+                        <!-- Market -->
+                        <section>
+                            <h3 class="text-2xl font-medium text-gray-500">
+                                Avg Market Price
+                            </h3>
 
-                            <fieldset class="mt-2">
-                                <legend class="sr-only">Choose a color</legend>
-                                <div class="flex items-center space-x-3">
-                                    <!--
-                    Active and Checked: "ring ring-offset-1"
-                    Not Active and Checked: "ring-2"
-                  -->
-                                    <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-700">
-                                        <input type="radio" name="color-choice" value="Washed Black" class="sr-only" aria-labelledby="color-choice-0-label" />
-                                        <span id="color-choice-0-label" class="sr-only">Washed Black</span>
-                                        <span aria-hidden="true" class="h-8 w-8 bg-gray-700 rounded-full border border-black border-opacity-10"></span>
-                                    </label>
-                                    <!--
-                    Active and Checked: "ring ring-offset-1"
-                    Not Active and Checked: "ring-2"
-                  -->
-                                    <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                                        <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-1-label" />
-                                        <span id="color-choice-1-label" class="sr-only">White</span>
-                                        <span aria-hidden="true" class="h-8 w-8 bg-white rounded-full border border-black border-opacity-10"></span>
-                                    </label>
-                                    <!--
-                    Active and Checked: "ring ring-offset-1"
-                    Not Active and Checked: "ring-2"
-                  -->
-                                    <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-500">
-                                        <input type="radio" name="color-choice" value="Washed Gray" class="sr-only" aria-labelledby="color-choice-2-label" />
-                                        <span id="color-choice-2-label" class="sr-only">Washed Gray</span>
-                                        <span aria-hidden="true" class="h-8 w-8 bg-gray-500 rounded-full border border-black border-opacity-10"></span>
-                                    </label>
-                                </div>
-                            </fieldset>
-                        </div>
+                            <h3 class="text-5xl font-bold text-indigo-600">
+                                $0.48<span class="text-2xl text-indigo-400">8800</span>
+
+                                <span class="ml-2 text-base">for each ${{tokenTicker}}</span>
+                            </h3>
+                        </section>
 
                         <div class="mt-10 flex">
-                            <button
-                                type="submit"
-                                class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                            <a
+                                href="javascript:alert('coming soon...')"
+                                class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-3xl uppercase font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                             >
-                                Add to bag
-                            </button>
+                                Buy ${{tokenTicker}}
+                            </a>
 
-                            <button type="button" class="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
-                                <svg class="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <a href="javascript:alert('Please sign in first.')" class="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
+                                <svg class="h-10 w-10 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
@@ -250,9 +228,9 @@ onMounted(async () => {
                                     />
                                 </svg>
                                 <span class="sr-only">Add to favorites</span>
-                            </button>
+                            </a>
                         </div>
-                    </form>
+                    </div>
 
                     <section aria-labelledby="details-heading" class="mt-12">
                         <h2 id="details-heading" class="sr-only">Additional details</h2>
@@ -312,23 +290,11 @@ onMounted(async () => {
         </div>
     </main>
 
+    <Reviews />
+
 
 
     <main class="main-body flex-1 my-5 p-3 max-w-5xl mx-auto bg-gradient-to-r from-gray-100 to-gray-200 lg:border-4 border-indigo-500 lg:rounded-xl lg:shadow-md">
-        <header class="flex flex-col items-center">
-            <h1 class="text-6xl font-medium tracking-tighter">
-                {{tokenName}}
-            </h1>
-
-            <h1 class="text-4xl font-medium tracking-widest uppercase">
-                {{tokenTicker}}
-            </h1>
-
-            <!-- <NuxtLink :to="tokenUrl" target="_blank" class="text-xl text-blue-500 font-medium hover:underline">
-                {{tokenUrl}}
-            </NuxtLink> -->
-        </header>
-
         <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4 bg-amber-100">
 
             <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
@@ -376,21 +342,6 @@ onMounted(async () => {
         </div>
 
         <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4 bg-amber-100">
-            <!-- <pre class="col-span-3 text-xs">{{tokenDoc}}</pre> -->
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Summary
-            </div>
-            <div class="px-3 py-2 grid-cols-1 sm:col-span-2 bg-amber-200">
-                {{tokenDoc?.[0].summary}}
-            </div>
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Description
-            </div>
-            <div class="px-3 py-2 grid-cols-1 sm:col-span-2 bg-amber-200">
-                {{tokenDoc?.[0].description}}
-            </div>
 
             <div v-if="tokenDoc?.[0].legal" class="px-3 py-2 text-center sm:text-right bg-amber-200">
                 Legal
