@@ -205,7 +205,7 @@ onMounted(async () => {
                             </h3>
 
                             <h3 class="text-5xl font-bold text-indigo-600">
-                                $0.33<span class="text-2xl text-indigo-400">8800</span>
+                                $0.33<span class="text-2xl text-indigo-400">8880</span>
 
                                 <span class="ml-2 text-base">per ${{tokenTicker}}</span>
                             </h3>
