@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-web",
-  "version": "23.6.15",
+  "version": "23.6.16",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",

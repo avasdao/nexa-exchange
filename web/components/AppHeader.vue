@@ -88,7 +88,7 @@ updateTicker()
 
                 <section class="sm:hidden">
                     <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
-                        1M NEXA/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayTicker}}</span>
+                        mNEXA/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayTicker}}</span>
                     </h2>
 
                     <div class="flex justify-end">
@@ -578,7 +578,7 @@ updateTicker()
                     <div class="flex items-center md:ml-12">
                         <section>
                             <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
-                               1M NEXA/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayTicker}}</span>
+                               mNEXA/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayTicker}}</span>
                             </h2>
 
                             <div class="flex justify-end">
