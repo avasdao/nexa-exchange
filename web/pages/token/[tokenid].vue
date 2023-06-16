@@ -32,7 +32,7 @@ const tokenUrl = computed(() => {
 })
 
 const tokenIcon = computed(() => {
-    if (tokenUrl.value) {
+    if (tokenUrl.value && tokenDoc.value) {
         const url = new URL(tokenUrl.value)
         // console.log('URL', url)
 
@@ -54,7 +54,7 @@ onMounted(async () => {
         // console.log('DOC URL', docUrl)
 
         if (docUrl.slice(0, 5) === 'https') {
-            console.log('docUrl HELP', docUrl)
+            // console.log('docUrl HELP', docUrl)
             tokenDoc.value = await $fetch(docUrl)
                 .catch(err => console.error(err))
             // console.log('DOC', tokenDoc.value)
