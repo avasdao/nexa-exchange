@@ -82,7 +82,7 @@ updateTicker()
                 <div>
                     <NuxtLink to="/" class="flex">
                         <span class="sr-only">Nexa Exchange</span>
-                        <img class="h-10 w-auto sm:h-14" src="~/assets/logo.png" alt="Nexa Exchange Logo" />
+                        <img class="h-12 w-auto sm:h-14" src="~/assets/logo.png" alt="Nexa Exchange Logo" />
                     </NuxtLink>
                 </div>
 
