@@ -66,12 +66,32 @@ onMounted(() => {
 //     // Now is the time to perform all cleanup operations.
 // })
 
-const isShowingFull = ref(true)
 </script>
 
 <template>
-    <main class="w-screen h-screen grid lg:grid-cols-2 divide-x-4 divide-amber-300">
-        <div v-if="isShowingFull" class="flex flex-col justify-between items-center bg-gradient-to-b from-amber-200 to-white">
+    <main class="w-screen h-screen grid lg:grid-cols-2 lg:divide-x-4 divide-amber-300">
+
+        <div class="lg:hidden px-3 py-2">
+            <h3 class="text-sm text-gray-500 font-medium uppercase">
+                Swap Navigation
+            </h3>
+
+            <nav class="w-full my-2 grid grid-cols-3 gap-3">
+                <NuxtLink to="/" class="py-2 text-xl text-sky-700 font-medium text-center bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 rounded-lg shadow">
+                    Home
+                </NuxtLink>
+
+                <NuxtLink to="/guide" class="py-2 text-xl text-sky-700 font-medium text-center bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 rounded-lg shadow">
+                    Guide
+                </NuxtLink>
+
+                <NuxtLink to="/help" class="py-2 text-xl text-sky-700 font-medium text-center bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 rounded-lg shadow">
+                    Help
+                </NuxtLink>
+            </nav>
+        </div>
+
+        <div class="hidden lg:block flex flex-col justify-between items-center bg-gradient-to-b from-amber-200 to-white">
             <img
                 alt="Nexa Swap Logo"
                 class="logo mt-12 w-32 h-32"

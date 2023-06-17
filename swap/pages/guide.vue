@@ -3,7 +3,7 @@
 
 <template>
     <main class="h-full">
-        <div class="h-full relative overflow-hidden bg-white py-16 border-2 border-gray-200 rounded-lg shadow-md">
+        <div class="h-full relative overflow-hidden bg-white py-16 lg:border-2 lg:border-gray-200 lg:rounded-lg lg:shadow-md">
             <div class="hidden lg:absolute lg:inset-y-0 lg:block lg:h-full lg:w-full lg:[overflow-anchor:none]">
                 <div class="relative mx-auto h-full max-w-prose text-lg" aria-hidden="true">
                     <svg class="absolute top-12 left-full translate-x-32 transform" width="404" height="384" fill="none" viewBox="0 0 404 384">
