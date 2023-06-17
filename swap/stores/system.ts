@@ -1,5 +1,9 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
+import numeral from 'numeral'
+
+/* Set API endpoint. */
+const API_ENDPOINT = 'https://nexa.exchange'
 
 /**
  * System Store
@@ -48,31 +52,84 @@ export const useSystemStore = defineStore('system', {
          */
         _locale: null,
 
-        /**
-         * Notices
-         *
-         * System notices that nag/remind the user of some important action or
-         * information; which can be permanently disabled ("Do Not Show Again")
-         * via checkbox and confirmation.
-         *
-         * NOTE: Unique 1-byte (hex) codes (up to 255) are used to reduce the size
-         *       of this storage field.
-         */
-        _notices: null,
+        _ticker: null,
     }),
 
     getters: {
-        // TODO
+        displayQuote() {
+            return numeral(this.price).format('$0,0.00')
+        },
+
+        price() {
+            if (!this._ticker) {
+                return null
+            }
+
+            return this._ticker.quote.USD.price * 1000000.0
+        },
+
+        displayPrice() {
+            return numeral(this.price).format('$0,0.00') || 'n/a'
+        },
+
+        pctChg24h() {
+            return this._ticker?.quote.USD.pctChg24h / 100.0
+        },
+
+        displayPctChg24h() {
+            return numeral(this.pctChg24h).format('0.0%') || 'n/a'
+        },
+
+        vol24h() {
+            if (!this._ticker) {
+                return null
+            }
+
+            return this._ticker.quote.USD.vol24
+        },
+
+        displayVol24h() {
+            return numeral(this.vol24h).format('0,0.0a') || 'n/a'
+        },
+
     },
 
     actions: {
         /**
          * Initialize Application
          *
-         * Performs startup activities.
+         * Perform startup activities.
          */
-        initApp() {
+        init() {
+            console.info('Initializing Nexa Swap application...')
+
             this._appStarts++
+
+            /* Start 30-second interval. */
+            setInterval(this.updateTicker, 30000)
+            this.updateTicker()
         },
+
+        /**
+         * Cleanup
+         *
+         * Perform application activities before shutdown.
+         */
+        cleanup() {
+            console.info('Cleaning up...')
+        },
+
+        /**
+         * Update Ticker
+         *
+         * Request ticker info from remote (Nexa Exchange) API.
+         */
+        async updateTicker() {
+            /* Request ticker info. */
+            this._ticker = await $fetch(API_ENDPOINT + '/ticker')
+                .catch(err => console.error(err))
+            console.log('TICKER', this._ticker)
+        },
+
     },
 })
