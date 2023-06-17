@@ -1,11 +1,12 @@
 <script setup>
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+/* Import modules. */
+import { decodeAddress } from '@nexajs/address'
+
+// import { useRouter } from 'vue-router'
 
 import AssetButton from './AssetButton.vue'
 
 import QrScanner from 'qr-scanner'
-// QrScanner.WORKER_PATH = './js/qr-scanner-worker.min.js'
 
 /* Initialize router. */
 const router = useRouter()
@@ -176,26 +177,34 @@ const requestSwap = async (_settleAddress) => {
  * Makes a remote call to the the Core endpoint of the API.
  */
  const validateAddress = async () => {
+    let decoded
+
     if (!settleAddress.value || settleAddress.value === '') {
         return false
     }
 
-    const content = decodeAddress(settleAddress.value)
-    console.log('CONTENT', content)
+    try {
+        decoded = decodeAddress(settleAddress.value)
+    console.log('CONTENT', decoded)
 
-    if (!content) {
+    } catch (err) {
+        console.log('SHOW UI ERROR!')
+        console.error(err)
+    }
+
+    if (!decoded) {
         console.error('API ERROR!')
 
         return false
     }
 
     /* Validate address. */
-    if (content.isvalid) {
+    if (decoded.hash) {
         /* Set address flag. */
         isValidAddress.value = true
     }
 
-    // return content
+    return decoded
 }
 
 </script>
