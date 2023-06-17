@@ -37,7 +37,7 @@ let cameraError = false
 /* Watch the settle address for "instant" handling of changes. */
 // NOTE: Watch is necessary to detect "pasting" on mobile.
 watch(settleAddress, (_address) => {
-    // console.log('SETTLE ADDRESS CHANGED', _address)
+    console.log('SETTLE ADDRESS CHANGED', _address)
 
     // FIXME: Verify that 20 chars is valid for all supported address formats.
     if (_address && _address.length > 20) {
@@ -180,22 +180,8 @@ const requestSwap = async (_settleAddress) => {
         return false
     }
 
-    const endpoint = 'https://api.nexa.exchange/v1/core/'
-
-    const rawResponse = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            action: 'validateaddress',
-            params: [settleAddress.value]
-        })
-    })
-
-    const content = await rawResponse.json()
-    // console.log('CONTENT', content)
+    const content = decodeAddress(settleAddress.value)
+    console.log('CONTENT', content)
 
     if (!content) {
         console.error('API ERROR!')

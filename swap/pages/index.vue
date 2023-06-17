@@ -5,17 +5,23 @@ import numeral from 'numeral'
 
 const curTab = ref(null)
 
-// /* Verify the URL (location), for security reasons. */
-// const myLocation = document.location
-// // console.log('MY LOCATION', myLocation)
-// const hash = myLocation.hash // #/3f080076-d30b-4d32-b51a-120ae63f6905
-// const hostname = myLocation.hostname // localhost
 
-// /* Validate all mirrors. */
-// if (hostname === 'nexaswap.com') {
-//     // window.location.replace('https://swap.nexa.exchange') // NOTE: We have no history added here.
-//     // FIXME: Be sure to attach the "original" path or hash!!
-// }
+/* Initialize stores. */
+import { useSystemStore } from '@/stores/system'
+
+/* Initialize System. */
+const System = useSystemStore()
+
+onBeforeMount(() => {
+    System.$state = JSON.parse(localStorage.getItem('system'))
+    // add additional states here...
+})
+
+watch(System.$state, (_state) => {
+    localStorage.setItem('system', JSON.stringify(_state))
+})
+
+
 
 /* Set API endpoint. */
 const API_ENDPOINT = 'https://nexa.exchange/ticker'
@@ -54,6 +60,17 @@ setInterval(updateQuote, 30000)
 updateQuote()
 
 curTab.value = 'swap'
+
+
+onMounted(() => {
+    console.log('Mounted!', System.ONE_MEX)
+
+})
+
+// onBeforeUnmount(() => {
+//     console.log('Before Unmount!')
+//     // Now is the time to perform all cleanup operations.
+// })
 
 </script>
 
