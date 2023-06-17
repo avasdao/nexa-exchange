@@ -122,7 +122,7 @@ updateTicker()
                             <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
                             <span class="">2.31M</span>
                         </span> -->
-                        <span class="text-yellow-400 font-medium text-xs text-xl">
+                        <span class="text-yellow-400 font-medium text-sm text-xl">
                             <span class="">
                                 {{priceChg24h}}
                             </span>
@@ -632,7 +632,7 @@ updateTicker()
                                     <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
                                     <span class="">2.31M</span>
                                 </span> -->
-                                <span class="text-yellow-400 font-medium text-xs sm:text-xl">
+                                <span class="text-yellow-400 font-medium text-sm sm:text-xl">
                                     <span class="">
                                         {{priceChg24h}}
                                     </span>
