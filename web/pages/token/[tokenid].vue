@@ -186,7 +186,7 @@ onMounted(async () => {
                     <div class="mt-6">
                         <h3 class="sr-only">Description</h3>
 
-                        <h3 class="pl-3 text-lg font-bold leading-6 border-l-4 border-amber-500">
+                        <h3 class="pl-3 text-xl font-bold leading-6 border-l-4 border-amber-500">
                             {{tokenDoc?.[0].summary}}
                         </h3>
 
