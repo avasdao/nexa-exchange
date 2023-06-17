@@ -72,11 +72,12 @@ onMounted(() => {
 //     // Now is the time to perform all cleanup operations.
 // })
 
+const isShowingFull = ref(true)
 </script>
 
 <template>
     <main class="w-screen h-screen grid lg:grid-cols-2 divide-x-4 divide-amber-300">
-        <div class="flex flex-col justify-between items-center bg-gradient-to-b from-amber-200 to-white">
+        <div v-if="isShowingFull" class="flex flex-col justify-between items-center bg-gradient-to-b from-amber-200 to-white">
             <img
                 alt="Nexa Swap Logo"
                 class="logo mt-12 w-32 h-32"
