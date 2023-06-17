@@ -190,7 +190,7 @@ onMounted(async () => {
                             {{tokenDoc?.[0].summary}}
                         </h3>
 
-                        <div class="mt-3 space-y-6 text-base text-gray-700">
+                        <div class="mt-3 pr-5 space-y-6 text-base text-gray-700">
                             <p>
                                 {{tokenDoc?.[0].description}}
                             </p>
