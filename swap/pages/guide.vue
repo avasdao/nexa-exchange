@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
     <main class="h-full">
         <div class="h-full relative overflow-hidden bg-white py-16 border-2 border-gray-200 rounded-lg shadow-md">
