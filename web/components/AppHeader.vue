@@ -20,30 +20,30 @@ let displayQuote = ref(null)
 let priceChg24h = ref(null)
 let vol24h = ref(null)
 
-const displayTicker = computed(() => {
-    if (!ticker.value) {
-        return 'n/a'
-    }
+// const displayTicker = computed(() => {
+//     if (!ticker.value) {
+//         return 'n/a'
+//     }
 
-    /* Set quote. */
-    const quote = ticker.value.quote
+//     /* Set quote. */
+//     const quote = ticker.value.quote
 
-    /* Validate quote. */
-    if (!quote) {
-        return 'n/a'
-    }
+//     /* Validate quote. */
+//     if (!quote) {
+//         return 'n/a'
+//     }
 
-    /* Set price. */
-    const price = quote?.USD?.price
+//     /* Set price. */
+//     const price = quote?.USD?.price
 
-    /* Validate price. */
-    if (!price) {
-        return 'n/a'
-    }
+//     /* Validate price. */
+//     if (!price) {
+//         return 'n/a'
+//     }
 
-    /* Return formatted price. */
-    return numeral(price * 1000000).format('$0,0.00')
-})
+//     /* Return formatted price. */
+//     return numeral(price * 1000000).format('$0,0.00')
+// })
 
 
 const toggleSolutions = () => {
@@ -65,9 +65,9 @@ const launchApp = () => {
 const updateTicker = async () => {
     const ticker = await $fetch('/ticker')
         .catch(err => console.error(err))
-    console.info('Latest ticker:', ticker.value)
+    console.info('Latest ticker:', ticker)
 
-    ticker.value = ticker
+    // ticker.value = ticker
 
     const price = (ticker?.quote.USD.price * 1000000) || 'n/a'
     // console.log('PRICE', price)
@@ -111,7 +111,7 @@ updateTicker()
                     <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
                         mNEXA/USD
                         <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">
-                            {{displayTicker}}
+                            {{displayQuote}}
                         </span>
                     </h2>
 
@@ -122,7 +122,7 @@ updateTicker()
                             <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
                             <span class="">2.31M</span>
                         </span> -->
-                        <span class="text-yellow-400 font-medium text-2xl">
+                        <span class="text-yellow-400 font-medium text-sm text-xl">
                             <span class="">
                                 {{priceChg24h}}
                             </span>
@@ -621,7 +621,7 @@ updateTicker()
                             <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
                                mNEXA/USD
                                <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">
-                                {{displayTicker}}
+                                {{displayQuote}}
                             </span>
                             </h2>
 
@@ -632,7 +632,7 @@ updateTicker()
                                     <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
                                     <span class="">2.31M</span>
                                 </span> -->
-                                <span class="text-yellow-400 font-medium text-2xl">
+                                <span class="text-yellow-400 font-medium text-sm sm:text-xl">
                                     <span class="">
                                         {{priceChg24h}}
                                     </span>
@@ -791,7 +791,7 @@ updateTicker()
 
                     <div class="mt-6">
                         <a href="javascript://" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
-                            {{displayTicker}}
+                            {{displayQuote}}
                         </a>
 
                         <p class="mt-6 text-center text-base font-medium text-gray-500">
