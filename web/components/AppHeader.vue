@@ -16,6 +16,10 @@ const showMobileMenu = ref(false)
 const tickerHandler = ref(null)
 const ticker = ref(null)
 
+let displayQuote = ref(null)
+let priceChg24h = ref(null)
+let vol24h = ref(null)
+
 const displayTicker = computed(() => {
     if (!ticker.value) {
         return 'n/a'
@@ -59,9 +63,26 @@ const launchApp = () => {
 }
 
 const updateTicker = async () => {
-    ticker.value = await $fetch('/ticker')
+    const ticker = await $fetch('/ticker')
         .catch(err => console.error(err))
     console.info('Latest ticker:', ticker.value)
+
+    ticker.value = ticker
+
+    const price = (ticker?.quote.USD.price * 1000000) || 'n/a'
+    // console.log('PRICE', price)
+
+    const pctChg24h = numeral(ticker?.quote.USD.pctChg24h / 100.0).format('0.0%') || 'n/a'
+    // console.log('PCT CHANGE 24H', pctChg24h)
+
+    const vol24 = numeral(ticker?.quote.USD.vol24).format('0,0.0a') || 'n/a'
+    // console.log('VOLUME 24H', vol24)
+
+    displayQuote.value = numeral(price).format('$0,0.00')
+
+    priceChg24h.value = pctChg24h
+
+    vol24h.value = vol24
 }
 
 
@@ -86,17 +107,37 @@ updateTicker()
                     </NuxtLink>
                 </div>
 
-                <section class="sm:hidden">
+                <section class="lg:hidden">
                     <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
-                        mNEXA/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayTicker}}</span>
+                        mNEXA/USD
+                        <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">
+                            {{displayTicker}}
+                        </span>
                     </h2>
 
                     <div class="flex justify-end">
-                        <span class="text-yellow-400 font-medium text-xs">
+                        <!-- <span class="text-yellow-400 font-medium text-xs">
                             <span class="">+1.28%</span>
                             <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
                             <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
                             <span class="">2.31M</span>
+                        </span> -->
+                        <span class="text-yellow-400 font-medium text-2xl">
+                            <span class="">
+                                {{priceChg24h}}
+                            </span>
+
+                            <svg class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                            </svg>
+
+                            <span class="mx-1 text-yellow-700">
+                                &bullet; &bullet;
+                            </span>
+
+                            <span class="">
+                                {{vol24h}}
+                            </span>
                         </span>
                     </div>
                 </section>
@@ -578,15 +619,35 @@ updateTicker()
                     <div class="flex items-center md:ml-12">
                         <section>
                             <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium cursor-default group">
-                               mNEXA/USD <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">{{displayTicker}}</span>
+                               mNEXA/USD
+                               <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">
+                                {{displayTicker}}
+                            </span>
                             </h2>
 
                             <div class="flex justify-end">
-                                <span class="text-yellow-400 font-medium text-xs">
+                                <!-- <span class="text-yellow-400 font-medium text-xs">
                                     <span class="">+1.28%</span>
                                     <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
                                     <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
                                     <span class="">2.31M</span>
+                                </span> -->
+                                <span class="text-yellow-400 font-medium text-2xl">
+                                    <span class="">
+                                        {{priceChg24h}}
+                                    </span>
+
+                                    <svg class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                    </svg>
+
+                                    <span class="mx-1 text-yellow-700">
+                                        &bullet; &bullet;
+                                    </span>
+
+                                    <span class="">
+                                        {{vol24h}}
+                                    </span>
                                 </span>
                             </div>
                         </section>
