@@ -21,6 +21,5 @@ export default defineEventHandler(async (event) => {
     const price: number = ticker?.quote?.USD?.price
 
     /* Return price. */
-    // event.node.res.end(price?.toString())
     return price
 })

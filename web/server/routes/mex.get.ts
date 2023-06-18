@@ -24,6 +24,5 @@ export default defineEventHandler(async (event) => {
     const mex: number = price * 1000000
 
     /* Return price. */
-    // event.node.res.end(mex?.toString())
     return mex
 })

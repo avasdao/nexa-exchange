@@ -1,8 +1,25 @@
-export default defineEventHandler((event) => {
-    /* Set price. */
-    // FIXME FOR DEV PURPOSES ONLY
-    const marketCap = '25000000'
+/* Define Ticker */
+interface Ticker {
+    quote: Quote,
+}
 
-    /* Send response. */
-    event.node.res.end(marketCap)
+/* Define Quote */
+interface Quote {
+    USD: Currency,
+}
+
+/* Define Currency */
+interface Currency {
+    mcap: number,
+}
+
+export default defineEventHandler(async (event) => {
+    /* Request ticker (from our own API). */
+    const ticker: Ticker = await $fetch('/ticker')
+
+    /* Set market cap. */
+    const mcap: number = ticker?.quote?.USD?.marketCap
+
+    /* Return market cap. */
+    return mcap
 })
