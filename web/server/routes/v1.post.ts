@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
     /* Set (request) body. */
     body = await readBody(event)
-    // console.log('BODY', body)
+    console.log('BODY', body)
 
     /* Validate (body) method. */
     if (body?.method) {
