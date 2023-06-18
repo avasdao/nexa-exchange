@@ -28,7 +28,7 @@ const System = useSystemStore()
             </h1>
 
             <nav class="mt-5 flex flex-col sm:flex-row">
-                <ul class="grid grid-cols-2 gap-5">
+                <ul class="grid grid-cols-2 gap-3">
                     <AssetButton
                         @click="Swap.startNexa"
                         assetid="NEXA"
@@ -65,7 +65,7 @@ const System = useSystemStore()
 
         <div class="mx-10 my-3 border-t border-gray-300" />
 
-        <section class="mx-3 my-3 flex flex-col gap-4">
+        <section class="mx-3 my-3 flex flex-col gap-3">
             <video
                 v-if="showVideoPreview"
                 :class="videoPreviewClass"
@@ -98,11 +98,12 @@ const System = useSystemStore()
 
         <div class="mx-10 my-3 border-t border-gray-300" />
 
-        <section class="mx-3 my-3 flex flex-col gap-4">
+        <section class="mx-3 my-3 flex flex-col">
             <input
                 type="text"
                 placeholder="Search for more assets"
                 v-model="search"
+                disabled
                 class="px-3 py-1 w-full h-12 border-2 border-yellow-500 text-xl rounded"
             />
         </section>
