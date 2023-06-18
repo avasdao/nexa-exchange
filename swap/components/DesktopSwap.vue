@@ -5,6 +5,17 @@ import { useSystemStore } from '@/stores/system'
 /* Initialize System. */
 const System = useSystemStore()
 
+let isShowingNexa = ref(false)
+let isValidAddress = ref(false)
+
+const showPrev = () => {
+    // alert('show last')
+}
+
+const showMore = () => {
+    alert('Our team is hard at work! 💪\nMore assets are being added soon..')
+}
+
 /* Load monitoring page. */
 // router.push('/' + response.id)
 

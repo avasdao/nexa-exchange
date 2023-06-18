@@ -1,10 +1,12 @@
 <script setup>
 /* Initialize stores. */
+import { useSwapStore } from '@/stores/swap'
 import { useSystemStore } from '@/stores/system'
-
-/* Initialize System. */
+const Swap = useSwapStore()
 const System = useSystemStore()
 
+// let isShowingNexa = ref(false)
+// let isValidAddress = ref(false)
 
 /* Load monitoring page. */
 // router.push('/' + response.id)
@@ -28,7 +30,7 @@ const System = useSystemStore()
             <nav class="mt-5 flex flex-col sm:flex-row">
                 <ul class="grid grid-cols-2 gap-5">
                     <AssetButton
-                        @click="startNexa"
+                        @click="Swap.startNexa"
                         assetid="NEXA"
                         asset-name="Nexa"
                         class="w-full col-span-2 bg-gradient-to-b from-amber-400 to-amber-500"
@@ -58,17 +60,12 @@ const System = useSystemStore()
                         class="w-full bg-gradient-to-b from-sky-700 to-sky-800"
                     />
                 </ul>
-
-                <button class="ml-3 flex items-center group" @click="showMore">
-                    <span class="text-xs font-bold group-hover:text-cyan-600">
-                        SHOW<br />MORE
-                    </span>
-                    <span class="ml-1 mb-3 text-7xl group-hover:text-cyan-400">
-                        ›
-                    </span>
-                </button>
             </nav>
+        </section>
 
+        <div class="mx-10 my-3 border-t border-gray-300" />
+
+        <section class="mx-3 my-3 flex flex-col gap-4">
             <video
                 v-if="showVideoPreview"
                 :class="videoPreviewClass"
@@ -78,13 +75,12 @@ const System = useSystemStore()
             ></video>
 
             <div
-                v-if="isShowingNexa"
-                class="mt-7 flex flex-row gap-4"
+                class="flex flex-row gap-2"
                 :class="[ isValidAddress ? 'opacity-30' : 'opacity-100' ]"
             >
                 <input
                     type="text"
-                    placeholder="Type or paste your :nexa address"
+                    placeholder="Paste an address OR Scan ›››"
                     v-model="settleAddress"
                     :disabled="isValidAddress"
                     class="px-3 py-1 w-full border-2 border-yellow-500 text-xl rounded"
@@ -98,6 +94,17 @@ const System = useSystemStore()
                 </button>
             </div>
 
+        </section>
+
+        <div class="mx-10 my-3 border-t border-gray-300" />
+
+        <section class="mx-3 my-3 flex flex-col gap-4">
+            <input
+                type="text"
+                placeholder="Search for more assets"
+                v-model="search"
+                class="px-3 py-1 w-full h-12 border-2 border-yellow-500 text-xl rounded"
+            />
         </section>
 
         <section

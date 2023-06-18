@@ -10,11 +10,30 @@ const ENDPOINT = 'https://nexa.exchange/v1'
  */
 export const useSwapStore = defineStore('swap', {
     state: () => ({
+        SWAP_ENDPOINT: 'https://nexa.exchange/v1/swap/',
+
+        _settleAddress: null,
+        _showVideoPreview: null,
+        _videoPreviewClass: null,
+
+        _isShowingNexa: false,
+        _isValidAddress: false,
+
+        _video: null,
+        _scanner: null,
+        _cameraError: null,
 
     }),
 
     getters: {
-        // TODO
+        settleAddress() {
+            return this._settleAddress
+        },
+
+        isShowingNexa() {
+            return this._isShowingNexa
+        }
+
     },
 
     actions: {
@@ -101,6 +120,106 @@ export const useSwapStore = defineStore('swap', {
             }
 
             return false
+        },
+
+        startNexa() {
+            this._isShowingNexa = true
+            console.log('this._isShowingNexa', this._isShowingNexa)
+        },
+
+        startUSDT() {
+            /* Request swap. */
+            requestSwap(settleAddress.value)
+        },
+
+        startBCH() {
+            /* Request swap. */
+            requestSwap(settleAddress.value)
+        },
+
+        openScanner() {
+            showVideoPreview.value = true
+
+            setTimeout(() => {
+                /* Start scanner. */
+                startScanner()
+            }, 100)
+        },
+
+        setReceiver(_result) {
+            // console.log('SET DESTINATION', _result)
+
+            // showVideoPreview = 'hidden'
+            showVideoPreview.value = false
+
+            if (scanner) {
+                scanner.destroy()
+                scanner = null
+            }
+        },
+
+        /**
+         * Start Scanner
+         *
+         * NOTE: This DOES NOT work on any of the Android devices tested.
+         *       However, it DOES work well on all iOS devices tested.
+         */
+        async startScanner() {
+            console.log('SCANNER', scanner)
+            if (scanner) {
+                scanner.destroy()
+                scanner = null
+
+                // showVideoPreview = 'hidden'
+                showVideoPreview.value = false
+
+                return
+            }
+
+            try {
+                navigator.getUserMedia =
+                    navigator.getUserMedia ||
+                    navigator.webkitGetUserMedia ||
+                    navigator.mozGetUserMedia ||
+                    navigator.msGetUserMedia
+
+                if (!navigator.mediaDevices.getUserMedia && !navigator.getUserMedia) {
+                    cameraError = true
+                } else {
+                    /* Initialize video element. */
+                    video = document.getElementById('video-display')
+
+                    videoPreviewClass.value = 'flex w-full bg-yellow-300 border-4 border-yellow-500 p-1 rounded z-10'
+
+                    scanner = new QrScanner(video, (_data) => {
+                        console.log('SCANNER DATA', _data)
+
+                        // FIXME: Build a new link parser
+                        const address = _data
+                        // const address = parseLink(_data)
+
+                        /* Validate (scanner) address. */
+                        if (address) {
+                            settleAddress.value = address
+
+                            setReceiver(address)
+                        }
+
+                        // validateAddress(address)
+                        validateAddress()
+                    })
+
+                    /* Start scanner. */
+                    await scanner.start()
+                }
+            } catch (err) {
+                console.error(err) // eslint-disable-line no-console
+
+                cameraError = true
+
+                /* Bugsnag alert. */
+                throw new Error(err)
+            }
         },
 
     },

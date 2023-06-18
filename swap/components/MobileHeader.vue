@@ -9,7 +9,7 @@ const System = useSystemStore()
 
 <template>
     <main class="lg:hidden px-3 py-2">
-        <div class="flex justify-between">
+        <div class="px-2 flex justify-between">
             <div>
                 <h1 class="inline text-xl font-bold uppercase bg-gradient-to-r from-yellow-700 to-yellow-500 bg-clip-text text-transparent">
                     Nexa
