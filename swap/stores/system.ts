@@ -53,6 +53,8 @@ export const useSystemStore = defineStore('system', {
         _locale: null,
 
         _ticker: null,
+
+        _promoid: null,
     }),
 
     getters: {
@@ -90,6 +92,10 @@ export const useSystemStore = defineStore('system', {
 
         displayVol24h() {
             return numeral(this.vol24h).format('0,0.0a') || 'n/a'
+        },
+
+        promoid() {
+            return this._promoid
         },
 
     },

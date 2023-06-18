@@ -1,6 +1,5 @@
 <script setup>
 /* Import modules. */
-import { decodeAddress } from '@nexajs/address'
 
 import QrScanner from 'qr-scanner'
 
@@ -143,71 +142,9 @@ const startScanner = async () => {
     }
 }
 
-const requestSwap = async (_settleAddress) => {
-    const rawResponse = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-Telr-Address': '0x0',
-        },
-        body: JSON.stringify({
-            method: 'swap',
-            params: {
-                settleAddress: _settleAddress,
-                affiliateId: 'f3b91942-8a12-4c0e-9289-41578d203894',
-                depositCoin: 'BCH',
-                depositNetwork: 'mainnet',
-                settleCoin: 'NEX',
-                settleNetwork: 'mainnet',
-                commissionRate: 0.001,
-            }
-        })
-    })
-    console.log('RAW RESPONSE', rawResponse)
 
-    const response = await rawResponse.json()
-    console.log('REQUEST SWAP', response)
 
-    /* Load monitoring page. */
-    router.push('/' + response.id)
-}
 
-/**
- * Validate Address
- *
- * Makes a remote call to the the Core endpoint of the API.
- */
- const validateAddress = async () => {
-    let decoded
-
-    if (!settleAddress.value || settleAddress.value === '') {
-        return false
-    }
-
-    try {
-        decoded = decodeAddress(settleAddress.value)
-    console.log('CONTENT', decoded)
-
-    } catch (err) {
-        console.log('SHOW UI ERROR!')
-        console.error(err)
-    }
-
-    if (!decoded) {
-        console.error('API ERROR!')
-
-        return false
-    }
-
-    /* Validate address. */
-    if (decoded.hash) {
-        /* Set address flag. */
-        isValidAddress.value = true
-    }
-
-    return decoded
-}
 
 </script>
 

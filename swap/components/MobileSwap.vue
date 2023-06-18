@@ -5,6 +5,10 @@ import { useSystemStore } from '@/stores/system'
 /* Initialize System. */
 const System = useSystemStore()
 
+
+/* Load monitoring page. */
+// router.push('/' + response.id)
+
 </script>
 
 <template>
