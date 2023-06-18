@@ -13,51 +13,50 @@ const System = useSystemStore()
 
 <template>
     <main class="lg:hidden flex flex-col">
-        <section class="mx-3 my-5">
-            <video
-                v-if="showVideoPreview"
-                :class="videoPreviewClass"
-                id="video-display"
-                autoplay
-                playsinline
-            ></video>
+        <section class="mx-3 my-2">
+            <p class="px-5 text-base font-light">
+                Swap your crypto assets <span class="font-normal">INSTANTLY</span> and for the <span class="font-normal">LOWEST</span> exchange rates available at
+                <span class="text-indigo-500 font-bold">MEXC</span>,
+                <span class="text-indigo-500 font-bold">CoinEx</span> and
+                <span class="text-indigo-500 font-bold">Txbit</span>.
+            </p>
 
-            <h1 class="mt-3 text-4xl font-bold">
-                I want:
+            <h1 class="mt-3 text-4xl text-gray-600 font-bold">
+                I want ↴
             </h1>
 
             <nav class="mt-5 flex flex-col sm:flex-row">
-                <button class="mr-3 flex items-center group cursor-not-allowed" @click="showPrev">
-                    <span class="ml-1 mb-3 text-7xl text-yellow-400">
-                        ‹
-                    </span>
-                    <span class="text-xs text-yellow-400 font-bold">
-                        SHOW<br />PREV
-                    </span>
-                </button>
-
-                <ul class="flex flex-col sm:flex-row gap-5">
+                <ul class="grid grid-cols-2 gap-5">
                     <AssetButton
                         @click="startNexa"
                         assetid="NEXA"
                         asset-name="Nexa"
-                        class="w-full sm:w-36"
+                        class="w-full col-span-2 bg-gradient-to-b from-amber-400 to-amber-500"
                     />
 
                     <AssetButton
                         assetid="USDT"
                         asset-name="Tether"
-                        class="w-full sm:w-36"
+                        class="w-full bg-gradient-to-b from-green-800 to-green-900"
                     />
 
                     <AssetButton
                         assetid="BCH"
                         asset-name="Bitcoin Cash"
-                        class="w-full sm:w-36"
+                        class="w-full bg-gradient-to-b from-green-700 to-green-800"
                     />
 
-                    <!-- <li>Tether (USDT)</li> -->
-                    <!-- <li>USD Coin (USDC)</li> -->
+                    <AssetButton
+                        assetid="GIFT"
+                        asset-name="Gift Cards"
+                        class="w-full bg-gradient-to-b from-rose-600 to-rose-700"
+                    />
+
+                    <AssetButton
+                        assetid="DASH"
+                        asset-name="Dash"
+                        class="w-full bg-gradient-to-b from-sky-700 to-sky-800"
+                    />
                 </ul>
 
                 <button class="ml-3 flex items-center group" @click="showMore">
@@ -69,6 +68,14 @@ const System = useSystemStore()
                     </span>
                 </button>
             </nav>
+
+            <video
+                v-if="showVideoPreview"
+                :class="videoPreviewClass"
+                id="video-display"
+                autoplay
+                playsinline
+            ></video>
 
             <div
                 v-if="isShowingNexa"

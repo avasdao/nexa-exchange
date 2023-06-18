@@ -13,14 +13,6 @@ const System = useSystemStore()
 <template>
     <main class="hidden mx-5 lg:flex flex-col">
         <section class="my-5 p-5 bg-gradient-to-r from-yellow-200 to-yellow-300 border-4 border-yellow-400 rounded-lg shadow-lg">
-            <video
-                v-if="showVideoPreview"
-                :class="videoPreviewClass"
-                id="video-display"
-                autoplay
-                playsinline
-            ></video>
-
             <h1 class="mt-3 text-4xl font-bold">
                 I want:
             </h1>
@@ -68,6 +60,14 @@ const System = useSystemStore()
                     </span>
                 </button>
             </nav>
+
+            <video
+                v-if="showVideoPreview"
+                :class="videoPreviewClass"
+                id="video-display"
+                autoplay
+                playsinline
+            ></video>
 
             <div
                 v-if="isShowingNexa"
