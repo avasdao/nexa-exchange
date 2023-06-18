@@ -1,10 +1,9 @@
-
-
 /* Set endpoint. */
 const API_ENDPOINT = 'https://api.telr.io/v1/exchange'
 
 export default defineEventHandler(async (event) => {
     let body
+    let headers
     let errors
     let method
     let response
@@ -18,10 +17,17 @@ export default defineEventHandler(async (event) => {
     if (body?.method) {
         method = body.method
 
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-TELR-API': process.env.TELR_API_KEY,
+        }
+
         switch(method) {
         case 'createOrder':
             return await $fetch(API_ENDPOINT, {
-                method: 'POST',
+                method,
+                headers,
                 body,
             })
             .catch(err => console.error(err))
