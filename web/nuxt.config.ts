@@ -8,7 +8,7 @@ export default defineNuxtConfig({
             meta: [
                 { charset: 'utf-8' },
                 { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-                { hid: 'description', name: 'description', content: 'A dedicated Nexa exchange.' },
+                { hid: 'description', name: 'description', content: 'Your #1 source for Nexa asset exchange.' },
                 { name: 'format-detection', content: 'telephone=no' }
             ],
             link: [
