@@ -1,35 +1,44 @@
+
+
+/* Set endpoint. */
+const API_ENDPOINT = 'https://api.telr.io/v1/exchange'
+
 export default defineEventHandler(async (event) => {
     let body
     let errors
     let method
-    let pkg
+    let response
     let success
 
     /* Set (request) body. */
     body = await readBody(event)
     console.log('BODY', body)
 
+    /* Validate method. */
     if (body?.method) {
         method = body.method
-    }
 
-    if (method) {
         switch(method) {
         case 'createOrder':
-            success = 'creating new order...'
-            break
+            return await $fetch(API_ENDPOINT, {
+                method: 'POST',
+                body,
+            })
+            .catch(err => console.error(err))
         default:
-            errors = 'Unknown method'
+            errors = `[ ${method} ] is an unknown method.`
         }
     }
 
+    /* Set errors. */
     errors = null
 
-    pkg = {
+    response = {
         success,
         body,
         errors,
     }
 
-    return pkg
+    /* Return response. */
+    return response
 })

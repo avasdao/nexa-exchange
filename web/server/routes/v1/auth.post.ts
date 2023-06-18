@@ -1,10 +1,24 @@
-export default defineEventHandler(async (event) => {
-    /* Set (request) body. */
-    const body = await readBody(event)
-    // console.log('BODY (_reg_/auto', body)
+/* Import modules .*/
+import { v4 as uuidv4 } from 'uuid'
 
-    return await $fetch('https://api.telr.io/v1/exchange/auth/', {
+export default defineEventHandler(async (event) => {
+    let requestBody
+    let postBody
+
+    /* Set (request) body. */
+    const requestBody = await readBody(event)
+    // console.log('REQUEST BODY (_reg_/auto)', requestBody)
+
+    const postBody = {
+        id: uuidv4(),
+        jsonrpc: '2.0',
+        method: 'auth',
+        params: requestBody,
+    }
+
+    return await $fetch('https://api.telr.io/v1/exchange/auth', {
         method: 'POST',
-        body,
+        body: postBody.params, // FIXME Update required!
     })
+    .catch(err => console.error(err))
 })
