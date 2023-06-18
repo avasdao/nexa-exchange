@@ -43,11 +43,11 @@ const System = useSystemStore()
                     <AssetButton
                         assetid="BCH"
                         asset-name="Bitcoin Cash"
-                        class="w-full bg-gradient-to-b from-green-700 to-green-800"
+                        class="w-full bg-gradient-to-b from-green-600 to-green-700"
                     />
 
                     <AssetButton
-                        assetid="GIFT"
+                        assetid="GIFTS"
                         asset-name="Gift Cards"
                         class="w-full bg-gradient-to-b from-rose-600 to-rose-700"
                     />
@@ -101,6 +101,7 @@ const System = useSystemStore()
         </section>
 
         <section
+            v-if="isShowingNexa"
             class="my-5 p-5 bg-gradient-to-r from-sky-200 to-sky-300 border-4 border-sky-400 rounded-lg shadow-lg"
             :class="[ isValidAddress ? 'opacity-100' : 'opacity-30 cursor-not-allowed']"
         >
