@@ -6,10 +6,10 @@ export default defineEventHandler(async (event) => {
     let postBody
 
     /* Set (request) body. */
-    const requestBody = await readBody(event)
+    requestBody = await readBody(event)
     // console.log('REQUEST BODY (_reg_/auto)', requestBody)
 
-    const postBody = {
+    postBody = {
         id: uuidv4(),
         jsonrpc: '2.0',
         method: 'auth',
