@@ -13,7 +13,7 @@ export const useSwapStore = defineStore('swap', {
         SWAP_ENDPOINT: 'https://nexa.exchange/v1/swap/',
 
         _settleAddress: null,
-        _showVideoPreview: null,
+        _isShowingVideoPreview: null,
         _videoPreviewClass: null,
 
         _isShowingNexa: false,
@@ -32,7 +32,15 @@ export const useSwapStore = defineStore('swap', {
 
         isShowingNexa() {
             return this._isShowingNexa
-        }
+        },
+
+        isShowingVideoPreview() {
+            return this._isShowingVideoPreview
+        },
+
+        isValidAddress() {
+            return true
+        },
 
     },
 
@@ -92,7 +100,7 @@ export const useSwapStore = defineStore('swap', {
          *
          * Makes a remote call to the the Core endpoint of the API.
          */
-        async isValidAddress(_address) {
+        async isValidAddress_REF(_address) {
             let decoded
 
             if (!_address || _address === '') {
@@ -124,17 +132,16 @@ export const useSwapStore = defineStore('swap', {
 
         startNexa() {
             this._isShowingNexa = true
-            console.log('this._isShowingNexa', this._isShowingNexa)
         },
 
-        startUSDT() {
+        startUsdt() {
             /* Request swap. */
-            requestSwap(settleAddress.value)
+            this.requestSwap(settleAddress.value)
         },
 
-        startBCH() {
+        startBch() {
             /* Request swap. */
-            requestSwap(settleAddress.value)
+            this.requestSwap(settleAddress.value)
         },
 
         openScanner() {

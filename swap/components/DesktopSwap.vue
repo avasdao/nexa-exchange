@@ -1,12 +1,12 @@
 <script setup>
 /* Initialize stores. */
+import { useSwapStore } from '@/stores/swap'
 import { useSystemStore } from '@/stores/system'
-
-/* Initialize System. */
+const Swap = useSwapStore()
 const System = useSystemStore()
 
-let isShowingNexa = ref(false)
-let isValidAddress = ref(false)
+// let isShowingNexa = ref(false)
+// let isValidAddress = ref(false)
 
 const showPrev = () => {
     // alert('show last')
@@ -40,7 +40,7 @@ const showMore = () => {
 
                 <ul class="flex flex-col sm:flex-row gap-5">
                     <AssetButton
-                        @click="startNexa"
+                        @click="Swap.startNexa"
                         assetid="NEXA"
                         asset-name="Nexa"
                         class="w-full sm:w-36"
@@ -73,7 +73,7 @@ const showMore = () => {
             </nav>
 
             <video
-                v-if="showVideoPreview"
+                v-if="Swap.isShowingVideoPreview"
                 :class="videoPreviewClass"
                 id="video-display"
                 autoplay
@@ -81,21 +81,21 @@ const showMore = () => {
             ></video>
 
             <div
-                v-if="isShowingNexa"
+                v-if="Swap.isShowingNexa"
                 class="mt-7 flex flex-row gap-4"
-                :class="[ isValidAddress ? 'opacity-30' : 'opacity-100' ]"
+                :class="[ Swap.isValidAddress ? 'opacity-30' : 'opacity-100' ]"
             >
                 <input
                     type="text"
                     placeholder="Type or paste your :nexa address"
                     v-model="settleAddress"
-                    :disabled="isValidAddress"
+                    :disabled="Swap.isValidAddress"
                     class="px-3 py-1 w-full border-2 border-yellow-500 text-xl rounded"
                 />
 
                 <button
                     @click="openScanner"
-                    :disabled="isValidAddress"
+                    :disabled="Swap.isValidAddress"
                 >
                     <svg class="w-12 h-12 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
                 </button>
@@ -105,7 +105,7 @@ const showMore = () => {
 
         <section
             class="my-5 p-5 bg-gradient-to-r from-sky-200 to-sky-300 border-4 border-sky-400 rounded-lg shadow-lg"
-            :class="[ isValidAddress ? 'opacity-100' : 'opacity-30 cursor-not-allowed']"
+            :class="[ Swap.isValidAddress ? 'opacity-100' : 'opacity-30 cursor-not-allowed']"
         >
             <h1 class="text-4xl font-bold">
                 I have:
@@ -123,19 +123,19 @@ const showMore = () => {
 
                 <ul class="flex flex-col sm:flex-row gap-5">
                     <AssetButton
-                        @click="startUSDT"
+                        @click="Swap.startUsdt"
                         assetid="USDT"
                         asset-name="Tether"
                         class="w-full sm:w-36"
-                        :class="[ isValidAddress ? 'opacity-100' : 'opacity-50 cursor-not-allowed']"
+                        :class="[ Swap.isValidAddress ? 'opacity-100' : 'opacity-50 cursor-not-allowed']"
                     />
 
                     <AssetButton
-                        @click="startBCH"
+                        @click="Swap.startBch"
                         assetid="BCH"
                         asset-name="Bitcoin Cash"
                         class="w-full sm:w-36"
-                        :class="[ isValidAddress ? 'opacity-100' : 'opacity-50 cursor-not-allowed']"
+                        :class="[ Swap.isValidAddress ? 'opacity-100' : 'opacity-50 cursor-not-allowed']"
                     />
 
                     <AssetButton
