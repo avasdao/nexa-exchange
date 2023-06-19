@@ -1,4 +1,6 @@
 <script setup>
+import QrScanner from 'qr-scanner'
+
 /* Initialize stores. */
 import { useSwapStore } from '@/stores/swap'
 import { useSystemStore } from '@/stores/system'
@@ -6,11 +8,7 @@ const Swap = useSwapStore()
 const System = useSystemStore()
 
 const isShowingUsdtSelect = ref(false)
-const settleAddress = ref(null)
 const search = ref(null)
-
-/* Load monitoring page. */
-// router.push('/' + response.id)
 
 const openUsdtSelect = () => {
     isShowingUsdtSelect.value = true
@@ -22,6 +20,22 @@ const closeUsdtSelect = () => {
 
 const startTrc20Usdt = () => {
     Swap.startUsdt()
+}
+
+/**
+ * Open Scanner
+ *
+ * Open a video display and sends the correct DOM object to the scanner.
+ */
+const openScanner = async () => {
+    /* Open video preview. */
+    await Swap.openVideoPreview()
+
+    /* Set (video) canvas area. */
+    const canvas = document.getElementById('video-display-mobile')
+
+    /* Start scanner. */
+    Swap.startScanner(canvas)
 }
 
 </script>
@@ -85,7 +99,7 @@ const startTrc20Usdt = () => {
             <video
                 v-if="Swap.isShowingVideoPreview"
                 :class="Swap.videoPreviewClass"
-                id="video-display"
+                id="video-display-mobile"
                 autoplay
                 playsinline
             ></video>
@@ -103,7 +117,7 @@ const startTrc20Usdt = () => {
                 />
 
                 <button
-                    @click="Swap.openScanner"
+                    @click="openScanner"
                     :disabled="Swap.isValidAddress"
                 >
                     <svg class="w-12 h-12 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>

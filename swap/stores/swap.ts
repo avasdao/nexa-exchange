@@ -3,6 +3,10 @@ import { decodeAddress } from '@nexajs/address'
 import { defineStore } from 'pinia'
 import QrScanner from 'qr-scanner'
 
+/* Initialize stores. */
+import { useSystemStore } from '@/stores/system'
+const System = useSystemStore()
+
 /* Initialize Swap API endpoint. */
 const ENDPOINT = 'https://nexa.exchange/v1'
 
@@ -147,10 +151,10 @@ export const useSwapStore = defineStore('swap', {
             this.requestSwap(settleAddress.value)
         },
 
-        openScanner() {
+        async openVideoPreview() {
             this._isShowingVideoPreview = true
 
-            setTimeout(this.startScanner, 100)
+            return await System.sleep(100)
         },
 
         setReceiver(_result) {
@@ -170,7 +174,7 @@ export const useSwapStore = defineStore('swap', {
          * NOTE: This DOES NOT work on any of the Android devices tested.
          *       However, it DOES work well on all iOS devices tested.
          */
-        async startScanner() {
+        async startScanner(_canvas) {
             let address
 
             if (this._scanner) {
@@ -193,12 +197,13 @@ export const useSwapStore = defineStore('swap', {
                     this._cameraError = true
                 } else {
                     /* Initialize video element. */
-                    this._video = document.getElementById('video-display')
-                    console.log('VIDEO', this._video)
+                    // this._video = document.getElementById('video-display')
+                    // console.log('VIDEO', this._video)
+                    // console.log('CANVAS', _canvas)
 
                     this._videoPreviewClass = 'flex w-full bg-yellow-300 border-4 border-yellow-500 p-1 rounded z-10'
 
-                    this._scanner = new QrScanner(this._video, (_data) => {
+                    this._scanner = new QrScanner(_canvas, (_data) => {
                         // FIXME: Build a new link parser
                         address = _data
                         // address = parseLink(_data)

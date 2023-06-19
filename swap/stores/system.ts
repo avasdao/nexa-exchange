@@ -137,5 +137,9 @@ export const useSystemStore = defineStore('system', {
             // console.log('TICKER', this._ticker)
         },
 
+        sleep(_ms) {
+            return new Promise(_r => setTimeout(_r, _ms))
+        },
+
     },
 })
