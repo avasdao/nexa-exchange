@@ -30,7 +30,7 @@ const startTrc20Usdt = () => {
     <main class="lg:hidden flex flex-col">
         <section class="mx-3 my-2">
             <p class="px-5 text-base font-light">
-                Swap upto $1,000 in $NEXA <span class="font-normal">INSTANTLY</span> and for the <span class="font-normal">LOWEST</span> exchange rates available at
+                Swap up to $1,000 in $NEXA <span class="font-normal">INSTANTLY</span> and for the <span class="font-normal">LOWEST</span> exchange rates available at
                 <span class="text-indigo-500 font-bold">MEXC</span>,
                 <span class="text-indigo-500 font-bold">CoinEx</span> and
                 <span class="text-indigo-500 font-bold">Txbit</span>.
