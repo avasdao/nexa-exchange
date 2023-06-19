@@ -1,8 +1,4 @@
 <script setup>
-/* Import modules. */
-
-import QrScanner from 'qr-scanner'
-
 /* Initialize router. */
 const router = useRouter()
 

@@ -1,6 +1,7 @@
 /* Import modules. */
 import { decodeAddress } from '@nexajs/address'
 import { defineStore } from 'pinia'
+import QrScanner from 'qr-scanner'
 
 /* Initialize Swap API endpoint. */
 const ENDPOINT = 'https://nexa.exchange/v1'
@@ -13,11 +14,13 @@ export const useSwapStore = defineStore('swap', {
         SWAP_ENDPOINT: 'https://nexa.exchange/v1/swap/',
 
         _settleAddress: null,
-        _isShowingVideoPreview: null,
         _videoPreviewClass: null,
 
-        _isShowingNexa: false,
         _isValidAddress: false,
+
+        _isShowingBch: false,
+        _isShowingNexa: false,
+        _isShowingVideoPreview: null,
 
         _video: null,
         _scanner: null,
@@ -30,6 +33,10 @@ export const useSwapStore = defineStore('swap', {
             return this._settleAddress
         },
 
+        isShowingBch() {
+            return this._isShowingBch
+        },
+
         isShowingNexa() {
             return this._isShowingNexa
         },
@@ -39,7 +46,38 @@ export const useSwapStore = defineStore('swap', {
         },
 
         isValidAddress() {
-            return true
+            /* Initialize locals. */
+            let decoded
+
+            if (!this.settleAddress || this.settleAddress === '') {
+                return false
+            }
+
+            try {
+                decoded = decodeAddress(this.settleAddress)
+                console.log('DECODED ADDRESS', decoded)
+            } catch (err) {
+                console.error(err)
+                return err
+            }
+
+            if (!decoded) {
+                console.error('API ERROR!')
+
+                return false
+            }
+
+            /* Validate address. */
+            if (decoded.hash) {
+                return true
+            }
+
+            /* Return false (by default). */
+            return false
+        },
+
+        videoPreviewClass() {
+            return this._videoPreviewClass
         },
 
     },
@@ -95,41 +133,6 @@ export const useSwapStore = defineStore('swap', {
             return orderid
         },
 
-        /**
-         * Validate Address
-         *
-         * Makes a remote call to the the Core endpoint of the API.
-         */
-        async isValidAddress_REF(_address) {
-            let decoded
-
-            if (!_address || _address === '') {
-                return false
-            }
-
-            try {
-                decoded = decodeAddress(_address)
-                console.log('DECODED ADDRESS', decoded)
-
-            } catch (err) {
-                console.error('FIXME: SHOW UI ERROR!')
-                console.error(err)
-            }
-
-            if (!decoded) {
-                console.error('API ERROR!')
-
-                return false
-            }
-
-            /* Validate address. */
-            if (decoded.hash) {
-                return true
-            }
-
-            return false
-        },
-
         startNexa() {
             this._isShowingNexa = true
         },
@@ -145,23 +148,19 @@ export const useSwapStore = defineStore('swap', {
         },
 
         openScanner() {
-            showVideoPreview.value = true
+            this._isShowingVideoPreview = true
 
-            setTimeout(() => {
-                /* Start scanner. */
-                startScanner()
-            }, 100)
+            setTimeout(this.startScanner, 100)
         },
 
         setReceiver(_result) {
-            // console.log('SET DESTINATION', _result)
+            this._settleAddress = _result
 
-            // showVideoPreview = 'hidden'
-            showVideoPreview.value = false
+            this._isShowingVideoPreview = false
 
-            if (scanner) {
-                scanner.destroy()
-                scanner = null
+            if (this._scanner) {
+                this._scanner.destroy()
+                this._scanner = null
             }
         },
 
@@ -172,13 +171,13 @@ export const useSwapStore = defineStore('swap', {
          *       However, it DOES work well on all iOS devices tested.
          */
         async startScanner() {
-            console.log('SCANNER', scanner)
-            if (scanner) {
-                scanner.destroy()
-                scanner = null
+            let address
 
-                // showVideoPreview = 'hidden'
-                showVideoPreview.value = false
+            if (this._scanner) {
+                this._scanner.destroy()
+                this._scanner = null
+
+                this._isShowingVideoPreview = false
 
                 return
             }
@@ -191,38 +190,34 @@ export const useSwapStore = defineStore('swap', {
                     navigator.msGetUserMedia
 
                 if (!navigator.mediaDevices.getUserMedia && !navigator.getUserMedia) {
-                    cameraError = true
+                    this._cameraError = true
                 } else {
                     /* Initialize video element. */
-                    video = document.getElementById('video-display')
+                    this._video = document.getElementById('video-display')
+                    console.log('VIDEO', this._video)
 
-                    videoPreviewClass.value = 'flex w-full bg-yellow-300 border-4 border-yellow-500 p-1 rounded z-10'
+                    this._videoPreviewClass = 'flex w-full bg-yellow-300 border-4 border-yellow-500 p-1 rounded z-10'
 
-                    scanner = new QrScanner(video, (_data) => {
-                        console.log('SCANNER DATA', _data)
-
+                    this._scanner = new QrScanner(this._video, (_data) => {
                         // FIXME: Build a new link parser
-                        const address = _data
-                        // const address = parseLink(_data)
+                        address = _data
+                        // address = parseLink(_data)
 
                         /* Validate (scanner) address. */
                         if (address) {
-                            settleAddress.value = address
+                            // this._settleAddress. = address
 
-                            setReceiver(address)
+                            this.setReceiver(address)
                         }
-
-                        // validateAddress(address)
-                        validateAddress()
                     })
 
                     /* Start scanner. */
-                    await scanner.start()
+                    await this._scanner.start()
                 }
             } catch (err) {
                 console.error(err) // eslint-disable-line no-console
 
-                cameraError = true
+                this._cameraError = true
 
                 /* Bugsnag alert. */
                 throw new Error(err)
