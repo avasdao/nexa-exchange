@@ -237,9 +237,9 @@ const openScanner = async () => {
 
                     <AssetButton
                         @click="openCardSelect"
-                        assetid="CARD"
+                        assetid="CREDIT"
                         asset-name="Credit Card"
-                        class="w-full bg-gradient-to-b from-purple-600 to-purple-800"
+                        class="w-full bg-gradient-to-b from-purple-700 to-purple-900"
                     />
 
                     <AssetButton
