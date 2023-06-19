@@ -104,6 +104,11 @@ const openScanner = async () => {
                 playsinline
             ></video>
 
+            <p class="px-3 text-sm text-gray-500">
+                Please provide an address where you want your new assets delivered.
+                <span class="text-indigo-500 font-medium">Type, Paste or Scan.</span>
+            </p>
+
             <div
                 class="flex flex-row gap-2"
                 :class="[ Swap.isValidAddress ? 'opacity-30' : 'opacity-100' ]"
@@ -113,7 +118,7 @@ const openScanner = async () => {
                     placeholder="Paste an address OR Scan ›››"
                     v-model="settleAddress"
                     :disabled="Swap.isValidAddress"
-                    class="px-3 py-1 w-full border-2 border-yellow-500 text-xl rounded"
+                    class="px-3 py-1 w-full border-2 border-yellow-500 text-xl rounded shadow"
                 />
 
                 <button
@@ -128,13 +133,19 @@ const openScanner = async () => {
 
         <div class="mx-10 my-3 border-t border-gray-300" />
 
-        <section class="mx-3 my-3 flex flex-col">
+        <section class="mx-3 my-3 flex flex-col gap-3">
+            <p class="px-3 text-sm text-gray-500">
+                Didn't see your asset listed above?
+                Not a problem.
+                Search <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
+            </p>
+
             <input
                 type="text"
                 placeholder="Search for more assets"
                 v-model="search"
                 disabled
-                class="px-3 py-1 w-full h-12 border-2 border-yellow-500 text-xl rounded"
+                class="px-3 py-1 w-full h-12 border-2 border-yellow-500 text-xl rounded shadow"
             />
         </section>
 
