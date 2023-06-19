@@ -142,7 +142,7 @@ const openScanner = async () => {
 
             <input
                 type="text"
-                placeholder="Search for more assets"
+                placeholder="Search all supported assets"
                 v-model="search"
                 disabled
                 class="px-3 py-1 w-full h-12 border-2 border-yellow-500 text-xl rounded shadow"
