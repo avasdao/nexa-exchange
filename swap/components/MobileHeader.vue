@@ -15,7 +15,7 @@ const System = useSystemStore()
                     Nexa
                 </h1>
 
-                <h1 class="inline text-xl font-bold uppercase bg-gradient-to-r from-gray-600 to-gray-900 bg-clip-text text-transparent">
+                <h1 class="inline text-xl font-bold uppercase bg-gradient-to-r from-gray-500 to-gray-700 bg-clip-text text-transparent">
                     Swap
                 </h1>
             </div>
