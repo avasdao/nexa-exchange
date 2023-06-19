@@ -60,34 +60,34 @@ const openScanner = async () => {
                         @click="Swap.startNexa"
                         assetid="NEXA"
                         asset-name="Nexa"
-                        class="w-full col-span-2 bg-gradient-to-b from-amber-400 to-amber-500"
+                        class="w-full col-span-2 bg-gradient-to-b from-amber-400 to-amber-600"
                     />
 
                     <AssetButton
                         @click="openUsdtSelect"
                         assetid="USDT"
                         asset-name="Tether"
-                        class="w-full bg-gradient-to-b from-green-800 to-green-900"
+                        class="w-full bg-gradient-to-b from-green-700 to-green-900"
                     />
 
                     <AssetButton
                         assetid="BCH"
                         asset-name="Bitcoin Cash"
-                        class="w-full bg-gradient-to-b from-green-600 to-green-700"
+                        class="w-full bg-gradient-to-b from-lime-600 to-lime-800"
                     />
 
                     <NuxtLink to="/gifts">
                         <AssetButton
                             assetid="GIFTS"
                             asset-name="Gift Cards"
-                            class="w-full bg-gradient-to-b from-rose-600 to-rose-700"
+                            class="w-full bg-gradient-to-b from-rose-600 to-rose-800"
                         />
                     </NuxtLink>
 
                     <AssetButton
                         assetid="DASH"
                         asset-name="Dash"
-                        class="w-full bg-gradient-to-b from-sky-700 to-sky-800"
+                        class="w-full bg-gradient-to-b from-sky-700 to-sky-900"
                     />
                 </ul>
             </nav>
