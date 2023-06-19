@@ -31,7 +31,7 @@ const System = useSystemStore()
             </h3>
         </div>
 
-        <nav class="w-full my-2 grid grid-cols-3">
+        <nav class="w-full my-2 grid grid-cols-3 divide-x divide-amber-400">
             <NuxtLink to="/" class="py-1 text-xl text-sky-100 font-medium text-center bg-gray-700 border-y border-l border-amber-400 hover:bg-amber-500 rounded-l-lg shadow">
                 Home
             </NuxtLink>
