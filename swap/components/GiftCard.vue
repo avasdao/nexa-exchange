@@ -20,7 +20,7 @@ const props = defineProps({
 
 <template>
     <main>
-        <div class="px-2 py-1 border-2 border-amber-300 shadow aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg xl:aspect-h-8 xl:aspect-w-7">
+        <div class="px-2 py-2 border-2 border-amber-300 shadow aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg xl:aspect-h-8 xl:aspect-w-7">
             <img
                 :src="imageUrl"
                 :alt="cardName"

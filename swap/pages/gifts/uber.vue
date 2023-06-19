@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: 'Amazon.com Gift Card — Nexa Swap',
+    title: 'Uber — Nexa Swap',
     meta: [
         { name: 'description', content: 'Purchase gifts for yourself and others using your $NEXA assets.' }
     ],
@@ -27,12 +27,12 @@ const System = useSystemStore()
 <template>
     <main class="max-w-7xl mx-auto h-full px-3 py-5 flex flex-col gap-5">
         <h1 class="text-4xl font-medium">
-            Amazon.com Gift Card
+            Uber
         </h1>
 
         <GiftCardOrder
-            cardName="Amazon.com Gift Card"
-            imageUrl="https://i.ibb.co/6ZcstL7/image.png"
+            cardName="Uber"
+            imageUrl="https://i.ibb.co/9Y7987y/image.png"
         />
 
         <p class="p-3 text-gray-500">

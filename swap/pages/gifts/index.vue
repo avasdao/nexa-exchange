@@ -30,9 +30,9 @@ const System = useSystemStore()
             Gifts
         </h1>
 
-        <p class="">
-            Purchase and spend gift cards from your favorite retailers all over the world.
-            Card delivery takes a few seconds and is available immediately!
+        <p class="text-gray-600">
+            Instantly purchase the gift card(s) of your favorite retailers from all over the world.
+            Card delivery takes a few seconds and is available to spend immediately!
         </p>
 
         <section class="bg-white">
@@ -47,46 +47,24 @@ const System = useSystemStore()
                         />
                     </NuxtLink>
 
-                    <button>
-                        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                            <img
-                                src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg"
-                                alt="Olive drab green insulated bottle with flared screw lid and flat top."
-                                class="h-full w-full object-cover object-center group-hover:opacity-75"
-                            />
-                        </div>
-
-                        <h3 class="mt-4 text-sm text-gray-700">
-                            Walmart
-                        </h3>
-
-                        <p class="mt-1 text-lg font-medium text-gray-900">
-                            $35
-                        </p>
-                    </button>
-
-                    <button>
-                        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                            <img
-                                src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg"
-                                alt="Person using a pen to cross a task off a productivity paper card."
-                                class="h-full w-full object-cover object-center group-hover:opacity-75"
-                            />
-                        </div>
-
-                        <h3 class="mt-4 text-sm text-gray-700">
-                            Uber
-                        </h3>
-
-                        <p class="mt-1 text-lg font-medium text-gray-900">
-                            $89
-                        </p>
-                    </button>
+                    <NuxtLink to="/gifts/walmart">
+                        <GiftCard
+                            cardName="Walmart"
+                            imageUrl="https://i.ibb.co/HrjJwZX/image.png"
+                        />
+                    </NuxtLink>
 
                     <NuxtLink to="/gifts/mastercard">
                         <GiftCard
                             cardName="Mastercard"
                             imageUrl="https://i.ibb.co/68w6MYH/image.png"
+                        />
+                    </NuxtLink>
+
+                    <NuxtLink to="/gifts/uber">
+                        <GiftCard
+                            cardName="Uber"
+                            imageUrl="https://i.ibb.co/9Y7987y/image.png"
                         />
                     </NuxtLink>
                 </div>

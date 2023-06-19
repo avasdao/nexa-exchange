@@ -43,7 +43,12 @@ const openScanner = async () => {
 <template>
     <main class="lg:hidden flex flex-col">
         <section class="mx-3 my-2">
-            <p class="px-5 text-base font-light text-center">
+            <div v-if="Swap.isShowingNexa" class="flex justify-end">
+                <button @click="Swap.startOrder" class="px-3 py-1 text-rose-100 font-medium bg-rose-500 border-2 border-rose-700 rounded-lg shadow hover:bg-rose-400">
+                    Start Over
+                </button>
+            </div>
+            <p v-if="!Swap.isShowingNexa" class="px-5 text-base font-light text-center">
                 Swap up to $1,000 in $NEXA <span class="font-normal">INSTANTLY</span> and for the <span class="font-normal">LOWEST</span> exchange rates available at
                 <NuxtLink to="https://www.mexc.com/" target="_blank" class="text-blue-500 font-bold hover:underline">
                     MEXC
@@ -56,47 +61,60 @@ const openScanner = async () => {
                 </NuxtLink>.
             </p>
 
-            <h1 class="mt-3 text-4xl text-gray-600 font-bold">
-                I want ↴
-            </h1>
+            <section v-if="Swap.isShowingNexa">
+                <h2 class="text-2xl font-medium">
+                    Nexa
+                </h2>
 
-            <nav class="mt-5 flex flex-col">
-                <ul class="grid grid-cols-2 gap-3">
-                    <AssetButton
-                        @click="Swap.startNexa"
-                        assetid="NEXA"
-                        asset-name="Nexa"
-                        class="w-full col-span-2 bg-gradient-to-b from-amber-400 to-amber-600"
-                    />
+                <p>
+                    Nexa is a PoW blockchain with the capability to process 100K TPS using hardware scaling technology.
+                </p>
+            </section>
 
-                    <AssetButton
-                        @click="openUsdtSelect"
-                        assetid="USDT"
-                        asset-name="Tether"
-                        class="w-full bg-gradient-to-b from-green-700 to-green-900"
-                    />
+            <section v-if="!Swap.isShowingNexa">
+                <h1 class="mt-3 text-4xl text-gray-600 font-bold">
+                    I want ↴
+                </h1>
 
-                    <AssetButton
-                        assetid="BCH"
-                        asset-name="Bitcoin Cash"
-                        class="w-full bg-gradient-to-b from-lime-600 to-lime-800"
-                    />
-
-                    <NuxtLink to="/gifts">
+                <nav class="mt-5 flex flex-col">
+                    <ul class="grid grid-cols-2 gap-3">
                         <AssetButton
-                            assetid="GIFTS"
-                            asset-name="Gift Cards"
-                            class="w-full bg-gradient-to-b from-rose-600 to-rose-800"
+                            @click="Swap.startNexa"
+                            assetid="NEXA"
+                            asset-name="Nexa"
+                            class="w-full col-span-2 bg-gradient-to-b from-amber-400 to-amber-600"
                         />
-                    </NuxtLink>
 
-                    <AssetButton
-                        assetid="DASH"
-                        asset-name="Dash"
-                        class="w-full bg-gradient-to-b from-sky-700 to-sky-900"
-                    />
-                </ul>
-            </nav>
+                        <AssetButton
+                            @click="openUsdtSelect"
+                            assetid="USDT"
+                            asset-name="Tether"
+                            class="w-full bg-gradient-to-b from-green-700 to-green-900"
+                        />
+
+                        <AssetButton
+                            assetid="BCH"
+                            asset-name="Bitcoin Cash"
+                            class="w-full bg-gradient-to-b from-lime-600 to-lime-800"
+                        />
+
+                        <NuxtLink to="/gifts">
+                            <AssetButton
+                                assetid="GIFTS"
+                                asset-name="Gift Cards"
+                                class="w-full bg-gradient-to-b from-rose-600 to-rose-800"
+                            />
+                        </NuxtLink>
+
+                        <AssetButton
+                            assetid="DASH"
+                            asset-name="Dash"
+                            class="w-full bg-gradient-to-b from-sky-700 to-sky-900"
+                        />
+                    </ul>
+                </nav>
+
+            </section>
         </section>
 
         <div class="mx-10 my-3 border-t border-gray-300" />
@@ -137,9 +155,9 @@ const openScanner = async () => {
 
         </section>
 
-        <div class="mx-10 my-3 border-t border-gray-300" />
+        <div v-if="!Swap.isShowingNexa" class="mx-10 my-3 border-t border-gray-300" />
 
-        <section class="mx-3 my-3 flex flex-col gap-3">
+        <section v-if="!Swap.isShowingNexa" class="mx-3 my-3 flex flex-col gap-3">
             <p class="px-3 text-sm text-gray-500">
                 Didn't see your asset listed above?
                 Not a problem.

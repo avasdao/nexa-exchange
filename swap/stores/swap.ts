@@ -88,6 +88,15 @@ export const useSwapStore = defineStore('swap', {
 
     actions: {
         /**
+         * Start (New) Order
+         *
+         * Resets all (Swap) order parameters to their initial state.
+         */
+        startOrder() {
+            this._isShowingNexa = false
+        },
+
+        /**
          * Request Swap
          *
          * Make a remote API request with order details.
