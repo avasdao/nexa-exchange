@@ -201,7 +201,7 @@ export const useSwapStore = defineStore('swap', {
                     // console.log('VIDEO', this._video)
                     // console.log('CANVAS', _canvas)
 
-                    this._videoPreviewClass = 'flex w-full h-auto bg-yellow-200 border-2 border-yellow-400 p-1 rounded z-10'
+                    this._videoPreviewClass = 'flex w-full max-h-fit bg-yellow-200 border-2 border-yellow-400 p-1 rounded z-10'
 
                     this._scanner = new QrScanner(_canvas, (_data) => {
                         // FIXME: Build a new link parser
