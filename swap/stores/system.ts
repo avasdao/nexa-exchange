@@ -134,7 +134,7 @@ export const useSystemStore = defineStore('system', {
             /* Request ticker info. */
             this._ticker = await $fetch(API_ENDPOINT + '/ticker')
                 .catch(err => console.error(err))
-            console.log('TICKER', this._ticker)
+            // console.log('TICKER', this._ticker)
         },
 
     },

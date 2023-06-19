@@ -62,11 +62,13 @@ const startTrc20Usdt = () => {
                         class="w-full bg-gradient-to-b from-green-600 to-green-700"
                     />
 
-                    <AssetButton
-                        assetid="GIFTS"
-                        asset-name="Gift Cards"
-                        class="w-full bg-gradient-to-b from-rose-600 to-rose-700"
-                    />
+                    <NuxtLink to="/gifts">
+                        <AssetButton
+                            assetid="GIFTS"
+                            asset-name="Gift Cards"
+                            class="w-full bg-gradient-to-b from-rose-600 to-rose-700"
+                        />
+                    </NuxtLink>
 
                     <AssetButton
                         assetid="DASH"

@@ -25,7 +25,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <main class="w-screen h-screen grid lg:grid-cols-2 lg:divide-x-4 divide-amber-300">
+    <main class="w-screen h-screen flex flex-col lg:grid lg:grid-cols-2 lg:divide-x-4 divide-amber-300">
         <section>
             <MobileHeader />
             <DesktopAside />
