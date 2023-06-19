@@ -40,11 +40,13 @@ const toggle5 = () => {
 <template>
     <main class="max-w-7xl mx-auto h-full px-3 flex flex-col gap-5">
         <div class="mx-auto max-w-7xl py-6 px-4 sm:py-8 sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-3xl divide-y-2 divide-gray-200">
+            <div class="mx-auto max-w-3xl">
                 <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                     Frequently Asked Questions
                 </h2>
+            </div>
 
+            <div class="mx-auto max-w-3xl divide-y-2 divide-gray-200">
                 <section class="py-5 flex flex-col items-center">
                     <h2 class="text-xl font-medium">
                         Contact our team 24x7x365

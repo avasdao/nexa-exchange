@@ -45,9 +45,15 @@ const openScanner = async () => {
         <section class="mx-3 my-2">
             <p class="px-5 text-base font-light text-center">
                 Swap up to $1,000 in $NEXA <span class="font-normal">INSTANTLY</span> and for the <span class="font-normal">LOWEST</span> exchange rates available at
-                <span class="text-indigo-500 font-bold">MEXC</span>,
-                <span class="text-indigo-500 font-bold">CoinEx</span> and
-                <span class="text-indigo-500 font-bold">Txbit</span>.
+                <NuxtLink to="https://www.mexc.com/" target="_blank" class="text-blue-500 font-bold hover:underline">
+                    MEXC
+                </NuxtLink>,
+                <NuxtLink to="https://www.coinex.com/" target="_blank" class="text-blue-500 font-bold hover:underline">
+                    CoinEx
+                </NuxtLink> and
+                <NuxtLink to="https://txbit.io/" target="_blank" class="text-blue-500 font-bold hover:underline">
+                    Txbit
+                </NuxtLink>.
             </p>
 
             <h1 class="mt-3 text-4xl text-gray-600 font-bold">
