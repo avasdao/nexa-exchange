@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <main class="max-w-7xl mx-auto h-full px-3 flex flex-col items-start gap-5">
+    <main class="max-w-7xl mx-auto h-full px-3 flex flex-col gap-5">
         <div class="h-full relative overflow-hidden bg-white py-8 lg:border-2 lg:border-gray-200 lg:rounded-lg lg:shadow-md">
             <div class="hidden lg:absolute lg:inset-y-0 lg:block lg:h-full lg:w-full lg:[overflow-anchor:none]">
                 <div class="relative mx-auto h-full max-w-prose text-lg" aria-hidden="true">

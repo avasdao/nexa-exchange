@@ -3,23 +3,8 @@
 import moment from 'moment'
 import QRCode from 'qrcode'
 
-/* Set API endpoint. */
-const API_ENDPOINT = 'https://api.nexa.exchange/v1/swaps'
 
-
-// orderid: null,
-// depositAddress: null,
-// swap: null,
-// amount: null,
-// dataUrl: null,
-// status: null,
-// expiresAt: null,
-// paymentMax: null,
-
-// showVideoPreview: null,
-// video: null,
-// scanner: null,
-// cameraError: null,
+const isShowing = ref(false)
 
 const expirationTime = computed(() => {
     if (!this.expiresAt) {
@@ -33,9 +18,6 @@ const expirationTime = computed(() => {
 const path = ref(null)
 const orderid = ref(null)
 
-// const params = $route.params
-// console.log('PARAMS', params)
-
 /* Initialize route. */
 const route = useRoute()
 // console.log('ROUTE', route)
@@ -47,19 +29,6 @@ console.log('ROUTE PATH', path.value)
 /* Set (route) path. */
 orderid.value = route?.params.orderid
 console.log('ROUTE PATH', orderid.value)
-
-
-
-// const route = this.$route
-// const path = route.path
-
-// this.orderid = path.slice(1)
-// console.log('Order ID', this.orderid)
-
-// this.paymentMax = 'US$100.00'
-
-// this.init()
-
 
 
 const init = async () => {
@@ -103,7 +72,7 @@ const makePayment = () => {
 </script>
 
 <template>
-    <main class="mt-5 flex flex-col space-y-5 items-center">
+    <main v-if="isShowing" class="mt-5 flex flex-col space-y-5 items-center">
         <h1 class="text-4xl sm:text-4xl text-gray-500 font-medium text-center tracking-widest">
             Monitoring Station
         </h1>

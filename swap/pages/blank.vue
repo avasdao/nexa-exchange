@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: 'Blank — Nexa Studio',
+    title: 'Blank — Nexa Swap',
     meta: [
         { name: 'description', content: 'Nexa Studio makes building your next BIG idea effortless.' }
     ],
@@ -35,7 +35,7 @@ watch(System.$state, (_state) => {
 </script>
 
 <template>
-    <main class="max-w-7xl mx-auto h-full px-3 flex flex-col items-start gap-5">
+    <main class="max-w-7xl mx-auto h-full px-3 flex flex-col gap-5">
         <h1 class="text-5xl font-medium">
             Blank
         </h1>
