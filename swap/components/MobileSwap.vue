@@ -27,6 +27,9 @@ watch(settleAddress, async (_address) => {
         /* Start Nexa order. */
         Swap.startNexa()
 
+        /* Scroll to top of page. */
+        window.scrollTo(0,0)
+
         /* Set balance. */
         const balance = await getAddressBalance(settleAddress.value)
 
