@@ -241,7 +241,7 @@ const startOrder = () => {
             <p class="px-3 text-sm text-gray-500">
                 Don't see your asset listed above?
                 Not a problem.
-                Search <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
+                Search from <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
             </p>
 
             <input
@@ -321,7 +321,7 @@ const startOrder = () => {
             <p class="px-3 text-sm text-gray-500">
                 Don't see your asset listed above?
                 Not a problem.
-                Search <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
+                Search from <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
             </p>
 
             <input
