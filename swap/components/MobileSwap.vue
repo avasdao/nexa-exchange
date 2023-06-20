@@ -242,7 +242,7 @@ const startOrder = () => {
 
         <section v-if="!Swap.isShowingNexa" class="mx-3 my-3 flex flex-col gap-3">
             <p class="px-3 text-sm text-gray-500">
-                Didn't see your asset listed above?
+                Don't see your asset listed above?
                 Not a problem.
                 Search <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
             </p>
@@ -322,7 +322,7 @@ const startOrder = () => {
 
         <section v-if="Swap.isShowingNexa && Swap.isValidAddress === true" class="mx-3 my-3 flex flex-col gap-3">
             <p class="px-3 text-sm text-gray-500">
-                Didn't see your asset listed above?
+                Don't see your asset listed above?
                 Not a problem.
                 Search <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
             </p>
