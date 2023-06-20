@@ -46,6 +46,11 @@ watch(settleAddress, async (_address) => {
     }
 })
 
+watch(() => Swap.settleAddress, (_address) => {
+    /* Update (local) address. */
+    settleAddress.value = _address
+})
+
 const openUsdtSelect = () => {
     isShowingUsdtSelect.value = true
 }
