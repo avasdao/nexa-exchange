@@ -24,6 +24,9 @@ watch(settleAddress, async (_address) => {
 
     /* Validate address. */
     if (Swap.isValidAddress === true) {
+        /* Start Nexa order. */
+        Swap.startNexa()
+
         /* Set balance. */
         const balance = await getAddressBalance(settleAddress.value)
 
@@ -35,7 +38,11 @@ watch(settleAddress, async (_address) => {
         const history = await getAddressHistory(settleAddress.value)
         console.log('HISTORY', history)
 
-        lastActivity.value = 'Block # ' + numeral(history[0]?.height).format('0,0')
+        if (history.length > 0) {
+            lastActivity.value = 'Block # ' + numeral(history[0]?.height).format('0,0')
+        } else {
+            lastActivity.value = 'no activity reported'
+        }
     }
 })
 
@@ -75,13 +82,21 @@ const openScanner = async () => {
     Swap.startScanner(canvas)
 }
 
+const startOrder = () => {
+    /* Clear (local) inputs. */
+    settleAddress.value = null
+
+    /* Start a new order. */
+    Swap.startOrder()
+}
+
 </script>
 
 <template>
     <main class="lg:hidden flex flex-col">
         <section class="mx-3 my-2">
             <div v-if="Swap.isShowingNexa" class="flex justify-end">
-                <button @click="Swap.startOrder" class="px-3 py-1 text-rose-100 font-medium bg-rose-500 border-2 border-rose-700 rounded-lg shadow hover:bg-rose-400">
+                <button @click="startOrder" class="px-3 py-1 text-rose-100 font-medium bg-rose-500 border-2 border-rose-700 rounded-lg shadow hover:bg-rose-400">
                     Start Over
                 </button>
             </div>
@@ -235,7 +250,7 @@ const openScanner = async () => {
 
         <div v-if="Swap.isShowingNexa" class="mx-10 my-3 border-t border-gray-300" />
 
-        <section v-if="Swap.isShowingNexa" class="mx-3 my-3 flex flex-col gap-3">
+        <section v-if="Swap.isShowingNexa && Swap.isValidAddress === true" class="mx-3 my-3 flex flex-col gap-3">
             <p class="px-3 text-sm text-gray-500">
                 Please enter the dollar value of <span class="text-indigo-500 font-medium">$NEXA</span> that you want to receive.
                 <span class="block text-red-500 font-medium text-center italic">
@@ -263,7 +278,7 @@ const openScanner = async () => {
             </div>
         </section>
 
-        <section v-if="Swap.isShowingNexa" class="mx-3">
+        <section v-if="Swap.isShowingNexa && Swap.isValidAddress === true" class="mx-3">
             <h1 class="mt-3 text-4xl text-gray-600 font-bold">
                 I have ↴
             </h1>

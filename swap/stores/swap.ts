@@ -94,6 +94,7 @@ export const useSwapStore = defineStore('swap', {
          */
         startOrder() {
             this._isShowingNexa = false
+            this._settleAddress = null
         },
 
         setAddress(_address) {
