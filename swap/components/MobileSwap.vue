@@ -221,7 +221,7 @@ const startOrder = () => {
                 {{Swap.isValidAddress}}
             </h4>
 
-            <section v-if="Swap.isValidAddress === true" class="grid grid-cols-5 gap-1 text-sm">
+            <section v-if="Swap.isValidAddress === true" class="grid grid-cols-5 gap-1 text-sm text-gray-700">
                 <h4 class="text-right col-span-2">
                     Address balance
                 </h4>
