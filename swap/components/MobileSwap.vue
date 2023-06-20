@@ -191,7 +191,7 @@ const startOrder = () => {
                 playsinline
             ></video>
 
-            <p class="px-3 text-sm text-gray-500">
+            <p v-if="Swap.isValidAddress !== true" class="px-3 text-sm text-gray-500">
                 Please provide an address where you want your new assets delivered.
                 <span class="text-indigo-500 font-medium">Type, Paste or Scan.</span>
             </p>
