@@ -92,13 +92,13 @@ const openScanner = async () => {
     Swap.startScanner(canvas)
 }
 
-const startOrder = () => {
+const resetOrder = () => {
     /* Clear (local) inputs. */
     settleAddress.value = null
     settleAmount.value = null
 
     /* Start a new order. */
-    Swap.startOrder()
+    Swap.resetOrder()
 }
 
 const showPrev = () => {

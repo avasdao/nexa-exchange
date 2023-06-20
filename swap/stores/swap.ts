@@ -7,15 +7,12 @@ import QrScanner from 'qr-scanner'
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-/* Initialize Swap API endpoint. */
-const ENDPOINT = 'https://nexa.exchange/v1'
-
 /**
  * Swap Store
  */
 export const useSwapStore = defineStore('swap', {
     state: () => ({
-        SWAP_ENDPOINT: 'https://nexa.exchange/v1/swap/',
+        EXCHANGE_ENDPOINT: 'https://nexa.exchange/v1',
 
         _depositAsset: null,
         _settleAsset: null,
@@ -111,11 +108,11 @@ export const useSwapStore = defineStore('swap', {
 
     actions: {
         /**
-         * Start (New) Order
+         * Reset Order
          *
          * Resets all (Swap) order parameters to their initial state.
          */
-        startOrder() {
+        resetOrder() {
             this._isShowingBch = false
             this._isShowingDash = false
             this._isShowingNexa = false
@@ -184,7 +181,7 @@ export const useSwapStore = defineStore('swap', {
                 }
             })
 
-            response = await $fetch(ENDPOINT + '/swap', {
+            response = await $fetch(this.EXCHANGE_ENDPOINT, {
                 method,
                 headers,
                 body,
@@ -193,6 +190,10 @@ export const useSwapStore = defineStore('swap', {
 
             /* Set order id. */
             orderid = response.id
+            console.log('ORDER ID', orderid)
+
+            /* Reset order. */
+            this.resetOrder()
 
             /* Return order id. */
             return orderid

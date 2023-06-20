@@ -1,28 +1,13 @@
 <script setup lang="ts">
-/* Define properties. */
-// https://vuejs.org/guide/components/props.html#props-declaration
-const props = defineProps({
-    data: {
-        type: [Object],
-    },
-})
+/* Initialize stores. */
+import { useSwapStore } from '@/stores/swap'
+const Swap = useSwapStore()
 
 const emit = defineEmits(['closeDrawer'])
 
 const closeDrawer = () => {
     emit('closeDrawer')
 }
-
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
-
-// onBeforeUnmount(() => {
-//     console.log('Before Unmount!')
-//     // Now is the time to perform all cleanup operations.
-// })
-
 </script>
 
 <template>
@@ -85,7 +70,7 @@ const closeDrawer = () => {
                         </button>
 
                         <button
-                            @click="startTrc20Usdt"
+                            @click="Swap.requestSwap('USDT')"
                             class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Tron | TRC-20
