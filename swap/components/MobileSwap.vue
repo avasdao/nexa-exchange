@@ -320,6 +320,22 @@ const startOrder = () => {
             </nav>
         </section>
 
+        <section v-if="Swap.isShowingNexa && Swap.isValidAddress === true" class="mx-3 my-3 flex flex-col gap-3">
+            <p class="px-3 text-sm text-gray-500">
+                Didn't see your asset listed above?
+                Not a problem.
+                Search <span class="text-indigo-500 font-medium">more than 400+</span> assets below.
+            </p>
+
+            <input
+                type="text"
+                placeholder="Search all supported assets"
+                v-model="search"
+                disabled
+                class="px-3 py-1 w-full h-12 border-2 border-yellow-500 text-xl rounded shadow"
+            />
+        </section>
+
         <BottomDrawerCardSelect v-if="isShowingCardSelect" @closeDrawer="closeCardSelect" />
         <BottomDrawerUsdtSelect v-if="isShowingUsdtSelect" @closeDrawer="closeUsdtSelect" />
     </main>
