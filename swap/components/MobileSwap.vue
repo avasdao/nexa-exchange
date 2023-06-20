@@ -111,14 +111,11 @@ const startOrder = () => {
             <p v-if="!Swap.isShowingNexa" class="px-5 text-base font-light text-center">
                 Swap up to $1,000 in $NEXA <span class="font-normal">INSTANTLY</span> and for the <span class="font-normal">LOWEST</span> exchange rates available at
                 <NuxtLink to="https://www.mexc.com/" target="_blank" class="text-blue-500 font-bold hover:underline">
-                    MEXC
-                </NuxtLink>,
+                    MEXC</NuxtLink>,
                 <NuxtLink to="https://www.coinex.com/" target="_blank" class="text-blue-500 font-bold hover:underline">
-                    CoinEx
-                </NuxtLink> and
+                    CoinEx</NuxtLink> and
                 <NuxtLink to="https://txbit.io/" target="_blank" class="text-blue-500 font-bold hover:underline">
-                    Txbit
-                </NuxtLink>.
+                    Txbit</NuxtLink>.
             </p>
 
             <section v-if="Swap.isShowingNexa" class="flex justify-between">
