@@ -1,4 +1,5 @@
 <script setup>
+/* Import modules. */
 import numeral from 'numeral'
 import {
     getAddressBalance,
@@ -15,12 +16,13 @@ const isShowingCardSelect = ref(false)
 const isShowingUsdtSelect = ref(false)
 const search = ref(null)
 const settleAddress = ref(null)
+const settleAmount = ref(null)
 const addressBalance = ref(null)
 const lastActivity = ref(null)
 
 watch(settleAddress, async (_address) => {
     /* Set settle address (in store). */
-    Swap.setAddress(_address)
+    Swap.setSettleAddress(_address)
 
     /* Validate address. */
     if (Swap.isValidAddress === true) {
@@ -39,7 +41,7 @@ watch(settleAddress, async (_address) => {
         }
 
         const history = await getAddressHistory(settleAddress.value)
-        console.log('HISTORY', history)
+        // console.log('HISTORY', history)
 
         if (history.length > 0) {
             lastActivity.value = 'Block # ' + numeral(history[0]?.height).format('0,0')
@@ -47,6 +49,11 @@ watch(settleAddress, async (_address) => {
             lastActivity.value = 'no activity reported'
         }
     }
+})
+
+watch(settleAmount, (_amount) => {
+    /* Set settle amount (in store). */
+    Swap.setSettleAmount(_amount)
 })
 
 watch(() => Swap.settleAddress, (_address) => {
@@ -93,10 +100,21 @@ const openScanner = async () => {
 const startOrder = () => {
     /* Clear (local) inputs. */
     settleAddress.value = null
+    settleAmount.value = null
 
     /* Start a new order. */
     Swap.startOrder()
 }
+
+onMounted(() => {
+    /* Initialize settle address    . */
+    settleAddress.value = Swap.settleAddress
+
+    /* Initialize settle amount. */
+    settleAmount.value = Swap.settleAmount
+
+    console.log('Swap.isValidAddress', Swap.isValidAddress)
+})
 
 </script>
 
@@ -272,6 +290,7 @@ const startOrder = () => {
                     type="number"
                     class="block w-full rounded-md border-2 border-yellow-500 py-1.5 pl-10 pr-12 text-2xl text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
                     placeholder="1 - 1000"
+                    v-model="settleAmount"
                     aria-describedby="price-currency"
                 />
 

@@ -17,32 +17,55 @@ export const useSwapStore = defineStore('swap', {
     state: () => ({
         SWAP_ENDPOINT: 'https://nexa.exchange/v1/swap/',
 
+        _depositAsset: null,
+        _settleAsset: null,
         _settleAddress: null,
-        _videoPreviewClass: null,
+        _settleAmount: null,
 
         _isValidAddress: false,
-
         _isShowingBch: false,
+        _isShowingDash: false,
         _isShowingNexa: false,
+        _isShowingUsdt: false,
         _isShowingVideoPreview: null,
 
         _video: null,
         _scanner: null,
         _cameraError: null,
-
+        _videoPreviewClass: null,
     }),
 
     getters: {
+        depositAsset() {
+            return this._depositAsset
+        },
+
+        settleAsset() {
+            return this._settleAsset
+        },
+
         settleAddress() {
             return this._settleAddress
+        },
+
+        settleAmount() {
+            return this._settleAmount
         },
 
         isShowingBch() {
             return this._isShowingBch
         },
 
+        isShowingDash() {
+            return this._isShowingDash
+        },
+
         isShowingNexa() {
             return this._isShowingNexa
+        },
+
+        isShowingUsdt() {
+            return this._isShowingUsdt
         },
 
         isShowingVideoPreview() {
@@ -58,10 +81,11 @@ export const useSwapStore = defineStore('swap', {
             }
 
             try {
+                /* Decode address. */
                 decoded = decodeAddress(this.settleAddress)
-                // console.log('DECODED ADDRESS', decoded)
             } catch (err) {
                 console.error(err)
+                /* Return the error message. */
                 return err?.message
             }
 
@@ -83,7 +107,6 @@ export const useSwapStore = defineStore('swap', {
         videoPreviewClass() {
             return this._videoPreviewClass
         },
-
     },
 
     actions: {
@@ -93,13 +116,35 @@ export const useSwapStore = defineStore('swap', {
          * Resets all (Swap) order parameters to their initial state.
          */
         startOrder() {
+            this._isShowingBch = false
+            this._isShowingDash = false
             this._isShowingNexa = false
+            this._isShowingUsdt = false
+
+            this._depositAsset = null
+            this._settleAsset = null
             this._settleAddress = null
+            this._settleAmount = null
         },
 
-        setAddress(_address) {
+        setDepositAsset(_asset) {
+            /* Set deposit asset. */
+            this._depositAsset = _asset
+        },
+
+        setSettleAsset(_asset) {
+            /* Set settle asset. */
+            this._settleAsset = _asset
+        },
+
+        setSettleAddress(_address) {
             /* Set settle address. */
             this._settleAddress = _address
+        },
+
+        setSettleAmount(_amount) {
+            /* Set settle amount. */
+            this._settleAmount = _amount
         },
 
         /**
@@ -112,7 +157,7 @@ export const useSwapStore = defineStore('swap', {
          * @param _destination
          * @returns
          */
-        async requestSwap(_destination) {
+        async requestSwap() {
             let body
             let headers
             let method
@@ -129,12 +174,13 @@ export const useSwapStore = defineStore('swap', {
             body = JSON.stringify({
                 method: 'swap',
                 params: {
-                    from: 'BCH',
-                    fromNetwork: 'BCH',
-                    to: 'NEXA',
-                    toNetwork: 'NEXA',
-                    address: _destination,
-                    promoid: 'usze90', // System.promoid
+                    depositAsset: this.depositAsset,
+                    depositNetwork: this.depositAsset,
+                    settleAsset: this.settleAsset,
+                    settleNetwork: this.settleAsset,
+                    settleAddress: this.settleAddress,
+                    settleAmount: this.settleAmount,
+                    promoid: System.promoid
                 }
             })
 

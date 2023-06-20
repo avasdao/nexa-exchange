@@ -1,16 +1,18 @@
 <script setup>
 /* Initialize stores. */
+import { useSwapStore } from '@/stores/swap'
 import { useSystemStore } from '@/stores/system'
-
-/* Initialize System. */
+const Swap = useSwapStore()
 const System = useSystemStore()
 
 onBeforeMount(() => {
+    Swap.$state = JSON.parse(localStorage.getItem('swap'))
     System.$state = JSON.parse(localStorage.getItem('system'))
 })
 
-watch(System.$state, (_state) => {
-    localStorage.setItem('system', JSON.stringify(_state))
+watch([Swap.$state, System.$state], (_state) => {
+    localStorage.setItem('swap', JSON.stringify(_state[0]))
+    localStorage.setItem('system', JSON.stringify(_state[1]))
 })
 
 onMounted(() => {

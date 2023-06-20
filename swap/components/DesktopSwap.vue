@@ -1,12 +1,105 @@
 <script setup>
+/* Import modules. */
+import numeral from 'numeral'
+import {
+    getAddressBalance,
+    getAddressHistory,
+} from '@nexajs/rostrum'
+
 /* Initialize stores. */
 import { useSwapStore } from '@/stores/swap'
 import { useSystemStore } from '@/stores/system'
 const Swap = useSwapStore()
 const System = useSystemStore()
 
-// let isShowingNexa = ref(false)
-// let isValidAddress = ref(false)
+const isShowingCardSelect = ref(false)
+const isShowingUsdtSelect = ref(false)
+const search = ref(null)
+const settleAddress = ref(null)
+const settleAmount = ref(null)
+const addressBalance = ref(null)
+const lastActivity = ref(null)
+
+watch(settleAddress, async (_address) => {
+    /* Set settle address (in store). */
+    Swap.setSettleAddress(_address)
+
+    /* Validate address. */
+    if (Swap.isValidAddress === true) {
+        /* Start Nexa order. */
+        Swap.startNexa()
+
+        /* Scroll to top of page. */
+        window.scrollTo(0,0)
+
+        /* Set balance. */
+        const balance = await getAddressBalance(settleAddress.value)
+
+        if (typeof balance !== 'undefined') {
+            /* Set balance. */
+            addressBalance.value = numeral((balance.confirmed + balance.unconfirmed) / 100.0).format('0,0.00') + ' NEXA'
+        }
+
+        const history = await getAddressHistory(settleAddress.value)
+        console.log('HISTORY', history)
+
+        if (history.length > 0) {
+            lastActivity.value = 'Block # ' + numeral(history[0]?.height).format('0,0')
+        } else {
+            lastActivity.value = 'no activity reported'
+        }
+    }
+})
+
+watch(() => Swap.settleAddress, (_address) => {
+    /* Update (local) address. */
+    settleAddress.value = _address
+})
+
+const openUsdtSelect = () => {
+    isShowingUsdtSelect.value = true
+}
+
+const closeUsdtSelect = () => {
+    isShowingUsdtSelect.value = false
+}
+
+const openCardSelect = () => {
+    isShowingCardSelect.value = true
+}
+
+const closeCardSelect = () => {
+    isShowingCardSelect.value = false
+}
+
+const startTrc20Usdt = () => {
+    Swap.startUsdt()
+}
+
+/**
+ * Open Scanner
+ *
+ * Open a video display and sends the correct DOM object to the scanner.
+ */
+const openScanner = async () => {
+    /* Open video preview. */
+    await Swap.openVideoPreview()
+
+    /* Set (video) canvas area. */
+    const canvas = document.getElementById('video-display-mobile')
+
+    /* Start scanner. */
+    Swap.startScanner(canvas)
+}
+
+const startOrder = () => {
+    /* Clear (local) inputs. */
+    settleAddress.value = null
+    settleAmount.value = null
+
+    /* Start a new order. */
+    Swap.startOrder()
+}
 
 const showPrev = () => {
     // alert('show last')
@@ -15,10 +108,6 @@ const showPrev = () => {
 const showMore = () => {
     alert('Our team is hard at work! 💪\nMore assets are being added soon..')
 }
-
-/* Load monitoring page. */
-// router.push('/' + response.id)
-
 </script>
 
 <template>

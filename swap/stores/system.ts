@@ -95,7 +95,8 @@ export const useSystemStore = defineStore('system', {
         },
 
         promoid() {
-            return this._promoid
+            // return this._promoid
+            return 'vt6zky' // nexa:nqtsq5g537fcf6z85pgwk4my5e5ddmypa2sm47mkzavt6zky -- Marketing Campaign
         },
 
     },
