@@ -258,9 +258,9 @@ const startOrder = () => {
         <section v-if="Swap.isShowingNexa && Swap.isValidAddress === true" class="mx-3 my-3 flex flex-col gap-3">
             <p class="px-3 text-sm text-gray-500">
                 Please enter the dollar value of <span class="text-indigo-500 font-medium">$NEXA</span> that you want to receive.
-                <span class="block text-red-500 font-medium text-center italic">
+                <!-- <span class="block text-red-500 font-medium text-center italic">
                     Maximum swap amount is $1,000
-                </span>
+                </span> -->
             </p>
 
             <div class="relative mt-2 rounded-md shadow-sm">
