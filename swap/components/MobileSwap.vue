@@ -1,5 +1,9 @@
 <script setup>
-import QrScanner from 'qr-scanner'
+import numeral from 'numeral'
+import {
+    getAddressBalance,
+    getAddressHistory,
+} from '@nexajs/rostrum'
 
 /* Initialize stores. */
 import { useSwapStore } from '@/stores/swap'
@@ -10,6 +14,30 @@ const System = useSystemStore()
 const isShowingCardSelect = ref(false)
 const isShowingUsdtSelect = ref(false)
 const search = ref(null)
+const settleAddress = ref(null)
+const addressBalance = ref(null)
+const lastActivity = ref(null)
+
+watch(settleAddress, async (_address) => {
+    /* Set settle address (in store). */
+    Swap.setAddress(_address)
+
+    /* Validate address. */
+    if (Swap.isValidAddress === true) {
+        /* Set balance. */
+        const balance = await getAddressBalance(settleAddress.value)
+
+        if (typeof balance !== 'undefined') {
+            /* Set balance. */
+            addressBalance.value = numeral((balance.confirmed + balance.unconfirmed) / 100.0).format('0,0.00') + ' NEXA'
+        }
+
+        const history = await getAddressHistory(settleAddress.value)
+        console.log('HISTORY', history)
+
+        lastActivity.value = 'Block # ' + numeral(history[0]?.height).format('0,0')
+    }
+})
 
 const openUsdtSelect = () => {
     isShowingUsdtSelect.value = true
@@ -147,24 +175,44 @@ const openScanner = async () => {
 
             <div
                 class="flex flex-row gap-2"
-                :class="[ Swap.isValidAddress ? 'opacity-30' : 'opacity-100' ]"
+                :class="[ Swap.isValidAddress === true ? 'opacity-30' : 'opacity-100' ]"
             >
                 <input
                     type="text"
                     placeholder="Paste an address OR Scan ›››"
                     v-model="settleAddress"
-                    :disabled="Swap.isValidAddress"
+                    :disabled="Swap.isValidAddress === true ? true : false"
                     class="px-3 py-1 w-full border-2 border-yellow-500 text-xl rounded shadow"
                 />
 
                 <button
                     @click="openScanner"
-                    :disabled="Swap.isValidAddress"
+                    :disabled="Swap.isValidAddress === true ? true : false"
                 >
                     <svg class="w-12 h-auto text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
                 </button>
             </div>
 
+            <h4 v-if="Swap.isValidAddress !== true && Swap.isValidAddress !== false" class="ml-2 -mt-2 text-sm text-red-500 font-medium">
+                <!-- Show error message, if any. -->
+                {{Swap.isValidAddress}}
+            </h4>
+
+            <section v-if="Swap.isValidAddress === true" class="grid grid-cols-5 gap-1 text-sm">
+                <h4 class="text-right col-span-2">
+                    Address balance
+                </h4>
+                <h4 class="font-medium col-span-3">
+                    {{addressBalance}}
+                </h4>
+
+                <h4 class="text-right col-span-2">
+                    Last activity
+                </h4>
+                <h4 class="font-medium col-span-3">
+                    {{lastActivity}}
+                </h4>
+            </section>
         </section>
 
         <div v-if="!Swap.isShowingNexa" class="mx-10 my-3 border-t border-gray-300" />

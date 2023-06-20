@@ -59,10 +59,10 @@ export const useSwapStore = defineStore('swap', {
 
             try {
                 decoded = decodeAddress(this.settleAddress)
-                console.log('DECODED ADDRESS', decoded)
+                // console.log('DECODED ADDRESS', decoded)
             } catch (err) {
                 console.error(err)
-                return err
+                return err?.message
             }
 
             if (!decoded) {
@@ -94,6 +94,11 @@ export const useSwapStore = defineStore('swap', {
          */
         startOrder() {
             this._isShowingNexa = false
+        },
+
+        setAddress(_address) {
+            /* Set settle address. */
+            this._settleAddress = _address
         },
 
         /**
