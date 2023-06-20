@@ -180,7 +180,7 @@ const startOrder = () => {
             </section>
         </section>
 
-        <div class="mx-10 my-3 border-t border-gray-300" />
+        <div v-if="Swap.isValidAddress !== true" class="mx-10 my-3 border-t border-gray-300" />
 
         <section class="mx-3 my-3 flex flex-col gap-3">
             <video
