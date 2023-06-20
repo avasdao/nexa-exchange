@@ -46,9 +46,7 @@ const props = defineProps({
             </div>
 
             <input
-                type="text"
-                name="price"
-                id="price"
+                type="number"
                 class="block w-full rounded-md border-0 py-1.5 pl-10 pr-12 text-2xl text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
                 placeholder="1 - 2000"
                 aria-describedby="price-currency"
