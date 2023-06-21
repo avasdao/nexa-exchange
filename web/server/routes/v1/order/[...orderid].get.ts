@@ -36,4 +36,9 @@ export default defineEventHandler(async (event) => {
             body,
         })
         .catch(err => console.error(err))
-}
+    }
+
+    return {
+        error: 'Order not found.'
+    }
+})
