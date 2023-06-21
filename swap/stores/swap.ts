@@ -145,6 +145,7 @@ export const useSwapStore = defineStore('swap', {
         },
 
         startNexa() {
+            this.setSettleAsset('NEXA')
             this._isShowingNexa = true
         },
 

@@ -116,13 +116,46 @@ onMounted(() => {
     console.log('Swap.isValidAddress', Swap.isValidAddress)
 })
 
-const requestSwap = async () => {
+const requestSwap = async (_asset) => {
+    /* Set settle asset. */
+    Swap.setDepositAsset(_asset)
+
+    /* Build body. */
+    const body = {
+        method: 'createOrder',
+        params: {
+            depositAsset: Swap.depositAsset,
+            depositNetwork: Swap.depositAsset,
+            settleAsset: Swap.settleAsset,
+            settleNetwork: Swap.settleAsset,
+            settleAddress: Swap.settleAddress,
+            settleAmount: Swap.settleAmount,
+            promoid: System.promoid
+        }
+    }
+
+    /* Request new order. */
     const response = await $fetch('/api/order', {
         method: 'POST',
-        body: { hi: 'there buddy!' }
+        body,
     })
-        .catch(err => console.error(err))
+    .catch(err => console.error(err))
     console.log('RESPONSE', response)
+
+    const orderid = response.id
+    console.log('ORDERID', orderid)
+
+    if (orderid) {
+        /* Initialize router. */
+        const router = useRouter()
+        console.log('ROUTER', router)
+
+        /* Reset order. */
+        Swap.resetOrder()
+
+        /* Go to monitoring station. */
+        router.push(`/tx/${orderid}`)
+    }
 }
 
 </script>
