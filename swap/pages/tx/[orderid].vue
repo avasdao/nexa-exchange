@@ -69,6 +69,19 @@ const makePayment = () => {
     // window.location.href = `${this.depositAddress}&label=Nexa Exchange`
     window.location.href = this.depositAddress
 }
+
+const loadOrder = async () => {
+    const order = await $fetch('/api/order?id=' + orderid.value)
+        .catch(err => console.error(err))
+    console.log('ORDER', order)
+}
+
+
+onMounted(() => {
+    loadOrder()
+})
+
+
 </script>
 
 <template>
