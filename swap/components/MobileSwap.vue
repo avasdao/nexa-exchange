@@ -116,10 +116,19 @@ onMounted(() => {
     console.log('Swap.isValidAddress', Swap.isValidAddress)
 })
 
+const requestSwap = async () => {
+    const response = await $fetch('/api/order', {
+        method: 'POST',
+        body: { hi: 'there buddy!' }
+    })
+        .catch(err => console.error(err))
+    console.log('RESPONSE', response)
+}
+
 </script>
 
 <template>
-    <main class="lg:hidden flex flex-col">
+    <main class="flex flex-col">
         <section class="mx-3 my-2">
             <div v-if="Swap.isShowingNexa" class="flex justify-end">
                 <button @click="resetOrder" class="px-3 py-1 text-rose-100 font-medium bg-rose-500 border-2 border-rose-700 rounded-lg shadow hover:bg-rose-400">
@@ -315,21 +324,21 @@ onMounted(() => {
                     />
 
                     <AssetButton
-                        @click="Swap.requestSwap('BCH')"
+                        @click="requestSwap('BCH')"
                         assetid="BCH"
                         asset-name="Bitcoin Cash"
                         class="w-full bg-gradient-to-b from-lime-600 to-lime-800"
                     />
 
                     <AssetButton
-                        @click="Swap.requestSwap('CREDIT')"
+                        @click="requestSwap('CREDIT')"
                         assetid="CREDIT"
                         asset-name="Credit Card"
                         class="w-full bg-gradient-to-b from-purple-700 to-purple-900"
                     />
 
                     <AssetButton
-                        @click="Swap.requestSwap('DASH')"
+                        @click="requestSwap('DASH')"
                         assetid="DASH"
                         asset-name="Dash"
                         class="w-full bg-gradient-to-b from-sky-700 to-sky-900"

@@ -19,7 +19,7 @@ const router = useRouter()
 <template>
     <main>
         <section>
-            <DesktopSwap />
+            <!-- <DesktopSwap /> -->
             <MobileSwap />
         </section>
 

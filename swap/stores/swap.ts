@@ -144,61 +144,6 @@ export const useSwapStore = defineStore('swap', {
             this._settleAmount = _amount
         },
 
-        /**
-         * Request Swap
-         *
-         * Make a remote API request with order details.
-         *
-         * Will receive an order id.
-         *
-         * @param _destination
-         * @returns
-         */
-        async requestSwap() {
-            let body
-            let headers
-            let method
-            let orderid
-            let response
-
-            method = 'POST'
-
-            headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-
-            body = JSON.stringify({
-                method: 'swap',
-                params: {
-                    depositAsset: this.depositAsset,
-                    depositNetwork: this.depositAsset,
-                    settleAsset: this.settleAsset,
-                    settleNetwork: this.settleAsset,
-                    settleAddress: this.settleAddress,
-                    settleAmount: this.settleAmount,
-                    promoid: System.promoid
-                }
-            })
-
-            response = await $fetch(this.EXCHANGE_ENDPOINT, {
-                method,
-                headers,
-                body,
-            })
-            console.log('REQUEST SWAP', response)
-
-            /* Set order id. */
-            orderid = response.id
-            console.log('ORDER ID', orderid)
-
-            /* Reset order. */
-            this.resetOrder()
-
-            /* Return order id. */
-            return orderid
-        },
-
         startNexa() {
             this._isShowingNexa = true
         },
