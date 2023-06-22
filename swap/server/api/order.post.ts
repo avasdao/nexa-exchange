@@ -1,3 +1,4 @@
+/* Set contants. */
 const EXCHANGE_ENDPOINT = 'https://nexa.exchange/v1'
 
 export default defineEventHandler(async (event) => {

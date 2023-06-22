@@ -1,22 +1,35 @@
 <script setup>
 /* Import modules. */
 import moment from 'moment'
+import numeral from 'numeral'
 import QRCode from 'qrcode'
 
 
-const isShowing = ref(false)
-
 const expirationTime = computed(() => {
-    if (!this.expiresAt) {
+    if (!expiresAt.value) {
         return 'n/a'
     }
 
-    return moment(this.expiresAt).fromNow()
+    return moment(expiresAt.value).fromNow()
+})
+
+const paymentMax = computed(() => {
+    if (maxDeposit.value) {
+        return numeral(maxDeposit.value / 100.0).format('0,0.00') + ' NEXA'
+    }
+
+    return 'n/a'
 })
 
 
+const dataUrl = ref(null)
 const path = ref(null)
+const order = ref(null)
 const orderid = ref(null)
+const depositAddress = ref(null)
+const status = ref(null)
+const expiresAt = ref(null)
+const maxDeposit = ref(null)
 
 /* Initialize route. */
 const route = useRoute()
@@ -32,24 +45,38 @@ console.log('ROUTE PATH', orderid.value)
 
 
 const init = async () => {
-    const response = await fetch(`${API_ENDPOINT}/${this.orderid}`)
-    const order = await response.json()
-    console.log('ORDER', order)
+    /* Request order. */
+    order.value = await $fetch('/api/order?id=' + orderid.value)
+        .catch(err => console.error(err))
+    console.log('ORDER', order.value)
 
-    this.depositAddress = order.depositAddress
-    this.generateQR(order.depositAddress)
+    /* Set order id. */
+    orderid.value = order.value?.orderid
 
-    setInterval(this.startWatching, 5000)
+    /* Set status. */
+    status.value = order.value?.status
+
+    maxDeposit.value = order.value?.maxDeposit
+
+    expiresAt.value = order.value.expiresAt
+
+    depositAddress.value = order.value.depositAddress
+    generateQR(order.value.depositAddress)
+
+    setInterval(startWatching, 5000)
 }
 
 const startWatching = async () => {
     console.log('watching...')
 
-    const response = await fetch(`${API_ENDPOINT}/${this.orderid}`)
-    const order = await response.json()
+    /* Request order. */
+    order.value = await $fetch('/api/order?id=' + orderid.value)
+        .catch(err => console.error(err))
+    console.log('ORDER', order.value)
 
-    this.status = order.status
-    this.expiresAt = order.expiresAt
+    status.value = order.value.status
+
+    expiresAt.value = order.value.expiresAt
 }
 
 /**
@@ -59,33 +86,26 @@ const startWatching = async () => {
  */
 const generateQR = async (text) => {
     try {
-        this.dataUrl = await QRCode.toDataURL(text)
+        dataUrl.value = await QRCode.toDataURL(text)
     } catch (err) {
         console.error(err)
     }
 }
 
 const makePayment = () => {
-    // window.location.href = `${this.depositAddress}&label=Nexa Exchange`
-    window.location.href = this.depositAddress
-}
-
-const loadOrder = async () => {
-    const order = await $fetch('/api/order?id=' + orderid.value)
-        .catch(err => console.error(err))
-    console.log('ORDER', order)
+    // TODO Add deposit amount (using bip-21).
+    window.location.href = depositAddress.value
 }
 
 
 onMounted(() => {
-    loadOrder()
+    /* Initialize monitoring. */
+    init()
 })
-
-
 </script>
 
 <template>
-    <main v-if="isShowing" class="mt-5 flex flex-col space-y-5 items-center">
+    <main class="mt-5 flex flex-col space-y-5 items-center">
         <h1 class="text-4xl sm:text-4xl text-gray-500 font-medium text-center tracking-widest">
             Monitoring Station
         </h1>
@@ -108,7 +128,7 @@ onMounted(() => {
 
         <div v-if="status" class="flex flex-col items-center">
             <div
-                v-if="status === 'complete'"
+                v-if="status === 'COMPLTE'"
                 class="absolute w-full h-full bg-white opacity-80 cursor-not-allowed z-10">
             </div>
 
@@ -137,7 +157,7 @@ onMounted(() => {
         </div>
 
         <!-- Waiting message -->
-        <section v-if="status === 'waiting'" class="mb-10 flex flex-col items-center">
+        <section v-if="status === 'WAITING'" class="mb-10 flex flex-col items-center">
             <h2 class="text-xl sm:text-2xl font-medium">
                 Now <strong class="text-indigo-700">waiting</strong> for your payment
             </h2>
@@ -152,7 +172,7 @@ onMounted(() => {
         </section>
 
         <!-- Complete message -->
-        <section v-if="status === 'complete'" class="mb-10 flex flex-col items-center">
+        <section v-if="status === 'COMPLETE'" class="mb-10 flex flex-col items-center">
             <h3 class="text-2xl font-medium">
                 Your swap is <strong class="text-indigo-700">complete!</strong>
             </h3>

@@ -756,12 +756,12 @@
     graphql-ws "5.12.0"
     ws "8.13.0"
 
-"@nexajs/address@^23.6.7":
-  version "23.6.7"
-  resolved "https://registry.yarnpkg.com/@nexajs/address/-/address-23.6.7.tgz#e3dbc05a4bd35e2977f1caa1534ebc97e419e2d8"
-  integrity sha512-7sGfmj2ZbmXpSBijrP3GScBdXmQo1R9yrk6t8XlkLzG9WDEaaUDwkB6RPhy4hjmOZCtzf68As4Qm+shA3voLJQ==
+"@nexajs/address@23.6.21":
+  version "23.6.21"
+  resolved "https://registry.yarnpkg.com/@nexajs/address/-/address-23.6.21.tgz#35247e6745bf53bf10db587e7ee440a066d578d5"
+  integrity sha512-liJZQAD9Rqth1gVapsNXHpz9EiAZblbVR3uE/foRZAWw6Y24kdF1x6n2y0iditpc/9kDNz13yqITs0oYwDp2rQ==
   dependencies:
-    "@nexajs/rostrum" "23.6.7"
+    "@nexajs/rostrum" "23.6.21"
     big-integer "1.6.51"
     debug "4.3.4"
     graphql "16.6.0"
@@ -825,21 +825,10 @@
     uuid "9.0.0"
     ws "8.12.1"
 
-"@nexajs/rostrum@23.6.7":
-  version "23.6.7"
-  resolved "https://registry.yarnpkg.com/@nexajs/rostrum/-/rostrum-23.6.7.tgz#a9e4af240cec292dff2821c6393b03b442ecdff5"
-  integrity sha512-eGdH8+jFZaZxi7W2oQXLSQL8BuO0mHIEy+OZ/ED0vHgnkDzS/KzyY+yuCb6DGrhluD4sKE3mWII8paWMb6SJfg==
-  dependencies:
-    debug "4.3.4"
-    events "3.3.0"
-    isomorphic-ws "5.0.0"
-    uuid "9.0.0"
-    ws "8.12.1"
-
-"@nexajs/rostrum@^23.6.14":
-  version "23.6.14"
-  resolved "https://registry.yarnpkg.com/@nexajs/rostrum/-/rostrum-23.6.14.tgz#0c5372068c55487412a66d1b9ea9060bd738344a"
-  integrity sha512-4ZwmL/UszrM5ZVoLRrZ8ksUK6gmqY6m/cJ6qZTX8gNGQ+/mO8u/Xv65hFEv2zL75VpRM6HGZ1uPC0wUltNHDJA==
+"@nexajs/rostrum@23.6.21":
+  version "23.6.21"
+  resolved "https://registry.yarnpkg.com/@nexajs/rostrum/-/rostrum-23.6.21.tgz#a87a45d79644b844d053affd6b825d6b20fce108"
+  integrity sha512-czMS3o1gVXLS5VOk0Izr1KBZnputiAp3F+LxJKTdIczxhn7cGXwxKFgKxjqIIbXBTuzBevj3eiWUfUnTEphLlw==
   dependencies:
     debug "4.3.4"
     events "3.3.0"
@@ -866,14 +855,14 @@
     "@nexajs/utils" "23.5.15"
     debug "4.3.4"
 
-"@nexajs/utils@23.5.15", "@nexajs/utils@^23.5.15":
+"@nexajs/utils@23.5.15":
   version "23.5.15"
   resolved "https://registry.yarnpkg.com/@nexajs/utils/-/utils-23.5.15.tgz#d4773ecf37b6bc10b35f4c4aa6be12ee721c7763"
   integrity sha512-rDw49tjDJ6mqYQEEHeLtfMPZq8QFOzdFarYXz1Pa94k37kUKdxxSoZWdDnGKfFD7ec4Zm7BvcTp4AxAuvlMUrw==
   dependencies:
     debug "4.3.4"
 
-"@nexajs/wallet@^23.5.17":
+"@nexajs/wallet@23.5.17":
   version "23.5.17"
   resolved "https://registry.yarnpkg.com/@nexajs/wallet/-/wallet-23.5.17.tgz#6ce0c4c84a11392249a970a0e5394fb1313ceebb"
   integrity sha512-eQEZvOb32z/7TJCTD4Ql8Vb6dltJVWKwyKDdKeR/nfqZSyEhXVr6tLifbVTZuEvDMz3D0zOvRBKwc1SWpjG78Q==
