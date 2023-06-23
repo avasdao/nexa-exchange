@@ -5,58 +5,7 @@ import numeral from 'numeral'
 import QRCode from 'qrcode'
 
 
-const expirationTime = computed(() => {
-    if (!expiresAt.value) {
-        return 'n/a'
-    }
-
-    return moment(expiresAt.value).fromNow()
-})
-
-const paymentMax = computed(() => {
-    if (maxDeposit.value && order.value) {
-        return numeral(maxDeposit.value / 100.0).format('0,0.00') + ' ' + order.value.settleAsset
-    }
-
-    return 'n/a'
-})
-
-const receivedAmt = computed(() => {
-    let amount
-
-    if (order.value) {
-        switch(order.value.depositAsset) {
-        case 'BCH':
-            amount = order.value.received / 100000000.0
-            break
-        case 'NEXA':
-            amount = order.value.received / 100.0
-            break
-        default:
-            amount = order.value.received
-        }
-
-        return numeral(amount).format('0,0.00[000000]') + ' ' + order.value.depositAsset
-    }
-
-    return 0
-})
-
-const depositAssetDisplay = computed(() => {
-    if (order.value) {
-        switch(order.value.depositAsset) {
-        case 'BCH':
-            return 'Bitcoin Cash (BCH)'
-        case 'NEXA':
-            return 'Nexa (NEXA)'
-        default:
-            return 'Unknown Asset'
-        }
-    }
-
-    return 'Unknown Asset'
-})
-
+const MONITORING_INTERVAL = 3000
 
 const dataUrl = ref(null)
 const path = ref(null)
@@ -97,9 +46,10 @@ const init = async () => {
     expiresAt.value = order.value.expiresAt
 
     depositAddress.value = order.value.depositAddress
+
     generateQR(order.value.depositAddress)
 
-    setInterval(startWatching, 5000)
+    setInterval(startWatching, MONITORING_INTERVAL)
 }
 
 const startWatching = async () => {
@@ -134,6 +84,77 @@ const makePayment = () => {
 }
 
 
+const depositAddressAbbr = computed(() => {
+    if (depositAddress.value) {
+        return depositAddress.value.slice(0, 16) + ' ... ' + depositAddress.value.slice(-8)
+    }
+
+    return 'n/a'
+})
+
+const expirationTime = computed(() => {
+    if (!expiresAt.value) {
+        return 'n/a'
+    }
+
+    return moment(expiresAt.value).fromNow()
+})
+
+const paymentMax = computed(() => {
+    if (maxDeposit.value && order.value) {
+        return numeral(maxDeposit.value / 100.0).format('0,0.00') + ' ' + order.value.settleAsset
+    }
+
+    return 'n/a'
+})
+
+const receivedAmt = computed(() => {
+    let amount
+
+    if (order.value) {
+        switch(order.value.depositAsset) {
+        case 'BCH':
+            amount = order.value.received / 100000000.0
+            break
+        case 'DASH':
+            amount = order.value.received / 100000000.0
+            break
+        case 'NEXA':
+            amount = order.value.received / 100.0
+            break
+        case 'TRX_USDT':
+            amount = order.value.received / 1000000.0
+            break
+        default:
+            amount = order.value.received
+        }
+
+        return numeral(amount).format('0,0.00[000000]') + ' ' + order.value.depositAsset
+    }
+
+    return 0
+})
+
+const depositAssetDisplay = computed(() => {
+    if (order.value) {
+        switch(order.value.depositAsset) {
+        case 'BCH':
+            return 'Bitcoin Cash (BCH)'
+        case 'DASH':
+            return 'Dash (DASH)'
+        case 'NEXA':
+            return 'Nexa (NEXA)'
+        case 'TRX_USDT':
+            return 'Tether (USDT)'
+        default:
+            return 'Unknown Asset'
+        }
+    }
+
+    return 'Unknown Asset'
+})
+
+
 onMounted(() => {
     /* Initialize monitoring. */
     init()
@@ -141,7 +162,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="mt-5 pb-10 flex flex-col space-y-5 items-center">
+    <main class="mt-5 pb-5 flex flex-col space-y-5 items-center">
         <h1 class="text-4xl sm:text-4xl text-gray-500 font-medium text-center tracking-widest">
             Monitoring Station
         </h1>
@@ -151,11 +172,11 @@ onMounted(() => {
         </p>
 
         <div class="flex flex-col items-center">
-            <small class="text-gray-500 font-medium uppercase">
+            <small class="text-2xl text-gray-500 font-medium uppercase">
                 Your Order ID
             </small>
 
-            <h2 class="text-base sm:text-2xl font-medium">
+            <h2 class="text-base sm:text-2xl text-gray-700 font-medium">
                 {{orderid}}
             </h2>
         </div>
@@ -168,15 +189,21 @@ onMounted(() => {
                 class="absolute w-full h-full bg-white opacity-80 cursor-not-allowed z-10">
             </div>
 
-            <button @click="makePayment" class="flex flex-col items-center">
+            <button @click="makePayment" class="px-5 w-full flex flex-col items-center">
                 <img
                     v-if="dataUrl"
                     :src="dataUrl"
                     class="p-1 border-4 border-sky-500 w-full h-auto sm:w-64 sm:h-64 rounded-lg shadow"
                 />
 
-                <h2 v-if="depositAddress" class="my-3 text-sky-700 font-medium text-xs sm:text-base">
-                    {{depositAddress}}
+                <h2 v-if="depositAddress" class="my-3 text-sky-700 font-medium">
+                    <span class="sm:hidden text-xl">
+                        {{depositAddressAbbr}}
+                    </span>
+
+                    <span class="hidden sm:inline text-lg">
+                        {{depositAddress}}
+                    </span>
                 </h2>
             </button>
 
