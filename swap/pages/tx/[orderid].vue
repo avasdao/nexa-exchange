@@ -14,11 +14,47 @@ const expirationTime = computed(() => {
 })
 
 const paymentMax = computed(() => {
-    if (maxDeposit.value) {
-        return numeral(maxDeposit.value / 100.0).format('0,0.00') + ' NEXA'
+    if (maxDeposit.value && order.value) {
+        return numeral(maxDeposit.value / 100.0).format('0,0.00') + ' ' + order.value.settleAsset
     }
 
     return 'n/a'
+})
+
+const receivedAmt = computed(() => {
+    let amount
+
+    if (order.value) {
+        switch(order.value.depositAsset) {
+        case 'BCH':
+            amount = order.value.received / 100000000.0
+            break
+        case 'NEXA':
+            amount = order.value.received / 100.0
+            break
+        default:
+            amount = order.value.received
+        }
+
+        return numeral(amount).format('0,0.00[000000]') + ' ' + order.value.depositAsset
+    }
+
+    return 0
+})
+
+const depositAssetDisplay = computed(() => {
+    if (order.value) {
+        switch(order.value.depositAsset) {
+        case 'BCH':
+            return 'Bitcoin Cash (BCH)'
+        case 'NEXA':
+            return 'Nexa (NEXA)'
+        default:
+            return 'Unknown Asset'
+        }
+    }
+
+    return 'Unknown Asset'
 })
 
 
@@ -105,7 +141,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="mt-5 flex flex-col space-y-5 items-center">
+    <main class="mt-5 pb-10 flex flex-col space-y-5 items-center">
         <h1 class="text-4xl sm:text-4xl text-gray-500 font-medium text-center tracking-widest">
             Monitoring Station
         </h1>
@@ -119,7 +155,7 @@ onMounted(() => {
                 Your Order ID
             </small>
 
-            <h2 class="text-2xl font-medium">
+            <h2 class="text-base sm:text-2xl font-medium">
                 {{orderid}}
             </h2>
         </div>
@@ -128,7 +164,7 @@ onMounted(() => {
 
         <div v-if="status" class="flex flex-col items-center">
             <div
-                v-if="status === 'COMPLTE'"
+                v-if="status === 'COMPLETE'"
                 class="absolute w-full h-full bg-white opacity-80 cursor-not-allowed z-10">
             </div>
 
@@ -136,7 +172,7 @@ onMounted(() => {
                 <img
                     v-if="dataUrl"
                     :src="dataUrl"
-                    class="p-1 border-4 border-sky-500 w-64 h-64 rounded-lg shadow"
+                    class="p-1 border-4 border-sky-500 w-full h-auto sm:w-64 sm:h-64 rounded-lg shadow"
                 />
 
                 <h2 v-if="depositAddress" class="my-3 text-sky-700 font-medium text-xs sm:text-base">
@@ -145,7 +181,7 @@ onMounted(() => {
             </button>
 
             <p v-if="dataUrl" class="w-2/3 text-sm text-center cursor-help">
-                Scan the QR Code or click on the Bitcoin Cash (BCH) address above to launch your payment app.
+                Scan the QR Code or click on the {{depositAssetDisplay}} address above to launch your payment app.
             </p>
         </div>
 
@@ -157,7 +193,7 @@ onMounted(() => {
         </div>
 
         <!-- Waiting message -->
-        <section v-if="status === 'WAITING'" class="mb-10 flex flex-col items-center">
+        <section v-if="status === 'WAITING'" class="flex flex-col items-center">
             <h2 class="text-xl sm:text-2xl font-medium">
                 Now <strong class="text-indigo-700">waiting</strong> for your payment
             </h2>
@@ -171,8 +207,19 @@ onMounted(() => {
             </h3>
         </section>
 
+        <!-- Waiting message -->
+        <section v-if="status === 'CONFIRMING'" class="flex flex-col items-center">
+            <h2 class="text-xl sm:text-2xl font-medium">
+                Now <strong class="text-indigo-700">confirming</strong> your payment
+            </h2>
+
+            <h2 class="text-xl sm:text-2xl font-medium">
+                Received <strong class="text-indigo-700">{{receivedAmt}}</strong>
+            </h2>
+        </section>
+
         <!-- Complete message -->
-        <section v-if="status === 'COMPLETE'" class="mb-10 flex flex-col items-center">
+        <section v-if="status === 'COMPLETE'" class="flex flex-col items-center">
             <h3 class="text-2xl font-medium">
                 Your swap is <strong class="text-indigo-700">complete!</strong>
             </h3>
