@@ -53,8 +53,6 @@ const init = async () => {
 }
 
 const startWatching = async () => {
-    console.log('watching...')
-
     /* Request order. */
     order.value = await $fetch('/api/order?id=' + orderid.value)
         .catch(err => console.error(err))
@@ -86,23 +84,31 @@ const makePayment = () => {
 
 const depositAddressAbbr = computed(() => {
     if (depositAddress.value) {
-        return depositAddress.value.slice(0, 16) + ' ... ' + depositAddress.value.slice(-8)
+        return depositAddress.value.slice(0, 18) + ' ... ' + depositAddress.value.slice(-8)
     }
 
     return 'n/a'
 })
 
-const expirationTime = computed(() => {
-    if (!expiresAt.value) {
-        return 'n/a'
-    }
-
-    return moment(expiresAt.value).fromNow()
-})
 
 const paymentMax = computed(() => {
     if (maxDeposit.value && order.value) {
-        return numeral(maxDeposit.value / 100.0).format('0,0.00') + ' ' + order.value.settleAsset
+        let amount
+
+        if (order.value) {
+            switch(order.value.depositAsset) {
+            case 'BCH':
+                amount = maxDeposit.value / 100000000.0
+                break
+            case 'NEXA':
+                amount = maxDeposit.value / 100.0
+                break
+            default:
+                amount = maxDeposit.value
+            }
+
+            return numeral(amount).format('0,0.00') + ' ' + order.value.depositAsset
+        }
     }
 
     return 'n/a'
@@ -183,17 +189,19 @@ onMounted(() => {
 
         <hr />
 
-        <div v-if="status" class="flex flex-col items-center">
-            <div
-                v-if="status === 'COMPLETE'"
-                class="absolute w-full h-full bg-white opacity-80 cursor-not-allowed z-10">
-            </div>
+        <div v-if="status === null">
+            <h1 class="text-4xl text-gray-500 font-medium text-center">
+                Loading Your
+                <br />Order Details...
+            </h1>
+        </div>
 
+        <div v-if="status === 'WAITING'" class="flex flex-col items-center">
             <button @click="makePayment" class="px-5 w-full flex flex-col items-center">
                 <img
                     v-if="dataUrl"
                     :src="dataUrl"
-                    class="p-1 border-4 border-sky-500 w-full h-auto sm:w-64 sm:h-64 rounded-lg shadow"
+                    class="p-1 border-4 border-sky-500 w-full h-auto sm:w-96 sm:h-auto rounded-lg shadow"
                 />
 
                 <h2 v-if="depositAddress" class="my-3 text-sky-700 font-medium">
@@ -208,15 +216,8 @@ onMounted(() => {
             </button>
 
             <p v-if="dataUrl" class="w-2/3 text-sm text-center cursor-help">
-                Scan the QR Code or click on the {{depositAssetDisplay}} address above to launch your payment app.
+                Scan the QR Code or click on the <span class="text-base text-indigo-500 font-medium">{{depositAssetDisplay}}</span> address above to launch your payment app.
             </p>
-        </div>
-
-        <div v-else>
-            <h1 class="text-4xl text-gray-500 font-medium italic">
-                Loading Your
-                <br />Order Details...
-            </h1>
         </div>
 
         <!-- Waiting message -->
@@ -230,7 +231,7 @@ onMounted(() => {
             </h2>
 
             <h3 class="text-base sm:text-lg font-medium">
-                Expires <strong class="text-indigo-700">{{expirationTime}}</strong>
+                Expires <strong class="text-indigo-700">{{moment(expiresAt).fromNow()}}</strong>
             </h3>
         </section>
 
@@ -249,6 +250,13 @@ onMounted(() => {
         <section v-if="status === 'COMPLETE'" class="flex flex-col items-center">
             <h3 class="text-2xl font-medium">
                 Your swap is <strong class="text-indigo-700">complete!</strong>
+            </h3>
+        </section>
+        <!-- Complete message -->
+        <section v-if="status === 'EXPIRED'" class="flex flex-col items-center">
+            <h3 class="text-3xl text-gray-500 font-medium text-center">
+                Your order request has
+                <span class="block text-5xl text-rose-500 font-bold uppercase">expired</span>
             </h3>
         </section>
 
