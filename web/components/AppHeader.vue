@@ -127,8 +127,11 @@ updateTicker()
                                 {{priceChg24h}}
                             </span>
 
-                            <svg class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg v-if="priceChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                            </svg>
+                            <svg v-else class="inline w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
                             </svg>
 
                             <span class="mx-1 text-yellow-700">
@@ -159,7 +162,7 @@ updateTicker()
 
                 <div class="hidden md:flex md:flex-1 md:items-center md:justify-between">
                     <nav class="flex space-x-10">
-                        <div>
+                        <div class="hidden">
                             <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
                             <button
                                 type="button"
@@ -368,15 +371,11 @@ updateTicker()
                             </div>
                         </div>
 
-                        <NuxtLink to="/bootstrap" class="py-1 text-base font-medium text-gray-100 hover:text-yellow-300">
-                            Bootstrap Phase
-                        </NuxtLink>
-
                         <a href="https://docs.nexa.exchange" target="_blank" class="py-1 text-base font-medium text-gray-100 hover:text-yellow-300">
                             Read The Docs
                         </a>
 
-                        <div>
+                        <div class="hidden">
                             <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
                             <button
                                 type="button"
@@ -637,8 +636,11 @@ updateTicker()
                                         {{priceChg24h}}
                                     </span>
 
-                                    <svg class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <svg v-if="priceChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                    </svg>
+                                    <svg v-else class="inline w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
                                     </svg>
 
                                     <span class="mx-1 text-yellow-700">

@@ -22,7 +22,9 @@ const props = defineProps({
 <template>
     <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-16">
         <div class="lg:col-span-4">
-            <h2 id="reviews-heading" class="text-2xl font-bold tracking-tight text-gray-900">Customer Reviews</h2>
+            <h2 id="reviews-heading" class="text-2xl font-bold tracking-tight text-gray-900">
+                Customer Reviews
+            </h2>
 
             <div class="mt-3 flex items-center">
                 <div>
@@ -35,6 +37,7 @@ const props = defineProps({
                                 clip-rule="evenodd"
                             />
                         </svg>
+
                         <svg class="h-5 w-5 flex-shrink-0 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path
                                 fill-rule="evenodd"
@@ -42,6 +45,7 @@ const props = defineProps({
                                 clip-rule="evenodd"
                             />
                         </svg>
+
                         <svg class="h-5 w-5 flex-shrink-0 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path
                                 fill-rule="evenodd"
@@ -49,6 +53,7 @@ const props = defineProps({
                                 clip-rule="evenodd"
                             />
                         </svg>
+
                         <svg class="h-5 w-5 flex-shrink-0 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path
                                 fill-rule="evenodd"
@@ -56,6 +61,7 @@ const props = defineProps({
                                 clip-rule="evenodd"
                             />
                         </svg>
+
                         <svg class="h-5 w-5 flex-shrink-0 text-gray-300" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path
                                 fill-rule="evenodd"
@@ -64,9 +70,15 @@ const props = defineProps({
                             />
                         </svg>
                     </div>
-                    <p class="sr-only">4 out of 5 stars</p>
+
+                    <p class="sr-only">
+                        4 out of 5 stars
+                    </p>
                 </div>
-                <p class="ml-2 text-sm text-gray-900">Based on 1624 reviews</p>
+
+                <p class="ml-2 text-sm text-gray-900">
+                    Based on 24 reviews
+                </p>
             </div>
 
             <div class="mt-6">
@@ -76,6 +88,7 @@ const props = defineProps({
                     <div class="flex items-center text-sm">
                         <dt class="flex flex-1 items-center">
                             <p class="w-3 font-medium text-gray-900">5<span class="sr-only"> star reviews</span></p>
+
                             <div aria-hidden="true" class="ml-1 flex flex-1 items-center">
                                 <svg class="h-5 w-5 flex-shrink-0 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path
@@ -91,11 +104,16 @@ const props = defineProps({
                                 </div>
                             </div>
                         </dt>
-                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">63%</dd>
+
+                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">
+                            63%
+                        </dd>
                     </div>
+
                     <div class="flex items-center text-sm">
                         <dt class="flex flex-1 items-center">
                             <p class="w-3 font-medium text-gray-900">4<span class="sr-only"> star reviews</span></p>
+
                             <div aria-hidden="true" class="ml-1 flex flex-1 items-center">
                                 <svg class="h-5 w-5 flex-shrink-0 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path
@@ -111,11 +129,16 @@ const props = defineProps({
                                 </div>
                             </div>
                         </dt>
-                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">10%</dd>
+
+                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">
+                            10%
+                        </dd>
                     </div>
+
                     <div class="flex items-center text-sm">
                         <dt class="flex flex-1 items-center">
                             <p class="w-3 font-medium text-gray-900">3<span class="sr-only"> star reviews</span></p>
+
                             <div aria-hidden="true" class="ml-1 flex flex-1 items-center">
                                 <svg class="h-5 w-5 flex-shrink-0 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path
@@ -131,11 +154,16 @@ const props = defineProps({
                                 </div>
                             </div>
                         </dt>
-                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">6%</dd>
+
+                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">
+                            6%
+                        </dd>
                     </div>
+
                     <div class="flex items-center text-sm">
                         <dt class="flex flex-1 items-center">
                             <p class="w-3 font-medium text-gray-900">2<span class="sr-only"> star reviews</span></p>
+
                             <div aria-hidden="true" class="ml-1 flex flex-1 items-center">
                                 <svg class="h-5 w-5 flex-shrink-0 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path
@@ -151,11 +179,16 @@ const props = defineProps({
                                 </div>
                             </div>
                         </dt>
-                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">12%</dd>
+
+                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">
+                            12%
+                        </dd>
                     </div>
+
                     <div class="flex items-center text-sm">
                         <dt class="flex flex-1 items-center">
                             <p class="w-3 font-medium text-gray-900">1<span class="sr-only"> star reviews</span></p>
+
                             <div aria-hidden="true" class="ml-1 flex flex-1 items-center">
                                 <svg class="h-5 w-5 flex-shrink-0 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path
@@ -171,16 +204,26 @@ const props = defineProps({
                                 </div>
                             </div>
                         </dt>
-                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">9%</dd>
+
+                        <dd class="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">
+                            9%
+                        </dd>
                     </div>
                 </dl>
             </div>
 
             <div class="mt-10">
-                <h3 class="text-lg font-medium text-gray-900">Share your thoughts</h3>
-                <p class="mt-1 text-sm text-gray-600">If you’ve used this product, share your thoughts with other customers</p>
+                <h3 class="text-lg font-medium text-gray-900">
+                    Share your thoughts
+                </h3>
 
-                <a href="#" class="mt-6 inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 sm:w-auto lg:w-full">Write a review</a>
+                <p class="mt-1 text-sm text-gray-600">
+                    If you've owned/used this asset, please share your thoughts with others.
+                </p>
+
+                <a href="javascript://" class="mt-6 inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 sm:w-auto lg:w-full">
+                    Write a review
+                </a>
             </div>
         </div>
 
@@ -191,9 +234,13 @@ const props = defineProps({
                 <div class="-my-12 divide-y divide-gray-200">
                     <div class="py-12">
                         <div class="flex items-center">
-                            <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80" alt="Emily Selman." class="h-12 w-12 rounded-full" />
+                            <img src="https://i.ibb.co/bPDyFZ5/image.png" alt="Satoshi Nakamoto" class="h-12 w-12 rounded-full" />
+
                             <div class="ml-4">
-                                <h4 class="text-sm font-bold text-gray-900">Emily Selman</h4>
+                                <h4 class="text-sm font-bold text-gray-900">
+                                    Satoshi Nakamoto
+                                </h4>
+
                                 <div class="mt-1 flex items-center">
                                     <!-- Active: "text-yellow-400", Default: "text-gray-300" -->
                                     <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -203,6 +250,7 @@ const props = defineProps({
                                             clip-rule="evenodd"
                                         />
                                     </svg>
+
                                     <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path
                                             fill-rule="evenodd"
@@ -210,6 +258,7 @@ const props = defineProps({
                                             clip-rule="evenodd"
                                         />
                                     </svg>
+
                                     <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path
                                             fill-rule="evenodd"
@@ -217,6 +266,7 @@ const props = defineProps({
                                             clip-rule="evenodd"
                                         />
                                     </svg>
+
                                     <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path
                                             fill-rule="evenodd"
@@ -224,6 +274,7 @@ const props = defineProps({
                                             clip-rule="evenodd"
                                         />
                                     </svg>
+
                                     <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path
                                             fill-rule="evenodd"
@@ -232,12 +283,16 @@ const props = defineProps({
                                         />
                                     </svg>
                                 </div>
+
                                 <p class="sr-only">5 out of 5 stars</p>
                             </div>
                         </div>
 
                         <div class="mt-4 space-y-6 text-base italic text-gray-600">
-                            <p>This is the bag of my dreams. I took it on my last vacation and was able to fit an absurd amount of snacks for the many long and hungry flights.</p>
+                            <p>
+                                Damn! This is the token of my dreams.
+                                I recently took everything I own out of $BTC and was able to move it into $NEXA.
+                            </p>
                         </div>
                     </div>
 

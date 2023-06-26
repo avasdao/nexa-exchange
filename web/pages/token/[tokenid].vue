@@ -31,6 +31,23 @@ const tokenUrl = computed(() => {
     return tokenDetails.value?.document_url || null
 })
 
+const homepageUrl = computed(() => {
+    /* Validate token URL. */
+    if (!tokenUrl.value) {
+        return null
+    }
+
+    /* Decode URL. */
+    const url = new URL(tokenUrl.value)
+    console.log('URL', url)
+
+    /* Set origin. */
+    const origin = url.origin
+
+    /* Return origin. */
+    return origin
+})
+
 const tokenIcon = computed(() => {
     if (tokenUrl.value && tokenDoc.value) {
         const url = new URL(tokenUrl.value)
@@ -197,6 +214,16 @@ onMounted(async () => {
                         </div>
                     </div>
 
+                    <div v-if="tokenDoc?.[0].creator" class="mt-1 flex gap-2 text-sm italic">
+                        <span class="text-gray-400 font-medium">
+                            Created by:
+                        </span>
+
+                        <span class="text-indigo-400 font-bold">
+                            {{tokenDoc?.[0].creator}}
+                        </span>
+                    </div>
+
                     <div class="mt-6">
                         <!-- Market -->
                         <section>
@@ -259,10 +286,26 @@ onMounted(async () => {
                                 </h3>
 
                                 <div class="prose prose-sm pb-6" id="disclosure-1">
+
+                                    <div v-if="homepageUrl" class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Homepage
+                                        </div>
+
+                                        <NuxtLink :to="homepageUrl" target="_blank" class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300">
+                                            {{homepageUrl}}
+
+                                            <svg class="inline ml-2 w-3 h-auto group-hover:w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"></path>
+                                            </svg>
+                                        </NuxtLink>
+                                    </div>
+
                                     <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
                                         <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
                                             Document URL
                                         </div>
+
                                         <NuxtLink :to="tokenUrl" target="_blank" class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300">
                                             {{tokenUrl}}
 
@@ -272,12 +315,108 @@ onMounted(async () => {
                                         </NuxtLink>
                                     </div>
 
+                                </div>
 
-                                    <ul role="list">
-                                        <li>Multiple strap configurations</li>
-                                        <li>Spacious interior with top zip</li>
-                                        <li>Leather handle and tabs</li>
-                                    </ul>
+                                <div class="prose prose-sm pb-6" id="disclosure-1">
+
+                                    <div v-if="tokenDoc?.[0].category" class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Category
+                                        </div>
+
+                                        <div class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300">
+                                            {{tokenDoc[0].category}}
+                                        </div>
+                                    </div>
+
+                                    <div v-if="tokenDoc?.[0].legal" class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Legal
+                                        </div>
+
+                                        <div class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300">
+                                            {{tokenDoc[0].legal}}
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Contact
+                                        </div>
+
+                                        <div class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300">
+                                            <p class="px-3 py-2 grid-cols-1 sm:col-span-2 text-xs truncate">{{JSON.stringify(tokenDoc?.[0].contact, null, 2)}}</p>
+                                            <!-- <pre class="hidden lg:block px-3 py-2 grid-cols-1 sm:col-span-2 text-sm">{{JSON.stringify(tokenDoc?.[0].contact, null, 2)}}</pre> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Token Group
+                                        </div>
+
+                                        <div class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300 truncate">
+                                            {{tokenDetails?.group}}
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Token ID
+                                        </div>
+
+                                        <div class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300 truncate">
+                                            {{tokenid}}
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Document Hash
+                                        </div>
+
+                                        <div class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300 truncate">
+                                            {{tokenDetails?.document_hash}}
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Genesis Block Height
+                                        </div>
+
+                                        <NuxtLink :to="'https://explorer.nexa.org/block-height/' + tokenDetails?.height" target="_blank" class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300">
+                                            {{tokenDetails?.height}}
+
+                                            <svg class="inline ml-2 w-3 h-auto group-hover:w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"></path>
+                                            </svg>
+                                        </NuxtLink>
+                                    </div>
+
+                                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Genesis Transaction
+                                        </div>
+
+                                        <NuxtLink :to="'https://explorer.nexa.org/tx/' + tokenDetails?.txidem" target="_blank" class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300 truncate">
+                                            {{tokenDetails?.txidem}}
+
+                                            <svg class="inline ml-2 w-3 h-auto group-hover:w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"></path>
+                                            </svg>
+                                        </NuxtLink>
+                                    </div>
+
+                                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 bg-sky-100">
+                                        <div class="px-2 py-1 text-sm text-sky-900 font-medium text-center sm:text-right bg-sky-200">
+                                            Document Signature
+                                        </div>
+
+                                        <div class="text-sm text-sky-900 font-medium text-center sm:text-left group px-2 py-1 col-span-1 sm:col-span-2 bg-sky-200 hover:bg-sky-300 truncate">
+                                            {{tokenDoc?.[1]}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -291,93 +430,4 @@ onMounted(async () => {
     </main>
 
     <Reviews />
-
-
-
-    <main class="main-body flex-1 my-5 p-3 max-w-5xl mx-auto bg-gradient-to-r from-gray-100 to-gray-200 lg:border-4 border-indigo-500 lg:rounded-xl lg:shadow-md">
-        <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4 bg-amber-100">
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Token Group
-            </div>
-            <div class="px-3 py-2 col-span-1 sm:col-span-2 bg-amber-200 truncate">
-                {{tokenDetails?.group}}
-            </div>
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Token ID
-            </div>
-            <div class="px-3 py-2 col-span-1 sm:col-span-2 bg-amber-200 truncate">
-                {{tokenid}}
-            </div>
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Document Hash
-            </div>
-            <div class="px-3 py-2 col-span-1 sm:col-span-2 bg-amber-200 truncate">
-                {{tokenDetails?.document_hash}}
-            </div>
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Genesis Block Height
-            </div>
-            <NuxtLink :to="'https://explorer.nexa.org/block-height/' + tokenDetails?.height" target="_blank" class="group px-3 py-2 col-span-1 sm:col-span-2 bg-amber-200 hover:bg-amber-300">
-                {{tokenDetails?.height}}
-
-                <svg class="inline ml-2 w-4 h-auto group-hover:w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"></path>
-                </svg>
-            </NuxtLink>
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Genesis Transaction
-            </div>
-            <NuxtLink :to="'https://explorer.nexa.org/tx/' + tokenDetails?.txidem" target="_blank" class="group px-3 py-2 col-span-1 sm:col-span-2 bg-amber-200 hover:bg-amber-300 truncate">
-                {{tokenDetails?.txidem}}
-
-                <svg class="inline ml-2 w-4 h-auto group-hover:w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"></path>
-                </svg>
-            </NuxtLink>
-        </div>
-
-        <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4 bg-amber-100">
-
-            <div v-if="tokenDoc?.[0].legal" class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Legal
-            </div>
-            <div v-if="tokenDoc?.[0].legal" class="px-3 py-2 grid-cols-1 sm:col-span-2 bg-amber-200">
-                {{tokenDoc[0].legal}}
-            </div>
-
-            <div v-if="tokenDoc?.[0].category" class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Category
-            </div>
-            <div v-if="tokenDoc?.[0].category" class="px-3 py-2 grid-cols-1 sm:col-span-2 bg-amber-200">
-                {{tokenDoc[0].category}}
-            </div>
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Creator
-            </div>
-            <div class="px-3 py-2 grid-cols-1 sm:col-span-2 bg-amber-200">
-                {{tokenDoc?.[0].creator}}
-            </div>
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Contact
-            </div>
-            <pre class="lg:hidden px-3 py-2 grid-cols-1 sm:col-span-2 bg-amber-200 text-xs truncate">{{JSON.stringify(tokenDoc?.[0].contact, null, 2)}}</pre>
-            <pre class="hidden lg:block px-3 py-2 grid-cols-1 sm:col-span-2 bg-amber-200 text-sm">{{JSON.stringify(tokenDoc?.[0].contact, null, 2)}}</pre>
-
-            <div class="px-3 py-2 text-center sm:text-right bg-amber-200">
-                Document Signature
-            </div>
-            <div class="px-3 py-2 grid-cols-1 sm:col-span-2 bg-amber-200 text-xs truncate">
-                {{tokenDoc?.[1]}}
-            </div>
-        </div>
-
-    </main>
-
 </template>
