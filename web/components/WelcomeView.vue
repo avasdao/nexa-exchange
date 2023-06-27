@@ -5,26 +5,30 @@ import { decodeAddress } from '@nexajs/address'
 const Router = useRouter()
 
 const address = ref('')
+const error = ref(null)
 
 const loadAddress = () => {
-    if (!address.value) {
-        alert(`Oops! You must enter a valid Nexa address to continue.`)
+    /* Re-initialize error. */
+    error.value = null
+
+    if (!address.value || address.value === '') {
+        return
     }
 
     try {
+        /* Decode addres. */
         const decoded = decodeAddress(address.value)
-        console.log('DECODED', decoded)
 
         if (!decoded?.hash) {
-            alert(`Oops! The address you entered is invalid.`)
+            error.value = `Oops! The address you entered is invalid.`
+            return
         }
 
-        // window.location = 'https://swap.nexa.exchange/#/' + address.value
+        /* Go to address page. */
         Router.push('/address/' + address.value)
-
     } catch (err) {
         console.error(err)
-        alert(err.message)
+        error.value = err.message
     }
 }
 </script>
@@ -75,6 +79,7 @@ const loadAddress = () => {
                                         type="text"
                                         placeholder="Enter your wallet address"
                                         v-model="address"
+                                        @keyup="loadAddress"
                                         class="block w-full rounded-md border-0 px-4 py-3 text-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
                                     />
                                 </div>
@@ -90,9 +95,13 @@ const loadAddress = () => {
                                 </div>
                             </div>
 
+                            <p class="my-2 text-lg text-rose-300 font-medium">
+                                {{error}}
+                            </p>
+
                             <p class="mt-3 text-sm text-gray-300 sm:mt-4">
                                 Scan or enter your wallet address to begin the exchange process.
-                                By continuing, you agree to our <NuxtLink to="/tos" class="font-medium text-white">terms of service</NuxtLink>.
+                                <br class="hidden sm:block" />By continuing, you agree to our <NuxtLink to="/tos" class="font-medium text-white">terms of service</NuxtLink>.
                             </p>
                         </div>
                     </div>
