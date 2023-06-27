@@ -35,5 +35,5 @@ const System = useSystemStore()
         </p>
     </main>
 
-    <Footer />
+    <AppFooter />
 </template>

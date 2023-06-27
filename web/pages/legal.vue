@@ -173,5 +173,5 @@ suspend or terminate User's Account when Nexa Exchange has reasonably suspicion 
 
     </main>
 
-    <Footer />
+    <AppFooter />
 </template>

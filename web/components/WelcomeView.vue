@@ -1,10 +1,31 @@
 <script setup>
-import { ref } from 'vue'
+/* Import modules. */
+import { decodeAddress } from '@nexajs/address'
+
+const Router = useRouter()
 
 const address = ref('')
 
-const startSwap = () => {
-    window.location = 'https://swap.nexa.exchange/#/' + address.value
+const loadAddress = () => {
+    if (!address.value) {
+        alert(`Oops! You must enter a valid Nexa address to continue.`)
+    }
+
+    try {
+        const decoded = decodeAddress(address.value)
+        console.log('DECODED', decoded)
+
+        if (!decoded?.hash) {
+            alert(`Oops! The address you entered is invalid.`)
+        }
+
+        // window.location = 'https://swap.nexa.exchange/#/' + address.value
+        Router.push('/address/' + address.value)
+
+    } catch (err) {
+        console.error(err)
+        alert(err.message)
+    }
 }
 </script>
 
@@ -62,9 +83,9 @@ const startSwap = () => {
                                     <button
                                         type="button"
                                         class="block w-full rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-3 px-4 font-medium text-white text-2xl shadow hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
-                                        @click="startSwap"
+                                        @click="loadAddress"
                                     >
-                                        Start Asset Swap
+                                        Load Address
                                     </button>
                                 </div>
                             </div>
