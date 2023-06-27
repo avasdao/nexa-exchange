@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-web",
-  "version": "23.6.16",
+  "version": "23.6.27",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -11,9 +11,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nexajs/address": "^23.6.21",
-    "@nexajs/rostrum": "^23.6.21",
+    "@nexajs/address": "23.6.23",
+    "@nexajs/rostrum": "23.6.21",
     "@nexajs/rpc": "23.5.15",
+    "@nexajs/token": "23.6.24",
     "@nexajs/utils": "23.5.15",
     "@pinia/nuxt": "0.4.7",
     "crypto-js": "4.1.1",

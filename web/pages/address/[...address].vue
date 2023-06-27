@@ -1,6 +1,9 @@
 <script setup lang="ts">
 /* Import modules. */
 import numeral from 'numeral'
+
+import { listUnspent } from '@nexajs/address'
+
 import {
     getAddressBalance,
     getAddressTokenBalance,
@@ -37,10 +40,10 @@ const System = useSystemStore()
 
 const balanceDisplay = computed(() => {
     if (!balance.value) {
-        return '0.00 NEXA'
+        return '0.00'
     }
 
-    return numeral(balance.value / 100.0).format('0,0.00') + ' $NEXA'
+    return numeral(balance.value / 100.0).format('0,0.00')
 })
 
 const tokenBalancesDisplay = computed(() => {
@@ -76,17 +79,26 @@ const tokenBalancesDisplay = computed(() => {
 
 const init = async () => {
     let confirmed
-    let coinBalance
+    // let coinBalance
     let info
     let tokenid
     let tokenids
     let tokenBalances
     let unconfirmed
+    let unspent
 
-    coinBalance = await getAddressBalance(address.value)
-    console.log('COIN BALANCE', coinBalance)
+    unspent = await listUnspent(address.value)
+    // console.log('UNSPENT', unspent)
 
-    balance.value = coinBalance.confirmed + coinBalance.unconfirmed
+    // coinBalance = await getAddressBalance(address.value)
+    // console.log('COIN BALANCE', coinBalance)
+
+    balance.value = unspent.reduce((_total, _unspent) => {
+        /* Validate coin. */
+        if (_unspent.isToken === false) {
+            return _total + _unspent.satoshis
+        }
+    }, 0)
 
     tokenBalances = await getAddressTokenBalance(address.value)
     console.log('TOKEN BALANCES', tokenBalances)
@@ -119,6 +131,7 @@ const init = async () => {
         tokens.value.push({
             id: tokenid,
             ...info,
+            unspent,
             satoshis,
             amount,
             decimals,
@@ -155,13 +168,13 @@ onMounted(() => {
 
 <template>
     <main class="max-w-7xl mx-auto py-5">
-        <div class="my-5">
-            <h1 class="text-4xl font-medium">
+        <div class="mx-3 my-0 sm:my-5">
+            <h1 class="text-2xl sm:text-4xl font-medium truncate">
                 {{address}}
             </h1>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="mt-3 sm:mt-0 px-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             <section class="flex flex-col gap-3 p-3 bg-indigo-200 border-2 border-indigo-300 rounded-lg shadow">
                 <h2 class="text-2xl text-indigo-700 font-medium">
@@ -170,6 +183,7 @@ onMounted(() => {
 
                 <h3 class="text-2xl font-medium">
                     {{balanceDisplay}}
+                    <span class="text-base text-gray-500">$NEXA</span>
                 </h3>
             </section>
 
@@ -191,7 +205,7 @@ onMounted(() => {
                             ${{token.ticker}}
                         </h4>
 
-                        <h4 class="text-sm text-sky-300">
+                        <h4 class="text-sm text-sky-300 truncate">
                             {{token.group}}
                         </h4>
 
