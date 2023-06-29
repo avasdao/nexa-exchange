@@ -204,7 +204,7 @@ onMounted(() => {
             </h1>
         </div> -->
 
-        <section class="my-3 px-3 flex flex-row gap-3">
+        <section class="my-3 px-3 flex flex-col sm:flex-row gap-3">
             <div class="min-w-0 flex-1">
                 <label for="receiving-address" class="sr-only">Receiving address</label>
 
@@ -222,7 +222,7 @@ onMounted(() => {
                 </p>
             </div>
 
-            <div class="mt-3 sm:mt-0 sm:ml-3">
+            <div class="-mt-2 mb-3 sm:mt-0 sm:mb-0 sm:ml-3">
                 <button
                     type="button"
                     class="block w-full rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-3 px-4 font-medium text-white text-2xl shadow hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
