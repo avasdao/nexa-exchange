@@ -11,21 +11,23 @@ const loadAddress = () => {
     /* Re-initialize error. */
     error.value = null
 
-    if (!address.value || address.value === '') {
+    /* Validate address. */
+    if (!address.value || address.value.trim() === '') {
         return
     }
 
     try {
-        /* Decode addres. */
-        const decoded = decodeAddress(address.value)
+        /* Decode address. */
+        const decoded = decodeAddress(address.value.trim())
 
+        /* Validate hash. */
         if (!decoded?.hash) {
             error.value = `Oops! The address you entered is invalid.`
             return
         }
 
         /* Go to address page. */
-        Router.push('/address/' + address.value)
+        Router.push('/address/' + address.value.trim())
     } catch (err) {
         console.error(err)
         error.value = err.message

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 /* Import modules. */
+import { decodeAddress } from '@nexajs/address'
 import numeral from 'numeral'
 
 import { listUnspent } from '@nexajs/address'
@@ -17,20 +18,13 @@ useHead({
     ],
 })
 
+const Router = useRouter()
+
 const address = ref(null)
 const balance = ref(0)
+const error = ref(null)
 const tokens = ref(null)
 const tokenBalances = ref(null)
-
-/* Initialize route. */
-const route = useRoute()
-// console.log('ROUTE', route)
-
-console.log('PARAMS', route?.params)
-/* Set (route) path. */
-address.value = route?.params.address?.[0]
-console.log('ADDRESS', address.value)
-
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
@@ -86,6 +80,15 @@ const init = async () => {
     let tokenBalances
     let unconfirmed
     let unspent
+
+    /* Initialize route. */
+    const route = useRoute()
+    // console.log('ROUTE', route)
+
+    console.log('PARAMS', route?.params)
+    /* Set (route) path. */
+    address.value = route?.params.address?.[0]
+    console.log('ADDRESS', address.value)
 
     unspent = await listUnspent(address.value)
     // console.log('UNSPENT', unspent)
@@ -151,6 +154,33 @@ const init = async () => {
     // console.log('tokenBalances.value', tokenBalances.value)
 }
 
+const loadAddress = () => {
+    /* Re-initialize error. */
+    error.value = null
+
+    /* Validate address. */
+    if (!address.value || address.value.trim() === '') {
+        return
+    }
+
+    try {
+        /* Decode address. */
+        const decoded = decodeAddress(address.value.trim())
+
+        /* Validate hash. */
+        if (!decoded?.hash) {
+            error.value = `Oops! The address you entered is invalid.`
+            return
+        }
+
+        /* Go to address page. */
+        Router.push('/address/' + address.value.trim())
+    } catch (err) {
+        console.error(err)
+        error.value = err.message
+    }
+}
+
 // const qtyDisplay = computed((_token) => {
 //     return 'trying...'
 // })
@@ -168,11 +198,40 @@ onMounted(() => {
 
 <template>
     <main class="max-w-7xl mx-auto py-5">
-        <div class="mx-3 my-0 sm:my-5">
+        <!-- <div class="mx-3 my-0 sm:my-5">
             <h1 class="text-2xl sm:text-4xl font-medium truncate">
                 {{address}}
             </h1>
-        </div>
+        </div> -->
+
+        <section class="my-3 px-3 flex flex-row gap-3">
+            <div class="min-w-0 flex-1">
+                <label for="receiving-address" class="sr-only">Receiving address</label>
+
+                <input
+                    id="receiving-address"
+                    type="text"
+                    placeholder="Enter your wallet address"
+                    v-model="address"
+                    @keyup="loadAddress"
+                    class="block w-full rounded-md border-2 border-amber-400 shadow px-4 py-3 text-2xl text-amber-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                />
+
+                <p class="my-2 text-lg text-rose-300 font-medium">
+                    {{error}}
+                </p>
+            </div>
+
+            <div class="mt-3 sm:mt-0 sm:ml-3">
+                <button
+                    type="button"
+                    class="block w-full rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-3 px-4 font-medium text-white text-2xl shadow hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                    @click="loadAddress"
+                >
+                    Load Address
+                </button>
+            </div>
+        </section>
 
         <div class="mt-3 sm:mt-0 px-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
 
