@@ -154,7 +154,7 @@ const requestSwap = async (_asset) => {
         Swap.resetOrder()
 
         /* Go to monitoring station. */
-        router.push(`/tx/${orderid}`)
+        router.push(`/order/${orderid}`)
     }
 }
 

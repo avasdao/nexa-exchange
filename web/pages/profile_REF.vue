@@ -133,16 +133,12 @@ onBeforeUnmount(() => {
         <div v-else>
             <section v-if="hasAuth" class="py-10 flex flex-col items-center gap-10">
                 <h2 class="text-3xl text-rose-500 font-bold">
-                   Coming Soon...
+                   Nexa Exchange Profile
                 </h2>
 
                 <p class="max-w-lg text-xl text-center">
-                    While you wait for your Awesome profile page, please submit your favorite Nexa link.
+                    coming soon...
                 </p>
-
-                <NuxtLink to="/submit" class="px-5 py-2 bg-green-500 text-xl text-green-50 font-medium border-4 border-green-700 rounded-md shadow-md hover:bg-green-600">
-                    Submit a New Listing
-                </NuxtLink>
 
                 <button @click="signOut" class="px-5 py-2 bg-red-500 text-xl text-red-50 font-medium border-4 border-red-700 rounded-md shadow-md hover:bg-red-600">
                     Sign Out
