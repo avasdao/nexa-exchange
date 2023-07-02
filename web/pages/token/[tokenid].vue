@@ -49,14 +49,33 @@ const homepageUrl = computed(() => {
 })
 
 const tokenIcon = computed(() => {
-    if (tokenUrl.value && tokenDoc.value) {
-        const url = new URL(tokenUrl.value)
-        // console.log('URL', url)
+    let doc
+    let icon
+    let url
 
-        return url.origin + tokenDoc.value?.[0].icon
+    if (tokenDoc.value) {
+
+        try {
+            doc = JSON.parse(tokenDoc.value)
+            console.log('DOC', doc)
+
+            icon = doc[0].icon
+            console.log('ICON-1', icon)
+        } catch (err) {
+            console.error(err)
+
+            doc = tokenDoc.value
+
+            icon = doc[0].icon
+            console.log('ICON-2', icon)
+        }
     }
 
-    return tokenDoc.value?.[0].icon || null
+    if (icon?.includes('http') === false && homepageUrl.value !== '') {
+        icon = homepageUrl.value + icon
+    }
+
+    return icon
 })
 
 onMounted(async () => {
@@ -74,7 +93,7 @@ onMounted(async () => {
             // console.log('docUrl HELP', docUrl)
             tokenDoc.value = await $fetch(docUrl)
                 .catch(err => console.error(err))
-            // console.log('DOC', tokenDoc.value)
+            console.log('DOC', tokenDoc.value)
         }
     }
 
