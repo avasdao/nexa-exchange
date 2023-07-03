@@ -43,7 +43,7 @@ ticker.value = await $fetch('/ticker')
 
         <section v-if="ticker?.quote.USD" class="grid grid-cols-2 gap-3">
             <h2 class="text-right">Price</h2>
-            <h2>{{numeral(ticker.quote.USD.price).format('$0,0.00000000[0000000000]')}}</h2>
+            <h2>{{numeral(ticker.quote.USD.price).format('$0,0.00000000[0000]')}}</h2>
 
             <h2 class="text-right">Market Cap</h2>
             <h2>{{numeral(ticker.quote.USD.marketCap).format('$0,0.00')}}</h2>
