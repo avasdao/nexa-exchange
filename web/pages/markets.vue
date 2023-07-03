@@ -1,6 +1,6 @@
 <script setup>
 /* Import modules. */
-import { ref } from 'vue'
+import numeral from 'numeral'
 
 /* Initialize ticker. */
 const ticker = ref(null)
@@ -17,9 +17,60 @@ ticker.value = await $fetch('/ticker')
             Markets
         </h1>
 
-        <span class="text-xs font-mono">
+
+        <section v-if="ticker" class="grid grid-cols-2 gap-3">
+            <h2 class="text-right">Name</h2>
+            <h2>{{ticker.name}}</h2>
+
+            <h2 class="text-right">Symbol</h2>
+            <h2>{{ticker.symbol}}</h2>
+
+            <h2 class="text-right"># of Markets</h2>
+            <h2>{{ticker.numMarkets}}</h2>
+
+            <h2 class="text-right">Maximum Supply</h2>
+            <h2>{{numeral(ticker.maxSupply).format('0,0')}}</h2>
+
+            <h2 class="text-right">Circulating Supply</h2>
+            <h2>{{numeral(ticker.circulatingSupply).format('0,0')}}</h2>
+
+            <h2 class="text-right">Total Supply</h2>
+            <h2>{{numeral(ticker.totalSupply).format('0,0')}}</h2>
+
+        </section>
+
+        <div class="w-3/4 mx-auto my-5 border-t border-gray-500" />
+
+        <section v-if="ticker?.quote.USD" class="grid grid-cols-2 gap-3">
+            <h2 class="text-right">Price</h2>
+            <h2>{{numeral(ticker.quote.USD.price).format('$0,0.00000000[0000000000]')}}</h2>
+
+            <h2 class="text-right">Market Cap</h2>
+            <h2>{{numeral(ticker.quote.USD.marketCap).format('$0,0.00')}}</h2>
+
+            <h2 class="text-right">Volume 24 hours</h2>
+            <h2>{{numeral(ticker.quote.USD.vol24).format('$0,0.00')}}</h2>
+
+            <h2 class="text-right">Volume Change 24 hours</h2>
+            <h2>{{numeral(ticker.quote.USD.volChg24).format('$0,0.00')}}</h2>
+
+            <h2 class="text-right">% Change 1 hour</h2>
+            <h2>{{ticker.quote.USD.pctChg1h}}</h2>
+
+            <h2 class="text-right">% Change 24 hours</h2>
+            <h2>{{ticker.quote.USD.pctChg24h}}</h2>
+
+            <h2 class="text-right">% Change 7 days</h2>
+            <h2>{{ticker.quote.USD.pctChg7d}}</h2>
+
+            <h2 class="text-right">% Change 30 days</h2>
+            <h2>{{ticker.quote.USD.pctChg30d}}</h2>
+
+        </section>
+
+        <!-- <span class="text-xs font-mono">
             <pre>{{JSON.stringify(ticker, null, 2)}}</pre>
-        </span>
+        </span> -->
     </main>
 </template>
 
