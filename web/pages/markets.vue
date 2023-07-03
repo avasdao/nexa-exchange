@@ -48,22 +48,22 @@ ticker.value = await $fetch('/ticker')
             <h2 class="text-right">Market Cap</h2>
             <h2>{{numeral(ticker.quote.USD.marketCap).format('$0,0.00')}}</h2>
 
-            <h2 class="text-right">Volume 24 hours</h2>
+            <h2 class="text-right">Volume 24hrs</h2>
             <h2>{{numeral(ticker.quote.USD.vol24).format('$0,0.00')}}</h2>
 
-            <h2 class="text-right">Volume Change 24 hours</h2>
+            <h2 class="text-right">Volume Change 24hrs</h2>
             <h2>{{numeral(ticker.quote.USD.volChg24).format('$0,0.00')}}</h2>
 
-            <h2 class="text-right">% Change 1 hour</h2>
+            <h2 class="text-right">% Change 1hr</h2>
             <h2>{{ticker.quote.USD.pctChg1h}}</h2>
 
-            <h2 class="text-right">% Change 24 hours</h2>
+            <h2 class="text-right">% Change 24hrs</h2>
             <h2>{{ticker.quote.USD.pctChg24h}}</h2>
 
-            <h2 class="text-right">% Change 7 days</h2>
+            <h2 class="text-right">% Change 7d</h2>
             <h2>{{ticker.quote.USD.pctChg7d}}</h2>
 
-            <h2 class="text-right">% Change 30 days</h2>
+            <h2 class="text-right">% Change 30d</h2>
             <h2>{{ticker.quote.USD.pctChg30d}}</h2>
 
         </section>
