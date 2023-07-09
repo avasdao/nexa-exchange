@@ -63,19 +63,17 @@ const launchApp = () => {
 }
 
 const updateTicker = async () => {
-    const ticker = await $fetch('/ticker')
+    ticker.value = await $fetch('/ticker')
         .catch(err => console.error(err))
-    console.info('Latest ticker:', ticker)
+    console.info('Latest ticker:', ticker.value)
 
-    // ticker.value = ticker
-
-    const price = (ticker?.quote.USD.price * 1000000) || 'n/a'
+    const price = (ticker.value?.quote.USD.price * 1000000) || 'n/a'
     // console.log('PRICE', price)
 
-    const pctChg24h = numeral(ticker?.quote.USD.pctChg24h / 100.0).format('0.0%') || 'n/a'
+    const pctChg24h = numeral(ticker.value?.quote.USD.pctChg24h / 100.0).format('0.0%') || 'n/a'
     // console.log('PCT CHANGE 24H', pctChg24h)
 
-    const vol24 = numeral(ticker?.quote.USD.vol24).format('0,0.0a') || 'n/a'
+    const vol24 = numeral(ticker.value?.quote.USD.vol24).format('0,0.0a') || 'n/a'
     // console.log('VOLUME 24H', vol24)
 
     displayQuote.value = numeral(price).format('$0,0.00')
@@ -121,7 +119,7 @@ updateTicker()
                                 {{priceChg24h}}
                             </span>
 
-                            <svg v-if="priceChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg v-if="ticker?.quote.USD.pctChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
                             </svg>
                             <svg v-else class="inline w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -181,7 +179,7 @@ updateTicker()
                                         {{priceChg24h}}
                                     </span>
 
-                                    <svg v-if="priceChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <svg v-if="ticker?.quote.USD.pctChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
                                     </svg>
                                     <svg v-else class="inline w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
