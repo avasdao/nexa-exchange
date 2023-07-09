@@ -1,36 +1,21 @@
 {
-  "name": "nexa-exchange-bridge",
-  "version": "22.11.23",
+  "name": "nexajs-nuxt-ts",
+  "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test:unit": "vitest --environment jsdom --root src/",
-    "test:e2e": "start-server-and-test preview :4173 'cypress run --e2e'",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' :4173 'cypress open --e2e'",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "pinia": "2.0.23",
-    "vite": "3.1.8",
-    "vue": "3.2.41",
-    "vue-router": "4.1.5"
+    "@pinia/nuxt": "0.4.7",
+    "nexajs": "23.3.19",
+    "nuxt": "3.0.0",
+    "pinia": "2.0.32"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "1.1.4",
-    "@vitejs/plugin-vue": "3.1.2",
-    "@vue/eslint-config-prettier": "7.0.0",
-    "@vue/test-utils": "2.1.0",
-    "autoprefixer": "10.4.13",
-    "cypress": "10.10.0",
-    "eslint": "8.22.0",
-    "eslint-plugin-cypress": "2.12.1",
-    "eslint-plugin-vue": "9.3.0",
-    "jsdom": "20.0.1",
-    "postcss": "8.4.18",
-    "prettier": "2.7.1",
-    "start-server-and-test": "1.14.0",
-    "tailwindcss": "3.2.2",
-    "vitest": "0.24.3"
+    "@nuxtjs/tailwindcss": "6.4.1"
   }
 }
