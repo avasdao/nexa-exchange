@@ -11,7 +11,7 @@ const { projectid, projectName } = await $fetch('/api/v1/project')
         </div>
 
         <div class="-mt-5 relative flex justify-center">
-            <span class="bg-white px-3 text-gray-500">
+            <span class="px-3 text-gray-500">
                 <img src="~/assets/logo.png" class="w-8 h-8" />
             </span>
         </div>
