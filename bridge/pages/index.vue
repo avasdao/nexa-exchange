@@ -7,8 +7,8 @@
     <main class="w-screen h-screen overflow-hidden bg-gradient-to-b from-gray-600 to-gray-800 px-3 flex flex-col items-center justify-between">
         <div class="w-full lg:w-3/4 mx-auto mt-10 px-5">
             <header class="w-full px-3 flex justify-between">
-                <h1 class="text-2xl text-gray-200 font-light tracking-tighter">
-                    Nexa Exchange Bridge
+                <h1 class="text-2xl text-gray-200 font-light tracking-widest">
+                    Nexa Cross-chain Bridge
                 </h1>
 
                 <svg class="w-7 h-auto text-sky-100" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -17,10 +17,67 @@
                 </svg>
             </header>
 
-            <section class="w-full h-96 mt-2 px-5 py-3 bg-gray-700 border-2 border-amber-500 rounded-2xl shadow-md">
-                <h1 class="text-4xl text-amber-200 font-medium tracking-widest">
-                    Bridge Your Assets
-                </h1>
+            <section class="w-full h-96 grid grid-cols-5 gap-4 mt-2 px-5 py-0 bg-gray-700 border border-yellow-500 rounded-2xl shadow-md">
+
+                <div class="col-span-2 py-2">
+                    <h3 class="text-indigo-300 font-medium uppercase">
+                        From
+                    </h3>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        class="px-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
+                    />
+                </div>
+
+                <div class="col-span-1 bg-gradient-to-b from-yellow-500 via-yellow-300 to-yellow-500 border-x border-yellow-500">
+                    <div class="h-full px-2 py-3 flex flex-col gap-4 bg-amber-600 bg-opacity-50">
+                        <h2 class="text-2xl font-medium text-amber-100 text-center uppercase tracking-widest">
+                            Options
+                        </h2>
+
+                        <p class="text-sm">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ad quod alias aperiam autem culpa. Numquam voluptatem eligendi.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-span-2 py-2 flex flex-col justify-between">
+                    <section>
+                        <h3 class="text-indigo-300 font-medium uppercase">
+                            To
+                        </h3>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            placeholder="0.00"
+                            class="px-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
+                        />
+                    </section>
+
+                    <section>
+                        <h3 class="text-gray-300 text-lg">
+                            Recipient
+                        </h3>
+
+                        <h4 class="text-red-300 text-xs">
+                            Please DO NOT send funds to exchange (or custodial) wallet.
+                        </h4>
+
+                        <input
+                            type="text"
+                            placeholder="Wallet Address"
+                            class="px-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-2xl text-indigo-300 focus:outline-none"
+                        />
+                    </section>
+
+                    <p class="py-3 text-gray-300 text-sm">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam consectetur, fugiat ipsam minima blanditiis at, accusamus autem quos optio.
+                    </p>
+                </div>
 
             </section>
         </div>

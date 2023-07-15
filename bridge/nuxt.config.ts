@@ -6,9 +6,9 @@ export default defineNuxtConfig({
         head: {
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
-            title: 'Nexa Bridge',
+            title: 'Nexa Bridge: Move Assets Cross-chain',
             meta: [
-                { name: 'description', content: 'Bridge your assets across chains.' },
+                { name: 'description', content: 'Instantly move your Nexa assets across UTXO & EVM blockchains.' },
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
