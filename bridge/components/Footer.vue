@@ -6,16 +6,6 @@ const { projectid, projectName } = await $fetch('/api/v1/project')
 
 <template>
     <footer class="w-full mt-20 py-5 max-w-7xl mx-auto">
-        <div class="inset-0 flex items-center" aria-hidden="true">
-            <div class="w-full border-t border-gray-300"></div>
-        </div>
-
-        <div class="-mt-5 relative flex justify-center">
-            <span class="px-3 text-gray-500">
-                <img src="~/assets/logo.png" class="w-8 h-8" />
-            </span>
-        </div>
-
         <section class="mt-5 px-3 flex justify-between">
             <span class="text-sm text-gray-400">
                 &copy; {{new Date().getFullYear()}} {{projectName}} - MIT License
