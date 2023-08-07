@@ -37,7 +37,7 @@ const balanceDisplay = computed(() => {
         return '0.00'
     }
 
-    return numeral(balance.value / 100.0).format('0,0.00')
+    return numeral(parseFloat(balance.value) / 100.0).format('0,0.00')
 })
 
 const tokenBalancesDisplay = computed(() => {
@@ -93,15 +93,12 @@ const init = async () => {
     unspent = await listUnspent(address.value)
     console.log('UNSPENT', unspent)
 
-    // coinBalance = await getAddressBalance(address.value)
-    // console.log('COIN BALANCE', coinBalance)
-
-    balance.value = unspent.reduce((_total, _unspent) => {
-        /* Validate coin. */
-        if (_unspent.hasToken === false) {
-            return _total + _unspent.satoshis
-        }
-    }, 0)
+    balance.value = unspent
+        .filter(_u => _u.hasToken === false)
+        .reduce(
+            (_total, _unspent) => (_total + _unspent.satoshis), BigInt(0)
+        )
+    console.log('balance.value', balance.value)
 
     tokenBalances = await getAddressTokenBalance(address.value)
     console.log('TOKEN BALANCES', tokenBalances)
@@ -126,7 +123,7 @@ const init = async () => {
         info = await getGenesisInfo(tokenid)
         console.log('INFO', info)
 
-        const decimals = 8 // FIXME FOR DEV PURPOSES ONLY
+        const decimals = info.decimal_places // FIXME FOR DEV PURPOSES ONLY
 
         const satoshis = confirmed[tokenid] || 0 + unconfirmed[confirmed] || 0
         const amount = satoshis / 10**decimals
