@@ -91,14 +91,14 @@ const init = async () => {
     console.log('ADDRESS', address.value)
 
     unspent = await listUnspent(address.value)
-    // console.log('UNSPENT', unspent)
+    console.log('UNSPENT', unspent)
 
     // coinBalance = await getAddressBalance(address.value)
     // console.log('COIN BALANCE', coinBalance)
 
     balance.value = unspent.reduce((_total, _unspent) => {
         /* Validate coin. */
-        if (_unspent.isToken === false) {
+        if (_unspent.hasToken === false) {
             return _total + _unspent.satoshis
         }
     }, 0)
