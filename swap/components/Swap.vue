@@ -34,6 +34,7 @@ watch(settleAddress, async (_address) => {
 
         /* Set balance. */
         const balance = await getAddressBalance(settleAddress.value)
+        console.log('SETTLE ADDRESS (balance):', balance)
 
         if (typeof balance !== 'undefined') {
             /* Set balance. */

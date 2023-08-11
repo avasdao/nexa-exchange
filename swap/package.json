@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-swap",
-  "version": "23.6.22",
+  "version": "23.8.10",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -10,10 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nexajs/address": "23.6.21",
-    "@nexajs/rostrum": "23.6.21",
-    "@nexajs/utils": "23.5.15",
-    "@nexajs/wallet": "23.5.17",
+    "@nexajs/address": "23.8.9",
+    "@nexajs/rostrum": "23.8.9",
+    "@nexajs/utils": "23.7.22",
+    "@nexajs/wallet": "23.8.9",
     "@pinia/nuxt": "0.4.11",
     "moment": "2.29.4",
     "nexajs": "22.12.23",
