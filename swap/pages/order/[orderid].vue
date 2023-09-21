@@ -47,7 +47,7 @@ const init = async () => {
 
     depositAddress.value = order.value.depositAddress
 
-    generateQR(`order.value.depositAddress?amount=1.337`)
+    generateQR(`${order.value.depositAddress}?amount=0.001337`)
 
     setInterval(startWatching, MONITORING_INTERVAL)
 }
