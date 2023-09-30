@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-web",
-  "version": "23.8.7",
+  "version": "23.9.30",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -11,15 +11,11 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nexajs/address": "23.7.22",
-    "@nexajs/rostrum": "23.7.20",
-    "@nexajs/rpc": "23.5.15",
-    "@nexajs/token": "23.7.29",
-    "@nexajs/utils": "23.7.22",
     "@pinia/nuxt": "0.4.7",
     "crypto-js": "4.1.1",
     "gravatar": "1.8.2",
     "moment": "2.29.4",
+    "nexajs": "23.9.5",
     "numeral": "2.0.6",
     "nuxt": "3.3.1",
     "nuxt-highcharts": "2.0.4",

@@ -1,11 +1,19 @@
 /* Import modules. */
 import PouchDB from 'pouchdb'
+import { getTip } from '@nexajs/rostrum'
 
 /* Initialize databases. */
 const tickerDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/ticker`)
 
 export default defineEventHandler(async (event) => {
-    const response = await tickerDb
+    let blockTip
+    let doc
+    let pkg
+    let quote
+    let response
+    let totalSupply
+
+    response = await tickerDb
         .allDocs({
             include_docs: true,
             limit: 1,
@@ -16,9 +24,9 @@ export default defineEventHandler(async (event) => {
 
     /* Validate response. */
     if (response?.rows[0]?.doc) {
-        const doc = response?.rows[0]?.doc
+        doc = response?.rows[0]?.doc
 
-        const quote = {
+        quote = {
             USD: {
                 price: doc.quote.USD.price,
                 vol24: doc.quote.USD.volume_24h,
@@ -31,7 +39,7 @@ export default defineEventHandler(async (event) => {
             }
         }
 
-        const pkg = {
+        pkg = {
             name: doc.name,
             symbol: doc.symbol,
             numMarkets: doc.num_market_pairs,
@@ -40,6 +48,21 @@ export default defineEventHandler(async (event) => {
             totalSupply: doc.total_supply,
             updatedAt: doc.last_updated,
             quote,
+        }
+
+        // NOTE: We need to fix the (incorrect) supply totals from CMC. */
+        {
+            /* Request block tip. */
+            blockTip = await getTip()
+                .catch(err => console.error(err))
+            console.log('BLOCK TIP', blockTip)
+
+            totalSupply = blockTip.height * 1e7
+            console.log('TOTAL SUPPLY', totalSupply)
+
+            // NOTE: We need to fix the (incorrect) supply totals from CMC. */
+            pkg.circulatingSupply = totalSupply
+            pkg.totalSupply = totalSupply
         }
 
         /* Return ticker (package). */
