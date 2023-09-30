@@ -63,6 +63,7 @@ export default defineEventHandler(async (event) => {
             // NOTE: We need to fix the (incorrect) supply totals from CMC. */
             pkg.circulatingSupply = totalSupply
             pkg.totalSupply = totalSupply
+            pkg.marketCap = totalSupply * doc.quote.USD.price
         }
 
         /* Return ticker (package). */
