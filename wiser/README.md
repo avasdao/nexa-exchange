@@ -1,42 +1,5 @@
-# NexaJS Vue + TypeScript Boilerplate
+# WiserSwap
 
-Look at the [NexaJS documentation](https://docs.nexajs.org) to learn more.
+### https://wiserswap.com
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://docs.nexajs.org/deployment) for more information.
+An Automated Market Maker (AMM) built to support over 100K asset transfers per second (TPS) on Nexa's innovative blockchain network.

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: `Blank — WiserSwap`,
+    title: `Pools — WiserSwap`,
     meta: [
         { name: 'description', content: `Nexa Studio makes building your next BIG idea effortless.` }
     ],
@@ -24,7 +24,7 @@ const System = useSystemStore()
 <template>
     <main class="max-w-7xl mx-auto py-5">
         <h1 class="text-5xl font-medium">
-            Blank
+            Liquidity Pools
         </h1>
 
         <p>

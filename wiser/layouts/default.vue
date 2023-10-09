@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: 'PROJECT_NAME — Nexa Studio',
+    title: 'WiserSwap: Trade Nexa Tokens & NFTs',
     meta: [
         { name: 'description', content: 'Nexa Studio makes building your next BIG idea effortless.' }
     ],
