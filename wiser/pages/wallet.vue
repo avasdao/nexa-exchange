@@ -1,8 +1,8 @@
 <script setup lang="ts">
 useHead({
-    title: `Blank — WiserSwap`,
+    title: `Wallet — WiserSwap`,
     meta: [
-        { name: 'description', content: `Nexa Studio makes building your next BIG idea effortless.` }
+        { name: 'description', content: `WiserSwap wallet.` }
     ],
 })
 
@@ -22,9 +22,9 @@ const System = useSystemStore()
 </script>
 
 <template>
-    <main class="max-w-6xl mx-auto py-5">
+    <main class="max-w-6xl mx-auto py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Blank
+            Wallet
         </h1>
 
         <p>

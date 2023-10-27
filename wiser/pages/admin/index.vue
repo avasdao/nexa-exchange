@@ -22,7 +22,7 @@ const System = useSystemStore()
 </script>
 
 <template>
-    <main class="max-w-7xl mx-auto py-5">
+    <main class="max-w-6xl mx-auto py-5">
         <h1 class="text-5xl font-medium">
             Blank
         </h1>
