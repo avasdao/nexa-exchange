@@ -1,8 +1,8 @@
 <script setup lang="ts">
 useHead({
-    title: 'WiserSwap: Trade Nexa Tokens & NFTs',
+    title: 'WiserSwap — Trade Nexa Tokens & NFTs',
     meta: [
-        { name: 'description', content: 'Nexa Studio makes building your next BIG idea effortless.' }
+        { name: 'description', content: 'Trade Nexa tokens and NFTs trustlessly and instantly.' }
     ],
 })
 
@@ -80,5 +80,7 @@ watch([Profile.$state, System.$state, Wallet.$state], (_state) => {
 </script>
 
 <template>
+    <Header />
     <slot />
+    <Footer />
 </template>

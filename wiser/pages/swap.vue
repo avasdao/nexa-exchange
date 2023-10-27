@@ -121,7 +121,5 @@ const System = useSystemStore()
                 </ol>
             </section>
         </div>
-
-        <Footer />
     </main>
 </template>

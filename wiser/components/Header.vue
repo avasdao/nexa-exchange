@@ -21,63 +21,437 @@ const isShowingMenu = ref(false)
 </script>
 
 <template>
-    <header class="absolute inset-x-0 top-0 z-50">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-            <div class="flex lg:flex-1">
-                <a href="javascript://" class="-m-1.5 p-1.5">
-                    <span class="sr-only">PROJECT_NAME</span>
-                    <img class="h-16 w-auto" src="~/assets/nexa.svg" alt="" />
-                </a>
-            </div>
-            <div class="flex lg:hidden">
-                <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </button>
-            </div>
-            <div class="hidden lg:flex lg:gap-x-12">
-                <a href="javascript://" class="text-xl font-semibold leading-6 text-gray-900">Product</a>
-                <a href="javascript://" class="text-xl font-semibold leading-6 text-gray-900">Features</a>
-                <a href="javascript://" class="text-xl font-semibold leading-6 text-gray-900">Resources</a>
-                <a href="javascript://" class="text-xl font-semibold leading-6 text-gray-900">Company</a>
-            </div>
-            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                <a href="javascript://" class="text-xl font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
-            </div>
-        </nav>
-        <!-- Mobile menu, show/hide based on menu open state. -->
-        <div v-if="isShowingMenu" class="lg:hidden" role="dialog" aria-modal="true">
-            <!-- Background backdrop, show/hide based on slide-over state. -->
-            <div class="fixed inset-0 z-50"></div>
-            <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-                <div class="flex items-center justify-between">
-                    <a href="javascript://" class="-m-1.5 p-1.5">
-                        <span class="sr-only">Your Company</span>
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-                    </a>
-                    <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
-                        <span class="sr-only">Close menu</span>
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="mt-6 flow-root">
-                    <div class="-my-6 divide-y divide-gray-500/10">
-                        <div class="space-y-2 py-6">
-                            <a href="javascript://" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
-                            <a href="javascript://" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-                            <a href="javascript://" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Resources</a>
-                            <a href="javascript://" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
+    <div class="bg-white">
+        <!--
+        Mobile menu
+
+        Off-canvas menu for mobile, show/hide based on off-canvas menu state.
+    -->
+        <div v-if="isShowingMenu" class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
+            <!--
+        Off-canvas menu backdrop, show/hide based on off-canvas menu state.
+
+        Entering: "transition-opacity ease-linear duration-300"
+            From: "opacity-0"
+            To: "opacity-100"
+        Leaving: "transition-opacity ease-linear duration-300"
+            From: "opacity-100"
+            To: "opacity-0"
+        -->
+            <div class="fixed inset-0 bg-black bg-opacity-25"></div>
+
+            <div class="fixed inset-0 z-40 flex">
+                <!--
+            Off-canvas menu, show/hide based on off-canvas menu state.
+
+            Entering: "transition ease-in-out duration-300 transform"
+            From: "-translate-x-full"
+            To: "translate-x-0"
+            Leaving: "transition ease-in-out duration-300 transform"
+            From: "translate-x-0"
+            To: "-translate-x-full"
+        -->
+                <div class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
+                    <div class="flex px-4 pb-2 pt-5">
+                        <button type="button" class="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400">
+                            <span class="sr-only">Close menu</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Links -->
+                    <div class="mt-2">
+                        <div class="border-b border-gray-200">
+                            <div class="-mb-px flex space-x-8 px-4" aria-orientation="horizontal" role="tablist">
+                                <!-- Selected: "border-indigo-600 text-indigo-600", Not Selected: "border-transparent text-gray-900" -->
+                                <button id="tabs-1-tab-1" class="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium" aria-controls="tabs-1-panel-1" role="tab" type="button">Women</button>
+                                <!-- Selected: "border-indigo-600 text-indigo-600", Not Selected: "border-transparent text-gray-900" -->
+                                <button id="tabs-1-tab-2" class="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium" aria-controls="tabs-1-panel-2" role="tab" type="button">Men</button>
+                            </div>
                         </div>
-                        <div class="py-6">
-                            <a href="javascript://" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
+
+                        <!-- 'Women' tab panel, show/hide based on tab state. -->
+                        <div id="tabs-1-panel-1" class="space-y-12 px-4 pb-6 pt-10" aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0">
+                            <div class="grid grid-cols-1 items-start gap-x-6 gap-y-10">
+                                <div class="grid grid-cols-1 gap-x-6 gap-y-10">
+                                    <div>
+                                        <p id="mobile-featured-heading-0" class="font-medium text-gray-900">Featured</p>
+                                        <ul role="list" aria-labelledby="mobile-featured-heading-0" class="mt-6 space-y-6">
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Sleep</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Swimwear</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Underwear</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p id="mobile-categories-heading" class="font-medium text-gray-900">Categories</p>
+                                        <ul role="list" aria-labelledby="mobile-categories-heading" class="mt-6 space-y-6">
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Basic Tees</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Artwork Tees</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Bottoms</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Underwear</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Accessories</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 gap-x-6 gap-y-10">
+                                    <div>
+                                        <p id="mobile-collection-heading" class="font-medium text-gray-900">Collection</p>
+                                        <ul role="list" aria-labelledby="mobile-collection-heading" class="mt-6 space-y-6">
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Everything</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Core</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">New Arrivals</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Sale</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <p id="mobile-brand-heading" class="font-medium text-gray-900">Brands</p>
+                                        <ul role="list" aria-labelledby="mobile-brand-heading" class="mt-6 space-y-6">
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Full Nelson</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">My Way</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Re-Arranged</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Counterfeit</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Significant Other</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <!-- 'Men' tab panel, show/hide based on tab state. -->
+                        <div id="tabs-1-panel-2" class="space-y-12 px-4 pb-6 pt-10" aria-labelledby="tabs-1-tab-2" role="tabpanel" tabindex="0">
+                            <div class="grid grid-cols-1 items-start gap-x-6 gap-y-10">
+                                <div class="grid grid-cols-1 gap-x-6 gap-y-10">
+                                    <div>
+                                        <p id="mobile-featured-heading-1" class="font-medium text-gray-900">Featured</p>
+                                        <ul role="list" aria-labelledby="mobile-featured-heading-1" class="mt-6 space-y-6">
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Casual</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Boxers</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Outdoor</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p id="mobile-categories-heading" class="font-medium text-gray-900">Categories</p>
+                                        <ul role="list" aria-labelledby="mobile-categories-heading" class="mt-6 space-y-6">
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Artwork Tees</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Pants</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Accessories</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Boxers</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Basic Tees</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 gap-x-6 gap-y-10">
+                                    <div>
+                                        <p id="mobile-collection-heading" class="font-medium text-gray-900">Collection</p>
+                                        <ul role="list" aria-labelledby="mobile-collection-heading" class="mt-6 space-y-6">
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Everything</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Core</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">New Arrivals</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Sale</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <p id="mobile-brand-heading" class="font-medium text-gray-900">Brands</p>
+                                        <ul role="list" aria-labelledby="mobile-brand-heading" class="mt-6 space-y-6">
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Significant Other</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">My Way</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Counterfeit</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Re-Arranged</a>
+                                            </li>
+                                            <li class="flex">
+                                                <a href="javascript://" class="text-gray-500">Full Nelson</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 border-t border-gray-200 px-4 py-6">
+                        <div class="flow-root">
+                            <a href="javascript://" class="-m-2 block p-2 font-medium text-gray-900">Company</a>
+                        </div>
+                        <div class="flow-root">
+                            <a href="javascript://" class="-m-2 block p-2 font-medium text-gray-900">Stores</a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 border-t border-gray-200 px-4 py-6">
+                        <div class="flow-root">
+                            <a href="javascript://" class="-m-2 block p-2 font-medium text-gray-900">Create an account</a>
+                        </div>
+                        <div class="flow-root">
+                            <a href="javascript://" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 border-t border-gray-200 px-4 py-6">
+                        <!-- Currency selector -->
+                        <form>
+                            <div class="inline-block">
+                                <label for="mobile-currency" class="sr-only">Currency</label>
+                                <div class="group relative -ml-2 rounded-md border-transparent focus-within:ring-2 focus-within:ring-white">
+                                    <select
+                                        id="mobile-currency"
+                                        name="currency"
+                                        class="flex items-center rounded-md border-transparent bg-none py-0.5 pl-2 pr-5 text-sm font-medium text-gray-700 focus:border-transparent focus:outline-none focus:ring-0 group-hover:text-gray-800"
+                                    >
+                                        <option>CAD</option>
+                                        <option>USD</option>
+                                        <option>AUD</option>
+                                        <option>EUR</option>
+                                        <option>GBP</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center">
+                                        <svg class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+
+        <header class="relative">
+            <nav aria-label="Top">
+                <!-- Top navigation -->
+                <div class="bg-gray-900">
+                    <div class="mx-auto flex h-10 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+                        <!-- Currency selector -->
+                        <form class="hidden lg:block lg:flex-1">
+                            <div class="flex">
+                                <label for="desktop-currency" class="sr-only">Currency</label>
+                                <div class="group relative -ml-2 rounded-md border-transparent bg-gray-900 focus-within:ring-2 focus-within:ring-white">
+                                    <select
+                                        id="desktop-currency"
+                                        name="currency"
+                                        class="flex items-center rounded-md border-transparent bg-gray-900 bg-none py-0.5 pl-2 pr-5 text-sm font-medium text-white focus:border-transparent focus:outline-none focus:ring-0 group-hover:text-gray-100"
+                                    >
+                                        <option>CAD</option>
+                                        <option>USD</option>
+                                        <option>AUD</option>
+                                        <option>EUR</option>
+                                        <option>GBP</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center">
+                                        <svg class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <p class="flex-1 text-center text-sm font-medium text-white lg:flex-none">Get free delivery on orders over $100</p>
+
+                        <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                            <a href="javascript://" class="text-sm font-medium text-white hover:text-gray-100">Create an account</a>
+                            <span class="h-6 w-px bg-gray-600" aria-hidden="true"></span>
+                            <a href="javascript://" class="text-sm font-medium text-white hover:text-gray-100">Sign in</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary navigation -->
+                <div class="bg-white">
+                    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div class="border-b border-gray-200">
+                            <div class="flex h-16 items-center justify-between">
+                                <!-- Logo (lg+) -->
+                                <div class="hidden lg:flex lg:items-center">
+                                    <NuxtLink to="/">
+                                        <span class="sr-only">WiserSwap</span>
+                                        <img class="h-12 w-auto" src="~/assets/nexa.svg" alt="" />
+                                    </NuxtLink>
+                                </div>
+
+                                <div class="hidden h-full lg:flex">
+                                    <!-- Mega menus -->
+                                    <div class="ml-8">
+                                        <div class="flex h-full justify-center space-x-8">
+                                            <div class="flex">
+                                                <div class="relative flex">
+                                                    <!-- Item active: "border-indigo-600 text-indigo-600", Item inactive: "border-transparent text-gray-700 hover:text-gray-800" -->
+                                                    <NuxtLink to="/swap"
+                                                        type="button"
+                                                        class="border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center border-b-2 pt-px text-lg font-medium transition-colors duration-200 ease-out"
+                                                        aria-expanded="false"
+                                                    >
+                                                        Swap
+                                                    </NuxtLink>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex">
+                                                <div class="relative flex">
+                                                    <!-- Item active: "border-indigo-600 text-indigo-600", Item inactive: "border-transparent text-gray-700 hover:text-gray-800" -->
+                                                    <NuxtLink to="/tokens"
+                                                        type="button"
+                                                        class="border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center border-b-2 pt-px text-lg font-medium transition-colors duration-200 ease-out"
+                                                        aria-expanded="false"
+                                                    >
+                                                        Tokens
+                                                    </NuxtLink>
+                                                </div>
+                                            </div>
+
+                                            <NuxtLink to="/nfts" class="flex items-center text-lg font-medium text-gray-700 hover:text-gray-800">
+                                                NFTs
+                                            </NuxtLink>
+
+                                            <NuxtLink to="/pools" class="flex items-center text-lg font-medium text-gray-700 hover:text-gray-800">
+                                                Pools
+                                            </NuxtLink>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Mobile menu and search (lg-) -->
+                                <div class="flex flex-1 items-center lg:hidden">
+                                    <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
+                                    <button type="button" class="-ml-2 rounded-md bg-white p-2 text-gray-400">
+                                        <span class="sr-only">Open menu</span>
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                        </svg>
+                                    </button>
+
+                                    <!-- Search -->
+                                    <a href="javascript://" class="ml-2 p-2 text-gray-400 hover:text-gray-500">
+                                        <span class="sr-only">Search</span>
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                        </svg>
+                                    </a>
+                                </div>
+
+                                <!-- Logo (lg-) -->
+                                <NuxtLink to="/" class="lg:hidden">
+                                    <span class="sr-only">WiserSwap</span>
+                                    <img src="~/assets/nexa.svg" alt="" class="h-12 w-auto" />
+                                </NuxtLink>
+
+                                <div class="flex flex-1 items-center justify-end">
+                                    <div class="flex items-center lg:ml-8">
+                                        <div class="flex space-x-8">
+                                            <div class="hidden lg:flex">
+                                                <a href="javascript://" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                                    <span class="sr-only">Search</span>
+                                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+
+                                            <div class="flex">
+                                                <a href="javascript://" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                                    <span class="sr-only">Account</span>
+                                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                        <path
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                                                        />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <span class="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span>
+
+                                        <div class="flow-root">
+                                            <a href="javascript://" class="group -m-2 flex items-center p-2">
+                                                <svg class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                                                    />
+                                                </svg>
+                                                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                                <span class="sr-only">items in cart, view bag</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+
 </template>
