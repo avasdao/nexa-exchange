@@ -19,7 +19,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <main class="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+    <main class="mx-auto mt-16 max-w-7xl px-6 sm:mt-24 lg:px-8">
         <div class="mx-auto max-w-2xl lg:text-center">
             <h2 class="text-xl font-semibold leading-7 text-indigo-600">
                 For Casual Traders

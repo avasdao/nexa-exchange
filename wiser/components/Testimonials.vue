@@ -87,11 +87,11 @@ const props = defineProps({
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto max-w-xl sm:text-center">
                     <h2 class="text-xl font-semibold leading-8 tracking-tight text-indigo-600">
-                        Our Community Shout-outs
+                        Community Shout-outs
                     </h2>
 
                     <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                        We are proud to have served thousands of Nexicans since 2022!
+                        Our team has proudly served thousands of Nexicans since 2022!
                     </p>
                 </div>
 
