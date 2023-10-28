@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/* Import modules. */
+import numeral from 'numeral'
+
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
 const props = defineProps({
@@ -7,12 +10,47 @@ const props = defineProps({
     },
 })
 
+/* Set API endpoint. */
+const API_ENDPOINT = 'https://nexa.exchange/ticker'
+
 const isShowingMenu = ref(false)
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+const tickerHandler = ref(null)
+const ticker = ref(null)
+
+let displayQuote = ref(null)
+let priceChg24h = ref(null)
+let vol24h = ref(null)
+
+const updateTicker = async () => {
+    ticker.value = await $fetch(API_ENDPOINT)
+        .catch(err => console.error(err))
+    console.info('Latest ticker:', ticker.value)
+
+    const price = (ticker.value?.quote.USD.price * 1000000) || 'n/a'
+    // console.log('PRICE', price)
+
+    const pctChg24h = numeral(ticker.value?.quote.USD.pctChg24h / 100.0).format('0.0%') || 'n/a'
+    // console.log('PCT CHANGE 24H', pctChg24h)
+
+    const vol24 = numeral(ticker.value?.quote.USD.vol24).format('0,0.0a') || 'n/a'
+    // console.log('VOLUME 24H', vol24)
+
+    displayQuote.value = numeral(price).format('$0,0.00')
+
+    priceChg24h.value = pctChg24h
+
+    vol24h.value = vol24
+}
+
+
+// this.tickerHandler = setInterval(() => {
+//     this.updateTicker()
+// }, 30000)
+
+onMounted(() => {
+    updateTicker()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
@@ -299,8 +337,8 @@ const isShowingMenu = ref(false)
                                         name="currency"
                                         class="flex items-center rounded-md border-transparent bg-gray-900 bg-none py-0.5 pl-2 pr-5 text-sm font-medium text-white focus:border-transparent focus:outline-none focus:ring-0 group-hover:text-gray-100"
                                     >
-                                        <option>CAD</option>
                                         <option>USD</option>
+                                        <option>CAD</option>
                                         <option>AUD</option>
                                         <option>EUR</option>
                                         <option>GBP</option>
@@ -314,12 +352,47 @@ const isShowingMenu = ref(false)
                             </div>
                         </form>
 
-                        <p class="flex-1 text-center text-sm font-medium text-white lg:flex-none">Get free delivery on orders over $100</p>
+                        <p class="flex-1 text-center text-sm font-medium text-white lg:flex-none tracking-wider">
+                            Access PRO Trader tools on
+                            <NuxtLink to="https://nexa.exchange" target="_blank" class="text-sky-400 font-bold hover:text-sky-500">NEXA.exchange</NuxtLink>
+                        </p>
 
                         <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                            <a href="javascript://" class="text-sm font-medium text-white hover:text-gray-100">Create an account</a>
+                            <NuxtLink to="https://nexa.exchange/markets" target="_blank">
+                                <h2 class="flex flex-row items-center text-xs text-amber-500 hover:text-amber-400 font-medium group">
+                                    mNEXA/USD
+                                    <span class="ml-2 text-xl text-amber-300 group-hover:text-amber-200">
+                                        {{displayQuote}}
+                                    </span>
+                                </h2>
+                            </NuxtLink>
+
                             <span class="h-6 w-px bg-gray-600" aria-hidden="true"></span>
-                            <a href="javascript://" class="text-sm font-medium text-white hover:text-gray-100">Sign in</a>
+
+                            <NuxtLink to="https://nexa.exchange/markets" target="_blank">
+                                <div class="flex justify-end">
+                                    <span class="text-yellow-400 font-medium text-sm sm:text-base">
+                                        <span class="">
+                                            {{priceChg24h}}
+                                        </span>
+
+                                        <svg v-if="ticker?.quote.USD.pctChg24h > 0" class="inline w-4 h-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                        </svg>
+                                        <svg v-else class="inline w-4 h-auto text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
+                                        </svg>
+
+                                        <span class="mx-1 text-yellow-700">
+                                            &bullet; &bullet;
+                                        </span>
+
+                                        <span class="">
+                                            {{vol24h}}
+                                        </span>
+                                    </span>
+                                </div>
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 <script setup>
 /* Import modules. */
-import { ref } from 'vue'
 import numeral from 'numeral'
 
 /* Set API endpoint. */
