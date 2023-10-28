@@ -18,7 +18,8 @@ const { projectid, projectName } = await $fetch('/api/v1/project')
 
         <section class="mt-5 px-3 flex justify-between">
             <span class="text-sm text-gray-400">
-                &copy; {{new Date().getFullYear()}} Nexa Exchange DAO. All rights reserved.
+                &copy; {{new Date().getFullYear()}} Nexa Exchange DAO.
+                <span class="pl-1 block sm:inline">All rights reserved.</span>
             </span>
 
             <div class="flex flex-row items-center gap-2">
