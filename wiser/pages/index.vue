@@ -19,33 +19,49 @@
                     </svg>
                     <rect width="100%" height="100%" stroke-width="0" fill="url(#83fd4e5a-9d52-42fc-97b6-718e5d7ee527)" />
                 </svg>
-                <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-40">
+
+                <div class="mx-auto max-w-7xl px-6 py-6 sm:py-8 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-10">
                     <div class="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
                         <div class="flex">
                             <div class="relative flex items-center gap-x-4 rounded-full px-4 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                                <span class="font-semibold text-indigo-600">We’re hiring</span>
+
+                                <span class="font-semibold text-indigo-600">
+                                    Launching soon...
+                                </span>
+
                                 <span class="h-4 w-px bg-gray-900/10" aria-hidden="true"></span>
-                                <a href="#" class="flex items-center gap-x-1">
+
+                                <NuxtLink to="https://avasdao.org/roadmap" target="_blank" class="flex items-center gap-x-1">
                                     <span class="absolute inset-0" aria-hidden="true"></span>
-                                    See open positions
+                                    Check out our Roadmap
+
                                     <svg class="-mr-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                                     </svg>
-                                </a>
+                                </NuxtLink>
                             </div>
                         </div>
-                        <h1 class="mt-10 max-w-lg text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">A better way to ship your projects</h1>
+
+                        <h1 class="mt-10 max-w-lg text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                            Fastest + Safest Nexa Assets Swaps
+                        </h1>
+
                         <p class="mt-6 text-lg leading-8 text-gray-600">
-                            Esse id magna consectetur fugiat non dolor in ad laboris magna laborum ea consequat. Nisi irure aliquip nisi adipisicing veniam voluptate id. In veniam incididunt ex veniam adipisicing sit.
+                            There is NO faster &amp; safer way to swap your Nexa assets.
+                            Enjoy a permissionless experience that respects Your Keys. Your Coins.
+                            Our "network shared" liquidity pool contract(s) ensure you pay minimum fees and receive maximum value.
                         </p>
+
                         <div class="mt-10 flex items-center gap-x-6">
-                            <a
-                                href="#"
-                                class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            <NuxtLink to="/swap"
+                                class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-2xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Get started
+                                Swap An Asset
+                            </NuxtLink>
+
+                            <a href="javascript://" class="text-2xl font-semibold leading-6 text-gray-900">
+                                Learn more <span aria-hidden="true">→</span>
                             </a>
-                            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">→</span></a>
                         </div>
                     </div>
                     <div class="mt-16 sm:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow">
@@ -190,7 +206,7 @@
                             <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                                 <p class="flex-auto">Commodo nec sagittis tortor mauris sed. Turpis tortor quis scelerisque diam id accumsan nullam tempus. Pulvinar etiam lacus volutpat eu. Phasellus praesent ligula sit faucibus.</p>
                                 <p class="mt-6">
-                                    <a href="#" class="text-sm font-semibold leading-6 text-indigo-600">Learn more <span aria-hidden="true">→</span></a>
+                                    <a href="javascript://" class="text-sm font-semibold leading-6 text-indigo-600">Learn more <span aria-hidden="true">→</span></a>
                                 </p>
                             </dd>
                         </div>
@@ -204,7 +220,7 @@
                             <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                                 <p class="flex-auto">Pellentesque enim a commodo malesuada turpis eleifend risus. Facilisis donec placerat sapien consequat tempor fermentum nibh.</p>
                                 <p class="mt-6">
-                                    <a href="#" class="text-sm font-semibold leading-6 text-indigo-600">Learn more <span aria-hidden="true">→</span></a>
+                                    <a href="javascript://" class="text-sm font-semibold leading-6 text-indigo-600">Learn more <span aria-hidden="true">→</span></a>
                                 </p>
                             </dd>
                         </div>
@@ -222,7 +238,7 @@
                             <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                                 <p class="flex-auto">Pellentesque sit elit congue ante nec amet. Dolor aenean curabitur viverra suspendisse iaculis eget. Nec mollis placerat ultricies euismod ut condimentum.</p>
                                 <p class="mt-6">
-                                    <a href="#" class="text-sm font-semibold leading-6 text-indigo-600">Learn more <span aria-hidden="true">→</span></a>
+                                    <a href="javascript://" class="text-sm font-semibold leading-6 text-indigo-600">Learn more <span aria-hidden="true">→</span></a>
                                 </p>
                             </dd>
                         </div>
