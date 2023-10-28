@@ -37,6 +37,30 @@ const props = defineProps({
 
         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+
+                <div class="flex flex-col">
+                    <dt class="flex items-center gap-x-3 text-xl font-semibold leading-7 text-gray-900">
+                        <svg class="h-10 w-auto flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                        </svg>
+
+                        Your Keys. Your Coins.
+                    </dt>
+
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                        <p class="flex-auto">
+                            WiserSwap is a 100% non-custodial, permissionless and trustless, decentralized exchange (DEX).
+                            Your assets will ALWAYS remain 100% under YOUR control.
+                        </p>
+
+                        <p class="mt-6">
+                            <a href="javascript://" class="text-lg font-semibold leading-6 text-indigo-600">
+                                Learn more <span aria-hidden="true">→</span>
+                            </a>
+                        </p>
+                    </dd>
+                </div>
+
                 <div class="flex flex-col">
                     <dt class="flex items-center gap-x-3 text-xl font-semibold leading-7 text-gray-900">
                         <svg class="h-10 w-auto flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -52,28 +76,9 @@ const props = defineProps({
 
                     <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                         <p class="flex-auto">
-                            Commodo nec sagittis tortor mauris sed. Turpis tortor quis scelerisque diam id accumsan nullam tempus. Pulvinar etiam lacus volutpat eu. Phasellus praesent ligula sit faucibus.
+                            Trade with the confidence of a seasoned PRO, with access to our global "shared" liquidity pool.
+                            Hundreds of pools are available to satisfy the needs of even the MOST demanding traders.
                         </p>
-
-                        <p class="mt-6">
-                            <a href="javascript://" class="text-lg font-semibold leading-6 text-indigo-600">
-                                Learn more <span aria-hidden="true">→</span>
-                            </a>
-                        </p>
-                    </dd>
-                </div>
-
-                <div class="flex flex-col">
-                    <dt class="flex items-center gap-x-3 text-xl font-semibold leading-7 text-gray-900">
-                        <svg class="h-10 w-auto flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
-                        </svg>
-
-                        Slippage Management
-                    </dt>
-
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                        <p class="flex-auto">Pellentesque enim a commodo malesuada turpis eleifend risus. Facilisis donec placerat sapien consequat tempor fermentum nibh.</p>
 
                         <p class="mt-6">
                             <a href="javascript://" class="text-lg font-semibold leading-6 text-indigo-600">
@@ -98,7 +103,8 @@ const props = defineProps({
 
                     <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                         <p class="flex-auto">
-                            Stay up-to-date with the latest ticker information to ensure you maximize your competitive advantage, while maintaining your Alpha and taking PROFITS!
+                            Stay up-to-date with the latest ticker information and ensure you maximize your competitive advantage.
+                            We have everything you need to protect your Alpha and collect PROFITS!
                         </p>
 
                         <p class="mt-6">

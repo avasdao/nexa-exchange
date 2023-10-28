@@ -99,29 +99,38 @@ const props = defineProps({
                     <figure class="col-span-2 hidden sm:block sm:rounded-2xl sm:bg-white sm:shadow-lg sm:ring-1 sm:ring-gray-900/5 xl:col-start-2 xl:row-end-1">
                         <blockquote class="p-12 text-xl font-semibold leading-8 tracking-tight text-gray-900">
                             <p>
-                                “Integer id nunc sit semper purus. Bibendum at lacus ut arcu blandit montes vitae auctor libero. Hac condimentum dignissim nibh vulputate ut nunc. Amet nibh orci mi venenatis blandit vel et proin. Non
-                                hendrerit in vel ac diam.”
+                                “I personally think that WiserSwap is the best DEX for beginners or professional traders as it provides a lot of customization but remains easy to use.”
                             </p>
                         </blockquote>
+
                         <figcaption class="flex items-center gap-x-4 border-t border-gray-900/10 px-6 py-4">
                             <img
                                 class="h-10 w-10 flex-none rounded-full bg-gray-50"
-                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=1024&h=1024&q=80"
+                                src="https://i.ibb.co/G0gCZPq/bitcoin-founder-denial.jpg"
                                 alt=""
                             />
                             <div class="flex-auto">
-                                <div class="font-semibold">Brenna Goyette</div>
-                                <div class="text-gray-600">@brennagoyette</div>
+                                <div class="font-semibold">
+                                    Dorian Nakamoto
+                                </div>
+
+                                <div class="text-gray-600">
+                                    @faketoshi
+                                </div>
                             </div>
                             <img class="h-10 w-auto flex-none" src="https://tailwindui.com/img/logos/savvycal-logo-gray-900.svg" alt="" />
                         </figcaption>
                     </figure>
+
                     <div class="space-y-8 xl:contents xl:space-y-0">
                         <div class="space-y-8 xl:row-span-2">
                             <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
                                 <blockquote class="text-gray-900">
-                                    <p>“Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut enim doloremque et ipsam.”</p>
+                                    <p>
+                                        “One of the things I find useful is the trigger function, it allows me to automatically trade using any technical indicators or even train an AI to decide whether to buy or not. ”
+                                    </p>
                                 </blockquote>
+
                                 <figcaption class="mt-6 flex items-center gap-x-4">
                                     <img
                                         class="h-10 w-10 rounded-full bg-gray-50"
@@ -129,19 +138,28 @@ const props = defineProps({
                                         alt=""
                                     />
                                     <div>
-                                        <div class="font-semibold">Leslie Alexander</div>
-                                        <div class="text-gray-600">@lesliealexander</div>
+                                        <div class="font-semibold">
+                                            Leslie Alexander
+                                        </div>
+
+                                        <div class="text-gray-600">
+                                            @lesliealexander
+                                        </div>
                                     </div>
                                 </figcaption>
                             </figure>
 
                             <!-- More testimonials... -->
                         </div>
+
                         <div class="space-y-8 xl:row-start-1">
                             <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
                                 <blockquote class="text-gray-900">
-                                    <p>“Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut officia rem nulla blanditiis.”</p>
+                                    <p>
+                                        “I've been trading with WiserSwap since it launched; and even in the rollercoaster market, I am still up 35% for the year!”
+                                    </p>
                                 </blockquote>
+
                                 <figcaption class="mt-6 flex items-center gap-x-4">
                                     <img
                                         class="h-10 w-10 rounded-full bg-gray-50"
@@ -149,8 +167,13 @@ const props = defineProps({
                                         alt=""
                                     />
                                     <div>
-                                        <div class="font-semibold">Lindsay Walton</div>
-                                        <div class="text-gray-600">@lindsaywalton</div>
+                                        <div class="font-semibold">
+                                            Lindsay Walton
+                                        </div>
+
+                                        <div class="text-gray-600">
+                                            @lindsaywalton
+                                        </div>
                                     </div>
                                 </figcaption>
                             </figure>
@@ -158,12 +181,16 @@ const props = defineProps({
                             <!-- More testimonials... -->
                         </div>
                     </div>
+
                     <div class="space-y-8 xl:contents xl:space-y-0">
                         <div class="space-y-8 xl:row-start-1">
                             <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
                                 <blockquote class="text-gray-900">
-                                    <p>“Voluptas quos itaque ipsam in voluptatem est. Iste eos blanditiis repudiandae. Earum deserunt enim molestiae ipsum perferendis recusandae saepe corrupti.”</p>
+                                    <p>
+                                        “Overall, I really recommend WiserSwap to anyone who wants to get into decentralized trading.”
+                                    </p>
                                 </blockquote>
+
                                 <figcaption class="mt-6 flex items-center gap-x-4">
                                     <img
                                         class="h-10 w-10 rounded-full bg-gray-50"
@@ -171,18 +198,26 @@ const props = defineProps({
                                         alt=""
                                     />
                                     <div>
-                                        <div class="font-semibold">Tom Cook</div>
-                                        <div class="text-gray-600">@tomcook</div>
+                                        <div class="font-semibold">
+                                            Tom Cook
+                                        </div>
+
+                                        <div class="text-gray-600">
+                                            @tomcook
+                                        </div>
                                     </div>
                                 </figcaption>
                             </figure>
 
                             <!-- More testimonials... -->
                         </div>
+
                         <div class="space-y-8 xl:row-span-2">
                             <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
                                 <blockquote class="text-gray-900">
-                                    <p>“Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt excepturi rerum voluptatem minus harum.”</p>
+                                    <p>
+                                        “As someone who always panic sells, having a trigger set up definitely prevents me from selling low.”
+                                    </p>
                                 </blockquote>
                                 <figcaption class="mt-6 flex items-center gap-x-4">
                                     <img
@@ -191,8 +226,13 @@ const props = defineProps({
                                         alt=""
                                     />
                                     <div>
-                                        <div class="font-semibold">Leonard Krasner</div>
-                                        <div class="text-gray-600">@leonardkrasner</div>
+                                        <div class="font-semibold">
+                                            Leonard Krasner
+                                        </div>
+
+                                        <div class="text-gray-600">
+                                            @leonardkrasner
+                                        </div>
                                     </div>
                                 </figcaption>
                             </figure>
