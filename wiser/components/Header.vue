@@ -333,7 +333,7 @@ const isShowingMenu = ref(false)
                                 <div class="hidden lg:flex lg:items-center">
                                     <NuxtLink to="/">
                                         <span class="sr-only">WiserSwap</span>
-                                        <img class="h-12 w-auto" src="~/assets/nexa.svg" alt="" />
+                                        <img class="h-12 w-auto" src="~/assets/icon.svg" alt="" />
                                     </NuxtLink>
                                 </div>
 
@@ -400,7 +400,7 @@ const isShowingMenu = ref(false)
                                 <!-- Logo (lg-) -->
                                 <NuxtLink to="/" class="lg:hidden">
                                     <span class="sr-only">WiserSwap</span>
-                                    <img src="~/assets/nexa.svg" alt="" class="h-12 w-auto" />
+                                    <img src="~/assets/icon.svg" alt="" class="h-12 w-auto" />
                                 </NuxtLink>
 
                                 <div class="flex flex-1 items-center justify-end">
