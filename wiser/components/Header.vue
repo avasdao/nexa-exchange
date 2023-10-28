@@ -478,28 +478,13 @@ onMounted(() => {
 
                                 <div class="flex flex-1 items-center justify-end">
                                     <div class="flex items-center lg:ml-8">
-                                        <div class="flex space-x-8">
-                                            <div class="hidden lg:flex">
-                                                <a href="javascript://" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                                                    <span class="sr-only">Search</span>
-                                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                                    </svg>
-                                                </a>
-                                            </div>
-
-                                            <div class="flex">
-                                                <a href="javascript://" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                                                    <span class="sr-only">Account</span>
-                                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                                        <path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                                                        />
-                                                    </svg>
-                                                </a>
-                                            </div>
+                                        <div class="hidden lg:flex">
+                                            <a href="javascript://" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                                <span class="sr-only">Search</span>
+                                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                                </svg>
+                                            </a>
                                         </div>
 
                                         <span class="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span>

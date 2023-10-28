@@ -24,11 +24,13 @@ const props = defineProps({
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center lg:gap-y-0">
                 <div class="lg:row-start-2 lg:max-w-md">
                     <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                        Register Your Asset(s)
-                        <br />
-                        Boost Your Project Growth
+                        Make-a-Market for your Project/Team assets like a Wall Street PRO!
                     </h2>
-                    <p class="mt-6 text-lg leading-8 text-gray-300">Ac euismod vel sit maecenas id pellentesque eu sed consectetur. Malesuada adipiscing sagittis vel nulla. Ac euismod vel sit maecenas.</p>
+
+                    <p class="mt-6 text-lg leading-8 text-gray-300">
+                        Trade your project/team assets on the FASTEST L1 DEX in crypto!
+                        Our PRO Exchange offers ALL the advanced tools and resources that you'll need to take your project to the next level.
+                    </p>
                 </div>
                 <img
                     src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
@@ -48,19 +50,29 @@ const props = defineProps({
                                         clip-rule="evenodd"
                                     />
                                 </svg>
-                                Push to deploy.
+
+                                "Wise" Contracts
                             </dt>
-                            <dd class="inline">Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna.</dd>
+
+                            <dd class="inline">
+                                — Trustless and permissionless smart contracts power this DEX.
+                            </dd>
                         </div>
+
                         <div class="relative">
                             <dt class="ml-9 inline-block font-semibold text-white">
                                 <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
                                 </svg>
-                                SSL certificates.
+
+                                100K TPS Scalability
                             </dt>
-                            <dd class="inline">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.</dd>
+
+                            <dd class="inline">
+                                — A blazing fast blockchain assures that the fees will ALWAYS be the lowest in crypto.
+                            </dd>
                         </div>
+
                         <div class="relative">
                             <dt class="ml-9 inline-block font-semibold text-white">
                                 <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -71,9 +83,13 @@ const props = defineProps({
                                         clip-rule="evenodd"
                                     />
                                 </svg>
-                                Database backups.
+
+                                Global "Shared" Liquidity
                             </dt>
-                            <dd class="inline">Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus.</dd>
+
+                            <dd class="inline">
+                                — You won't have ANY problem managing your asset's liquidity across blockchains AND exchanges.
+                            </dd>
                         </div>
                     </dl>
                 </div>
