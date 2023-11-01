@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
         /* Handle method. */
         switch(body.method) {
-        case 'createOrder':
+        case 'CREATE_ORDER':
             return await $fetch(API_ENDPOINT, {
                 method,
                 headers,

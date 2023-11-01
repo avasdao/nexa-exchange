@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     const price: number = ticker?.quote?.USD?.price
 
     /* Set MEX (million NEX) value. */
-    const mex: number = price * 1000000
+    const mex: number = price * 1e6
 
     /* Return price. */
     return mex
