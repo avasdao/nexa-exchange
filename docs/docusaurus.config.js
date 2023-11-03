@@ -72,6 +72,12 @@ const config = {
             label: 'For Builders',
           },
           {
+            type: 'docSidebar',
+            sidebarId: 'create',
+            position: 'left',
+            label: 'For Creators',
+          },
+          {
             href: 'https://github.com/avasdao/nexa-exchange',
             label: 'GitHub',
             position: 'right',
