@@ -24,7 +24,7 @@ const sidebars = {
   ],
 
   creator: [
-    'creator/foundation',
+    'create/foundation',
   ],
 
   // But you can create a sidebar manually
