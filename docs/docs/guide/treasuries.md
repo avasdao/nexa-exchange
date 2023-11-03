@@ -1,7 +1,3 @@
----
-sidebar_position: 5
----
-
 # Treasuries
 
 Smart Bitcoin Exchange manages a collection of Treasuries for each blockchain that it supports in the storage & transfer of digital assets.

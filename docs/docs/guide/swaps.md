@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # Asset Swaps
 
 Are you ready to swap your Nexa?

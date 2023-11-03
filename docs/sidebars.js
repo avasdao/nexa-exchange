@@ -23,8 +23,17 @@ const sidebars = {
     'build/database',
   ],
 
-  creator: [
+  create: [
+    'create/new',
     'create/foundation',
+  ],
+
+  guide: [
+    'guide/swaps',
+    'guide/fees',
+    'guide/treasuries',
+    'guide/oracles',
+    'guide/bridges',
   ],
 
   // But you can create a sidebar manually

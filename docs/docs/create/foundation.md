@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # Foundation
 
 A probationary period, during the first 90 days of an assets trading life, where a minimum trade price is enforced towards ALL liquidity providers.
