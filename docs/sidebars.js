@@ -28,12 +28,12 @@ const sidebars = {
     'create/foundation',
   ],
 
-  guide: [
-    'guide/swaps',
-    'guide/fees',
-    'guide/treasuries',
-    'guide/oracles',
-    'guide/bridges',
+  trade: [
+    'trade/swaps',
+    'trade/fees',
+    'trade/treasuries',
+    'trade/oracles',
+    'trade/bridges',
   ],
 
   // But you can create a sidebar manually

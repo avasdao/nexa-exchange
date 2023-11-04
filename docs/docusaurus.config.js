@@ -67,7 +67,7 @@ const config = {
           },
           {
             type: 'docSidebar',
-            sidebarId: 'guide',
+            sidebarId: 'trade',
             position: 'left',
             label: 'For Traders',
           },
