@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Bridges
 
 A collection of Bridges to move assets back-and-forth the Bitcoin Cash ecosystem.

@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # Treasuries
 
 Nexa Exchange manages a collection of Treasuries for each blockchain that it supports in the storage & transfer of digital assets.

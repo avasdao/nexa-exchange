@@ -31,6 +31,7 @@ const sidebars = {
   trade: [
     'trade/swaps',
     'trade/fees',
+    'trade/stakelines',
     'trade/treasuries',
     'trade/oracles',
     'trade/bridges',

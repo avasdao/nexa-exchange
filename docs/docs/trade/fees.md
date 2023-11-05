@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Exchange Fees
 
 All fees are scheduled and enforced by a collection of "wise" contracts, written in Nexa Script.

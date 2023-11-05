@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # Price Oracles
 
 We are actively researching the possibility of offering a "Trusted" Oracle Service, managed by the Federation of XHedge Validators currently securing the SmartBCH sidechain.

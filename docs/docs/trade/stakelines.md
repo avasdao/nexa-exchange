@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 ---
 
-# Asset Swaps
+# Stakelines
 
 Are you ready to swap your Nexa?
 
