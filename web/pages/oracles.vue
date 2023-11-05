@@ -52,7 +52,7 @@ onMounted(() => {
 
         <hr />
 
-        <h2 class="text-3xl font-bold">Precious Metals<h2>
+        <h2 class="text-3xl font-bold">Precious Metals</h2>
 
         <ol class="pl-10">
             <li>mNEXA / XAU</li>
