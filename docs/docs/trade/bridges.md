@@ -4,24 +4,26 @@ A collection of Bridges to move assets back-and-forth the Bitcoin Cash ecosystem
 
 > We present a collection of Bridges aimed to conveniently move digital assets back-and-forth across the Bitcoin Cash ecosystem.
 
-### We are currently or plan to provide Bridge services for the following asset types:
+### Supporting Bridge services for the following asset types:
 
-1. Wrapped $BCH — ie. $WBCH
-2. SEP-20 Tokens — eg. $JOY, $LAW
-3. ERC-20 Tokens — eg. $DAI, $APE
-4. BEP-20 Tokens — eg. $CAKE
-5. ERC-721  NFTs — eg. BAYC, CryptoPunks, Clementine's
-6. ERC-1155 Hybrids — eg. Enjin
+1. MetaNet $NEXA — ie. 0xNEXA
+0. Wrapped $NEXA — ie. $WNEXA
+0. ERC-20 Tokens — eg. $DAI, $APE
+0. BEP-20 Tokens — eg. $CAKE
+0. ERC-721  NFTs — eg. BAYC, CryptoPunks, Clementine's
+0. ERC-1155 Hybrids — eg. Enjin
 
-### We are currently or plan to provide Bridge services for the following blockchains:
+### Supporting Bridge services for the following blockchains:
 
-1. Smart Bitcoin — https://smartbch.org
-2. Avalanche — https://avax.exchange
-3. Binance Smart Chain — https://www.bnbchain.org
-4. Ethereum — https://ethereum.org/en
-5. Polygon — https://polygon.technology
-6. Fantom — https://fantom.foundation
-7. Solana — https://solana.com
+1. [Nexa](https://nexa.org)
+0. [Bitcoin Ordinals](https://ordinals.org)
+0. [Bitcoin CashTokens](https://cashtokens.org)
+0. [Avalanche](https://avax.exchange)
+0. [Binance Smart Chain](https://www.bnbchain.org)
+0. [Ethereum](https://ethereum.org)
+0. [Polygon + zkEVM](https://polygon.technology/polygon-zkevm)
+0. [Solana](https://solana.com)
+0. [Tron](https://tron.network)
 
 ## Decommissioning
 
