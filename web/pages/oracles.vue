@@ -41,7 +41,7 @@ onMounted(() => {
             A list of ALL supported asset pairs.
         </p>
 
-        <h2 class="text-3xl font-bold">Fiat Currencies<h2>
+        <h2 class="text-3xl font-bold">Fiat Currencies</h2>
 
         <ol class="pl-10">
             <li>mNEXA / USD — {{usd}}</li>
