@@ -1,8 +1,8 @@
 ---
-sidebar_position: 5
+sidebar_position: 7
 ---
 
-# Security
+# Security & Best Practices
 
 > Here we discuss the various security procedures and practices used by the Exchange.
 
