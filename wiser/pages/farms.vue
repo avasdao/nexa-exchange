@@ -21,28 +21,8 @@ const init = async () => {
     console.log('FARMS', farms.value)
 }
 
-const totalTradeAmount = (_token) => {
-    if (_token.nextFoundation) {
-        if (_token.nextFoundation['NEX']) {
-            return '$' + numeral(_token.nextFoundation['NEX']).format('0,0.00[000000]')
-        }
-
-        if (_token.nextFoundation['USD']) {
-            return '$' + numeral(_token.nextFoundation['USD']).format('0,0.00[000000]')
-        }
-    }
-
-    if (_token.foundation) {
-        if (_token.foundation['NEX']) {
-            return '$' + numeral(_token.foundation['NEX']).format('0,0.00[000000]')
-        }
-
-        if (_token.foundation['USD']) {
-            return '$' + numeral(_token.foundation['USD']).format('0,0.00[000000]')
-        }
-    }
-
-    return 'n/a'
+const totalValueLocked = (_token) => {
+    return '$1,337.01'
 }
 
 onMounted(() => {
@@ -83,7 +63,7 @@ onMounted(() => {
                             </th>
 
                             <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
-                                Last Trade
+                                TVL
                             </th>
 
                             <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">
@@ -129,11 +109,11 @@ onMounted(() => {
                             </td>
 
                             <td class="hidden px-3 py-5 text-center text-lg text-gray-500 sm:table-cell">
-                                {{totalTradeAmount(token)}}
+                                {{totalValueLocked(token)}}
                             </td>
 
                             <td class="py-5 pl-3 pr-4 text-right text-lg text-gray-500 sm:pr-0">
-                                $13,370.12
+                                $88.33
                             </td>
 
                             <td class="py-5 pl-6 pr-4 sm:pr-0 flex flex-col gap-3">
