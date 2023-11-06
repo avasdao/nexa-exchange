@@ -67,10 +67,16 @@ watch([Profile.$state, System.$state, Wallet.$state], (_state) => {
     // watch additional states here...
 })
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+onMounted(async () => {
+    /* Initailize system. */
+    System.init()
+
+    /* Initialize profile. */
+    await Profile.init()
+
+    /* Initialize wallet. */
+    Wallet.init()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
@@ -82,5 +88,4 @@ watch([Profile.$state, System.$state, Wallet.$state], (_state) => {
 <template>
     <Header />
     <slot />
-    <Footer />
 </template>
