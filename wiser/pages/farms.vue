@@ -3,7 +3,7 @@
 import numeral from 'numeral'
 
 useHead({
-    title: `Pools — WiserSwap`,
+    title: `Farms — WiserSwap`,
     meta: [
         { name: 'description', content: `Nexa Studio makes building your next BIG idea effortless.` }
     ],
@@ -13,12 +13,12 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-const pools = ref(null)
+const farms = ref(null)
 
 const init = async () => {
-    pools.value = await $fetch('/api/pools')
+    farms.value = await $fetch('/api/farms')
         .catch(err => console.error(err))
-    console.log('POOLS', pools.value)
+    console.log('FARMS', farms.value)
 }
 
 const totalTradeAmount = (_token) => {
@@ -58,7 +58,7 @@ onMounted(() => {
 <template>
     <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Liquidity Pools
+            Loyalty Farms
         </h1>
 
         <div class="px-4 sm:px-6 lg:px-8">
@@ -75,7 +75,7 @@ onMounted(() => {
                     <thead class="border-b border-gray-300 text-gray-900">
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-gray-900 sm:pl-0">
-                                Pool Overview
+                                Farm Overview
                             </th>
 
                             <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
@@ -97,7 +97,7 @@ onMounted(() => {
                     </thead>
 
                     <tbody>
-                        <tr v-for="token of pools" :key="token.id" class="border-b border-gray-200">
+                        <tr v-for="token of farms" :key="token.id" class="border-b border-gray-200">
                             <td class="max-w-0 py-5 pl-4 pr-3 text-lg sm:pl-0">
                                 <div class="flex flex-row gap-3">
                                     <img :src="token.iconUrl" class="h-16 w-auto" />
@@ -137,10 +137,6 @@ onMounted(() => {
                             </td>
 
                             <td class="py-5 pl-6 pr-4 sm:pr-0 flex flex-col gap-3">
-                                <button class="w-full px-5 py-2 bg-sky-500 text-sky-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
-                                    Swap
-                                </button>
-
                                 <button class="w-full px-5 py-2 bg-green-600 text-green-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
                                     Farm
                                 </button>
