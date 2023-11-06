@@ -91,7 +91,7 @@ onMounted(() => {
         -->
                 <div class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
                     <div class="flex px-4 pb-2 pt-5">
-                        <button type="button" class="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400">
+                        <button @click="isShowingMenu = false" type="button" class="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400">
                             <span class="sr-only">Close menu</span>
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -103,192 +103,54 @@ onMounted(() => {
                     <div class="mt-2">
                         <div class="border-b border-gray-200">
                             <div class="-mb-px flex space-x-8 px-4" aria-orientation="horizontal" role="tablist">
-                                <!-- Selected: "border-indigo-600 text-indigo-600", Not Selected: "border-transparent text-gray-900" -->
-                                <button id="tabs-1-tab-1" class="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium" aria-controls="tabs-1-panel-1" role="tab" type="button">Women</button>
-                                <!-- Selected: "border-indigo-600 text-indigo-600", Not Selected: "border-transparent text-gray-900" -->
-                                <button id="tabs-1-tab-2" class="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium" aria-controls="tabs-1-panel-2" role="tab" type="button">Men</button>
+                                <NuxtLink to="/" class="flex flex-row gap-3 text-gray-500 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium" aria-controls="tabs-1-panel-1" role="tab" type="button">
+                                    <svg class="w-6 h-auto text-gray-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                                    </svg>
+
+                                    Back Home
+                                </NuxtLink>
                             </div>
                         </div>
 
-                        <!-- 'Women' tab panel, show/hide based on tab state. -->
-                        <div id="tabs-1-panel-1" class="space-y-12 px-4 pb-6 pt-10" aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0">
-                            <div class="grid grid-cols-1 items-start gap-x-6 gap-y-10">
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-10">
-                                    <div>
-                                        <p id="mobile-featured-heading-0" class="font-medium text-gray-900">Featured</p>
-                                        <ul role="list" aria-labelledby="mobile-featured-heading-0" class="mt-6 space-y-6">
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Sleep</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Swimwear</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Underwear</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <p id="mobile-categories-heading" class="font-medium text-gray-900">Categories</p>
-                                        <ul role="list" aria-labelledby="mobile-categories-heading" class="mt-6 space-y-6">
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Basic Tees</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Artwork Tees</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Bottoms</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Underwear</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Accessories</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-10">
-                                    <div>
-                                        <p id="mobile-collection-heading" class="font-medium text-gray-900">Collection</p>
-                                        <ul role="list" aria-labelledby="mobile-collection-heading" class="mt-6 space-y-6">
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Everything</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Core</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">New Arrivals</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Sale</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <ul role="list" class="my-6 space-y-6 px-6">
+                            <li class="flex">
+                                <NuxtLink to="/swap" class="text-2xl text-gray-600 font-medium tracking-widest" @click="isShowingMenu = false">
+                                    Swap
+                                </NuxtLink>
+                            </li>
 
-                                    <div>
-                                        <p id="mobile-brand-heading" class="font-medium text-gray-900">Brands</p>
-                                        <ul role="list" aria-labelledby="mobile-brand-heading" class="mt-6 space-y-6">
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Full Nelson</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">My Way</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Re-Arranged</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Counterfeit</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Significant Other</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 'Men' tab panel, show/hide based on tab state. -->
-                        <div id="tabs-1-panel-2" class="space-y-12 px-4 pb-6 pt-10" aria-labelledby="tabs-1-tab-2" role="tabpanel" tabindex="0">
-                            <div class="grid grid-cols-1 items-start gap-x-6 gap-y-10">
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-10">
-                                    <div>
-                                        <p id="mobile-featured-heading-1" class="font-medium text-gray-900">Featured</p>
-                                        <ul role="list" aria-labelledby="mobile-featured-heading-1" class="mt-6 space-y-6">
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Casual</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Boxers</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Outdoor</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <p id="mobile-categories-heading" class="font-medium text-gray-900">Categories</p>
-                                        <ul role="list" aria-labelledby="mobile-categories-heading" class="mt-6 space-y-6">
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Artwork Tees</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Pants</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Accessories</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Boxers</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Basic Tees</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-10">
-                                    <div>
-                                        <p id="mobile-collection-heading" class="font-medium text-gray-900">Collection</p>
-                                        <ul role="list" aria-labelledby="mobile-collection-heading" class="mt-6 space-y-6">
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Everything</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Core</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">New Arrivals</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Sale</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                            <li class="flex">
+                                <NuxtLink to="/tokens" class="text-2xl text-gray-600 font-medium tracking-widest" @click="isShowingMenu = false">
+                                    Tokens
+                                </NuxtLink>
+                            </li>
 
-                                    <div>
-                                        <p id="mobile-brand-heading" class="font-medium text-gray-900">Brands</p>
-                                        <ul role="list" aria-labelledby="mobile-brand-heading" class="mt-6 space-y-6">
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Significant Other</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">My Way</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Counterfeit</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Re-Arranged</a>
-                                            </li>
-                                            <li class="flex">
-                                                <a href="javascript://" class="text-gray-500">Full Nelson</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <li class="flex">
+                                <NuxtLink to="/nfts" class="text-2xl text-gray-600 font-medium tracking-widest" @click="isShowingMenu = false">
+                                    NFTs
+                                </NuxtLink>
+                            </li>
+
+                            <li class="flex">
+                                <NuxtLink to="/pools" class="text-2xl text-gray-600 font-medium tracking-widest" @click="isShowingMenu = false">
+                                    Pools
+                                </NuxtLink>
+                            </li>
+                        </ul>
                     </div>
 
                     <div class="space-y-6 border-t border-gray-200 px-4 py-6">
                         <div class="flow-root">
-                            <a href="javascript://" class="-m-2 block p-2 font-medium text-gray-900">Company</a>
+                            <NuxtLink to="/wallet" class="-m-2 block p-2 font-medium text-gray-900" @click="isShowingMenu = false">
+                                My Wallet
+                            </NuxtLink>
                         </div>
-                        <div class="flow-root">
-                            <a href="javascript://" class="-m-2 block p-2 font-medium text-gray-900">Stores</a>
-                        </div>
-                    </div>
 
-                    <div class="space-y-6 border-t border-gray-200 px-4 py-6">
                         <div class="flow-root">
-                            <a href="javascript://" class="-m-2 block p-2 font-medium text-gray-900">Create an account</a>
-                        </div>
-                        <div class="flow-root">
-                            <a href="javascript://" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
+                            <NuxtLink to="/profile" class="-m-2 block p-2 font-medium text-gray-900" @click="isShowingMenu = false">
+                                My Profile
+                            </NuxtLink>
                         </div>
                     </div>
 
@@ -303,8 +165,8 @@ onMounted(() => {
                                         name="currency"
                                         class="flex items-center rounded-md border-transparent bg-none py-0.5 pl-2 pr-5 text-sm font-medium text-gray-700 focus:border-transparent focus:outline-none focus:ring-0 group-hover:text-gray-800"
                                     >
-                                        <option>CAD</option>
                                         <option>USD</option>
+                                        <option>CAD</option>
                                         <option>AUD</option>
                                         <option>EUR</option>
                                         <option>GBP</option>
@@ -352,12 +214,16 @@ onMounted(() => {
                             </div>
                         </form>
 
-                        <p class="flex-1 text-center text-sm font-medium text-white lg:flex-none tracking-wider">
+                        <p class="sm:hidden block flex-1 text-center text-sm font-medium text-white lg:flex-none tracking-wider">
+                            Go PRO!
+                            <NuxtLink to="https://nexa.exchange" target="_blank" class="text-sky-400 font-bold hover:text-sky-500">NEXA.exchange</NuxtLink>
+                        </p>
+                        <p class="hidden sm:block flex-1 text-center text-sm font-medium text-white lg:flex-none tracking-wider">
                             Access PRO Trader tools on
                             <NuxtLink to="https://nexa.exchange" target="_blank" class="text-sky-400 font-bold hover:text-sky-500">NEXA.exchange</NuxtLink>
                         </p>
 
-                        <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                        <div class="lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                             <NuxtLink to="https://nexa.exchange/markets" target="_blank">
                                 <h2 class="flex flex-row items-center text-xs text-amber-500 hover:text-amber-400 font-medium group">
                                     mNEXA/USD
@@ -367,9 +233,9 @@ onMounted(() => {
                                 </h2>
                             </NuxtLink>
 
-                            <span class="h-6 w-px bg-gray-600" aria-hidden="true"></span>
+                            <span class="hidden lg:flex h-6 w-px bg-gray-600" aria-hidden="true"></span>
 
-                            <NuxtLink to="https://nexa.exchange/markets" target="_blank">
+                            <NuxtLink to="https://nexa.exchange/markets" target="_blank" class="hidden lg:flex">
                                 <div class="flex justify-end">
                                     <span class="text-yellow-400 font-medium text-sm sm:text-base">
                                         <span class="">
@@ -454,9 +320,9 @@ onMounted(() => {
                                 <!-- Mobile menu and search (lg-) -->
                                 <div class="flex flex-1 items-center lg:hidden">
                                     <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
-                                    <button type="button" class="-ml-2 rounded-md bg-white p-2 text-gray-400">
+                                    <button @click="isShowingMenu = true" type="button" class="-ml-2 rounded-md bg-white p-2 text-gray-400">
                                         <span class="sr-only">Open menu</span>
-                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <svg class="w-8 h-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                     </button>
@@ -464,7 +330,7 @@ onMounted(() => {
                                     <!-- Search -->
                                     <a href="javascript://" class="ml-2 p-2 text-gray-400 hover:text-gray-500">
                                         <span class="sr-only">Search</span>
-                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <svg class="w-6 h-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                         </svg>
                                     </a>
@@ -489,10 +355,16 @@ onMounted(() => {
 
                                         <span class="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span>
 
-                                        <div class="flow-root">
+                                        <div class="flex flex-row gap-3">
                                             <NuxtLink to="/wallet" class="group -m-2 flex items-center p-2">
                                                 <svg class="h-7 w-auto flex-shrink-0 text-lime-600 group-hover:text-lime-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"></path>
+                                                </svg>
+                                            </NuxtLink>
+
+                                            <NuxtLink to="/profile" class="group -m-2 flex items-center p-2">
+                                                <svg class="h-7 w-auto flex-shrink-0 text-gray-600 group-hover:text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 </svg>
                                             </NuxtLink>
                                         </div>

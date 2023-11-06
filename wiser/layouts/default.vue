@@ -87,5 +87,7 @@ onMounted(async () => {
 
 <template>
     <Header />
-    <slot />
+    <div class="master overflow-x-hidden">
+        <slot />
+    </div>
 </template>

@@ -22,7 +22,7 @@ const props = defineProps({
     <main class="w-full mx-auto mt-5 px-5">
         <header class="w-full px-3 flex justify-between">
             <h1 class="text-3xl text-amber-800 font-light tracking-widest">
-                Instant Asset Swap
+                Asset Swap
             </h1>
 
             <svg class="w-7 h-auto text-sky-100" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -46,7 +46,7 @@ const props = defineProps({
                 />
             </div>
 
-            <div class="col-span-1 bg-gradient-to-b from-yellow-500 via-yellow-300 to-yellow-500 border-x border-yellow-500">
+            <!-- <div class="col-span-1 bg-gradient-to-b from-yellow-500 via-yellow-300 to-yellow-500 border-x border-yellow-500">
                 <div class="h-full px-2 py-3 flex flex-col gap-4 bg-amber-600 bg-opacity-50">
                     <h2 class="text-2xl font-medium text-amber-100 text-center uppercase tracking-widest">
                         Options
@@ -56,7 +56,7 @@ const props = defineProps({
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ad quod alias aperiam autem culpa. Numquam voluptatem eligendi.
                     </p>
                 </div>
-            </div>
+            </div> -->
 
             <div class="col-span-2 py-2 flex flex-col justify-between">
                 <section>
