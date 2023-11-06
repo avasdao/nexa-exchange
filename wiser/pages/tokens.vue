@@ -10,10 +10,17 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+const tokens = ref(null)
+
+const init = async () => {
+    tokens.value = await $fetch('/api/tokens')
+        .catch(err => console.error(err))
+    console.log('TOKENS', tokens.value)
+}
+
+onMounted(() => {
+    init()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
@@ -22,32 +29,12 @@ const System = useSystemStore()
 </script>
 
 <template>
-    <main class="max-w-6xl mx-auto py-5 flex flex-col gap-4">
+    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Top Tokens on WiserSwap
+            Token List
         </h1>
 
         <div class="px-4 sm:px-6 lg:px-8">
-            <div class="sm:flex sm:items-center">
-                <div class="sm:flex-auto">
-                    <h1 class="text-3xl font-medium leading-6 text-gray-900">
-                        Invoice
-                    </h1>
-
-                    <p class="mt-2 text-lg text-gray-700">
-                        For work completed from <time datetime="2022-08-01">August 1, 2022</time> to <time datetime="2022-08-31">August 31, 2022</time>.
-                    </p>
-                </div>
-
-                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button
-                        type="button"
-                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                        Print
-                    </button>
-                </div>
-            </div>
 
             <div class="-mx-4 mt-8 flow-root sm:mx-0">
                 <table class="min-w-full">
@@ -61,72 +48,61 @@ const System = useSystemStore()
                     <thead class="border-b border-gray-300 text-gray-900">
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-gray-900 sm:pl-0">
-                                Project
+                                Asset Overview
                             </th>
 
-                            <th scope="col" class="hidden px-3 py-3.5 text-right text-lg font-semibold text-gray-900 sm:table-cell">
-                                Hours
+                            <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
+                                Ticker / Symbol
                             </th>
 
-                            <th scope="col" class="hidden px-3 py-3.5 text-right text-lg font-semibold text-gray-900 sm:table-cell">
-                                Rate
+                            <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
+                                Market Value
                             </th>
 
                             <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">
-                                Price
+                                24h Volume
                             </th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr class="border-b border-gray-200">
+                        <tr v-for="token of tokens" :key="token.id" class="border-b border-gray-200">
                             <td class="max-w-0 py-5 pl-4 pr-3 text-lg sm:pl-0">
-                                <div class="font-medium text-gray-900">
-                                    Studio Time + Collection
-                                </div>
+                                <div class="flex flex-row gap-3">
+                                    <img :src="token.iconUrl" class="h-16 w-auto" />
 
-                                <div class="mt-1 truncate text-gray-500">
-                                    New logo and digital asset playbook.
+                                    <section>
+                                        <div class="font-medium text-gray-900 text-xl tracking-wider">
+                                            {{token.name}}
+                                        </div>
+
+                                        <p class="mt-1 truncate text-gray-500 text-sm">
+                                            New logo and digital asset playbook.
+                                        </p>
+
+                                        <p class="mt-1 text-gray-500 text-xs">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veritatis rerum ipsam dolorum iste iure hic cum ab illum obcaecati ea ullam enim, corporis, corrupti repudiandae eius non atque natus!
+                                        </p>
+                                    </section>
                                 </div>
                             </td>
 
-                            <td class="hidden px-3 py-5 text-right text-lg text-gray-500 sm:table-cell">
-                                20.0
+                            <td class="hidden px-3 py-5 text-center text-lg text-gray-500 sm:table-cell">
+                                ${{token.ticker}}
                             </td>
 
-                            <td class="hidden px-3 py-5 text-right text-lg text-gray-500 sm:table-cell">
-                                $100.00
+                            <td class="hidden px-3 py-5 text-center text-lg text-gray-500 sm:table-cell">
+                                $1.00
                             </td>
 
                             <td class="py-5 pl-3 pr-4 text-right text-lg text-gray-500 sm:pr-0">
-                                $2,000.00
+                                $1,337.88
                             </td>
                         </tr>
-
-                        <!-- More projects... -->
                     </tbody>
-
-                    <tfoot>
-                        <tr>
-                            <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-6 text-right text-lg font-normal text-gray-500 sm:table-cell sm:pl-0">Subtotal</th>
-                            <th scope="row" class="pl-4 pr-3 pt-6 text-left text-lg font-normal text-gray-500 sm:hidden">Subtotal</th>
-                            <td class="pl-3 pr-4 pt-6 text-right text-lg text-gray-500 sm:pr-0">$8,800.00</td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-lg font-normal text-gray-500 sm:table-cell sm:pl-0">Tax</th>
-                            <th scope="row" class="pl-4 pr-3 pt-4 text-left text-lg font-normal text-gray-500 sm:hidden">Tax</th>
-                            <td class="pl-3 pr-4 pt-4 text-right text-lg text-gray-500 sm:pr-0">$1,760.00</td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-lg font-semibold text-gray-900 sm:table-cell sm:pl-0">Total</th>
-                            <th scope="row" class="pl-4 pr-3 pt-4 text-left text-lg font-semibold text-gray-900 sm:hidden">Total</th>
-                            <td class="pl-3 pr-4 pt-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">$10,560.00</td>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
+
         </div>
     </main>
 </template>
