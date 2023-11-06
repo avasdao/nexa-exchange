@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/* Import modules. */
+import numeral from 'numeral'
+
 useHead({
     title: `Tokens — WiserSwap`,
     meta: [
@@ -16,6 +19,10 @@ const init = async () => {
     tokens.value = await $fetch('/api/tokens')
         .catch(err => console.error(err))
     console.log('TOKENS', tokens.value)
+}
+
+const displayPrice = (_token) => {
+    return '$' + numeral(_token.foundation).format('0,0.00[000000]')
 }
 
 onMounted(() => {
@@ -52,7 +59,7 @@ onMounted(() => {
                             </th>
 
                             <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
-                                Ticker / Symbol
+                                Ticker
                             </th>
 
                             <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
@@ -61,6 +68,10 @@ onMounted(() => {
 
                             <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">
                                 24h Volume
+                            </th>
+
+                            <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">
+                                &nbsp;
                             </th>
                         </tr>
                     </thead>
@@ -92,11 +103,21 @@ onMounted(() => {
                             </td>
 
                             <td class="hidden px-3 py-5 text-center text-lg text-gray-500 sm:table-cell">
-                                $1.00
+                                {{displayPrice(token)}}
                             </td>
 
                             <td class="py-5 pl-3 pr-4 text-right text-lg text-gray-500 sm:pr-0">
                                 $1,337.88
+                            </td>
+
+                            <td class="py-5 pl-6 pr-4 sm:pr-0 flex flex-col gap-3">
+                                <button class="w-full px-5 py-2 bg-sky-500 text-sky-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
+                                    Swap
+                                </button>
+
+                                <NuxtLink :to="'https://nexa.exchange/token/' + token.id" target="_blank" class="w-full px-5 py-2 bg-amber-500 text-amber-50 text-xl font-medium rounded-lg shadow hover:bg-amber-400">
+                                    Details
+                                </NuxtLink>
                             </td>
                         </tr>
                     </tbody>
