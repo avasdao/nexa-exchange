@@ -22,7 +22,27 @@ const init = async () => {
 }
 
 const displayPrice = (_token) => {
-    return '$' + numeral(_token.foundation).format('0,0.00[000000]')
+    if (_token.nextFoundation) {
+        if (_token.nextFoundation['NEX']) {
+            return '$' + numeral(_token.nextFoundation['NEX']).format('0,0.00[000000]')
+        }
+
+        if (_token.nextFoundation['USD']) {
+            return '$' + numeral(_token.nextFoundation['USD']).format('0,0.00[000000]')
+        }
+    }
+
+    if (_token.foundation) {
+        if (_token.foundation['NEX']) {
+            return '$' + numeral(_token.foundation['NEX']).format('0,0.00[000000]')
+        }
+
+        if (_token.foundation['USD']) {
+            return '$' + numeral(_token.foundation['USD']).format('0,0.00[000000]')
+        }
+    }
+
+    return 'n/a'
 }
 
 onMounted(() => {
@@ -83,7 +103,7 @@ onMounted(() => {
                                     <img :src="token.iconUrl" class="h-16 w-auto" />
 
                                     <section>
-                                        <div class="font-medium text-gray-900 text-xl tracking-wider">
+                                        <div class="font-medium text-gray-900 text-2xl tracking-wider">
                                             {{token.name}}
                                         </div>
 

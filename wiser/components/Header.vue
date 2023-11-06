@@ -225,7 +225,7 @@ onMounted(() => {
 
                         <div class="lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                             <NuxtLink to="https://nexa.exchange/markets" target="_blank">
-                                <h2 class="flex flex-row items-center text-xs text-amber-500 hover:text-amber-400 font-medium group">
+                                <h2 class="flex flex-row items-baseline text-xs text-amber-500 hover:text-amber-400 font-medium group">
                                     mNEXA/USD
                                     <span class="ml-2 text-xl text-amber-300 group-hover:text-amber-200">
                                         {{displayQuote}}
