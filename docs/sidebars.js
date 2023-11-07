@@ -26,11 +26,13 @@ const sidebars = {
   create: [
     'create/new',
     'create/foundation',
+    'create/farm',
   ],
 
   trade: [
     'trade/swaps',
     'trade/fees',
+    'trade/farming',
     'trade/treasuries',
     'trade/oracles',
     'trade/bridges',

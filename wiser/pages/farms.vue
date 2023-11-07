@@ -22,7 +22,7 @@ const init = async () => {
 }
 
 const totalValueLocked = (_token) => {
-    return '$1,337.01'
+    return '$133.70'
 }
 
 onMounted(() => {
@@ -113,7 +113,7 @@ onMounted(() => {
                             </td>
 
                             <td class="py-5 pl-3 pr-4 text-right text-lg text-gray-500 sm:pr-0">
-                                $88.33
+                                $80.88
                             </td>
 
                             <td class="py-5 pl-6 pr-4 sm:pr-0 flex flex-col gap-3">
