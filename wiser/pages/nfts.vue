@@ -46,20 +46,28 @@ const System = useSystemStore()
 
 
 
-<div class="columns-2 md:columns-3 lg:columns-4">
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/1">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
+        <div class="columns-2 md:columns-3 lg:columns-4">
+            <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
+                <NuxtLink to="https://niftyart.cash/buy/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb9000094e7b2d83551ed3bbb60c68e7bde443e4c9a701496fe0e664986b0e8ac60b9b9" target="_blank">
+                    <img class="w-full rounded-md" src="https://niftyart.cash/nftyc/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb9000094e7b2d83551ed3bbb60c68e7bde443e4c9a701496fe0e664986b0e8ac60b9b9/cardf.jpeg">
+
+                    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
+                        <div class="relative">
+                            <a class="test__link absolute inset-0" target="_blank" href="/"></a>
+
+                            <h1 class="test__title text-3xl font-bold mb-3">Ape #4</h1>
+
+                            <p class="test__author font-sm font-light">by Endo</p>
+                        </div>
+
+                        <div class="mt-auto">
+                            <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">
+                                NiftyArt
+                            </span>
+                        </div>
+                    </div>
+                </NuxtLink>
+            </div>
 
   <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
     <img class="w-full rounded-md" src="https://source.unsplash.com/random/2">
