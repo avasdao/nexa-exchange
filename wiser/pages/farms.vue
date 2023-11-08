@@ -36,11 +36,17 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
-        <h1 class="text-5xl font-medium">
+    <header class="py-8 flex flex-col gap-3 justify-center items-center bg-gradient-to-b from-sky-700 to-sky-900 border-y-2 border-amber-300 shadow">
+        <h1 class="text-6xl font-light text-sky-100 tracking-wider">
             Loyalty Farms
         </h1>
 
+        <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
+            collect your share of Plantation Rewards from staking LP tokens
+        </h3>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
         <div class="px-4 sm:px-6 lg:px-8">
 
             <div class="-mx-4 mt-8 flow-root sm:mx-0">

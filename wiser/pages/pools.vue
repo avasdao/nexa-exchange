@@ -77,7 +77,7 @@ onMounted(() => {
         </h1>
 
         <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
-            Peer-to-peer swaps with trustless &amp; permissionless micro-pools
+            instant asset swaps from trustless &amp; permissionless micro-pools
         </h3>
     </header>
 

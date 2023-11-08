@@ -56,11 +56,17 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
-        <h1 class="text-5xl font-medium">
-            Token List
+    <header class="py-8 flex flex-col gap-3 justify-center items-center bg-gradient-to-b from-sky-700 to-sky-900 border-y-2 border-amber-300 shadow">
+        <h1 class="text-6xl font-light text-sky-100 tracking-wider">
+            Tokens
         </h1>
 
+        <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
+            a complete listing of ALL registered assets
+        </h3>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
         <div class="px-4 sm:px-6 lg:px-8">
 
             <div class="-mx-4 mt-8 flow-root sm:mx-0">

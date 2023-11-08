@@ -103,7 +103,7 @@ onMounted(() => {
                     <div class="mt-2">
                         <div class="border-b border-gray-200">
                             <div class="-mb-px flex space-x-8 px-4" aria-orientation="horizontal" role="tablist">
-                                <NuxtLink to="/" class="flex flex-row gap-3 text-gray-500 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium" aria-controls="tabs-1-panel-1" role="tab" type="button">
+                                <NuxtLink to="/" class="flex flex-row gap-3 text-gray-500 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium" aria-controls="tabs-1-panel-1" role="tab" type="button" @click="isShowingMenu = false">
                                     <svg class="w-6 h-auto text-gray-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
                                     </svg>
