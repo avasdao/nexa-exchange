@@ -13,6 +13,8 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
+const SATOSHIS_PER_NEXA = 100
+
 const pools = ref(null)
 
 const init = async () => {
@@ -45,6 +47,19 @@ const totalTradeAmount = (_token) => {
     return 'n/a'
 }
 
+const displayFloor = (_token) => {
+    /* Initialize locals. */
+    let rate
+
+    if (_token.floor === 0) {
+        return 'none'
+    } else {
+        rate = _token.floor / SATOSHIS_PER_NEXA
+
+        return `${numeral(1.00).format('0,0.00')} $${_token.ticker} per ${numeral(rate).format('0,0.00')} $NEXA`
+    }
+}
+
 onMounted(() => {
     init()
 })
@@ -56,11 +71,17 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
-        <h1 class="text-5xl font-medium">
+    <header class="py-8 flex flex-col gap-3 justify-center items-center bg-gradient-to-b from-sky-700 to-sky-900 border-y-2 border-amber-300 shadow">
+        <h1 class="text-6xl font-light text-sky-100 tracking-wider">
             Liquidity Pools
         </h1>
 
+        <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
+            Peer-to-peer swaps with trustless &amp; permissionless micro-pools
+        </h3>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
         <div class="px-4 sm:px-6 lg:px-8">
 
             <div class="-mx-4 mt-8 flow-root sm:mx-0">
@@ -107,7 +128,7 @@ onMounted(() => {
                                             {{token.title}}
                                         </div>
 
-                                        <p class="mt-1 flex flex-row gap-2 items-baseline">
+                                        <div class="mt-1 flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
                                                 Owner
                                             </span>
@@ -115,10 +136,20 @@ onMounted(() => {
                                             <NuxtLink to="https://twitter.com/0xShomari" target="_blank" class="text-base text-blue-500 hover:text-blue-400">
                                                 0xShomari
                                             </NuxtLink>
-                                        </p>
+                                        </div>
+
+                                        <div class="mt-1 flex flex-row gap-2 items-baseline">
+                                            <span class="text-gray-500 text-xs uppercase">
+                                                Trade Floor
+                                            </span>
+
+                                            <h4 class="text-base text-sky-700">
+                                                {{displayFloor(token)}}
+                                            </h4>
+                                        </div>
 
                                         <p class="mt-1 text-gray-500 text-xs">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veritatis rerum ipsam dolorum iste iure hic cum ab illum obcaecati ea ullam enim, corporis, corrupti repudiandae eius non atque natus!
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veritatis rerum ipsam dolorum iste iure!
                                         </p>
                                     </section>
                                 </div>
