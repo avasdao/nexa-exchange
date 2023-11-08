@@ -87,7 +87,7 @@ const init = async () => {
 
     console.log('PARAMS', route?.params)
     /* Set (route) path. */
-    address.value = route?.params.address?.[0]
+    address.value = route?.params.address
     console.log('ADDRESS', address.value)
 
     unspent = await listUnspent(address.value)
