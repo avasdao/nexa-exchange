@@ -27,8 +27,6 @@ const System = useSystemStore()
             Wiser Profile
         </h1>
 
-        <p class="italic">
-            coming soon...
-        </p>
+        <Settings />
     </main>
 </template>
