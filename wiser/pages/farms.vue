@@ -13,12 +13,12 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-const farms = ref(null)
+const plantations = ref(null)
 
 const init = async () => {
-    farms.value = await $fetch('/api/farms')
+    plantations.value = await $fetch('/api/plantations')
         .catch(err => console.error(err))
-    console.log('FARMS', farms.value)
+    console.log('PLANTATIONS', plantations.value)
 }
 
 const totalValueLocked = (_token) => {
@@ -82,7 +82,7 @@ onMounted(() => {
                         </tr>
                     </thead>
 
-                    <tbody v-if="farms === null">
+                    <tbody v-if="plantations === null">
                         <tr class="border-b border-gray-200">
                             <td colspan="5" class="table-cell py-5">
                                 <SkeletonFarm />
@@ -91,7 +91,7 @@ onMounted(() => {
                     </tbody>
 
                     <tbody>
-                        <tr v-for="token of farms" :key="token.id" class="border-b border-gray-200">
+                        <tr v-for="token of plantations" :key="token.id" class="border-b border-gray-200">
                             <td class="max-w-0 py-5 pl-4 pr-3 text-lg sm:pl-0">
                                 <div class="flex flex-row gap-3">
                                     <img :src="token.iconUrl" class="h-16 w-auto" />

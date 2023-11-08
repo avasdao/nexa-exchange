@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
     /* Request (all) assets. */
     response = await assetsDb
-        .query('api/isGroup', {
+        .query('api/isSubgroup', {
             include_docs: true,
         })
         .catch(err => console.error(err))

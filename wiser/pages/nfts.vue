@@ -10,10 +10,89 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+const assets = ref(null)
+const nfts = ref(null)
+
+const init = async () => {
+    assets.value = []
+
+    nfts.value = await $fetch('/api/nfts')
+        .catch(err => console.error(err))
+    console.log('NFTS', nfts.value)
+
+    assets.value.push({
+        id: 'cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb9000094e7b2d83551ed3bbb60c68e7bde443e4c9a701496fe0e664986b0e8ac60b9b9',
+        owner: 'Endo',
+        title: 'Ape #4',
+        imgUrl: 'https://niftyart.cash/nftyc/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb9000094e7b2d83551ed3bbb60c68e7bde443e4c9a701496fe0e664986b0e8ac60b9b9/cardf.jpeg',
+        providers: [
+            'NiftyArt'
+        ],
+        createdAt: 12345,
+    })
+
+    assets.value.push({
+        id: 'cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb90000753b0856df158855654ce94ec505d94ac640926760a469f81e6ea22a864c73a8',
+        owner: 'Endo',
+        title: 'Ape #4',
+        imgUrl: 'https://niftyart.cash/nftyc/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb90000753b0856df158855654ce94ec505d94ac640926760a469f81e6ea22a864c73a8/cardf.jpeg',
+        providers: [
+            'NiftyArt'
+        ],
+        createdAt: 12345,
+    })
+
+    assets.value.push({
+        id: 'cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb90000f23416cf81246c0915663e03fd453046b421e059a573707bb9e84cc1613a40e8',
+        owner: 'Endo',
+        title: 'Ape #4',
+        imgUrl: 'https://niftyart.cash/nftyc/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb90000f23416cf81246c0915663e03fd453046b421e059a573707bb9e84cc1613a40e8/cardf.jpeg',
+        providers: [
+            'NiftyArt'
+        ],
+        createdAt: 12345,
+    })
+
+    assets.value.push({
+        id: 'stub',
+        owner: 'Master Builder',
+        title: 'Just Testing',
+        imgUrl: 'https://source.unsplash.com/random/2',
+        providers: [
+            'NiftyArt'
+        ],
+        createdAt: 12345,
+    })
+
+    assets.value.push({
+        id: 'stub',
+        owner: 'Student Builder',
+        title: 'More Testing',
+        imgUrl: 'https://source.unsplash.com/random/3',
+        providers: [
+            'NiftyArt'
+        ],
+        createdAt: 12345,
+    })
+
+    for (let i = 5; i < 20; i++) {
+        assets.value.push({
+            id: 'stub',
+            owner: 'Unsplash',
+            title: 'Simple Placeholder',
+            imgUrl: 'https://source.unsplash.com/random/' + i,
+            providers: [
+                'NiftyArt'
+            ],
+            createdAt: 12345,
+        })
+
+    }
+}
+
+onMounted(() => {
+    init()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
@@ -48,21 +127,18 @@ const System = useSystemStore()
             </button>
         </div>
 
-
-
-
-        <div class="columns-2 md:columns-3 lg:columns-4">
-            <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-                <NuxtLink to="https://niftyart.cash/buy/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb9000094e7b2d83551ed3bbb60c68e7bde443e4c9a701496fe0e664986b0e8ac60b9b9" target="_blank">
-                    <img class="w-full rounded-md" src="https://niftyart.cash/nftyc/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb9000094e7b2d83551ed3bbb60c68e7bde443e4c9a701496fe0e664986b0e8ac60b9b9/cardf.jpeg">
+        <section class="columns-2 md:columns-3 lg:columns-4">
+            <div v-for="asset of assets" :key="asset.id" class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
+                <NuxtLink :to="'https://niftyart.cash/buy/' + asset.id" target="_blank">
+                    <img class="w-full rounded-md" :src="asset.imgUrl">
 
                     <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
                         <div class="relative">
-                            <a class="test__link absolute inset-0" target="_blank" href="/"></a>
+                            <!-- <a class="test__link absolute inset-0" target="_blank" href="/"></a> -->
 
-                            <h1 class="test__title text-3xl font-bold mb-3">Ape #4</h1>
+                            <h1 class="test__title text-3xl font-bold mb-3">{{asset.title}}</h1>
 
-                            <p class="test__author font-sm font-light">by Endo</p>
+                            <p class="test__author font-sm font-light">by {{asset.owner}}</p>
                         </div>
 
                         <div class="mt-auto">
@@ -73,576 +149,11 @@ const System = useSystemStore()
                     </div>
                 </NuxtLink>
             </div>
+        </section>
 
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/2">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
+        <SectionDivider />
 
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/3">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/4">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/5">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/6">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/7">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/8">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/9">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/10">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/11">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/12">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/13">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/14">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="inline-block relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/15">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/16">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/17">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/18">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/19">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/20">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/21">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/22">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/23">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/24">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-    <img class="w-full rounded-md" src="https://source.unsplash.com/random/25">
-    <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
-      <div class="relative">
-        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
-        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
-        <p class="test__author font-sm font-light">Author</p>
-      </div>
-      <div class="mt-auto">
-        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-        <div class="mt-20 bg-white">
-            <div class="mx-auto max-w-7xl overflow-hidden sm:px-6 lg:px-8">
-                <h2 class="sr-only">Products</h2>
-
-                <div class="-mx-px grid grid-cols-2 border-l border-gray-200 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
-                    <div class="group relative border-b border-r border-gray-200 p-4 sm:p-6">
-                        <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
-                            <img src="https://tailwindui.com/img/ecommerce-images/category-page-05-image-card-01.jpg" alt="TODO" class="h-full w-full object-cover object-center" />
-                        </div>
-                        <div class="pb-4 pt-10 text-center">
-                            <h3 class="text-sm font-medium text-gray-900">
-                                <a href="#">
-                                    <span aria-hidden="true" class="absolute inset-0"></span>
-                                    Organize Basic Set (Walnut)
-                                </a>
-                            </h3>
-                            <div class="mt-3 flex flex-col items-center">
-                                <p class="sr-only">5 out of 5 stars</p>
-                                <div class="flex items-center">
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                </div>
-                                <p class="mt-1 text-sm text-gray-500">38 reviews</p>
-                            </div>
-                            <p class="mt-4 text-base font-medium text-gray-900">$149</p>
-                        </div>
-                    </div>
-                    <div class="group relative border-b border-r border-gray-200 p-4 sm:p-6">
-                        <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
-                            <img src="https://tailwindui.com/img/ecommerce-images/category-page-05-image-card-02.jpg" alt="TODO" class="h-full w-full object-cover object-center" />
-                        </div>
-                        <div class="pb-4 pt-10 text-center">
-                            <h3 class="text-sm font-medium text-gray-900">
-                                <a href="#">
-                                    <span aria-hidden="true" class="absolute inset-0"></span>
-                                    Organize Pen Holder
-                                </a>
-                            </h3>
-                            <div class="mt-3 flex flex-col items-center">
-                                <p class="sr-only">5 out of 5 stars</p>
-                                <div class="flex items-center">
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                </div>
-                                <p class="mt-1 text-sm text-gray-500">18 reviews</p>
-                            </div>
-                            <p class="mt-4 text-base font-medium text-gray-900">$15</p>
-                        </div>
-                    </div>
-                    <div class="group relative border-b border-r border-gray-200 p-4 sm:p-6">
-                        <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
-                            <img src="https://tailwindui.com/img/ecommerce-images/category-page-05-image-card-03.jpg" alt="TODO" class="h-full w-full object-cover object-center" />
-                        </div>
-                        <div class="pb-4 pt-10 text-center">
-                            <h3 class="text-sm font-medium text-gray-900">
-                                <a href="#">
-                                    <span aria-hidden="true" class="absolute inset-0"></span>
-                                    Organize Sticky Note Holder
-                                </a>
-                            </h3>
-                            <div class="mt-3 flex flex-col items-center">
-                                <p class="sr-only">5 out of 5 stars</p>
-                                <div class="flex items-center">
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                </div>
-                                <p class="mt-1 text-sm text-gray-500">14 reviews</p>
-                            </div>
-                            <p class="mt-4 text-base font-medium text-gray-900">$15</p>
-                        </div>
-                    </div>
-                    <div class="group relative border-b border-r border-gray-200 p-4 sm:p-6">
-                        <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
-                            <img src="https://tailwindui.com/img/ecommerce-images/category-page-05-image-card-04.jpg" alt="TODO" class="h-full w-full object-cover object-center" />
-                        </div>
-                        <div class="pb-4 pt-10 text-center">
-                            <h3 class="text-sm font-medium text-gray-900">
-                                <a href="#">
-                                    <span aria-hidden="true" class="absolute inset-0"></span>
-                                    Organize Phone Holder
-                                </a>
-                            </h3>
-                            <div class="mt-3 flex flex-col items-center">
-                                <p class="sr-only">4 out of 5 stars</p>
-                                <div class="flex items-center">
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <svg class="text-gray-200 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                </div>
-                                <p class="mt-1 text-sm text-gray-500">21 reviews</p>
-                            </div>
-                            <p class="mt-4 text-base font-medium text-gray-900">$15</p>
-                        </div>
-                    </div>
-
-                    <!-- More products... -->
-                </div>
-            </div>
-        </div>
+        <!-- TODO: Add forever (timeline) scrolling. -->
     </main>
 
     <!-- NO FOOTER -->
