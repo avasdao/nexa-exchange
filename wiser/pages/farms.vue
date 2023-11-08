@@ -25,6 +25,10 @@ const totalValueLocked = (_plantation) => {
     return '$133.70'
 }
 
+const buildFarm = () => {
+    alert('Farm building is not yet available.')
+}
+
 onMounted(() => {
     init()
 })
@@ -145,7 +149,7 @@ onMounted(() => {
                             </td>
 
                             <td class="py-5 pl-6 pr-4 sm:pr-0 flex flex-col gap-3">
-                                <button class="w-full px-5 py-2 bg-green-600 text-green-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
+                                <button @click="buildFarm" class="w-full px-5 py-2 bg-green-600 text-green-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
                                     Farm
                                 </button>
 

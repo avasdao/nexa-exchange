@@ -72,7 +72,18 @@ onMounted(async () => {
 </script>
 
 <template>
-    <main class="mx-auto max-w-7xl sm:px-6 sm:pt-16 lg:px-8">
+    <img :src="plantation?.bannerUrl" class="w-full border-y-2 border-amber-300 shadow" />
+    <!-- <header class="h-16 lg:h-48 py-8 flex flex-col gap-3 justify-end items-center bg-gradient-to-b from-sky-700 to-sky-900 border-y-2 border-amber-300 shadow bg-center" :style="'background-image: url(' + plantation?.bannerUrl + ')'">
+        <h1 class="hidden text-6xl font-light text-sky-100 tracking-wider">
+            {{plantationName}}
+        </h1>
+
+        <h3 class="hidden flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
+            {{plantation?.summary}}
+        </h3>
+    </header> -->
+
+    <main class="mx-auto max-w-7xl sm:px-6 sm:pt-8 lg:px-8">
         <div class="mx-auto max-w-2xl lg:max-w-none">
 
             <!-- Product -->
@@ -125,12 +136,12 @@ onMounted(async () => {
                 </div>
 
                 <!-- Product info -->
-                <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+                <div class="flex flex-col gap-3 mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
                     <h1 class="text-5xl font-bold tracking-tight text-gray-900">
                         {{plantationName}}
                     </h1>
 
-                    <div class="mt-3">
+                    <div class="">
                         <h2 class="sr-only">Token information</h2>
 
                         <p class="text-3xl tracking-tight text-gray-900">
@@ -139,7 +150,7 @@ onMounted(async () => {
                     </div>
 
                     <!-- Reviews -->
-                    <div class="mt-3">
+                    <div class="">
                         <h3 class="sr-only">Reviews</h3>
                         <div class="flex items-center">
                             <div class="flex items-center">
@@ -184,27 +195,27 @@ onMounted(async () => {
                         </div>
                     </div>
 
-                    <div class="mt-6">
+                    <div class="">
                         <h3 class="sr-only">Description</h3>
 
                         <h3 class="pl-3 pr-10 text-xl font-bold leading-6 border-l-4 border-amber-500">
-                            {{plantationDoc?.[0].summary}}
+                            {{plantation?.summary}}
                         </h3>
 
                         <div class="mt-3 pr-5 space-y-6 text-base text-gray-700">
                             <p>
-                                {{plantationDoc?.[0].description}}
+                                {{plantation?.description}}
                             </p>
                         </div>
                     </div>
 
-                    <div v-if="plantationDoc?.[0].creator" class="mt-1 flex gap-2 text-sm italic">
+                    <div v-if="plantation?.owner" class="mt-1 flex gap-2 text-sm italic">
                         <span class="text-gray-400 font-medium">
                             Created by:
                         </span>
 
                         <span class="text-indigo-400 font-bold">
-                            {{plantationDoc?.[0].creator}}
+                            {{plantation.owner}}
                         </span>
                     </div>
 
