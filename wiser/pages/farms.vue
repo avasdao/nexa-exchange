@@ -65,11 +65,11 @@ onMounted(() => {
                             </th>
 
                             <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
-                                Ticker
+                                TVL
                             </th>
 
                             <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
-                                TVL
+                                APY %
                             </th>
 
                             <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">
@@ -101,29 +101,43 @@ onMounted(() => {
                                             {{token.title}}
                                         </div>
 
-                                        <p class="mt-1 flex flex-row gap-2 items-baseline">
+                                        <div class="flex flex-row gap-2 items-baseline">
+                                            <span class="text-gray-500 text-xs uppercase">
+                                                Reward Asset
+                                            </span>
+
+                                            <h4 class="text-sm text-sky-700">
+                                                ${{token.ticker}}
+                                            </h4>
+                                        </div>
+
+                                        <div class="flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
                                                 Owner
                                             </span>
 
-                                            <NuxtLink to="https://twitter.com/0xShomari" target="_blank" class="text-base text-blue-500 hover:text-blue-400">
+                                            <NuxtLink to="https://twitter.com/0xShomari" target="_blank" class="flex flex-row gap-1 items-center text-sm text-blue-500 hover:text-blue-400">
                                                 0xShomari
-                                            </NuxtLink>
-                                        </p>
 
-                                        <p class="mt-1 text-gray-500 text-xs">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veritatis rerum ipsam dolorum iste iure hic cum ab illum obcaecati ea ullam enim, corporis, corrupti repudiandae eius non atque natus!
+                                                <svg class="w-3 h-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+                                                </svg>
+                                            </NuxtLink>
+                                        </div>
+
+                                        <p class="mt-1 text-gray-500 text-xs italic">
+                                            {{token.summary}}
                                         </p>
                                     </section>
                                 </div>
                             </td>
 
                             <td class="hidden px-3 py-5 text-center text-lg text-gray-500 sm:table-cell">
-                                ${{token.ticker}}
+                                {{totalValueLocked(token)}}
                             </td>
 
                             <td class="hidden px-3 py-5 text-center text-lg text-gray-500 sm:table-cell">
-                                {{totalValueLocked(token)}}
+                                3.33%
                             </td>
 
                             <td class="py-5 pl-3 pr-4 text-right text-lg text-gray-500 sm:pr-0">
