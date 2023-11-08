@@ -24,8 +24,8 @@ Nexa Exchange collects a __platform fee__, based on the "$NEXA value" _(as per U
 | :---       |     ---: |
 | Registered fungible token (RFT) | 0.0% |
 | Un-registered fungible token (UFT) | 0.3% |
-| Non-fungible token (NFT) | 3.0% |
-| Semi-fungible token (SFT) | 3.0% |
+| Non-fungible token (NFT) | FREE |
+| Semi-fungible token (SFT) | FREE |
 
 :::warning
 __You need to know! —__ During the "bootstrap phase" _(or until the 1st NEXX airdrop)_, __100% of fees__ collected by the Exchange will be deposited into Ava's treasury for daily Payyyouts to "qualified" stakeholders.
