@@ -117,6 +117,14 @@ onMounted(() => {
                         </tr>
                     </thead>
 
+                    <tbody v-if="pools === null">
+                        <tr class="border-b border-gray-200">
+                            <td colspan="5" class="py-10">
+                                <SkeletonPool />
+                            </td>
+                        </tr>
+                    </tbody>
+
                     <tbody>
                         <tr v-for="token of pools" :key="token.id" class="border-b border-gray-200">
                             <td class="max-w-0 py-5 pl-4 pr-3 text-lg sm:pl-0">
