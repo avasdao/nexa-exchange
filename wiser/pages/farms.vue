@@ -125,7 +125,7 @@ onMounted(() => {
                                             </NuxtLink>
                                         </div>
 
-                                        <p class="mt-1 text-gray-500 text-xs italic">
+                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider">
                                             {{token.summary}}
                                         </p>
                                     </section>

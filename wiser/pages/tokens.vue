@@ -121,11 +121,11 @@ onMounted(() => {
                                             {{token.name}}
                                         </div>
 
-                                        <p class="mt-1 truncate text-gray-500 text-sm">
+                                        <p class="mt-1 truncate text-gray-600 text-sm tracking-wider">
                                             New logo and digital asset playbook.
                                         </p>
 
-                                        <p class="mt-1 text-gray-500 text-xs">
+                                        <p class="mt-1 text-gray-500 text-xs italic leading-5 tracking-wider">
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veritatis rerum ipsam dolorum iste iure hic cum ab illum obcaecati ea ullam enim, corporis, corrupti repudiandae eius non atque natus!
                                         </p>
                                     </section>

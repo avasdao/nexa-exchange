@@ -95,7 +95,7 @@ onMounted(() => {
                         <tr class="border-b border-gray-200">
                             <td colspan="5" class="table-cell p-16 text-center">
                                 <h3 class="text-xl italic text-gray-500">
-                                    Sorry, we don't have any Lenders available at the moment..
+                                    Sorry, we don't have any Lenders available at this time..
                                 </h3>
                             </td>
                         </tr>
@@ -122,7 +122,7 @@ onMounted(() => {
                                             </NuxtLink>
                                         </p>
 
-                                        <p class="mt-1 text-gray-500 text-xs">
+                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider">
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veritatis rerum ipsam dolorum iste iure hic cum ab illum obcaecati ea ullam enim, corporis, corrupti repudiandae eius non atque natus!
                                         </p>
                                     </section>
