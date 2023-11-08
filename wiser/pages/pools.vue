@@ -138,11 +138,11 @@ onMounted(() => {
 
                                         <div class="flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
-                                                Trade Asset
+                                                Trade Pair
                                             </span>
 
                                             <h4 class="text-sm text-sky-700">
-                                                ${{token.ticker}}
+                                                ${{token.ticker}}<span class="text-sm text-gray-700 font-light">/</span><span class="text-xs text-gray-500">$NEXA</span>
                                             </h4>
                                         </div>
 

@@ -42,7 +42,7 @@ onMounted(() => {
         </h1>
 
         <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
-            you will NEVER have to worry about parting with your precious!
+            and you will NEVER have to worry about parting with your Precious!
         </h3>
     </header>
 
@@ -70,7 +70,7 @@ onMounted(() => {
                             </th>
 
                             <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
-                                APY%
+                                APY %
                             </th>
 
                             <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-lg font-semibold text-gray-900 sm:pr-0">
@@ -95,7 +95,7 @@ onMounted(() => {
                         <tr class="border-b border-gray-200">
                             <td colspan="5" class="table-cell p-16 text-center">
                                 <h3 class="text-xl italic text-gray-500">
-                                    We don't have any Lenders available at the moment..
+                                    Sorry, we don't have any Lenders available at the moment..
                                 </h3>
                             </td>
                         </tr>

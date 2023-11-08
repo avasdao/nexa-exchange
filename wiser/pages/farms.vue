@@ -42,7 +42,7 @@ onMounted(() => {
         </h1>
 
         <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
-            collect your share of Plantation Rewards from staking LP tokens
+            spend tokens to build Farms and collect a share of Plantation rewards
         </h3>
     </header>
 
@@ -61,7 +61,7 @@ onMounted(() => {
                     <thead class="border-b border-gray-300 text-gray-900">
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-gray-900 sm:pl-0">
-                                Farm Overview
+                                Plantation Overview
                             </th>
 
                             <th scope="col" class="hidden px-3 py-3.5 text-center text-lg font-semibold text-gray-900 sm:table-cell">
