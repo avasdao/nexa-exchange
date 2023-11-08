@@ -50,6 +50,7 @@ onMounted(() => {
                         <col class="sm:w-1/6" />
                         <col class="sm:w-1/6" />
                         <col class="sm:w-1/6" />
+                        <col class="sm:w-1/6" />
                     </colgroup>
 
                     <thead class="border-b border-gray-300 text-gray-900">
@@ -75,6 +76,24 @@ onMounted(() => {
                             </th>
                         </tr>
                     </thead>
+
+                    <tbody v-if="lenders === null">
+                        <tr class="border-b border-gray-200">
+                            <td colspan="5" class="table-cell py-5">
+                                <SkeletonLender />
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody v-if="lenders?.length === 0">
+                        <tr class="border-b border-gray-200">
+                            <td colspan="5" class="table-cell p-16 text-center">
+                                <h3 class="text-xl italic text-gray-500">
+                                    We don't have any Lenders available at the moment..
+                                </h3>
+                            </td>
+                        </tr>
+                    </tbody>
 
                     <tbody>
                         <tr v-for="token of lenders" :key="token.id" class="border-b border-gray-200">
