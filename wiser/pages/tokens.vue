@@ -146,4 +146,6 @@ onMounted(() => {
 
         </div>
     </main>
+
+    <Footer />
 </template>

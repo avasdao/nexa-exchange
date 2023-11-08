@@ -258,4 +258,6 @@ const System = useSystemStore()
             </div>
         </div>
     </main>
+
+    <!-- NO FOOTER -->
 </template>

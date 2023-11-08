@@ -143,6 +143,12 @@ onMounted(() => {
                                     Farms
                                 </NuxtLink>
                             </li>
+
+                            <li class="flex">
+                                <NuxtLink to="/borrow" class="text-2xl text-gray-600 font-medium tracking-widest" @click="isShowingMenu = false">
+                                    Borrow
+                                </NuxtLink>
+                            </li>
                         </ul>
                     </div>
 
@@ -322,6 +328,10 @@ onMounted(() => {
 
                                             <NuxtLink to="/farms" class="flex items-center text-lg font-medium text-gray-700 hover:text-gray-800">
                                                 Farms
+                                            </NuxtLink>
+
+                                            <NuxtLink to="/borrow" class="flex items-center text-lg font-medium text-gray-700 hover:text-gray-800">
+                                                Borrow
                                             </NuxtLink>
                                         </div>
                                     </div>

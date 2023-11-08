@@ -93,6 +93,8 @@
 
         <BuilderBenefits />
 
-        <Testimonials />
+        <!-- <Testimonials /> -->
     </main>
+
+    <Footer />
 </template>
