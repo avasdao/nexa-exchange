@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-wiser",
-  "version": "23.10.27",
+  "version": "23.11.8",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -11,15 +11,17 @@
   },
   "dependencies": {
     "@pinia/nuxt": "0.4.7",
-    "chart.js": "^4.4.0",
+    "apexcharts": "3.44.0",
+    "chart.js": "4.4.0",
     "moment": "2.29.4",
     "nexajs": "23.10.25",
     "numeral": "2.0.6",
     "nuxt": "3.0.0",
     "pinia": "2.0.32",
-    "pouchdb": "^8.0.1",
+    "pouchdb": "8.0.1",
     "uuid": "9.0.1",
-    "vue-chartjs": "^5.2.0"
+    "vue-chartjs": "5.2.0",
+    "vue3-apexcharts": "1.4.4"
   },
   "devDependencies": {
     "@nuxtjs/i18n": "8.0.0-rc.2",
