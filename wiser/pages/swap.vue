@@ -22,14 +22,22 @@ const System = useSystemStore()
 </script>
 
 <template>
-    <main class="w-screen grid grid-cols-1 lg:grid-cols-7 gap-20 overflow-hidden bg-gradient-to-b from-yellow-500 to-yellow-800">
-        <section class="w-full lg:col-span-4 bg-lime-50 flex justify-center items-center position">
-            <div class="p-10 bg-lime-50 border-2 border-lime-200 rounded-2xl shadow-md">
+    <main class="py-10 max-w-6xl mx-auto flex flex-row">
+        <section class="flex flex-col gap-5 flex-1 justify-center items-center">
+            [ NAV CONTROLS HERE ]
+
+            <div class="p-10 flex flex-col gap-3 bg-lime-50 border-2 border-lime-200 rounded-2xl shadow-md">
                 <ChartTest />
+
+                <div>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur, magni quos fugit, doloribus nesciunt dignissimos neque eveniet corporis nam ullam, tempore assumenda possimus delectus aut reprehenderit voluptatum! Commodi, distinctio molestiae?
+                </div>
             </div>
+
+            <SwapHistory />
         </section>
 
-        <section class="lg:col-span-3 order-first lg:order-none">
+        <section class="w-[500px] order-first lg:order-none">
             <SwapWindow />
         </section>
     </main>
