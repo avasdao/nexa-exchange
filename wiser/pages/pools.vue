@@ -81,11 +81,11 @@ onMounted(() => {
 <template>
     <header class="py-8 flex flex-col gap-3 justify-center items-center bg-gradient-to-b from-sky-700 to-sky-900 border-y-2 border-amber-300 shadow">
         <h1 class="text-6xl font-light text-sky-100 tracking-wider">
-            Liquidity Pools
+            Micro Pools
         </h1>
 
         <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
-            instant asset swaps from trustless &amp; permissionless micro-pools
+            instant asset swaps from Trustless &amp; Permissionless liquidity providers
         </h3>
     </header>
 
@@ -166,7 +166,7 @@ onMounted(() => {
 
                                         <div class="flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
-                                                Owner
+                                                Provider
                                             </span>
 
                                             <NuxtLink to="https://twitter.com/0xShomari" target="_blank" class="flex flex-row gap-1 items-center text-sm text-blue-500 hover:text-blue-400">
