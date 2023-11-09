@@ -151,7 +151,9 @@ onMounted(() => {
             </div>
         </section>
 
-        <SectionDivider />
+        <PromoDivider />
+
+        <!-- <FeaturedDivider /> -->
 
         <!-- TODO: Add forever (timeline) scrolling. -->
     </main>
