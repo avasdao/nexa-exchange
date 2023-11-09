@@ -107,7 +107,7 @@ onMounted(() => {
         </h1>
 
         <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
-            an aggregated collection of our MOST spectacular Nexican assets
+            browse a Curated collection of our MOST spectacular Nexican assets
         </h3>
     </header>
 
@@ -128,17 +128,17 @@ onMounted(() => {
         </div>
 
         <section class="columns-2 md:columns-3 lg:columns-4">
-            <div v-for="asset of assets" :key="asset.id" class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
+            <div v-for="asset of nfts" :key="asset.id" class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
                 <NuxtLink :to="'https://niftyart.cash/buy/' + asset.id" target="_blank">
-                    <img class="w-full rounded-md" :src="asset.imgUrl">
+                    <img class="w-full rounded-md" :src="asset.media?.cardf">
 
                     <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
                         <div class="relative">
                             <!-- <a class="test__link absolute inset-0" target="_blank" href="/"></a> -->
 
-                            <h1 class="test__title text-3xl font-bold mb-3">{{asset.title}}</h1>
+                            <h1 class="test__title text-3xl font-bold mb-3">{{asset.name}}</h1>
 
-                            <p class="test__author font-sm font-light">by {{asset.owner}}</p>
+                            <p class="test__author font-sm font-light">by {{asset.author}}</p>
                         </div>
 
                         <div class="mt-auto">
