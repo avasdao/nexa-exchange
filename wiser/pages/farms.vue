@@ -46,7 +46,7 @@ onMounted(() => {
         </h1>
 
         <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
-            spend plantations to build Farms and collect a share of Plantation rewards
+            craft tokens into Farms to collect a share of Plantation rewards
         </h3>
     </header>
 
@@ -105,7 +105,7 @@ onMounted(() => {
                                             {{plantation.name}}
                                         </div>
 
-                                        <div class="flex flex-row gap-2 items-baseline">
+                                        <div class="mt-1 flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
                                                 Reward Asset
                                             </span>

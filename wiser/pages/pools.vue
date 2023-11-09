@@ -60,6 +60,14 @@ const displayFloor = (_token) => {
     }
 }
 
+const swap = (_token) => {
+    alert('Individual pool swapping is not yet available.\n\nVisit the "Swap" page to exchange your assets.')
+}
+
+const farm = (_token) => {
+    alert('Loyalty Farms are coming soon...')
+}
+
 onMounted(() => {
     init()
 })
@@ -136,7 +144,7 @@ onMounted(() => {
                                             {{token.title}}
                                         </div>
 
-                                        <div class="flex flex-row gap-2 items-baseline">
+                                        <div class="mt-1 flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
                                                 Trade Pair
                                             </span>
@@ -190,11 +198,11 @@ onMounted(() => {
                             </td>
 
                             <td class="py-5 pl-6 pr-4 sm:pr-0 flex flex-col gap-3">
-                                <button class="w-full px-5 py-2 bg-sky-500 text-sky-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
+                                <button @click="swap(token)" class="w-full px-5 py-2 bg-sky-500 text-sky-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
                                     Swap
                                 </button>
 
-                                <button class="w-full px-5 py-2 bg-green-600 text-green-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
+                                <button @click="farm(token)" class="w-full px-5 py-2 bg-green-600 text-green-50 text-xl font-medium rounded-lg shadow hover:bg-sky-400">
                                     Farm
                                 </button>
 

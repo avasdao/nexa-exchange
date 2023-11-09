@@ -121,6 +121,16 @@ onMounted(() => {
                                             {{token.name}}
                                         </div>
 
+                                        <div class="mt-1 flex flex-row gap-2 items-baseline">
+                                            <span class="text-gray-500 text-xs uppercase">
+                                                Ticker
+                                            </span>
+
+                                            <h4 class="text-sm text-sky-700">
+                                                ${{token.ticker}}
+                                            </h4>
+                                        </div>
+
                                         <p class="mt-1 truncate text-gray-600 text-sm tracking-wider">
                                             New logo and digital asset playbook.
                                         </p>
