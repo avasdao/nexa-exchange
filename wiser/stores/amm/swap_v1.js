@@ -66,27 +66,31 @@ export default async (
 
     /* Initialize locals.*/
     let adminAddress
+    let adminFee
     let adminPkh
     let amountBuyer
     let amountProvider
     let amountSeller
-    let coins
     let contractAddress
     let contractChange
-    let fee
+    let contractCoins
+    let contractTokens
     let lockingScript
     let nullData
-    let providerAddress
-    let providerPkh
+    let payoutAddress
+    let payoutPkh
+    let providerFee
     let providerPubKey
-    let rate
     let receivers
     let response
     let scriptHash
     let scriptPubKey
-    let tokens
+    let tradeFloor
     let unspentTokens
     let userData
+    let walletChange
+    let walletCoins
+    let walletTokens
 
     console.info('\n  Nexa address:', Wallet.address)
     console.info('\n  WIF', Wallet.wallet.wif)
@@ -102,9 +106,10 @@ export default async (
     // console.log('SCRIPT HASH:', scriptHash)
     console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
 
-    /* Set Seller public key hash. */
-    // nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug (Robin Hood Acct)
-    // adminPkh = hexToBin('b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10')
+    /* Set Provider public key . */
+    providerPubKey = hexToBin(_scriptArgs?.providerPubKey)
+
+    /* Set Admin public key hash. */
     adminPkh = hexToBin(_scriptArgs?.admin)
 
     scriptPubKey = new Uint8Array([
@@ -121,41 +126,55 @@ export default async (
         scriptPubKey,
     )
 
-    /* Set exchange rate. */
-    rate = _scriptArgs?.rate.toString(16)
-    if (rate.length % 2 === 1) {
-        rate = '0' + rate
+    /* Set exchange admin fee. */
+    adminFee = _scriptArgs?.adminFee.toString(16)
+    if (adminFee.length % 2 === 1) {
+        adminFee = '0' + adminFee
     }
-    rate = hexToBin(rate).reverse()
-    rate = encodeDataPush(rate) // FIXME Add support for OP.ZERO
-    console.log('RATE', binToHex(rate))
+    adminFee = hexToBin(adminFee).reverse()
+    adminFee = encodeDataPush(adminFee)
+    console.log('ADMIN FEE', binToHex(adminFee))
 
-    /* Set provider public key hash. */
-    // nexa:nqtsq5g5x7evefxhusyp08wmk6xtu9rqee64uk0uaq28jnlk
-    providerPkh = hexToBin(_scriptArgs?.providerHash)
+    /* Set (provider) payout public key hash. */
+    payoutPkh = hexToBin(_scriptArgs?.payout)
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
         OP.ONE,
-        ...encodeDataPush(providerPkh),
+        ...encodeDataPush(payoutPkh),
     ])
     // console.info('\n  Script Public Key:', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
-    providerAddress = encodeAddress(
+    payoutAddress = encodeAddress(
         'nexa',
         'TEMPLATE',
         scriptPubKey,
     )
 
     /* Set provider fee. */
-    fee = _scriptArgs?.fee.toString(16)
-    if (fee.length % 2 === 1) {
-        fee = '0' + fee
+    providerFee = _scriptArgs?.providerFee.toString(16)
+    if (providerFee.length % 2 === 1) {
+        providerFee = '0' + providerFee
     }
-    fee = hexToBin(fee).reverse()
-    fee = encodeDataPush(fee) // FIXME Add support for OP.ZERO
-    console.log('FEE', binToHex(fee))
+    providerFee = hexToBin(providerFee).reverse()
+    providerFee = encodeDataPush(providerFee)
+    console.log('PROVIDER FEE', binToHex(providerFee))
+
+    /* Set trade floor. */
+    if (_scriptArgs?.tradeFloor === 0) {
+        tradeFloor = new Uint8Array([ OP.ZERO ])
+    } else {
+        tradeFloor = _scriptArgs?.tradeFloor.toString(16)
+
+        if (tradeFloor.length % 2 === 1) {
+            tradeFloor = '0' + tradeFloor
+        }
+
+        tradeFloor = hexToBin(tradeFloor).reverse()
+        tradeFloor = encodeDataPush(tradeFloor) // FIXME Add support for OP.ZERO
+    }
+    console.log('TRADE FLOOR', binToHex(tradeFloor))
 
     /* Build script public key. */
     scriptPubKey = new Uint8Array([
@@ -163,11 +182,11 @@ export default async (
         ...encodeDataPush(scriptHash), // script hash
         OP.ZERO, // arguments hash or empty stack item
         ...encodeDataPush(providerPubKey), // The Providers' public key.
-        ...rate, // The rate of exchange, charged by the Seller. (measured in <satoshis> per asset)
-        ...encodeDataPush(providerPkh), // An optional 3rd-party (specified by the Seller) used to facilitate the tranaction.
-        ...encodeDataPush(providerPkh), // An optional 3rd-party (specified by the Seller) used to facilitate the tranaction.
-        ...fee, // An optional amount charged by the Provider. (measured in <basis points> (bp), eg. 5.25% = 525bp)
-        ...fee, // An optional amount charged by the Provider. (measured in <basis points> (bp), eg. 5.25% = 525bp)
+        ...providerFee, // The rate of exchange, charged by the Provider. (measured in <satoshis> per asset)
+        ...encodeDataPush(payoutPkh), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
+        ...encodeDataPush(adminPkh), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
+        ...adminFee, // The platform fee charged by the Administration. (measured in <satoshis> per asset)
+        ...tradeFloor, // An optional base (floor) rate, set by the Provider.
     ])
     console.info('\n  Script Public Key:', binToHex(scriptPubKey))
 
@@ -226,41 +245,51 @@ export default async (
     amountProvider = (amountSeller * BigInt(_scriptArgs?.fee)) / BigInt(10000)
     console.log('AMOUNT PROVIDER', amountProvider)
 
+    walletChange = unspentTokens - BigInt(_amount)
+    console.log('WALLET CHANGE', walletChange)
+
     /* Initialize receivers. */
     receivers = []
 
-    /* Validate (contract) change. */
-    if (contractChange === BigInt(0)) {
-        /* Add (Buyout) null data. */
-        receivers.push({
-            data: nullData
-        })
-    } else {
-        /* Add contract change. */
-        receivers.push({
-            address: contractAddress,
-            tokenid: STUDIO_ID_HEX,
-            tokens: BigInt(contractChange),
-        })
-    }
+    /* Add contract Covenant. */
+    receivers.push({
+        address: contractAddress,
+        tokenid: STUDIO_ID_HEX,
+        tokens: BigInt(contractChange),
+    })
 
+    // TODO: Add support for an aggregation of contracts
+
+    /* Add Adminstration fee. */
+    // NOTE: This is the 1st (required) "non-contract" output.
     receivers.push({
         address: adminAddress,
         satoshis: BigInt(amountSeller),
     })
 
+    /* Add Provider payout. */
+    // NOTE: This is the 2nd (required) "non-contract" output.
     receivers.push({
-        address: Wallet.address,
-        tokenid: STUDIO_ID_HEX,
-        tokens: BigInt(amountBuyer),
+        address: payoutAddress,
+        satoshis: BigInt(amountProvider),
     })
 
-    if (amountProvider > BigInt(546)) {
+    /* Validate (wallet) change -OR- null data output. */
+    // NOTE: This is the 3rd (required) "non-contract" output.
+    if (walletChange === BigInt(0)) {
+        /* Add (required) null data. */
         receivers.push({
-            address: providerAddress,
-            satoshis: BigInt(amountProvider),
+            data: nullData
+        })
+    } else {
+        /* Add (required) wallet change. */
+        receivers.push({
+            address: Wallet.address,
+            tokenid: STUDIO_ID_HEX,
+            tokens: BigInt(amountBuyer),
         })
     }
+
 
     // FIXME: FOR DEV PURPOSES ONLY
     receivers.push({
