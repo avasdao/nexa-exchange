@@ -22,7 +22,7 @@ const System = useSystemStore()
 </script>
 
 <template>
-    <main class="py-10 max-w-6xl mx-auto flex flex-row">
+    <main class="py-10 max-w-6xl mx-auto flex flex-col lg:flex-row">
         <section class="flex flex-col gap-5 flex-1 justify-center items-center">
             [ NAV CONTROLS HERE ]
 
@@ -37,7 +37,7 @@ const System = useSystemStore()
             <SwapHistory />
         </section>
 
-        <section class="w-[500px] order-first lg:order-none">
+        <section class="px-3 w-full lg:w-[500px] order-first lg:order-none">
             <SwapWindow />
         </section>
     </main>

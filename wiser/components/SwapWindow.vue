@@ -7,11 +7,62 @@ const props = defineProps({
     },
 })
 
+/* Initialize stores. */
+import { useAmmStore } from '@/stores/amm'
+const Amm = useAmmStore()
+
+const PROVIDER_PUB_KEY_HASH = 'b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10' // nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug
+
+const amount = ref(null)
+const quote = ref(null)
+const error = ref(null)
+const txidem = ref(null)
+
 const isShowingSettings = ref(false)
 
 const closeSettings = () => {
     isShowingSettings.value = false
 }
+
+const swap = async () => {
+    /* Initialize locals. */
+    let response
+    let txResult
+
+    if(confirm(`Are you sure you want to make this swap?`)) {
+        if (!amount.value || amount.value === null) {
+            return alert(`Oops! You MUST enter an amount to continue.`)
+        }
+
+        response = await Amm
+            .swap(props.campaign, amount.value)
+            .catch(err => console.error(err))
+        console.log('SWAP RESPONSE', response)
+
+        if (!response) {
+            return
+        }
+
+        try {
+            txResult = JSON.parse(response)
+            console.log('TX RESULT', txResult)
+
+            if (txResult.error?.message) {
+                // alert(txResult.error.message)
+                error.value = txResult.error.message
+            } else {
+                // alert(txResult.result)
+                txidem.value = txResult.result
+            }
+        } catch (err) {
+            console.error(err)
+
+            error.value = response
+        }
+
+    }
+}
+
 
 // onMounted(() => {
 //     console.log('Mounted!')
@@ -25,7 +76,7 @@ const closeSettings = () => {
 </script>
 
 <template>
-    <main class="px-5">
+    <main class="">
         <header class="w-full px-3 flex justify-between">
             <section class="flex flex-col gap-1">
                 <h1 class="text-2xl text-amber-800 font-light tracking-widest">
@@ -58,6 +109,7 @@ const closeSettings = () => {
                     step="0.01"
                     placeholder="0.00"
                     class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
+                    v-model="quote"
                 />
 
                 <img src="~/assets/nexa.svg" class="relative -mt-20 w-16 h-auto" />
@@ -86,6 +138,7 @@ const closeSettings = () => {
                         step="0.01"
                         placeholder="0.00"
                         class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
+                        v-model="amount"
                     />
 
                     <img src="https://nexa.studio/icon.svg" class="relative -mt-20 w-16 h-auto p-2" />
@@ -110,6 +163,10 @@ const closeSettings = () => {
                 <p class="py-3 text-gray-300 text-sm">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam consectetur, fugiat ipsam minima blanditiis at, accusamus autem quos optio.
                 </p>
+
+                <button @click="swap" class="mb-3 px-5 py-2 w-full text-rose-800 font-medium text-2xl bg-rose-400 rounded-lg shadow hover:bg-rose-300">
+                    Make Swap
+                </button>
             </div>
 
         </section>

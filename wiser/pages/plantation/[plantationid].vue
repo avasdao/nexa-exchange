@@ -73,15 +73,6 @@ onMounted(async () => {
 
 <template>
     <img :src="plantation?.bannerUrl" class="w-full border-y-2 border-amber-300 shadow" />
-    <!-- <header class="h-16 lg:h-48 py-8 flex flex-col gap-3 justify-end items-center bg-gradient-to-b from-sky-700 to-sky-900 border-y-2 border-amber-300 shadow bg-center" :style="'background-image: url(' + plantation?.bannerUrl + ')'">
-        <h1 class="hidden text-6xl font-light text-sky-100 tracking-wider">
-            {{plantationName}}
-        </h1>
-
-        <h3 class="hidden flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
-            {{plantation?.summary}}
-        </h3>
-    </header> -->
 
     <main class="mx-auto max-w-7xl sm:px-6 sm:pt-8 lg:px-8">
         <div class="mx-auto max-w-2xl lg:max-w-none">
@@ -105,7 +96,7 @@ onMounted(async () => {
                                 <span class="sr-only">Angled view</span>
                                 <span class="absolute inset-0 overflow-hidden rounded-md">
                                     <div v-if="plantationIcon?.slice(0, 4) === 'http'" class="flex justify-center">
-                                        <img :src="plantationIcon" class="w-2/3 lg:w-1/2" />
+                                        <img :src="plantationIcon" class="w-2/3 rounded-full border-2 border-amber-300 shadow-md" />
                                     </div>
                                     <span v-else class="">
                                         {{plantationIcon}}
@@ -124,7 +115,7 @@ onMounted(async () => {
                         <!-- Tab panel, show/hide based on tab state. -->
                         <div id="tabs-2-panel-1" aria-labelledby="tabs-2-tab-1" role="tabpanel" tabindex="0">
                             <div v-if="plantationIcon?.slice(0, 4) === 'http'" class="flex justify-center">
-                                <img :src="plantationIcon" class="w-2/3 lg:w-1/2" />
+                                <img :src="plantationIcon" class="w-2/3 rounded-full border-2 border-amber-300 shadow-md" />
                             </div>
                             <span v-else class="">
                                 {{plantationIcon}}
