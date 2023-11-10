@@ -11,6 +11,8 @@ const props = defineProps({
 import { useAmmStore } from '@/stores/amm'
 const Amm = useAmmStore()
 
+/* Set constants. */
+const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
 const PROVIDER_PUB_KEY = '03b08539a64f78cab251f3f6ac0802c7165574cf44c9175db0bfe34751a5988015' // nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug
 const PROVIDER_PUB_KEY_HASH = 'b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10' // nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug
 const PAYOUT_PUB_KEY_HASH = '17d23be87a7f54479324ba1b0672cadcc2d096e3' // nexa:nqtsq5g5zlfrh6r60a2y0yeyhgdsvuk2mnpdp9hr5h70wxhe
@@ -28,17 +30,31 @@ const closeSettings = () => {
 
 const swap = async () => {
     /* Initialize locals. */
+    let action
+    let baseAsset
+    let quoteAsset
     let response
     let scriptArgs
     let txResult
 
-    if(confirm(`Are you sure you want to make this swap?`)) {
-        if (!amount.value || amount.value === null) {
-            return alert(`Oops! You MUST enter an amount to continue.`)
-        }
+    /* Set action. */
+    action = 'BUY'
 
+    /* Set base asset. */
+    baseAsset = STUDIO_ID_HEX
+
+    /* Set quote asset. */
+    quoteAsset = '0' // $NEXA is the (default) quote asset
+
+    /* Validate swap amount. */
+    if (!amount.value || amount.value === null) {
+        return alert(`Oops! You MUST enter an amount to continue.`)
+    }
+
+    /* Confirm on UI. */
+    if(confirm(`Are you sure you want to make this swap?`)) {
         response = await Amm
-            .swap(props.campaign, amount.value)
+            .swap(baseAsset, quoteAsset, action, amount.value)
             .catch(err => console.error(err))
         console.log('SWAP RESPONSE', response)
 

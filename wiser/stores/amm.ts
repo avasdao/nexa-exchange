@@ -29,19 +29,34 @@ export const useAmmStore = defineStore('amm', {
             return 'My Category'
         },
 
-        async swap(_tradeArgs, _amount) {
+        async swap(
+            _baseAsset,
+            _tradeAsset,
+            _action,
+            _amount,
+        ) {
             /* Initialize locals. */
             let error
+            let pools
             let response
             let scriptArgs
 
+            /* Request pools. */
+            pools = await $fetch('/api/pools')
+                .catch(err => console.error(err))
+            console.log('POOLS', pools)
+
+            /* Set (pool) script arguments. */
+            scriptArgs = pools[0].scriptArgs
+
             /* Request trading post (swap). */
-            response = await swap_v1(_tradeArgs, _amount)
+            response = await swap_v1(
+                scriptArgs, _baseAsset, _tradeAsset, _action, _amount)
                 .catch(err => {
                     console.error('ERROR', err)
                     error = err
                 })
-            // console.log('RESPONSE', response)
+            console.log('SWAP RESPONSE', response)
 
             /* Return response. */
             return error || response

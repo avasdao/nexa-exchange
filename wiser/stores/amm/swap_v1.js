@@ -38,7 +38,7 @@ import {
 import { useWalletStore } from '@/stores/wallet'
 const Wallet = useWalletStore()
 
-/* Set contants. */
+/* Set constants. */
 const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
 const WISERSWAP_HEX = '6c6c6c6c6c6c5679009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220203005114577a7e5379587a9502102796765379a4c4539476cd547a88cca16903005114577a7e5479577a950210279676547aa4c4529476cd547a88cca1695579009e637096765779a26975686d6d6d7567567a519d567a7cad6d6d7568'
 
@@ -51,11 +51,22 @@ let secp256k1
     secp256k1 = await instantiateSecp256k1()
 })()
 
-export default async (_tradeArgs, _amount) => {
-    console.log('WISERSWAP (trade args):', _tradeArgs)
+export default async (
+    _scriptArgs,
+    _baseAsset,
+    _quoteAsset,
+    _action,
+    _amount,
+) => {
+    console.log('WISERSWAP (script args):', _scriptArgs)
+    console.log('WISERSWAP (base asset):', _baseAsset)
+    console.log('WISERSWAP (quote asset):', _quoteAsset)
+    console.log('WISERSWAP (action):', _action)
     console.log('WISERSWAP (amount):', _amount)
 
     /* Initialize locals.*/
+    let adminAddress
+    let adminPkh
     let amountBuyer
     let amountProvider
     let amountSeller
@@ -67,13 +78,12 @@ export default async (_tradeArgs, _amount) => {
     let nullData
     let providerAddress
     let providerPkh
+    let providerPubKey
     let rate
     let receivers
     let response
     let scriptHash
     let scriptPubKey
-    let sellerAddress
-    let sellerPkh
     let tokens
     let unspentTokens
     let userData
@@ -90,29 +100,29 @@ export default async (_tradeArgs, _amount) => {
 
     scriptHash = ripemd160.hash(sha256(lockingScript))
     // console.log('SCRIPT HASH:', scriptHash)
-    return console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
+    console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
 
     /* Set Seller public key hash. */
     // nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug (Robin Hood Acct)
-    // sellerPkh = hexToBin('b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10')
-    sellerPkh = hexToBin(_tradeArgs?.sellerHash)
+    // adminPkh = hexToBin('b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10')
+    adminPkh = hexToBin(_scriptArgs?.admin)
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
         OP.ONE,
-        ...encodeDataPush(sellerPkh),
+        ...encodeDataPush(adminPkh),
     ])
     // console.info('\n  Script Public Key:', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
-    sellerAddress = encodeAddress(
+    adminAddress = encodeAddress(
         'nexa',
         'TEMPLATE',
         scriptPubKey,
     )
 
     /* Set exchange rate. */
-    rate = _tradeArgs?.rate.toString(16)
+    rate = _scriptArgs?.rate.toString(16)
     if (rate.length % 2 === 1) {
         rate = '0' + rate
     }
@@ -122,7 +132,7 @@ export default async (_tradeArgs, _amount) => {
 
     /* Set provider public key hash. */
     // nexa:nqtsq5g5x7evefxhusyp08wmk6xtu9rqee64uk0uaq28jnlk
-    providerPkh = hexToBin(_tradeArgs?.providerHash)
+    providerPkh = hexToBin(_scriptArgs?.providerHash)
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
@@ -139,7 +149,7 @@ export default async (_tradeArgs, _amount) => {
     )
 
     /* Set provider fee. */
-    fee = _tradeArgs?.fee.toString(16)
+    fee = _scriptArgs?.fee.toString(16)
     if (fee.length % 2 === 1) {
         fee = '0' + fee
     }
@@ -152,9 +162,11 @@ export default async (_tradeArgs, _amount) => {
         OP.ZERO, // groupid or empty stack item
         ...encodeDataPush(scriptHash), // script hash
         OP.ZERO, // arguments hash or empty stack item
-        ...encodeDataPush(sellerPkh), // The Sellers' public key hash.
+        ...encodeDataPush(providerPubKey), // The Providers' public key.
         ...rate, // The rate of exchange, charged by the Seller. (measured in <satoshis> per asset)
         ...encodeDataPush(providerPkh), // An optional 3rd-party (specified by the Seller) used to facilitate the tranaction.
+        ...encodeDataPush(providerPkh), // An optional 3rd-party (specified by the Seller) used to facilitate the tranaction.
+        ...fee, // An optional amount charged by the Provider. (measured in <basis points> (bp), eg. 5.25% = 525bp)
         ...fee, // An optional amount charged by the Provider. (measured in <basis points> (bp), eg. 5.25% = 525bp)
     ])
     console.info('\n  Script Public Key:', binToHex(scriptPubKey))
@@ -208,12 +220,13 @@ export default async (_tradeArgs, _amount) => {
     amountBuyer = BigInt(_amount)
     console.log('AMOUNT BUYER', amountBuyer)
 
-    amountSeller = BigInt(_amount) * BigInt(_tradeArgs?.rate)
+    amountSeller = BigInt(_amount) * BigInt(_scriptArgs?.rate)
     console.log('AMOUNT SELLER', amountSeller)
 
-    amountProvider = (amountSeller * BigInt(_tradeArgs?.fee)) / BigInt(10000)
+    amountProvider = (amountSeller * BigInt(_scriptArgs?.fee)) / BigInt(10000)
     console.log('AMOUNT PROVIDER', amountProvider)
 
+    /* Initialize receivers. */
     receivers = []
 
     /* Validate (contract) change. */
@@ -232,7 +245,7 @@ export default async (_tradeArgs, _amount) => {
     }
 
     receivers.push({
-        address: sellerAddress,
+        address: adminAddress,
         satoshis: BigInt(amountSeller),
     })
 

@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
 
     /* Set (request) query. */
     query = getQuery(event)
+    console.log('POOL QUERY', query)
 
     /* Set session id. */
     // sessionid = query?.sid
@@ -22,7 +23,7 @@ export default defineEventHandler(async (event) => {
             include_docs: true,
         })
         .catch(err => console.error(err))
-    console.log('RESPONSE', response)
+    // console.log('RESPONSE', response)
 
     /* Validate response. */
     if (!response) {
