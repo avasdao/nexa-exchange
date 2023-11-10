@@ -29,17 +29,14 @@ export const useAmmStore = defineStore('amm', {
             return 'My Category'
         },
 
-        async swap(_trade, _amount) {
+        async swap(_tradeArgs, _amount) {
             /* Initialize locals. */
             let error
             let response
             let scriptArgs
 
-            /* Set script arguments. */
-            scriptArgs = _trade.scriptArgs
-
             /* Request trading post (swap). */
-            response = await swap_v1(scriptArgs, _amount)
+            response = await swap_v1(_tradeArgs, _amount)
                 .catch(err => {
                     console.error('ERROR', err)
                     error = err

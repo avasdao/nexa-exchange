@@ -40,7 +40,7 @@ const Wallet = useWalletStore()
 
 /* Set contants. */
 const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
-const WISERSWAP_HEX = '6c6c6c6c6c6c5679009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220203005114577a7e5379587a9502102796765379a4c45394cd537a88c45394cc9d03005114577a7e5479577a950210279676547aa4c45294cd537a88c45294cc9d5579009e637096765779a26975686d6d6d7567567a519d567a7cad6d6d7568'
+const WISERSWAP_HEX = '6c6c6c6c6c6c5679009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220203005114577a7e5379587a9502102796765379a4c4539476cd547a88cca16903005114577a7e5479577a950210279676547aa4c4529476cd547a88cca1695579009e637096765779a26975686d6d6d7567567a519d567a7cad6d6d7568'
 
 let ripemd160
 let secp256k1
@@ -51,8 +51,8 @@ let secp256k1
     secp256k1 = await instantiateSecp256k1()
 })()
 
-export default async (_scriptArgs, _amount) => {
-    console.log('WISERSWAP (script args):', _scriptArgs)
+export default async (_tradeArgs, _amount) => {
+    console.log('WISERSWAP (trade args):', _tradeArgs)
     console.log('WISERSWAP (amount):', _amount)
 
     /* Initialize locals.*/
@@ -95,7 +95,7 @@ export default async (_scriptArgs, _amount) => {
     /* Set Seller public key hash. */
     // nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug (Robin Hood Acct)
     // sellerPkh = hexToBin('b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10')
-    sellerPkh = hexToBin(_scriptArgs?.sellerHash)
+    sellerPkh = hexToBin(_tradeArgs?.sellerHash)
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
@@ -112,7 +112,7 @@ export default async (_scriptArgs, _amount) => {
     )
 
     /* Set exchange rate. */
-    rate = _scriptArgs?.rate.toString(16)
+    rate = _tradeArgs?.rate.toString(16)
     if (rate.length % 2 === 1) {
         rate = '0' + rate
     }
@@ -122,7 +122,7 @@ export default async (_scriptArgs, _amount) => {
 
     /* Set provider public key hash. */
     // nexa:nqtsq5g5x7evefxhusyp08wmk6xtu9rqee64uk0uaq28jnlk
-    providerPkh = hexToBin(_scriptArgs?.providerHash)
+    providerPkh = hexToBin(_tradeArgs?.providerHash)
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
@@ -139,7 +139,7 @@ export default async (_scriptArgs, _amount) => {
     )
 
     /* Set provider fee. */
-    fee = _scriptArgs?.fee.toString(16)
+    fee = _tradeArgs?.fee.toString(16)
     if (fee.length % 2 === 1) {
         fee = '0' + fee
     }
@@ -208,10 +208,10 @@ export default async (_scriptArgs, _amount) => {
     amountBuyer = BigInt(_amount)
     console.log('AMOUNT BUYER', amountBuyer)
 
-    amountSeller = BigInt(_amount) * BigInt(_scriptArgs?.rate)
+    amountSeller = BigInt(_amount) * BigInt(_tradeArgs?.rate)
     console.log('AMOUNT SELLER', amountSeller)
 
-    amountProvider = (amountSeller * BigInt(_scriptArgs?.fee)) / BigInt(10000)
+    amountProvider = (amountSeller * BigInt(_tradeArgs?.fee)) / BigInt(10000)
     console.log('AMOUNT PROVIDER', amountProvider)
 
     receivers = []
