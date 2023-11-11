@@ -144,12 +144,16 @@ onMounted(() => {
                                             {{token.title}}
                                         </div>
 
+                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider">
+                                            {{token.summary}}
+                                        </p>
+
                                         <div class="mt-1 flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
                                                 Trade Pair
                                             </span>
 
-                                            <h4 class="text-sm text-sky-700">
+                                            <h4 class="text-sm text-gray-700">
                                                 ${{token.ticker}}<span class="text-sm text-gray-700 font-light">/</span><span class="text-xs text-gray-500">$NEXA</span>
                                             </h4>
                                         </div>
@@ -159,8 +163,20 @@ onMounted(() => {
                                                 Trade Floor
                                             </span>
 
-                                            <h4 class="text-sm text-sky-700">
+                                            <h4 class="text-sm text-gray-700">
                                                 {{displayFloor(token)}}
+                                            </h4>
+                                        </div>
+
+                                        <div class="flex flex-row gap-2 items-baseline">
+                                            <span class="text-gray-500 text-xs uppercase">
+                                                Rewards
+                                            </span>
+
+                                            <h4 class="text-sm text-blue-500 hover:text-blue-400">
+                                                <NuxtLink to="/plantation/058b0f52-4cd7-46d1-bb9b-8549fac3a5b0">
+                                                    $CAMP
+                                                </NuxtLink>
                                             </h4>
                                         </div>
 
@@ -178,9 +194,6 @@ onMounted(() => {
                                             </NuxtLink>
                                         </div>
 
-                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider">
-                                            {{token.summary}}
-                                        </p>
                                     </section>
                                 </div>
                             </td>

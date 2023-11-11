@@ -33,8 +33,8 @@ const props = defineProps({
                     </p>
                 </div>
                 <img
-                    src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
-                    alt="Product screenshot"
+                    src="https://bafybeihrwaxhbovf7t4gyajkiu5nlz3vu64xtpjsu3xbpzn4azxk5ughma.nexa.garden"
+                    alt="Platform screenshot"
                     class="relative -z-20 min-w-full max-w-xl rounded-xl shadow-xl ring-1 ring-white/10 lg:row-span-4 lg:w-[64rem] lg:max-w-none"
                     width="2432"
                     height="1442"
