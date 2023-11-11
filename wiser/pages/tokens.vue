@@ -1,5 +1,6 @@
 <script setup lang="ts">
 /* Import modules. */
+import moment from 'moment'
 import numeral from 'numeral'
 
 useHead({
@@ -43,6 +44,23 @@ const displayPrice = (_token) => {
     }
 
     return 'n/a'
+}
+
+const displayGenesis = (_token) => {
+    /* Initialize locals. */
+    let genesis
+
+    if (
+        _token?.genesis.blocktime === 0 ||
+        _token?.genesis.blocktime === null ||
+        typeof _token?.genesis.blocktime === 'undefined'
+    ) {
+        return 'n/a'
+    } else {
+        genesis = moment.unix(_token.genesis.blocktime).format('lll')
+
+        return genesis
+    }
 }
 
 onMounted(() => {
@@ -121,6 +139,10 @@ onMounted(() => {
                                             {{token.name}}
                                         </div>
 
+                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider">
+                                            {{token?.summary}}
+                                        </p>
+
                                         <div class="mt-1 flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
                                                 Ticker
@@ -131,13 +153,16 @@ onMounted(() => {
                                             </h4>
                                         </div>
 
-                                        <p class="mt-1 truncate text-gray-600 text-sm tracking-wider">
-                                            New logo and digital asset playbook.
-                                        </p>
+                                        <div class="flex flex-row gap-2 items-baseline">
+                                            <span class="text-gray-500 text-xs uppercase">
+                                                Genesis
+                                            </span>
 
-                                        <p class="mt-1 text-gray-500 text-xs italic leading-5 tracking-wider">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veritatis rerum ipsam dolorum iste iure hic cum ab illum obcaecati ea ullam enim, corporis, corrupti repudiandae eius non atque natus!
-                                        </p>
+                                            <h4 class="text-sm text-gray-700">
+                                                {{displayGenesis(token)}}
+                                            </h4>
+                                        </div>
+
                                     </section>
                                 </div>
                             </td>

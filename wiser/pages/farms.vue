@@ -105,6 +105,10 @@ onMounted(() => {
                                             {{plantation.name}}
                                         </div>
 
+                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider">
+                                            {{plantation.summary}}
+                                        </p>
+
                                         <div class="mt-1 flex flex-row gap-2 items-baseline">
                                             <span class="text-gray-500 text-xs uppercase">
                                                 Reward Asset
@@ -129,9 +133,6 @@ onMounted(() => {
                                             </NuxtLink>
                                         </div>
 
-                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider">
-                                            {{plantation.summary}}
-                                        </p>
                                     </section>
                                 </div>
                             </td>
