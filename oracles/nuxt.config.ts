@@ -4,11 +4,11 @@ export default defineNuxtConfig({
     app: {
         /* Application Header */
         head: {
-            charset: 'utf-8',
-            viewport: 'width=device-width, initial-scale=1',
-            title: 'Nexa Builder Studio',
+            title: 'Oracles — Nexa Exchange',
             meta: [
-                { name: 'description', content: 'Start your next JavaScript project using Nexa Builder Studio boilerplate templates.' },
+                { charset: 'utf-8' },
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+                { name: 'description', content: 'Accountable and verifiabe data oracles.' },
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
