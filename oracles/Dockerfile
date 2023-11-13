@@ -10,6 +10,7 @@ RUN yarn install --silent
 COPY . /usr/src/app
 RUN yarn run build
 
+ENV PORT 5000
 EXPOSE 5000
 
 CMD ["node", ".output/server/index.mjs"]
