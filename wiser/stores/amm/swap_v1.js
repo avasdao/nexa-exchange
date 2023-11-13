@@ -40,7 +40,7 @@ const Wallet = useWalletStore()
 
 /* Set constants. */
 const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
-const WISERSWAP_HEX = '6c6c6c6c6c6c5679009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220203005114577a7e5379587a9502102796765379a4c4539476cd547a88cca16903005114577a7e5479577a950210279676547aa4c4529476cd547a88cca1695579009e637096765779a26975686d6d6d7567567a519d567a7cad6d6d7568'
+const WISERSWAP_HEX = '6c6c6c6c6c6c5679009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220203005114577a7e5379587a9502102796765379a4c4539476cd547a88cca16903005114567a7e5479577a950210279676547aa4c4529476cd547a88cca1695579009e637096765779a26975686d6d6d7567567a519d5679a988567a567aad6d6d7568'
 
 let ripemd160
 let secp256k1
@@ -80,6 +80,7 @@ export default async (
     let payoutAddress
     let payoutPkh
     let providerFee
+    let providerPkh
     let providerPubKey
     let receivers
     let response
@@ -108,6 +109,9 @@ export default async (
 
     /* Set Provider public key . */
     providerPubKey = hexToBin(_scriptArgs?.providerPubKey)
+    providerPkh = ripemd160.hash(sha256(providerPubKey))
+    // console.log('PROVIDER HASH:', providerPkh)
+    console.log('PROVIDER HASH (hex):', binToHex(providerPkh))
 
     /* Set Admin public key hash. */
     adminPkh = hexToBin(_scriptArgs?.admin)
@@ -181,9 +185,9 @@ export default async (
         OP.ZERO, // groupid or empty stack item
         ...encodeDataPush(scriptHash), // script hash
         OP.ZERO, // arguments hash or empty stack item
-        ...encodeDataPush(providerPubKey), // The Providers' public key.
+        ...encodeDataPush(providerPkh), // The Providers' public key.
         ...providerFee, // The rate of exchange, charged by the Provider. (measured in <satoshis> per asset)
-        ...encodeDataPush(payoutPkh), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
+        // ...encodeDataPush(payoutPkh), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
         ...encodeDataPush(adminPkh), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
         ...adminFee, // The platform fee charged by the Administration. (measured in <satoshis> per asset)
         ...tradeFloor, // An optional base (floor) rate, set by the Provider.
@@ -198,35 +202,38 @@ export default async (
     )
     console.info('\n  Contract address:', contractAddress)
 
-    coins = await getCoins(Wallet.wallet.wif)
+    walletCoins = await getCoins(Wallet.wallet.wif)
         .catch(err => console.error(err))
-    console.log('\n  Coins:', coins)
+    console.log('WALLET COINS', walletCoins)
 
-    // coinsGuest = await getCoins(Wallet.wallet.wif, scriptPubKey)
-    //     .catch(err => console.error(err))
-    // console.log('\n  Coins GUEST:', coinsGuest)
-
-    tokens = await getTokens(Wallet.wallet.wif, scriptPubKey)
+    contractCoins = await getCoins(Wallet.wallet.wif, scriptPubKey)
         .catch(err => console.error(err))
+    console.log('CONTRACT COINS:', contractCoins)
 
+    walletTokens = await getTokens(Wallet.wallet.wif)
+        .catch(err => console.error(err))
+    console.log('WALLET TOKENS', walletTokens)
+
+    contractTokens = await getTokens(Wallet.wallet.wif, scriptPubKey)
+        .catch(err => console.error(err))
     // FOR DEV PURPOSES ONLY -- take the LARGEST input
-    tokens = [tokens.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
+    contractTokens = [contractTokens.sort((a, b) => Number(b.contractTokens) - Number(a.contractTokens))[0]]
     // FOR DEV PURPOSES ONLY -- add scripts
-    tokens[0].locking = encodeDataPush(lockingScript)
-    tokens[0].unlocking = false
-    console.log('\n  Tokens GUEST:', tokens)
+    contractTokens[0].locking = encodeDataPush(lockingScript)
+    contractTokens[0].unlocking = false
+    console.log('CONTRACT TOKENS:', contractTokens)
 
     /* Calculate the total balance of the unspent outputs. */
     // FIXME: Add support for BigInt.
-    unspentTokens = tokens
+    unspentTokens = walletTokens
         .reduce(
             (totalValue, unspentOutput) => (totalValue + unspentOutput.tokens), BigInt(0)
         )
     console.log('UNSPENT TOKENS', unspentTokens)
 
     userData = [
-        'TPOST',
-        'All-in Buyout!',
+        'WISER',
+        'No Change',
     ]
 
     /* Initialize hex data. */

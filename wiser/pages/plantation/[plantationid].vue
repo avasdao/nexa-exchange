@@ -27,7 +27,7 @@ const plantationIcon = computed(() => {
         return null
     }
 
-    return plantation.value?.iconUrl || null
+    return plantation.value?.avatarUrl || null
 })
 
 const plantationUrl = computed(() => {
