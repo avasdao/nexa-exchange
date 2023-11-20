@@ -3,21 +3,21 @@ import { log } from "console"
 export default defineEventHandler(async (event) => {
     /* Set path URL. */
     const path = event.context.params.path
-    console.log('PATH', path)
+    // console.log('PATH', path)
 
     let response
 
     if (path.startsWith('ticker/price') || path.startsWith('ticker/quote')) {
         response = await $fetch(process.env.TELR_API_ENDPOINT + path)
             .catch(err => console.error(err))
-        console.log('TICKER RESPONSE', response)
+        // console.log('TICKER RESPONSE', response)
     }
 
     if (path.startsWith('order/')) {
         console.log(process.env.TELR_API_ENDPOINT + `exchange/${path}`)
         response = await $fetch(process.env.TELR_API_ENDPOINT + `exchange/${path}`)
             .catch(err => console.error(err))
-        console.log('EXCHANGE RESPONSE', response)
+        // console.log('EXCHANGE RESPONSE', response)
     }
 
     if (response) {
