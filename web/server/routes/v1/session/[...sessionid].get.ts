@@ -4,5 +4,5 @@ export default defineEventHandler(async (event) => {
     console.log('SESSION ID', sessionid)
 
     /* Return (Telr Exchange) session. */
-    return await $fetch('https://api.telr.io/v1/exchange/session/' + sessionid)
+    return await $fetch(process.env.TELR_API_ENDPOINT + 'exchange/session/' + sessionid)
 })

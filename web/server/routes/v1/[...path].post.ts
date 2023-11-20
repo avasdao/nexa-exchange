@@ -1,5 +1,5 @@
 /* Set endpoint. */
-const API_ENDPOINT = 'https://api.telr.io/v1/exchange'
+const API_ENDPOINT = process.env.TELR_API_ENDPOINT + 'exchange'
 
 export default defineEventHandler(async (event) => {
     /* Initialize locals. */

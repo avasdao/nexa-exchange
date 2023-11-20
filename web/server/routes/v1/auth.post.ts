@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         params: requestBody,
     }
 
-    return await $fetch('https://api.telr.io/v1/exchange/auth', {
+    return await $fetch(process.env.TELR_API_ENDPOINT + 'exchange/auth', {
         method: 'POST',
         body: postBody.params, // FIXME Update required!
     })
