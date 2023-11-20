@@ -64,7 +64,7 @@ const launchApp = () => {
 const updateTicker = async () => {
     ticker.value = await $fetch('/ticker')
         .catch(err => console.error(err))
-    console.info('Latest ticker:', ticker.value)
+    // console.info('Latest ticker:', ticker.value)
 
     const price = (ticker.value?.quote.USD.price * 1000000) || 'n/a'
     // console.log('PRICE', price)

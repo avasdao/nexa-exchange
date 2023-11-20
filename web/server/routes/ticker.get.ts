@@ -51,14 +51,15 @@ export default defineEventHandler(async (event) => {
         }
 
         // NOTE: We need to fix the (incorrect) supply totals from CMC. */
+        // FIXME: Add caching to prevent unnecessary requests.
         {
             /* Request block tip. */
             blockTip = await getTip()
                 .catch(err => console.error(err))
-            console.log('BLOCK TIP', blockTip)
+            // console.log('BLOCK TIP', blockTip)
 
             totalSupply = blockTip.height * 1e7
-            console.log('TOTAL SUPPLY', totalSupply)
+            // console.log('TOTAL SUPPLY', totalSupply)
 
             // NOTE: We need to fix the (incorrect) supply totals from CMC. */
             pkg.circulatingSupply = totalSupply

@@ -25,7 +25,7 @@ let vol24h = ref(null)
 const updateTicker = async () => {
     ticker.value = await $fetch(API_ENDPOINT)
         .catch(err => console.error(err))
-    console.info('Latest ticker:', ticker.value)
+    // console.info('Latest ticker:', ticker.value)
 
     const price = (ticker.value?.quote.USD.price * 1000000) || 'n/a'
     // console.log('PRICE', price)
