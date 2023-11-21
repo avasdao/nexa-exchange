@@ -1,8 +1,30 @@
 export default defineEventHandler(async (event) => {
-    /* Set session id. */
-    const sessionid = event.context.params.sessionid
-    console.log('SESSION ID', sessionid)
+    /* Initialize locals. */
+    let error
+    let response
+    let sessionid
+    let target
 
-    /* Return (Telr Exchange) session. */
-    return await $fetch(process.env.TELR_API_ENDPOINT + 'exchange/session/' + sessionid)
+    /* Set session id. */
+    sessionid = event.context.params.sessionid
+    // console.log('SESSION ID', sessionid)
+
+    /* Set (request) target. */
+    target = process.env.TELR_API_ENDPOINT + 'exchange/session/' + sessionid
+
+    /* Request (remote) session. */
+    response = await $fetch(target)
+        .catch(err => {
+            console.error(err)
+            error = err
+        })
+
+    /* Validate response. */
+    if (response) {
+        /* Return response. */
+        return response
+    }
+
+    /* Return error. */
+    return error
 })
