@@ -13,11 +13,11 @@ export default defineEventHandler(async (event) => {
     postBody = {
         id: uuidv4(),
         jsonrpc: '2.0',
-        method: 'auth',
+        method: 'session',
         params: requestBody,
     }
 
-    return await $fetch(process.env.TELR_API_ENDPOINT + 'exchange/auth', {
+    return await $fetch(process.env.TELR_API_ENDPOINT + 'exchange/session', {
         method: 'POST',
         body: postBody.params, // FIXME Update required!
     })
