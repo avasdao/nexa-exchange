@@ -19,6 +19,12 @@ export default defineNuxtConfig({
         },
     },
 
+    runtimeConfig: {
+        public: {
+            API_ENDPOINT: process.env.API_ENDPOINT,
+        },
+    },
+
     /* Application Modules */
     modules: [
         /* Tailwind CSS */

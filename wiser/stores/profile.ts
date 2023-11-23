@@ -1,6 +1,9 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
 
+const runtimeConfig = useRuntimeConfig()
+// console.log('RUNTIME CONFIG', runtimeConfig)
+
 /* Initialize constants. */
 const POLLING_FREQUENCY = 3000 // 3 seconds
 
@@ -69,6 +72,7 @@ export const useProfileStore = defineStore('profile', {
             console.log('PROFILE (session):', this.session)
 
             /* Initialize locals. */
+            let target
             let session
 
             /* Validate authorization elements. */
@@ -81,8 +85,12 @@ export const useProfileStore = defineStore('profile', {
                 return setTimeout(this.init, POLLING_FREQUENCY)
             }
 
+            /* Set (request) target. */
+            target = runtimeConfig.public.API_ENDPOINT + 'session'
+            console.log('TARGET', target)
+
             /* Manage session. */
-            session = await $fetch('/api/session', {
+            session = await $fetch(target, {
                 method: 'POST',
                 body: {
                     sessionid: this.sessionid,

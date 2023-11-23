@@ -5,32 +5,14 @@ services:
     build: .
     image: wiserswap
     container_name: wiserswap
-    restart: always
-    network_mode: 'host'
-    # ports:
-    #   - '127.0.0.1:3000:3000'
-    logging: # apply better controls to Docker overlay folder
-      driver: 'json-file'
-      options:
-        max-file: '5'
-        max-size: '10m'
-    environment:
-      - COUCHDB_USER=${COUCHDB_USER}
-      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
-  couchdb:
-    image: couchdb
-    restart: always
+    restart: unless-stopped
+    # network_mode: 'host'
     ports:
-      - '127.0.0.1:5984:5984'
-      - '127.0.0.1:4369:4369'
-      - '127.0.0.1:9100:9100'
-    environment:
-      - COUCHDB_USER=${COUCHDB_USER}
-      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
-    volumes:
-        - ./data:/opt/couchdb/data
+      - '127.0.0.1:3000:3000'
     logging: # apply better controls to Docker overlay folder
       driver: 'json-file'
       options:
         max-file: '5'
         max-size: '10m'
+    environment:
+      - API_ENDPOINT=${API_ENDPOINT}
