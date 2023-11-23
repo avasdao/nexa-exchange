@@ -36,6 +36,7 @@ export default defineNuxtConfig({
 
         /* Add CORS headers to API. */
         '/v1': { cors: true },
+        '/v1/session': { cors: true },
         '/v1/**': { cors: true },
 
         /* Add CORS headers to root (System) endpoints. */
