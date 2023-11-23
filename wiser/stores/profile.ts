@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 
 const runtimeConfig = useRuntimeConfig()
 // console.log('RUNTIME CONFIG', runtimeConfig)
+const API_ENDPOINT = 'https://nexa.exchange/v1/'
 
 /* Initialize constants. */
 const POLLING_FREQUENCY = 3000 // 3 seconds
@@ -86,7 +87,8 @@ export const useProfileStore = defineStore('profile', {
             }
 
             /* Set (request) target. */
-            target = runtimeConfig.public.API_ENDPOINT + 'session'
+            // target = runtimeConfig.public.API_ENDPOINT + 'session'
+            target = API_ENDPOINT + 'session'
             console.log('TARGET', target)
 
             /* Manage session. */
