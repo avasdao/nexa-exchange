@@ -30,8 +30,7 @@ export default defineNuxtConfig({
     ],
 
     /* Route Rules */
-    routes: {
-    // routeRules: {
+    routeRules: {
         /* Disable server-side rendering for Admin area. */
         '/admin/**': { ssr: false },
 
