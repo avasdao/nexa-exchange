@@ -36,4 +36,11 @@ export default defineNuxtConfig({
         /* Internationalization for Nuxt */
         '@nuxtjs/i18n',
     ],
+
+    /* Route Rules */
+    routeRules: {
+        /* Disable server-side rendering for entire site. */
+        // NOTE: Allows for IPFS (hosting) + Web-based (rendering).
+        '/**': { ssr: false },
+    },
 })

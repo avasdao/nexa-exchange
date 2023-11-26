@@ -33,21 +33,5 @@ export default defineNuxtConfig({
     routeRules: {
         /* Disable server-side rendering for Admin area. */
         '/admin/**': { ssr: false },
-
-        /* Add CORS headers to API. */
-        // '/v1': { cors: true },
-        // '/v1/**': { cors: true },
-
-        /* Add CORS headers to root (System) endpoints. */
-        // '/auth': { cors: true },
-        // '/stats': { cors: true },
-        // '/status': { cors: true },
-
-        /* Add CORS headers to root (Market) endpoints. */
-        // '/mcap': { cors: true },
-        // '/mex': { cors: true },
-        // '/nex': { cors: true },
-        // '/price': { cors: true },
-        // '/ticker': { cors: true },
     },
 })
