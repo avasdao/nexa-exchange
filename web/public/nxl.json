@@ -1,0 +1,13 @@
+[{
+  "ticker": "NXL",
+  "name": "Nexa Exchange Loyalty",
+  "summary": "Premier exchange for Nexa. Your Keys, Your Coins since Day #1",
+  "description": "TBD",
+  "legal": "Each token is equal to one vote in the DAO.",
+  "creator": "Ava's DAO",
+  "contact": { "address": "3455 Peachtree Rd NE, Suite #500, Atlanta, GA 30326", "email": "support@avasdao.org", "twitter.com": "@AvasDAO" },
+  "icon": "/nxl.svg",
+  "category": "coin"
+},
+"<base64-signature-here>"
+]
