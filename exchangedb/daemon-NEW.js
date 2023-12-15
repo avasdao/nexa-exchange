@@ -1,24 +1,38 @@
 /* Import modules. */
 import { Wallet } from '@nexajs/wallet'
 
+import {
+    encodePrivateKeyWif,
+    parseWif,
+} from '@nexajs/hdnode'
+
+import {
+    ripemd160,
+    sha256,
+} from '@nexajs/crypto'
+
+import authGroup from './src/authGroup.js'
 import createGroup from './src/createGroup.js'
 import meltGroup from './src/meltGroup.js'
 import mintGroup from './src/mintGroup.js'
 import mintSubgroup from './src/mintSubgroup.js'
 import signMessage from './src/signMessage.js'
 
-console.log('Starting NexaJS Daemon...')
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+
+console.log('Starting Exchange Daemon...')
 
 const IS_LIVE_BROADCAST = false
-const ACTIVE_ACCOUNT_IDX = 2
-// 0 - nexa:nqtsq5g5ezqpr27c78uyf08260xq4xh35faa4yk64aycgega (master)
-// 1 - nexa:nqtsq5g55ykpcwwvr0x54358lx7skesefgj9anf07drdv52v (minting)
-// 2 - nexa:nqtsq5g56gvyyaf57seml8zdxu8ur7x5wsevh49mj5f7q6s0 (melting)
-// 3 - nexa:nqtsq5g5knff2pzlmfge7c2443j050sfx6kw87tn4l5vgukw (persona)
+const ACTIVE_ACCOUNT_IDX = 0
+// 0 - nexa:nqtsq5g54ckrh9kdwq66ulfnm44mk9h838y9lc0j9pfu3lj0 (master)
+// 1 - nexa:nqtsq5g5ku8at5c7uv8e56jahwf20vkn3t4zvp3yv667qs37 (minting)
+// 2 - nexa:nqtsq5g5p52r529qhawqut0zua5t227kk5c07nay74fs2wux (melting)
+// 3 - nexa:nqtsq5g5shvtv8820c2hrnadgjldjcldljrwethcl85scpxk (persona)
 
 ;(async () => {
     /* Initialize locals. */
     let wallet
+    let wif
 
     /* Initialize wallet. */
     wallet = await Wallet.init({
@@ -28,15 +42,23 @@ const ACTIVE_ACCOUNT_IDX = 2
 
     console.log('\nWALLET ADDRESS', wallet.address, '\n')
 
+    /* Wait for race condition. */
+    await sleep(1000)
+
     if (ACTIVE_ACCOUNT_IDX === 0) {
-        // createGroup()
+        // createGroup(IS_LIVE_BROADCAST)
+        // authGroup(
+        //     wallet,
+        //     'nexa:nqtsq5g5shvtv8820c2hrnadgjldjcldljrwethcl85scpxk',
+        //     IS_LIVE_BROADCAST,
+        // )
     }
 
     if (ACTIVE_ACCOUNT_IDX === 1) {
         mintGroup(
             wallet,
             'nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug', // Shomari (Robin Hood)
-            1000000,
+            1000000  * 10^4,
             IS_LIVE_BROADCAST,
         )
 

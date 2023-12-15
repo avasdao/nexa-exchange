@@ -47,11 +47,10 @@ import {
     sendToken,
 } from '@nexajs/token'
 
-// nexa:tztnyazksgqpkphrx2m2fgxapllufqmuwp6k07xtlc8k4xcjpqqqqk9wxykhauk0chytjzxz869wgpax5g8ksh7vr27tse83374asn3ayqymlzt0
-const TOKEN_ID_HEX = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a42000058ae312d7ef2cfc5c8b908c23e8ae407a6a20f685fcc1abcb864f18fabd84e3d' // NFT #1
-const TOKEN_PARENT_ID_HEX = TOKEN_ID_HEX.slice(0, 64) // NXL
+// nexa:tzs4e8n7dqtsyk0axx7zvcgt2snzt3t7z07ued0nu89hlvp6ggqqqdrypc4ea
+const NXL_ID_HEX = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000' // NXL
 
-export default async (_wallet, _receiver, _amount, isLive = false) => {
+export default async (_wallet, _receiver, isLive = false) => {
     let coins
     let nullData
     let receivers
@@ -75,14 +74,13 @@ export default async (_wallet, _receiver, _amount, isLive = false) => {
 
     /* Filter tokens. */
     // NOTE: Currently limited to a "single" Id.
-    // TODO Improve filter for the parent (authority) UTXO.
     tokens = tokens.filter(_token => {
-        return _token.tokenidHex === TOKEN_PARENT_ID_HEX
+        return _token.tokenidHex === NXL_ID_HEX
     })
     // console.log('\n  Tokens (filtered):', tokens)
 
     userData = [
-        'MINT',
+        'AUTH',
         'NXL',
     ]
 
@@ -94,17 +92,23 @@ export default async (_wallet, _receiver, _amount, isLive = false) => {
         {
             data: nullData,
         },
-        {
-            address: _receiver,
-            tokenid: TOKEN_ID_HEX, // TODO Allow auto-format conversion.
-            tokens: BigInt(_amount),
-        },
+        // {
+        //     address: _receiver,
+        //     tokenid: NXL_ID_HEX, // TODO Allow auto-format conversion.
+        //     tokens: BigInt(_amount),
+        // },
     ]
 
     // NOTE: Return the authority baton.
     receivers.push({
         address: _wallet.address,
-        tokenid: TOKEN_PARENT_ID_HEX, // TODO Allow auto-format conversion.
+        tokenid: NXL_ID_HEX, // TODO Allow auto-format conversion.
+        tokens: BigInt(0xfc00000000000000), // All permissions enabled
+    })
+
+    receivers.push({
+        address: _receiver,
+        tokenid: NXL_ID_HEX, // TODO Allow auto-format conversion.
         tokens: BigInt(0xfc00000000000000), // All permissions enabled
     })
 

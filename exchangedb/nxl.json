@@ -1,4 +1,4 @@
-[{
+{
   "ticker": "NXL",
   "name": "Nexa Exchange Loyalty",
   "summary": "Official token of Nexa's premier exchange — Your Keys, Your Coins since Block #1.",
@@ -8,6 +8,4 @@
   "contact": { "address": "3455 Peachtree Rd NE, Suite #500, Atlanta, GA 30326", "email": "support@avasdao.org", "twitter.com": "@AvasDAO" },
   "icon": "/nxl.svg",
   "category": "coin"
-},
-"<base64-signature-here>"
-]
+}

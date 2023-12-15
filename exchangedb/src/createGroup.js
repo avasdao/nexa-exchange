@@ -4,6 +4,11 @@ import { v4 as uuidv4 } from 'uuid'
 import { encodeAddress } from '@nexajs/address'
 
 import {
+    ripemd160,
+    sha256,
+} from '@nexajs/crypto'
+
+import {
     encodePrivateKeyWif,
     parseWif,
 } from '@nexajs/hdnode'
@@ -13,6 +18,7 @@ import { broadcast } from '@nexajs/provider'
 import { getCoins } from '@nexajs/purse'
 
 import {
+    encodeDataPush,
     encodeNullData,
     OP,
 } from '@nexajs/script'
@@ -25,10 +31,10 @@ import {
 
 /* Libauth helpers. */
 import {
-    encodeDataPush,
-    instantiateRipemd160,
+    // encodeDataPush,
+    // instantiateRipemd160,
     instantiateSecp256k1,
-    instantiateSha256,
+    // instantiateSha256,
 } from '@bitauth/libauth'
 
 import { Wallet } from '@nexajs/wallet'
@@ -45,8 +51,8 @@ import {
     sendToken,
 } from '@nexajs/token'
 
-const TOKEN_ID = 'nexa:tztnyazksgqpkphrx2m2fgxapllufqmuwp6k07xtlc8k4xcjpqqqq99lxywr8' // STUDIO
-const TOKEN_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000' // STUDIO
+const TOKEN_ID = 'nexa:tzs4e8n7dqtsyk0axx7zvcgt2snzt3t7z07ued0nu89hlvp6ggqqqdrypc4ea' // NXL
+const TOKEN_ID_HEX = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000' // NXL
 
 export default async (isLive = false) => {
     let coins
@@ -69,14 +75,15 @@ export default async (isLive = false) => {
     let wif
 
     /* Instantiate Libauth crypto interfaces. */
-    const ripemd160 = await instantiateRipemd160()
+    // const ripemd160 = await instantiateRipemd160()
     const secp256k1 = await instantiateSecp256k1()
-    const sha256 = await instantiateSha256()
+    // const sha256 = await instantiateSha256()
 
     let wallet = await Wallet.init(process.env.MNEMONIC)
 
     /* Encode Private Key WIF. */
-    wif = encodePrivateKeyWif(sha256, wallet.privateKey, 'mainnet')
+    wif = encodePrivateKeyWif({ hash: sha256 }, wallet.privateKey, 'mainnet')
+    console.log('WIF', wif)
 
     /* Derive the corresponding public key. */
     publicKey = secp256k1.derivePublicKeyCompressed(wallet.privateKey)
@@ -84,7 +91,7 @@ export default async (isLive = false) => {
     /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
     scriptData = encodeDataPush(publicKey)
 
-    publicKeyHash = ripemd160.hash(sha256.hash(scriptData))
+    publicKeyHash = ripemd160(sha256(scriptData))
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
@@ -99,7 +106,7 @@ export default async (isLive = false) => {
         scriptPubKey,
     )
 
-    console.log('ADDRESS', nexaAddress, wallet.address, nexaAddress === wallet.address)
+    // console.log('ADDRESS', nexaAddress, wallet.address, nexaAddress === wallet.address)
 
     coins = await getCoins(wif)
         .catch(err => console.error(err))
@@ -111,11 +118,11 @@ export default async (isLive = false) => {
     console.log('OUTPOINT', outpoint)
 
     params = {
-        ticker: 'STUDIO',
-        name: `Studio Time + Collection`,
-        uri: 'https://nexa.studio/studio.json',
-        hash: reverseHex('af84241f6a8975094efb1072fc927d27af71dba3d27d6d63f437fa42aa9909c4'),
-        decimals: 0,
+        ticker: 'NXL',
+        name: `Nexa Exchange Loyalty`,
+        uri: 'https://nexa.exchange/nxl.json',
+        hash: reverseHex('6402194bb4706dad5902cc4a6dc22e621712743e1f98ba40634f268c7405c691'),
+        decimals: 4,
     }
 
     groupData = await getGroupDataScript(params)
@@ -130,7 +137,6 @@ export default async (isLive = false) => {
 
     console.log('NONCE (BI):', BigInt(reversed))
     // console.log('NONCE (BI):', BigInt(nonceDec))
-
 
     /* Encode the public key hash into a P2PKH nexa address. */
     groupid = encodeAddress(

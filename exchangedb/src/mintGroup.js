@@ -47,8 +47,8 @@ import {
     sendToken,
 } from '@nexajs/token'
 
-// nexa:tztnyazksgqpkphrx2m2fgxapllufqmuwp6k07xtlc8k4xcjpqqqq99lxywr8
-const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000' // STUDIO
+// nexa:tzs4e8n7dqtsyk0axx7zvcgt2snzt3t7z07ued0nu89hlvp6ggqqqdrypc4ea
+const NXL_ID_HEX = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000' // NXL
 
 export default async (_wallet, _receiver, _amount, isLive = false) => {
     let coins
@@ -75,13 +75,13 @@ export default async (_wallet, _receiver, _amount, isLive = false) => {
     /* Filter tokens. */
     // NOTE: Currently limited to a "single" Id.
     tokens = tokens.filter(_token => {
-        return _token.tokenidHex === STUDIO_ID_HEX
+        return _token.tokenidHex === NXL_ID_HEX
     })
     // console.log('\n  Tokens (filtered):', tokens)
 
     userData = [
         'MINT',
-        'STUDIO',
+        'NXL',
     ]
 
     /* Initialize hex data. */
@@ -94,7 +94,7 @@ export default async (_wallet, _receiver, _amount, isLive = false) => {
         },
         {
             address: _receiver,
-            tokenid: STUDIO_ID_HEX, // TODO Allow auto-format conversion.
+            tokenid: NXL_ID_HEX, // TODO Allow auto-format conversion.
             tokens: BigInt(_amount),
         },
     ]
@@ -102,7 +102,7 @@ export default async (_wallet, _receiver, _amount, isLive = false) => {
     // NOTE: Return the authority baton.
     receivers.push({
         address: _wallet.address,
-        tokenid: STUDIO_ID_HEX, // TODO Allow auto-format conversion.
+        tokenid: NXL_ID_HEX, // TODO Allow auto-format conversion.
         tokens: BigInt(0xfc00000000000000), // All permissions enabled
     })
 
