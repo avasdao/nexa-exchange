@@ -20,7 +20,7 @@ import signMessage from './src/signMessage.js'
 
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 
-console.log('Starting Exchange Daemon...')
+console.log('Starting Exchange Manager...')
 
 const IS_LIVE_BROADCAST = false
 const ACTIVE_ACCOUNT_IDX = 0
