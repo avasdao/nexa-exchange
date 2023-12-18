@@ -32,3 +32,8 @@ A cross-chain daemon used by the [__Wardens__](https://docs.nexa.exchange/warden
 - [ ] SmartBCH Testnet (SBCH)
 - [ ] Solana Testnet (SOL)
 - [ ] Tron Testnet (TRX)
+
+
+## Oracle Daemons
+
+Manages Oracle price & data feeds.

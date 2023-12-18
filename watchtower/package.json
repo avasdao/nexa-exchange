@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "@bitauth/libauth": "1.19.1",
+    "@generalprotocols/price-oracle": "1.6.1",
     "moment": "2.29.4",
     "nexajs": "23.10.25",
     "numeral": "2.0.6",
