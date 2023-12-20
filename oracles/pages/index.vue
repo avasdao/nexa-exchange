@@ -1,6 +1,40 @@
 <script setup lang="ts">
+useHead({
+    title: 'Oracles — Nexa Exchange',
+    meta: [
+        { name: 'description', content: 'Accountable and verifiable price & data oracles.' }
+    ],
+})
 
+/* Initialize stores. */
+import { useSystemStore } from '@/stores/system'
+const System = useSystemStore()
 
+const oracles = ref()
+
+const dataOracles = computed(() => {
+    return oracles.value
+})
+
+const priceOracles = computed(() => {
+    return oracles.value
+})
+
+onMounted(() => {
+    oracles.value = []
+
+    oracles.value.push({
+        id: '518cd288-0d58-44e0-8262-cbde23fa4dd0',
+        name: 'NEXA / USD₮',
+        quote: '0.000009988800',
+        decimals: 12,
+    })
+})
+
+// onBeforeUnmount(() => {
+//     console.log('Before Unmount!')
+//     // Now is the time to perform all cleanup operations.
+// })
 </script>
 
 <template>
@@ -176,196 +210,183 @@
                 </div>
             </div>
 
-            <!-- Studios section -->
-            <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
-                <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                        FOSS Builder Studios
-                    </h2>
+            <div class="w-full my-20 h-1 bg-gray-500" />
 
-                    <p class="w-full lg:w-2/3 mt-2 text-lg leading-8 text-gray-600">
-                        Enjoy unlimited access to the premium <span class="text-indigo-500 font-medium">Builder Experience (BX)</span> the we've crafted into the various studios presented below:
-                    </p>
-                </div>
+            <ul role="list" class="mx-auto mt-32 max-w-7xl px-6 lg:px-8 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
 
-                <div class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                <li v-for="oracle of priceOracles" :key="oracle.id" class="overflow-hidden rounded-xl border border-gray-200">
+                    <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+                        <img src="https://tailwindui.com/img/logos/48x48/tuple.svg" alt="Tuple" class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" />
+                        <div class="text-xl font-medium leading-6 text-gray-900">
+                            {{oracle.name}}
+                        </div>
+                    </div>
 
-                    <NuxtLink to="/nft" class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-                        <img
-                            src="https://images.unsplash.com/photo-1564585447193-cd9a0cf42a36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1931&q=80"
-                            alt=""
-                            class="absolute inset-0 -z-10 h-full w-full object-cover"
-                        />
-                        <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                        <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+                    <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
 
-                        <div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                            <h2 class="text-2xl text-amber-300 font-medium tracking-widest">
-                                NFT/SFT Studio
-                            </h2>
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-lg text-gray-500">
+                                Last Quote
+                            </dt>
+
+                            <dd class="flex items-start gap-x-2">
+                                <div class="text-lg font-medium text-gray-900">
+                                    {{oracle.quote}}
+                                </div>
+                                <!-- <div class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-red-700 bg-red-50 ring-red-600/10">Overdue</div> -->
+                            </dd>
                         </div>
 
-                        <h3 class="mt-2 text-lg font-semibold leading-6 text-white">
-                            <a href="javascript://">
-                                <span class="absolute inset-0"></span>
-                                Design, Create and Share custom NFTs with the people you love
-                            </a>
-                        </h3>
-                    </NuxtLink>
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-base text-gray-500">
+                                Precision
+                            </dt>
 
-                    <NuxtLink to="/components" class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-                        <img
-                            src="https://images.unsplash.com/photo-1633469924738-52101af51d87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
-                            alt=""
-                            class="absolute inset-0 -z-10 h-full w-full object-cover"
-                        />
-                        <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                        <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
-
-                        <div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                            <h2 class="text-2xl text-amber-300 font-medium tracking-widest">
-                                Component Studio
-                            </h2>
+                            <dd class="text-base text-gray-700">
+                                {{oracle.decimals}} decimals
+                            </dd>
                         </div>
 
-                        <h3 class="mt-2 text-lg font-semibold leading-6 text-white">
-                            <a href="javascript://">
-                                <span class="absolute inset-0"></span>
-                                Pro-quality components to include in your Vue and React projects
-                            </a>
-                        </h3>
-                    </NuxtLink>
+                    </dl>
+                </li>
 
-                    <NuxtLink to="/media" class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-                        <img
-                            src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-                            alt=""
-                            class="absolute inset-0 -z-10 h-full w-full object-cover"
-                        />
-                        <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                        <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+                <li class="overflow-hidden rounded-xl border border-gray-200">
+                    <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+                        <img src="https://tailwindui.com/img/logos/48x48/savvycal.svg" alt="SavvyCal" class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" />
+                        <div class="text-xl font-medium leading-6 text-gray-900">
+                            NEXA / BTC
+                        </div>
+                    </div>
 
-                        <div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                            <h2 class="text-2xl text-amber-300 font-medium tracking-widest">
-                                Icon/Logo Studio
-                            </h2>
+                    <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-gray-500">Last invoice</dt>
+                            <dd class="text-gray-700"><time datetime="2023-01-22">January 22, 2023</time></dd>
                         </div>
 
-                        <h3 class="mt-2 text-lg font-semibold leading-6 text-white">
-                            <a href="javascript://">
-                                <span class="absolute inset-0"></span>
-                                Design custom icons and logos for your next project
-                            </a>
-                        </h3>
-                    </NuxtLink>
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-gray-500">Amount</dt>
+                            <dd class="flex items-start gap-x-2">
+                                <div class="font-medium text-gray-900">$14,000.00</div>
+                                <div class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20">Paid</div>
+                            </dd>
+                        </div>
+                    </dl>
+                </li>
 
-                    <NuxtLink to="/publish" class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-                        <img
-                            src="https://images.unsplash.com/photo-1553096442-8fe2118fb927?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
-                            alt=""
-                            class="absolute inset-0 -z-10 h-full w-full object-cover"
-                        />
-                        <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                        <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+                <li class="overflow-hidden rounded-xl border border-gray-200">
+                    <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+                        <img src="https://tailwindui.com/img/logos/48x48/reform.svg" alt="Reform" class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" />
+                        <div class="text-xl font-medium leading-6 text-gray-900">
+                            NEXA / BCH
+                        </div>
+                    </div>
 
-                        <div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                            <h2 class="text-2xl text-amber-300 font-medium tracking-widest">
-                                Publishing Studio
-                            </h2>
+                    <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-gray-500">Last invoice</dt>
+                            <dd class="text-gray-700"><time datetime="2023-01-23">January 23, 2023</time></dd>
                         </div>
 
-                        <h3 class="mt-2 text-lg font-semibold leading-6 text-white">
-                            <a href="javascript://">
-                                <span class="absolute inset-0"></span>
-                                Prepare and submit your finished project to stores and marketplaces
-                            </a>
-                        </h3>
-                    </NuxtLink>
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-gray-500">Amount</dt>
+                            <dd class="flex items-start gap-x-2">
+                                <div class="font-medium text-gray-900">$7,600.00</div>
+                                <div class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20">Paid</div>
+                            </dd>
+                        </div>
+                    </dl>
+                </li>
+            </ul>
 
-                    <NuxtLink to="/media" class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-                        <img
-                            src="https://images.unsplash.com/photo-1520444451380-ebe0f7b9cfd5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
-                            alt=""
-                            class="absolute inset-0 -z-10 h-full w-full object-cover"
-                        />
-                        <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                        <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+            <div class="w-full my-20 h-1 bg-gray-500" />
 
-                        <div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                            <h2 class="text-2xl text-amber-300 font-medium tracking-widest">
-                                A/V Media Studio
-                            </h2>
+            <ul role="list" class="mx-auto mt-32 max-w-7xl px-6 lg:px-8 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
+
+                <li v-for="oracle of dataOracles" :key="oracle.id" class="overflow-hidden rounded-xl border border-gray-200">
+                    <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+                        <img src="https://tailwindui.com/img/logos/48x48/tuple.svg" alt="Tuple" class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" />
+                        <div class="text-xl font-medium leading-6 text-gray-900">
+                            {{oracle.name}}
+                        </div>
+                    </div>
+
+                    <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-lg text-gray-500">
+                                Last Quote
+                            </dt>
+
+                            <dd class="flex items-start gap-x-2">
+                                <div class="text-lg font-medium text-gray-900">
+                                    {{oracle.quote}}
+                                </div>
+                                <!-- <div class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-red-700 bg-red-50 ring-red-600/10">Overdue</div> -->
+                            </dd>
                         </div>
 
-                        <h3 class="mt-2 text-lg font-semibold leading-6 text-white">
-                            <a href="javascript://">
-                                <span class="absolute inset-0"></span>
-                                Create sounds and video clips for yor projects
-                            </a>
-                        </h3>
-                    </NuxtLink>
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-base text-gray-500">
+                                Precision
+                            </dt>
 
-                </div>
-            </div>
+                            <dd class="text-base text-gray-700">
+                                {{oracle.decimals}} decimals
+                            </dd>
+                        </div>
 
-            <!-- Values section -->
-            <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
-                <div class="mx-auto max-w-2xl lg:mx-0">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                        Ava's Code of Conduct
-                    </h2>
+                    </dl>
+                </li>
 
-                    <p class="mt-6 text-lg leading-8 text-gray-600">
-                        Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.
-                    </p>
-                </div>
-
-                <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                    <div>
-                        <dt class="font-semibold text-gray-900">Be world-class</dt>
-                        <dd class="mt-1 text-gray-600">Aut illo quae. Ut et harum ea animi natus. Culpa maiores et sed sint et magnam exercitationem quia. Ullam voluptas nihil vitae dicta molestiae et. Aliquid velit porro vero.</dd>
+                <li class="overflow-hidden rounded-xl border border-gray-200">
+                    <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+                        <img src="https://tailwindui.com/img/logos/48x48/savvycal.svg" alt="SavvyCal" class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" />
+                        <div class="text-xl font-medium leading-6 text-gray-900">
+                            NEXA / BTC
+                        </div>
                     </div>
 
-                    <div>
-                        <dt class="font-semibold text-gray-900">Share everything you know</dt>
-                        <dd class="mt-1 text-gray-600">Mollitia delectus a omnis. Quae velit aliquid. Qui nulla maxime adipisci illo id molestiae. Cumque cum ut minus rerum architecto magnam consequatur. Quia quaerat minima.</dd>
+                    <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-gray-500">Last invoice</dt>
+                            <dd class="text-gray-700"><time datetime="2023-01-22">January 22, 2023</time></dd>
+                        </div>
+
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-gray-500">Amount</dt>
+                            <dd class="flex items-start gap-x-2">
+                                <div class="font-medium text-gray-900">$14,000.00</div>
+                                <div class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20">Paid</div>
+                            </dd>
+                        </div>
+                    </dl>
+                </li>
+
+                <li class="overflow-hidden rounded-xl border border-gray-200">
+                    <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+                        <img src="https://tailwindui.com/img/logos/48x48/reform.svg" alt="Reform" class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" />
+                        <div class="text-xl font-medium leading-6 text-gray-900">
+                            NEXA / BCH
+                        </div>
                     </div>
 
-                    <div>
-                        <dt class="font-semibold text-gray-900">Always learning</dt>
-                        <dd class="mt-1 text-gray-600">Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.</dd>
-                    </div>
-                </dl>
-            </div>
+                    <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-gray-500">Last invoice</dt>
+                            <dd class="text-gray-700"><time datetime="2023-01-23">January 23, 2023</time></dd>
+                        </div>
 
-            <!-- Image section -->
-            <div class="my-10 xl:mx-auto xl:max-w-7xl xl:px-8">
-                <img
-                    src="https://i.ibb.co/CmsD97f/avas-code-of-conduct.jpg"
-                    alt=""
-                    class="aspect-[5/2] w-full object-cover xl:rounded-3xl"
-                />
-            </div>
-
-            <!-- Values section -->
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <dl class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                    <div>
-                        <dt class="font-semibold text-gray-900">Be supportive</dt>
-                        <dd class="mt-1 text-gray-600">Magnam provident veritatis odit. Vitae eligendi repellat non. Eum fugit impedit veritatis ducimus. Non qui aspernatur laudantium modi. Praesentium rerum error deserunt harum.</dd>
-                    </div>
-
-                    <div>
-                        <dt class="font-semibold text-gray-900">Take responsibility</dt>
-                        <dd class="mt-1 text-gray-600">Sit minus expedita quam in ullam molestiae dignissimos in harum. Tenetur dolorem iure. Non nesciunt dolorem veniam necessitatibus laboriosam voluptas perspiciatis error.</dd>
-                    </div>
-
-                    <div>
-                        <dt class="font-semibold text-gray-900">Enjoy downtime</dt>
-                        <dd class="mt-1 text-gray-600">Ipsa in earum deserunt aut. Quos minus aut animi et soluta. Ipsum dicta ut quia eius. Possimus reprehenderit iste aspernatur ut est velit consequatur distinctio.</dd>
-                    </div>
-                </dl>
-            </div>
+                        <div class="flex justify-between gap-x-4 py-3">
+                            <dt class="text-gray-500">Amount</dt>
+                            <dd class="flex items-start gap-x-2">
+                                <div class="font-medium text-gray-900">$7,600.00</div>
+                                <div class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20">Paid</div>
+                            </dd>
+                        </div>
+                    </dl>
+                </li>
+            </ul>
 
         </main>
     </div>

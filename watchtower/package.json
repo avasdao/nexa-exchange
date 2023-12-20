@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-watchtower",
-  "version": "23.11.9",
+  "version": "23.12.19",
   "description": "A trustless & decentralized daemon for Wardens to manage *trusted* activites.",
   "main": "index.js",
   "type": "module",
@@ -10,7 +10,7 @@
     "@bitauth/libauth": "1.19.1",
     "@generalprotocols/price-oracle": "1.6.1",
     "moment": "2.29.4",
-    "nexajs": "23.10.25",
+    "nexajs": "23.12.13",
     "numeral": "2.0.6",
     "uuid": "9.0.0"
   }

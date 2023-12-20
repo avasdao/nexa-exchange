@@ -8,10 +8,13 @@ export default defineNuxtConfig({
             meta: [
                 { charset: 'utf-8' },
                 { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-                { name: 'description', content: 'Accountable and verifiabe data oracles.' },
+                { name: 'description', content: 'Accountable and verifiable price & data oracles.' },
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            ],
+            script: [
+                { src: '/js/matomo.js' },
             ],
         },
         baseURL: '/oracles',

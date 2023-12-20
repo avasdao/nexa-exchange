@@ -23,7 +23,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms))
 console.log('Starting Exchange Manager...')
 
 const IS_LIVE_BROADCAST = false
-const ACTIVE_ACCOUNT_IDX = 0
+const ACTIVE_ACCOUNT_IDX = 1
 // 0 - nexa:nqtsq5g54ckrh9kdwq66ulfnm44mk9h838y9lc0j9pfu3lj0 (master)
 // 1 - nexa:nqtsq5g5ku8at5c7uv8e56jahwf20vkn3t4zvp3yv667qs37 (minting)
 // 2 - nexa:nqtsq5g5p52r529qhawqut0zua5t227kk5c07nay74fs2wux (melting)
@@ -58,14 +58,14 @@ const ACTIVE_ACCOUNT_IDX = 0
         mintGroup(
             wallet,
             'nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug', // Shomari (Robin Hood)
-            1000000  * 10^4,
+            10_000 * 1e4, // 4 decimals
             IS_LIVE_BROADCAST,
         )
 
         // mintSubgroup(
         //     wallet,
         //     'nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug', // Shomari (Robin Hood)
-        //     100000000,
+        //     100_000_000,
         //     IS_LIVE_BROADCAST,
         // )
     }

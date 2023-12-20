@@ -5,7 +5,7 @@ services:
     build: .
     image: exchange
     container_name: exchange
-    restart: always
+    restart: unless-stopped
     network_mode: 'host'
     # ports:
     #   - '127.0.0.1:3000:3000'
