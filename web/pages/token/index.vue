@@ -69,7 +69,7 @@ const System = useSystemStore()
                             <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1632582204758-5ac65783517a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
+                                        src="https://images.unsplash.com/photo-1591033594798-33227a05780d?q=80&w=1959&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
@@ -79,7 +79,7 @@ const System = useSystemStore()
                             <div class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1535406208535-1429839cfd13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80"
+                                        src="https://images.unsplash.com/photo-1584044283481-9b18070011e1?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
@@ -87,7 +87,7 @@ const System = useSystemStore()
                                 </div>
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1525362081669-2b476bb628c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
+                                        src="https://images.unsplash.com/photo-1621264448270-9ef00e88a935?q=80&w=1857&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
@@ -97,7 +97,7 @@ const System = useSystemStore()
                             <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1551710029-607e06bd45ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80"
+                                        src="https://images.unsplash.com/photo-1579225663317-c0251b4369bc?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
@@ -105,7 +105,7 @@ const System = useSystemStore()
                                 </div>
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1634148739677-a5bb54df2611?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
+                                        src="https://images.unsplash.com/photo-1632507127789-eb70cc8757af?q=80&w=1774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
