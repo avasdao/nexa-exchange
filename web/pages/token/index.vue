@@ -223,7 +223,7 @@ const System = useSystemStore()
                         </p>
 
                         <p class="mt-1 text-base leading-7 text-gray-600">
-                            Introducing a collateralized stablecoin allows for whole new world of possible DeFi applications.
+                            Introducing a collateralized stablecoin allows for whole new world of advanced DeFi applications.
                         </p>
                     </div>
 
@@ -237,11 +237,11 @@ const System = useSystemStore()
                         </time>
 
                         <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
-                            On-chain UTXO Lending
+                            Permissionless Lending
                         </p>
 
                         <p class="mt-1 text-base leading-7 text-gray-600">
-                            Allow HODLers to borrow stablecoins against their owned assets from a decentralized pool of lenders.
+                            Allow HODLers to borrow stablecoins against their UTXO assets from a decentralized pool of lenders.
                         </p>
                     </div>
                 </div>
