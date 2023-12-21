@@ -2,7 +2,7 @@
 useHead({
     title: `$NXL — Nexa Exchange Loyalty`,
     meta: [
-        { name: 'description', content: `Nexa Exchange.` }
+        { name: 'description', content: `Investors burn $NXL to pay exchange fees and/or stake $NXL to activate premium tools & services, featuring: real-time market insights, exclusive alpha metrics & security assessments, plus priority access to Ava's world-class support team.` }
     ],
 })
 
@@ -170,7 +170,7 @@ const System = useSystemStore()
 
         </div>
 
-        <!-- <section class="bg-white py-24 sm:py-32">
+        <section class="bg-white py-24 sm:py-32">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4">
                     <div>
@@ -178,48 +178,75 @@ const System = useSystemStore()
                             <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
                                 <circle cx="2" cy="2" r="2" fill="currentColor" />
                             </svg>
-                            Aug 2021
+                            Winter 2023
                             <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
                         </time>
-                        <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">Founded company</p>
-                        <p class="mt-1 text-base leading-7 text-gray-600">Nihil aut nam. Dignissimos a pariatur et quos omnis. Aspernatur asperiores et dolorem dolorem optio voluptate repudiandae.</p>
+
+                        <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                            WiserSwap DEX Integration
+                        </p>
+
+                        <p class="mt-1 text-base leading-7 text-gray-600">
+                            Holiday airdrops followed by a full integration with <NuxtLink to="https://wiserswap.com" target="_blank" class="text-blue-500 font-medium hover:underline">WiserSwap DEX</NuxtLink> will establish this asset's new digital life.
+                        </p>
                     </div>
+
                     <div>
                         <time datetime="2021-12" class="flex items-center text-sm font-semibold leading-6 text-indigo-600">
                             <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
                                 <circle cx="2" cy="2" r="2" fill="currentColor" />
                             </svg>
-                            Dec 2021
+                            Spring 2024
                             <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
                         </time>
-                        <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">Secured $65m in funding</p>
-                        <p class="mt-1 text-base leading-7 text-gray-600">Provident quia ut esse. Vero vel eos repudiandae aspernatur. Cumque minima impedit sapiente a architecto nihil.</p>
+
+                        <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                            FULL Platform Launch
+                        </p>
+
+                        <p class="mt-1 text-base leading-7 text-gray-600">
+                            A <NuxtLink to="https://app.nexa.exchange" target="_blank" class="text-blue-500 font-medium hover:underline">comprehensive platform</NuxtLink> for professional traders to optimize their investment strategies around $NEXA.
+                        </p>
                     </div>
+
                     <div>
                         <time datetime="2022-02" class="flex items-center text-sm font-semibold leading-6 text-indigo-600">
                             <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
                                 <circle cx="2" cy="2" r="2" fill="currentColor" />
                             </svg>
-                            Feb 2022
+                            Summer 2024
                             <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
                         </time>
-                        <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">Released beta</p>
-                        <p class="mt-1 text-base leading-7 text-gray-600">Sunt perspiciatis incidunt. Non necessitatibus aliquid. Consequatur ut officiis earum eum quia facilis. Hic deleniti dolorem quia et.</p>
+
+                        <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                            Asset-backed Stablecoin
+                        </p>
+
+                        <p class="mt-1 text-base leading-7 text-gray-600">
+                            Introducing a collateralized stablecoin allows for whole new world of possible DeFi applications.
+                        </p>
                     </div>
+
                     <div>
                         <time datetime="2022-12" class="flex items-center text-sm font-semibold leading-6 text-indigo-600">
                             <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
                                 <circle cx="2" cy="2" r="2" fill="currentColor" />
                             </svg>
-                            Dec 2022
+                            Fall 2024
                             <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
                         </time>
-                        <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">Global launch of product</p>
-                        <p class="mt-1 text-base leading-7 text-gray-600">Ut ipsa sint distinctio quod itaque nam qui. Possimus aut unde id architecto voluptatem hic aut pariatur velit.</p>
+
+                        <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                            On-chain UTXO Lending
+                        </p>
+
+                        <p class="mt-1 text-base leading-7 text-gray-600">
+                            Allow HODLers to borrow stablecoins against their owned assets from a decentralized pool of lenders.
+                        </p>
                     </div>
                 </div>
             </div>
-        </section> -->
+        </section>
 
     </main>
 </template>
