@@ -63,7 +63,7 @@ const loadAddress = () => {
                             <span class="mt-3 ml-10 text-3xl block bg-gradient-to-r from-teal-200 to-cyan-400 bg-clip-text pb-3 text-transparent sm:pb-5">
                                 Your Keys.
                                 <br />Your Coins.
-                                <br />Since Block # 0
+                                <br />Since Block #1
                             </span>
                         </h1>
 
