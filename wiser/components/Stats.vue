@@ -37,7 +37,7 @@ const props = defineProps({
 
             <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
                 <h2 class="text-lg font-semibold leading-8 text-indigo-400 tracking-widest">
-                    Your Keys. Your Coins. Since Block #0
+                    Your Keys. Your Coins. Since Block #1
                 </h2>
 
                 <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
