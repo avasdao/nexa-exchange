@@ -3,9 +3,10 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { encodeAddress } from '@nexajs/address'
 
-import { sha256 } from '@nexajs/crypto'
-
-import { encodePrivateKeyWif } from '@nexajs/hdnode'
+import {
+    ripemd160,
+    sha256,
+} from '@nexajs/crypto'
 
 /* Import library modules. */
 import { getCoins } from '@nexajs/purse'
@@ -25,14 +26,10 @@ import {
 import {
     binToHex,
     hexToBin,
-    reverseHex,
 } from '@nexajs/utils'
 
 /* Libauth helpers. */
-import {
-    instantiateRipemd160,
-    instantiateSecp256k1,
-} from '@bitauth/libauth'
+import { instantiateSecp256k1 } from '@bitauth/libauth'
 
 /* Initialize stores. */
 import { useWalletStore } from '@/stores/wallet'
@@ -40,14 +37,12 @@ const Wallet = useWalletStore()
 
 /* Set constants. */
 const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
-const WISERSWAP_HEX = '6c6c6c6c6c6c5679009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220203005114577a7e5379587a9502102796765379a4c4539476cd547a88cca16903005114567a7e5479577a950210279676547aa4c4529476cd547a88cca1695579009e637096765779a26975686d6d6d7567567a519d5679a988567a567aad6d6d7568'
+const WISERSWAP_HEX = '6c6c6c6c6c6c6c5779009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220202102752535a79547aa403005114597a7e56795a7a95557996765379a4c4557a9476cd547a88cca16903005114577a7e5679587a95557a9676547aa4c4557a9476cd547a88cca16972965479009e63765579a169685579009e63765679a269686d6d6d7567577a519d5779827758797ea988577a577aad6d6d6d68'
 
-let ripemd160
 let secp256k1
 
 ;(async () => {
     /* Instantiate Libauth crypto interfaces. */
-    ripemd160 = await instantiateRipemd160()
     secp256k1 = await instantiateSecp256k1()
 })()
 
@@ -71,6 +66,7 @@ export default async (
     let amountBuyer
     let amountProvider
     let amountSeller
+    let baseServiceFee
     let contractAddress
     let contractChange
     let contractCoins
@@ -86,6 +82,7 @@ export default async (
     let response
     let scriptHash
     let scriptPubKey
+    let tradeCeiling
     let tradeFloor
     let unspentTokens
     let userData
@@ -98,19 +95,16 @@ export default async (
 
 //----------------------------------
 
-    // NOTE: NexScript v0.1.0 offers a less-than optimized version
-    //       of this (script) contract (w/ the addition of `OP_SWAP`).
+    /* Set locking script. */
     lockingScript = hexToBin(WISERSWAP_HEX)
-    // console.info('\n  Script / Contract:', binToHex(lockingScript))
+    console.info('\nCONTRACT TEMPLATE', binToHex(lockingScript))
 
-    scriptHash = ripemd160.hash(sha256(lockingScript))
-    // console.log('SCRIPT HASH:', scriptHash)
-    console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
+    scriptHash = ripemd160(sha256(lockingScript))
+    console.log('\nTEMPLATE HASH', binToHex(scriptHash))
 
     /* Set Provider public key . */
     providerPubKey = hexToBin(_scriptArgs?.providerPubKey)
-    providerPkh = ripemd160.hash(sha256(providerPubKey))
-    // console.log('PROVIDER HASH:', providerPkh)
+    providerPkh = ripemd160(sha256(providerPubKey))
     console.log('PROVIDER HASH (hex):', binToHex(providerPkh))
 
     /* Set Admin public key hash. */
@@ -135,11 +129,12 @@ export default async (
     if (adminFee.length % 2 === 1) {
         adminFee = '0' + adminFee
     }
-    adminFee = hexToBin(adminFee).reverse()
+    adminFee = hexToBin(adminFee)
+    adminFee.reverse()
     adminFee = encodeDataPush(adminFee)
     console.log('ADMIN FEE', binToHex(adminFee))
 
-    /* Set (provider) payout public key hash. */
+    /* Set Provider public key hash. */
     payoutPkh = hexToBin(_scriptArgs?.payout)
 
     scriptPubKey = new Uint8Array([
@@ -161,9 +156,37 @@ export default async (
     if (providerFee.length % 2 === 1) {
         providerFee = '0' + providerFee
     }
-    providerFee = hexToBin(providerFee).reverse()
+    providerFee = hexToBin(providerFee)
+    providerFee.reverse()
     providerFee = encodeDataPush(providerFee)
     console.log('PROVIDER FEE', binToHex(providerFee))
+
+    /* Set base service fee. */
+    // NOTE: Default is (DUST) 546 satoshis.
+    // baseServiceFee = DUST_VALUE.toString(16)
+    // if (baseServiceFee.length % 2 !== 0) {
+    //     baseServiceFee = baseServiceFee.padStart(baseServiceFee.length + 1, '0')
+    // }
+    // baseServiceFee = hexToBin(baseServiceFee)
+    // baseServiceFee.reverse()
+    // baseServiceFee = encodeDataPush(baseServiceFee)
+    baseServiceFee = new Uint8Array([ OP.ZERO ])
+
+    /* Set trade ceiling. */
+    if (_scriptArgs?.tradeCeiling === 0) {
+        tradeCeiling = new Uint8Array([ OP.ZERO ])
+    } else {
+        tradeCeiling = _scriptArgs?.tradeCeiling.toString(16)
+
+        if (tradeCeiling.length % 2 === 1) {
+            tradeCeiling = '0' + tradeCeiling
+        }
+
+        tradeCeiling = hexToBin(tradeCeiling)
+        tradeCeiling.reverse()
+        tradeCeiling = encodeDataPush(tradeCeiling)
+    }
+    console.log('TRADE CEILING', binToHex(tradeCeiling))
 
     /* Set trade floor. */
     if (_scriptArgs?.tradeFloor === 0) {
@@ -175,8 +198,9 @@ export default async (
             tradeFloor = '0' + tradeFloor
         }
 
-        tradeFloor = hexToBin(tradeFloor).reverse()
-        tradeFloor = encodeDataPush(tradeFloor) // FIXME Add support for OP.ZERO
+        tradeFloor = hexToBin(tradeFloor)
+        tradeFloor.reverse()
+        tradeFloor = encodeDataPush(tradeFloor)
     }
     console.log('TRADE FLOOR', binToHex(tradeFloor))
 
@@ -187,12 +211,13 @@ export default async (
         OP.ZERO, // arguments hash or empty stack item
         ...encodeDataPush(providerPkh), // The Providers' public key.
         ...providerFee, // The rate of exchange, charged by the Provider. (measured in <satoshis> per asset)
-        // ...encodeDataPush(payoutPkh), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
         ...encodeDataPush(adminPkh), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
         ...adminFee, // The platform fee charged by the Administration. (measured in <satoshis> per asset)
+        ...baseServiceFee, // The base service fee. (specified in satoshis)
+        ...tradeCeiling, // An optional base (floor) rate, set by the Provider.
         ...tradeFloor, // An optional base (floor) rate, set by the Provider.
     ])
-    console.info('\n  Script Public Key:', binToHex(scriptPubKey))
+    console.info('\nSCRIPT PUBLIC KEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
     contractAddress = encodeAddress(
@@ -200,19 +225,19 @@ export default async (
         'TEMPLATE',
         scriptPubKey,
     )
-    console.info('\n  Contract address:', contractAddress)
+    console.info('\nCONTRACT ADDRESS', contractAddress)
 
     walletCoins = await getCoins(Wallet.wallet.wif)
         .catch(err => console.error(err))
-    console.log('WALLET COINS', walletCoins)
+    console.log('\nWALLET COINS', walletCoins)
 
     contractCoins = await getCoins(Wallet.wallet.wif, scriptPubKey)
         .catch(err => console.error(err))
-    console.log('CONTRACT COINS:', contractCoins)
+    console.log('\nCONTRACT COINS', contractCoins)
 
     walletTokens = await getTokens(Wallet.wallet.wif)
         .catch(err => console.error(err))
-    console.log('WALLET TOKENS', walletTokens)
+    console.log('\nWALLET TOKENS', walletTokens)
 
     contractTokens = await getTokens(Wallet.wallet.wif, scriptPubKey)
         .catch(err => console.error(err))
@@ -221,7 +246,7 @@ export default async (
     // FOR DEV PURPOSES ONLY -- add scripts
     contractTokens[0].locking = encodeDataPush(lockingScript)
     contractTokens[0].unlocking = false
-    console.log('CONTRACT TOKENS:', contractTokens)
+    console.log('\nCONTRACT TOKENS', contractTokens)
 
     /* Calculate the total balance of the unspent outputs. */
     // FIXME: Add support for BigInt.

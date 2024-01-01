@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-wiser",
-  "version": "23.11.27",
+  "version": "24.1.1",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -14,7 +14,7 @@
     "apexcharts": "3.44.0",
     "chart.js": "4.4.0",
     "moment": "2.29.4",
-    "nexajs": "23.11.8",
+    "nexajs": "23.12.29",
     "numeral": "2.0.6",
     "nuxt": "3.0.0",
     "pinia": "2.0.32",
