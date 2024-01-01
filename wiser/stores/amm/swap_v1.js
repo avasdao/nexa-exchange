@@ -38,7 +38,7 @@ const Wallet = useWalletStore()
 /* Set constants. */
 const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
 const WISERSWAP_HEX = '6c6c6c6c6c6c6c5779009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220202102752535a79547aa403005114597a7e56795a7a95557996765379a4c4557a9476cd547a88cca16903005114577a7e5679587a95557a9676547aa4c4557a9476cd547a88cca16972965479009e63765579a169685579009e63765679a269686d6d6d7567577a519d5779827758797ea988577a577aad6d6d6d68'
-const ADMIN_PKH = '00511445f5b9d41dd723141f721c727715c690fedbbbd6'
+const ADMIN = hexToBin('45f5b9d41dd723141f721c727715c690fedbbbd6')
 const ADMIN_FEE = '0100' // 256 or 2.56% (FIXME: This is bug limit.)
 
 let secp256k1
@@ -64,7 +64,6 @@ export default async (
     /* Initialize locals.*/
     let adminAddress
     let adminFee
-    let adminPkh
     let amountBuyer
     let amountProvider
     let amountSeller
@@ -76,9 +75,9 @@ export default async (
     let lockingScript
     let nullData
     let payoutAddress
-    let payoutPkh
+    let payout
     let providerFee
-    let providerPkh
+    let provider
     let providerPubKey
     let receivers
     let response
@@ -104,20 +103,17 @@ export default async (
     scriptHash = ripemd160(sha256(lockingScript))
     console.log('\nTEMPLATE HASH', binToHex(scriptHash))
 
-    /* Set Provider public key . */
-    providerPubKey = hexToBin(_scriptArgs?.providerPubKey)
-    providerPkh = ripemd160(sha256(providerPubKey))
-    console.log('PROVIDER HASH (hex):', binToHex(providerPkh))
-
-    /* Set Admin public key hash. */
-    adminPkh = hexToBin(_scriptArgs?.admin)
+    /* Set Provider public key (hash). */
+    provider = hexToBin(_scriptArgs?.provider)
+    console.log('PROVIDER HASH', binToHex(provider))
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
         OP.ONE,
-        ...encodeDataPush(ADMIN_PKH),
+        ...encodeDataPush(ADMIN),
     ])
-    // console.info('\n  Script Public Key:', binToHex(scriptPubKey))
+    console.log('ADMIN HASH', binToHex(ADMIN))
+    // console.log('ADMIN SCRIPT PUBKEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
     adminAddress = encodeAddress(
@@ -137,14 +133,15 @@ export default async (
     console.log('ADMIN FEE', binToHex(adminFee))
 
     /* Set Provider public key hash. */
-    payoutPkh = hexToBin(_scriptArgs?.payout)
+    payout = hexToBin(_scriptArgs?.payout)
+    console.info('\nPAYOUT HASH', binToHex(payout))
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
         OP.ONE,
-        ...encodeDataPush(payoutPkh),
+        ...encodeDataPush(payout),
     ])
-    // console.info('\n  Script Public Key:', binToHex(scriptPubKey))
+    // console.info('\nPAYOUT SCRIPT PUBKEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
     payoutAddress = encodeAddress(
@@ -154,7 +151,7 @@ export default async (
     )
 
     /* Set provider fee. */
-    providerFee = _scriptArgs?.providerFee.toString(16)
+    providerFee = _scriptArgs?.fee.toString(16)
     if (providerFee.length % 2 === 1) {
         providerFee = '0' + providerFee
     }
@@ -175,10 +172,10 @@ export default async (
     baseServiceFee = new Uint8Array([ OP.ZERO ])
 
     /* Set trade ceiling. */
-    if (_scriptArgs?.tradeCeiling === 0) {
+    if (_scriptArgs?.ceiling === 0) {
         tradeCeiling = new Uint8Array([ OP.ZERO ])
     } else {
-        tradeCeiling = _scriptArgs?.tradeCeiling.toString(16)
+        tradeCeiling = _scriptArgs?.ceiling.toString(16)
 
         if (tradeCeiling.length % 2 === 1) {
             tradeCeiling = '0' + tradeCeiling
@@ -191,10 +188,10 @@ export default async (
     console.log('TRADE CEILING', binToHex(tradeCeiling))
 
     /* Set trade floor. */
-    if (_scriptArgs?.tradeFloor === 0) {
+    if (_scriptArgs?.floor === 0) {
         tradeFloor = new Uint8Array([ OP.ZERO ])
     } else {
-        tradeFloor = _scriptArgs?.tradeFloor.toString(16)
+        tradeFloor = _scriptArgs?.floor.toString(16)
 
         if (tradeFloor.length % 2 === 1) {
             tradeFloor = '0' + tradeFloor
@@ -211,15 +208,15 @@ export default async (
         OP.ZERO, // groupid or empty stack item
         ...encodeDataPush(scriptHash), // script hash
         OP.ZERO, // arguments hash or empty stack item
-        ...encodeDataPush(providerPkh), // The Providers' public key.
+        ...encodeDataPush(provider), // The Providers' public key.
         ...providerFee, // The rate of exchange, charged by the Provider. (measured in <satoshis> per asset)
-        ...encodeDataPush(adminPkh), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
+        ...encodeDataPush(ADMIN), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
         ...adminFee, // The platform fee charged by the Administration. (measured in <satoshis> per asset)
         ...baseServiceFee, // The base service fee. (specified in satoshis)
         ...tradeCeiling, // An optional base (floor) rate, set by the Provider.
         ...tradeFloor, // An optional base (floor) rate, set by the Provider.
     ])
-    console.info('\nSCRIPT PUBLIC KEY', binToHex(scriptPubKey))
+    console.info('\nTX SCRIPT PUBLIC KEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
     contractAddress = encodeAddress(

@@ -3,6 +3,9 @@ import { defineStore } from 'pinia'
 
 import swap_v1 from './amm/swap_v1.js'
 
+const runtimeConfig = useRuntimeConfig()
+const apiEndpoint = runtimeConfig.public.API_ENDPOINT
+
 /**
  * Automated Market Maker Store
  */
@@ -40,14 +43,28 @@ export const useAmmStore = defineStore('amm', {
             let pools
             let response
             let scriptArgs
+            let DEV_POOL
 
             /* Request pools. */
-            pools = await $fetch('/api/pools')
+            pools = await $fetch(`${apiEndpoint}/pools`)
                 .catch(err => console.error(err))
             console.log('POOLS', pools)
 
+// FIXME FOR DEVELOPMENT PURPOSES ONLY
+DEV_POOL = pools.find(_pool => {
+    return _pool.id === 'ec799b01-f3af-449e-88d1-f7b05e14376f'
+})
+
             /* Set (pool) script arguments. */
-            scriptArgs = pools[0].scriptArgs
+            // scriptArgs = pools[0].scriptArgs
+            scriptArgs = {
+                provider: DEV_POOL.providerid,
+                payout: DEV_POOL.providerid,
+                fee: DEV_POOL.fee,
+                base: DEV_POOL.base,
+                ceiling: DEV_POOL.ceiling,
+                floor: DEV_POOL.floor,
+            }
 
             /* Request trading post (swap). */
             response = await swap_v1(
