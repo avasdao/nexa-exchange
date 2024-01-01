@@ -13,12 +13,15 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
+const runtimeConfig = useRuntimeConfig()
+const apiEndpoint = runtimeConfig.public.API_ENDPOINT
+
 const SATOSHIS_PER_NEXA = 100
 
 const pools = ref(null)
 
 const init = async () => {
-    pools.value = await $fetch('/api/pools')
+    pools.value = await $fetch(`${apiEndpoint}/pools`)
         .catch(err => console.error(err))
     console.log('POOLS', pools.value)
 }
