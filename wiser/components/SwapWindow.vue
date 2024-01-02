@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import {
+    encodeAddress,
+    listUnspent,
+} from '@nexajs/address'
+
+import { getTokens } from '@nexajs/token'
+import { hexToBin } from '@nexajs/utils'
+
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
 const props = defineProps({
@@ -9,20 +17,70 @@ const props = defineProps({
 
 /* Initialize stores. */
 import { useAmmStore } from '@/stores/amm'
+import { useWalletStore } from '@/stores/wallet'
 const Amm = useAmmStore()
+const Wallet = useWalletStore()
 
 /* Set constants. */
 const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
-const PROVIDER_PUB_KEY = '03b08539a64f78cab251f3f6ac0802c7165574cf44c9175db0bfe34751a5988015' // nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug
-const PROVIDER_PUB_KEY_HASH = 'b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10' // nexa:nqtsq5g5k2gjcnxxrudce0juwl4atmh2yeqkghcs46snrqug
-const PAYOUT_PUB_KEY_HASH = '17d23be87a7f54479324ba1b0672cadcc2d096e3' // nexa:nqtsq5g5zlfrh6r60a2y0yeyhgdsvuk2mnpdp9hr5h70wxhe
 
+// TEMP USE FOR DEV PURPOSES ONLY
+// ALWAYS DECODE FROM CONTRACT ADDRESS
+const DEV_SCRIPT_PUBKEY = hexToBin('0014b3b45264dad11b2ff9fe5879863457e3737832ce0014b2912c4cc61f1b8cbe5c77ebd5eeea2641645f100200011445f5b9d41dd723141f721c727715c690fedbbbd6020001000000')
+
+const activePool = ref(null)
 const amount = ref(null)
 const quote = ref(null)
 const error = ref(null)
 const txidem = ref(null)
 
 const isShowingSettings = ref(false)
+
+watch(quote, (_newQuote, _oldQuote) => {
+    // console.log('QUOTE CHANGED', _newQuote, _oldQuote)
+    console.log('CONSTANT PRODUCT', cProduct.value)
+
+    let baseQuantity
+    let balanceRequired
+    let tradeQuantity
+
+    /* Calculate base quantity. */
+    // NOTE: Measured in satoshis.
+    baseQuantity = BigInt(_newQuote * 100)
+    console.log('BASE QUANTITY', baseQuantity)
+
+    /* Calculate remaining balance requirement. */
+    balanceRequired = cProduct.value / (baseQuantity + BigInt(activePool.value.satoshis))
+    console.log('BALANCE REQUIRED', balanceRequired)
+    console.log('POOL BALANCE', BigInt(activePool.value.tokens))
+
+    amount.value = BigInt(activePool.value.tokens) - balanceRequired
+    console.log('TRADE AMOUNT', amount.value)
+})
+
+const cProduct = computed(() => {
+    /* Validate active pool. */
+    if (!activePool.value) {
+        return 0n
+    }
+
+    /* Initialize locals. */
+    let satoshis
+    let cProduct
+    let tokens
+
+    /* Set satoshis. */
+    satoshis = BigInt(activePool.value.satoshis)
+
+    /* Set tokens. */
+    tokens = BigInt(activePool.value.tokens)
+
+    /* Calculate constant product. */
+    cProduct = satoshis * tokens
+
+    /* Return constant product. */
+    return cProduct
+})
 
 const closeSettings = () => {
     isShowingSettings.value = false
@@ -52,7 +110,7 @@ const swap = async () => {
     }
 
     /* Confirm on UI. */
-    if(confirm(`Are you sure you want to make this swap?`)) {
+    if (confirm(`Are you sure you want to make this swap?`)) {
         response = await Amm
             .swap(baseAsset, quoteAsset, action, amount.value)
             .catch(err => console.error(err))
@@ -82,11 +140,32 @@ const swap = async () => {
     }
 }
 
+const init = async () => {
+    let contractAddress
+    let contractUnspent
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+    /* Encode the public key hash into a P2PKH nexa address. */
+    contractAddress = encodeAddress(
+        'nexa',
+        'TEMPLATE',
+        DEV_SCRIPT_PUBKEY,
+    )
+    console.info('\nCONTRACT ADDRESS', contractAddress)
+
+    contractUnspent = await listUnspent(contractAddress)
+        .catch(err => console.error(err))
+    // FOR DEV PURPOSES ONLY -- take the LARGEST input
+    contractUnspent = [contractUnspent.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
+    // FOR DEV PURPOSES ONLY -- add scripts
+    console.log('\nCONTRACT UNSPENT', contractUnspent)
+
+    activePool.value = contractUnspent[0]
+    console.log('ACTIVE POOL', activePool.value)
+}
+
+onMounted(() => {
+    init()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
@@ -116,7 +195,7 @@ const swap = async () => {
             </svg>
         </header>
 
-        <section class="w-full mt-2 flex flex-col gap-5 px-5 py-0 bg-gray-700 border border-yellow-500 rounded-2xl shadow-md">
+        <section class="w-full mt-2 mb-5 flex flex-col gap-5 px-5 py-0 bg-gray-700 border border-yellow-500 rounded-2xl shadow-md">
 
             <div class="col-span-2 py-2">
                 <h3 class="text-indigo-300 font-medium uppercase">
@@ -180,10 +259,10 @@ const swap = async () => {
                 </section>
 
                 <p class="py-3 text-gray-300 text-sm">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam consectetur, fugiat ipsam minima blanditiis at, accusamus autem quos optio.
+                    When available, liquidity is automagically aggregated to offer you the best sources for prices and preferred rewards.
                 </p>
 
-                <button @click="swap" class="mb-3 px-5 py-2 w-full text-rose-800 font-medium text-2xl bg-rose-400 rounded-lg shadow hover:bg-rose-300">
+                <button @click="swap" class="mb-3 px-5 py-3 w-full text-rose-100 font-medium text-3xl bg-rose-400 rounded-lg shadow hover:bg-rose-300">
                     Make Swap
                 </button>
             </div>

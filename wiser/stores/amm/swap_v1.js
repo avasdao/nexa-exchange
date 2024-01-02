@@ -64,9 +64,12 @@ export default async (
     /* Initialize locals.*/
     let adminAddress
     let adminFee
+    let allTokens
     let amountBuyer
     let amountProvider
     let amountSeller
+    let balanceSatoshis
+    let balanceTokens
     let baseServiceFee
     let contractAddress
     let contractChange
@@ -83,8 +86,10 @@ export default async (
     let response
     let scriptHash
     let scriptPubKey
+    let tokenidHex
     let tradeCeiling
     let tradeFloor
+    let unlockingScript
     let unspentTokens
     let userData
     let walletChange
@@ -226,6 +231,10 @@ export default async (
     )
     console.info('\nCONTRACT ADDRESS', contractAddress)
 
+    /* Set unlocking script. */
+    // NOTE: Index of (executed) contract method.
+    unlockingScript = new Uint8Array([ OP.ZERO ])
+
     walletCoins = await getCoins(Wallet.wallet.wif)
         .catch(err => console.error(err))
     console.log('\nWALLET COINS', walletCoins)
@@ -234,104 +243,131 @@ export default async (
         .catch(err => console.error(err))
     console.log('\nCONTRACT COINS', contractCoins)
 
+    contractTokens = await getTokens(Wallet.wallet.wif, scriptPubKey)
+        .catch(err => console.error(err))
+    // FOR DEV PURPOSES ONLY -- take the LARGEST input
+    contractTokens = [contractTokens.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
+    // FOR DEV PURPOSES ONLY -- add scripts
+    contractTokens[0].locking = lockingScript
+    contractTokens[0].unlocking = unlockingScript
+    console.log('\nCONTRACT TOKENS', contractTokens)
+
     walletTokens = await getTokens(Wallet.wallet.wif)
         .catch(err => console.error(err))
     console.log('\nWALLET TOKENS', walletTokens)
 
-    contractTokens = await getTokens(Wallet.wallet.wif, scriptPubKey)
-        .catch(err => console.error(err))
-    // FOR DEV PURPOSES ONLY -- take the LARGEST input
-    contractTokens = [contractTokens.sort((a, b) => Number(b.contractTokens) - Number(a.contractTokens))[0]]
-    // FOR DEV PURPOSES ONLY -- add scripts
-    contractTokens[0].locking = encodeDataPush(lockingScript)
-    contractTokens[0].unlocking = false
-    console.log('\nCONTRACT TOKENS', contractTokens)
+    /* Filter ONLY swappable tokens. */
+    walletTokens = walletTokens.filter(_token => {
+        return _token.tokenidHex === contractTokens[0].tokenidHex
+    })
+    console.log('FILTERED (WALLET) TOKENS', walletTokens)
+
+    /* Aggregate ALL tokens. */
+    allTokens = [
+        ...contractTokens,
+        ...walletTokens,
+    ]
+    console.log('\nALL TOKENS', allTokens)
 
     /* Calculate the total balance of the unspent outputs. */
     // FIXME: Add support for BigInt.
-    unspentTokens = walletTokens
+    unspentTokens = allTokens
         .reduce(
             (totalValue, unspentOutput) => (totalValue + unspentOutput.tokens), BigInt(0)
         )
     console.log('UNSPENT TOKENS', unspentTokens)
 
     userData = [
-        'WISER',
-        'No Change',
+        'WiserSwap v1',
+        'I/O Pairing',
     ]
 
     /* Initialize hex data. */
     nullData = encodeNullData(userData)
     // console.log('HEX DATA', nullData)
 
-    contractChange = unspentTokens - BigInt(_amount)
-    console.log('CONTRACT CHANGE', contractChange)
-
-    amountBuyer = BigInt(_amount)
-    console.log('AMOUNT BUYER', amountBuyer)
-
-    amountSeller = BigInt(_amount) * BigInt(_scriptArgs?.rate)
-    console.log('AMOUNT SELLER', amountSeller)
-
-    amountProvider = (amountSeller * BigInt(_scriptArgs?.fee)) / BigInt(10000)
-    console.log('AMOUNT PROVIDER', amountProvider)
-
-    walletChange = unspentTokens - BigInt(_amount)
-    console.log('WALLET CHANGE', walletChange)
-
     /* Initialize receivers. */
     receivers = []
 
-    /* Add contract Covenant. */
+    /* Set token id. */
+    tokenidHex = STUDIO_ID_HEX
+
+    /* Calculate base quantity. */
+    // NOTE: Measured in satoshis.
+    // baseQuantity = BigInt(_newQuote * 100)
+    // console.log('BASE QUANTITY', baseQuantity)
+
+    let cProduct
+
+    cProduct = contractTokens[0].satoshis * contractTokens[0].tokens
+
+    balanceTokens = (contractTokens[0].tokens - _amount)
+    console.log('BALANCE (tokens):', balanceTokens)
+
+    /* Calculate remaining (satoshis) balance requirement. */
+    // FIXME Adjust precision to account for BigInt truncation.
+    balanceSatoshis = (cProduct / balanceTokens) + BigInt(1)
+    console.log('BALANCE (satoshis):', balanceSatoshis)
+
+    /* Add contract. */
     receivers.push({
         address: contractAddress,
-        tokenid: STUDIO_ID_HEX,
-        tokens: BigInt(contractChange),
+        satoshis: balanceSatoshis,
+        tokenid: tokenidHex,
+        tokens: balanceTokens,
     })
 
-    // TODO: Add support for an aggregation of contracts
-
-    /* Add Adminstration fee. */
-    // NOTE: This is the 1st (required) "non-contract" output.
+    /* Add token request output. */
     receivers.push({
-        address: adminAddress,
-        satoshis: BigInt(amountSeller),
+        address: Wallet.address,
+        tokenid: tokenidHex,
+        tokens: BigInt(_amount),
     })
 
-    /* Add Provider payout. */
-    // NOTE: This is the 2nd (required) "non-contract" output.
-    receivers.push({
-        address: payoutAddress,
-        satoshis: BigInt(amountProvider),
-    })
-
-    /* Validate (wallet) change -OR- null data output. */
-    // NOTE: This is the 3rd (required) "non-contract" output.
-    if (walletChange === BigInt(0)) {
-        /* Add (required) null data. */
-        receivers.push({
-            data: nullData
-        })
-    } else {
-        /* Add (required) wallet change. */
-        receivers.push({
-            address: Wallet.address,
-            tokenid: STUDIO_ID_HEX,
-            tokens: BigInt(amountBuyer),
-        })
+    /* Handle (token) output (input/output) pairing. */
+    if (allTokens.length > 1) {
+        // NOTE: Add output pairs for ALL "additional" token inputs.
+        for (let i = 1; i < allTokens.length; i++) {
+            receivers.push({
+                data: nullData
+            })
+        }
     }
 
+    /* Handle (coin) output (input/output) pairing. */
+    if (walletCoins.length > 1) {
+        // NOTE: Add output pairs for ALL "additional" coin inputs.
+        for (let i = 1; i < walletCoins.length; i++) {
+            receivers.push({
+                data: nullData
+            })
+        }
+    }
+
+    // NOTE: Administrative fee MUST be 3rd from last output.
+    receivers.push({
+        address: adminAddress,
+        // satoshis: (receivers[0].satoshis * 300n) / 10000n,
+        satoshis: 546n,
+    })
+
+    // NOTE: Provider commission MUST be 2nd from last output.
+    receivers.push({
+        address: payoutAddress,
+        // satoshis: (receivers[0].satoshis * 1000n) / 10000n,
+        satoshis: 546n,
+    })
 
     // FIXME: FOR DEV PURPOSES ONLY
     receivers.push({
         address: Wallet.address,
     })
-    return console.log('\n  Receivers:', receivers)
+    console.log('\n  Receivers:', receivers)
 
     /* Send UTXO request. */
     response = await sendToken({
-        coins,
-        tokens,
+        coins: walletCoins,
+        tokens: allTokens,
         receivers,
     })
     // console.log('Send UTXO (response):', response)
