@@ -68,7 +68,7 @@ onMounted(() => {
         <ul role="list" class="divide-y divide-amber-300">
 
             <li v-for="swap of txHistory" :key="swap.txidem" class="py-3">
-                <NuxtLink :to="'https://explorer.nexa.org/tx/' + swap.txidem" target="_blank" class="px-2 py-3 grid grid-cols-4 gap-x-3 items-center border border-transparent rounded-md hover:bg-amber-50 hover:border-amber-200">
+                <NuxtLink :to="'https://explorer.nexa.org/tx/' + swap.txidem" target="_blank" class="px-3 py-2 grid grid-cols-4 gap-x-3 items-center border border-transparent rounded hover:bg-amber-50 hover:border-amber-200">
                     <div class="col-span-2 flex flex-row items-center gap-2">
                         <img src="https://nexa.studio/icon.svg" alt="" class="w-10 sm:w-12 h-auto flex-none" />
 
