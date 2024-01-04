@@ -36,6 +36,9 @@ const txidem = ref(null)
 
 const isShowingSettings = ref(false)
 
+const baseIcon = ref(null)
+const quoteIcon = ref(null)
+
 watch(quote, (_newQuote, _oldQuote) => {
     // console.log('QUOTE CHANGED', _newQuote, _oldQuote)
     console.log('CONSTANT PRODUCT', cProduct.value)
@@ -84,6 +87,16 @@ const cProduct = computed(() => {
 
 const closeSettings = () => {
     isShowingSettings.value = false
+}
+
+const reverseAssetPair = () => {
+    let tempHolder
+
+    tempHolder = baseIcon.value
+
+    baseIcon.value = quoteIcon.value
+
+    quoteIcon.value = tempHolder
 }
 
 const swap = async () => {
@@ -141,8 +154,15 @@ const swap = async () => {
 }
 
 const init = async () => {
+    /* Initialize locals. */
     let contractAddress
     let contractUnspent
+
+    /* Set base icon. */
+    baseIcon.value = 'https://bafkreigyp7nduweqhoszakklsmw6tbafrnti2yr447i6ary5mrwjel7cju.nexa.garden' // nex.svg
+
+    /* Set quote icon. */
+    quoteIcon.value = 'https://nexa.studio/icon.svg'
 
     /* Encode the public key hash into a P2PKH nexa address. */
     contractAddress = encodeAddress(
@@ -210,20 +230,16 @@ onMounted(() => {
                     v-model="quote"
                 />
 
-                <img src="~/assets/nexa.svg" class="relative -mt-20 w-16 h-auto" />
+                <img :src="baseIcon" class="relative -mt-20 w-16 h-auto p-2" />
             </div>
 
-            <!-- <div class="col-span-1 bg-gradient-to-b from-yellow-500 via-yellow-300 to-yellow-500 border-x border-yellow-500">
-                <div class="h-full px-2 py-3 flex flex-col gap-4 bg-amber-600 bg-opacity-50">
-                    <h2 class="text-2xl font-medium text-amber-100 text-center uppercase tracking-widest">
-                        Options
-                    </h2>
-
-                    <p class="text-sm">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ad quod alias aperiam autem culpa. Numquam voluptatem eligendi.
-                    </p>
+            <div class="-mb-12 z-20 col-span-2 flex flex-row justify-center">
+                <div @click="reverseAssetPair" class="group p-2 bg-amber-100 hover:bg-amber-500 rounded-full cursor-pointer">
+                    <svg class="w-6 h-auto text-amber-500 group-hover:text-amber-100" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"></path>
+                    </svg>
                 </div>
-            </div> -->
+            </div>
 
             <div class="col-span-2 py-2 flex flex-col justify-between">
                 <section>
@@ -239,7 +255,7 @@ onMounted(() => {
                         v-model="amount"
                     />
 
-                    <img src="https://nexa.studio/icon.svg" class="relative -mt-20 w-16 h-auto p-2" />
+                    <img :src="quoteIcon" class="relative -mt-20 w-16 h-auto p-2" />
                 </section>
 
                 <section>
