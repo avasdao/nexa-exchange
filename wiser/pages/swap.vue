@@ -10,6 +10,8 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
+const isShowingChartMenu = ref(false)
+
 // onMounted(() => {
 //     console.log('Mounted!')
 //     // Now it's safe to perform setup operations.
@@ -64,6 +66,7 @@ const System = useSystemStore()
                     To: "transform opacity-0 scale-95"
                 -->
                     <div
+                        v-if="isShowingChartMenu"
                         class="absolute right-0 z-10 -mr-1 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                         role="menu"
                         aria-orientation="vertical"
