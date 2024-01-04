@@ -83,7 +83,7 @@ const isShowingChartMenu = ref(false)
                 </div>
             </nav>
 
-            <div class="p-3 flex flex-col gap-3 bg-amber-50 border-2 border-amber-200 rounded-lg sm:rounded-2xl shadow-md">
+            <div class="p-3 flex flex-col bg-amber-50 border-2 border-amber-200 rounded-lg sm:rounded-2xl shadow-md">
                 <div class="sm:hidden">
                     <ChartDemo width="320" />
                 </div>
@@ -91,8 +91,8 @@ const isShowingChartMenu = ref(false)
                     <ChartDemo width="550" />
                 </div>
 
-                <div class="text-amber-800 text-xs font-medium italic text-center">
-                    Real-time data may be delayed up to 15 minutes.
+                <div class="-mt-2 text-amber-600 text-xs font-medium italic text-center">
+                    Real-time data may be delayed up to 15 minutes
                 </div>
             </div>
 
