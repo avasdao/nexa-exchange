@@ -40,6 +40,7 @@ const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b1
 const WISERSWAP_HEX = '6c6c6c6c6c6c6c5779009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220202102752535a79547aa403005114597a7e56795a7a95557996765379a4c4557a9476cd547a88cca16903005114577a7e5679587a95557a9676547aa4c4557a9476cd547a88cca16972965479009e63765579a169685579009e63765679a269686d6d6d7567577a519d5779827758797ea988577a577aad6d6d6d68'
 const ADMIN = hexToBin('45f5b9d41dd723141f721c727715c690fedbbbd6')
 const ADMIN_FEE = '0100' // 256 or 2.56% (FIXME: This is bug limit.)
+const DUST_VALUE = BigInt(546)
 
 let secp256k1
 
@@ -348,14 +349,14 @@ export default async (
     receivers.push({
         address: adminAddress,
         // satoshis: (receivers[0].satoshis * 300n) / 10000n,
-        satoshis: 546n,
+        satoshis: DUST_VALUE,
     })
 
     // NOTE: Provider commission MUST be 2nd from last output.
     receivers.push({
         address: payoutAddress,
         // satoshis: (receivers[0].satoshis * 1000n) / 10000n,
-        satoshis: 546n,
+        satoshis: DUST_VALUE,
     })
 
     // FIXME: FOR DEV PURPOSES ONLY
