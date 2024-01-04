@@ -322,7 +322,8 @@ export default async (
     receivers.push({
         address: Wallet.address,
         tokenid: tokenidHex,
-        tokens: BigInt(_amount),
+        // tokens: BigInt(_amount),
+        tokens: (unspentTokens - receivers[0].tokens),
     })
 
     /* Handle (token) output (input/output) pairing. */
