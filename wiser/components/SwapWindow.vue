@@ -263,7 +263,7 @@ onMounted(() => {
 
                 <section>
                     <h3 class="mt-8 text-gray-300 text-lg">
-                        Recipient
+                        Recipient <span class="text-gray-400 text-base italic">(optional)</span>
                     </h3>
 
                     <h4 class="text-red-300 text-xs sm:text-sm">

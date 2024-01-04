@@ -17,8 +17,8 @@ const chartOptions = {
 /* Configure series data. */
 const series = [
     {
-        name: 'Trade Volume',
-        data: [ 3, 4, 5, 10, 27, 61 ],
+        name: 'Total Trade Value',
+        data: [ 3, 4, 5, 10, 27, 6 ],
     },
 ]
 </script>
