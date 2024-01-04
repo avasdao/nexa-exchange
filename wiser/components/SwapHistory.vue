@@ -11,10 +11,19 @@ const props = defineProps({
     },
 })
 
+const ENDPOINT = 'https://nexa.exchange/v1/ticker/quote'
+
 const txHistory = ref(null)
 
 const init = async () => {
     txHistory.value = []
+
+    const ticker = await $fetch(`${ENDPOINT}/9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000`)
+        .catch(err => console.error(err))
+    console.log('$STUDIO TICKER', ticker)
+
+    const price = ticker.price
+    console.log('$STUDIO PRICE', price)
 
     txHistory.value.push({
         txidem: 'ec8694604ff74eb8ca0e43f5c6a343cb26de4bf35c1c25f4b785c06d480a7846',
@@ -22,7 +31,7 @@ const init = async () => {
             ticker: 'STUDIO',
             quantity: 100542,
         },
-        usdValue: '$625.75',
+        usdValue: 0,
         timestamp: 1704346054,
     })
 
@@ -32,9 +41,16 @@ const init = async () => {
             ticker: 'STUDIO',
             quantity: 710038,
         },
-        usdValue: '$1,925.75',
+        usdValue: 0,
         timestamp: 1704164063,
     })
+
+    for (let i = 0; i < txHistory.value.length; i++) {
+        const usdValue = txHistory.value[i].quote.quantity * price
+        console.log('USD VALUE', usdValue)
+
+        txHistory.value[i].usdValue = numeral(usdValue).format('$0,0.00')
+    }
 }
 
 onMounted(() => {
@@ -65,7 +81,7 @@ onMounted(() => {
                         </h3>
                     </div>
 
-                    <h3 class="flex truncate text-base font-bold text-rose-600 justify-center tracking-widest">
+                    <h3 class="flex truncate text-lg font-bold text-rose-600 justify-center tracking-widest">
                         {{swap.usdValue}}
                     </h3>
 

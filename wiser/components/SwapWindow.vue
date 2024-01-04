@@ -215,7 +215,6 @@ onMounted(() => {
         </header>
 
         <section class="w-full mt-2 mb-5 flex flex-col gap-5 px-5 py-0 bg-gray-700 border border-yellow-500 rounded-2xl shadow-md">
-
             <div class="col-span-2 py-2">
                 <h3 class="text-indigo-300 font-medium uppercase">
                     From
@@ -285,30 +284,7 @@ onMounted(() => {
                     Make Swap
                 </button>
             </div>
-
         </section>
-
-        <!-- <section class="text-xs">
-            <h3>Reminder</h3>
-
-            <ol>
-                <li>
-                    Crosschain Fee is 0.02 %, Minimum Crosschain Fee is 0.9 USDT, Maximum Crosschain Fee is 1,000 USDT
-                </li>
-                <li>
-                    Minimum Crosschain Amount is 10 USDT
-                </li>
-                <li>
-                    Maximum Crosschain Amount is 5,000,000 USDT
-                </li>
-                <li>
-                    Estimated Time of Crosschain Arrival is 10-30 min
-                </li>
-                <li>
-                    Crosschain amount larger than 1,000,000 USDT could take up to 12 hours
-                </li>
-            </ol>
-        </section> -->
     </main>
 
     <SwapSettings
