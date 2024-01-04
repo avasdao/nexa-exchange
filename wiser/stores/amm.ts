@@ -40,9 +40,9 @@ export const useAmmStore = defineStore('amm', {
         ) {
             /* Initialize locals. */
             let error
+            let poolArgs
             let pools
             let response
-            let scriptArgs
             let DEV_POOL
 
             /* Request pools. */
@@ -56,8 +56,8 @@ DEV_POOL = pools.find(_pool => {
 })
 
             /* Set (pool) script arguments. */
-            // scriptArgs = pools[0].scriptArgs
-            scriptArgs = {
+            // poolArgs = pools[0].poolArgs
+            poolArgs = {
                 provider: DEV_POOL.providerid,
                 payout: DEV_POOL.providerid,
                 fee: DEV_POOL.fee,
@@ -68,7 +68,7 @@ DEV_POOL = pools.find(_pool => {
 
             /* Request trading post (swap). */
             response = await swap_v1(
-                scriptArgs, _baseAsset, _tradeAsset, _action, _amount)
+                poolArgs, _baseAsset, _tradeAsset, _action, _amount)
                 .catch(err => {
                     console.error('ERROR', err)
                     error = err

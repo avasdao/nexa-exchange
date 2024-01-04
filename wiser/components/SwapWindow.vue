@@ -4,7 +4,6 @@ import {
     listUnspent,
 } from '@nexajs/address'
 
-import { getTokens } from '@nexajs/token'
 import { hexToBin } from '@nexajs/utils'
 
 /* Define properties. */
@@ -41,11 +40,15 @@ const quoteIcon = ref(null)
 
 watch(quote, (_newQuote, _oldQuote) => {
     // console.log('QUOTE CHANGED', _newQuote, _oldQuote)
-    console.log('CONSTANT PRODUCT', cProduct.value)
+    // console.log('CONSTANT PRODUCT', cProduct.value)
 
+    /* Initialize locals. */
     let baseQuantity
     let balanceRequired
     let tradeQuantity
+
+    /* Reset tx idem. */
+    txidem.value = null
 
     /* Calculate base quantity. */
     // NOTE: Measured in satoshis.
@@ -79,7 +82,7 @@ const cProduct = computed(() => {
     tokens = BigInt(activePool.value.tokens)
 
     /* Calculate constant product. */
-    cProduct = satoshis * tokens
+    cProduct = (satoshis * tokens)
 
     /* Return constant product. */
     return cProduct
@@ -90,12 +93,12 @@ const closeSettings = () => {
 }
 
 const reverseAssetPair = () => {
-    let tempHolder
+    /* Reset tx idem. */
+    txidem.value = null
 
-    tempHolder = baseIcon.value
-
+    /* Flip asset pair values. */
+    const tempHolder = baseIcon.value
     baseIcon.value = quoteIcon.value
-
     quoteIcon.value = tempHolder
 }
 
@@ -105,21 +108,20 @@ const swap = async () => {
     let baseAsset
     let quoteAsset
     let response
-    let scriptArgs
     let txResult
 
     /* Set action. */
     action = 'BUY'
 
     /* Set base asset. */
-    baseAsset = STUDIO_ID_HEX
+    baseAsset = '0' // $NEXA is the (default) base asset
 
     /* Set quote asset. */
-    quoteAsset = '0' // $NEXA is the (default) quote asset
+    quoteAsset = STUDIO_ID_HEX // FOR DEVELOPMENT PURPOSES ONLY
 
     /* Validate swap amount. */
     if (!amount.value || amount.value === null) {
-        return alert(`Oops! You MUST enter an amount to continue.`)
+        return alert(`Oops! You MUST enter a swap amount to continue.`)
     }
 
     /* Confirm on UI. */
@@ -283,6 +285,29 @@ onMounted(() => {
                 <button @click="swap" class="mb-3 px-5 py-3 w-full text-sky-100 font-medium text-3xl bg-sky-500 rounded-lg shadow hover:bg-sky-400">
                     Make Swap
                 </button>
+            </div>
+
+            <div v-if="txidem" class="col-span-2 mb-3 px-3 py-2 flex flex-col gap-3 border-t-2 border-amber-300">
+                <h3 class="text-gray-100 text-base font-medium text-center">
+                    Congratulations!
+                    Your swap was completed successfully!
+                </h3>
+
+                <div class="w-full truncate">
+                    <h4 class="text-xs uppercase text-amber-200 font-medium tracking-wider">
+                        Transaction Idem
+                    </h4>
+
+                    <div class="flex flex-row gap-1 items-center">
+                        <NuxtLink :to="'https://explorer.nexa.org/tx/' + txidem" target="_blank" class="text-lg text-blue-200 font-medium truncate">
+                            {{txidem}}
+                        </NuxtLink>
+
+                        <svg class="w-10 h-auto text-blue-200" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

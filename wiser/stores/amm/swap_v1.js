@@ -1,6 +1,4 @@
 /* Import (test) modules. */
-import { v4 as uuidv4 } from 'uuid'
-
 import { encodeAddress } from '@nexajs/address'
 
 import {
@@ -37,7 +35,7 @@ const Wallet = useWalletStore()
 
 /* Set constants. */
 const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
-const WISERSWAP_HEX = '6c6c6c6c6c6c6c5779009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220202102752535a79547aa403005114597a7e56795a7a95557996765379a4c4557a9476cd547a88cca16903005114577a7e5679587a95557a9676547aa4c4557a9476cd547a88cca16972965479009e63765579a169685579009e63765679a269686d6d6d7567577a519d5779827758797ea988577a577aad6d6d6d68'
+const WISERSWAP_HEX = hexToBin('6c6c6c6c6c6c6c5779009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f758168689578cc7bcd517f7c76010087636d00677f77517f7c76010087636d00677f758168686e95537aa269c4c353939d02220202102752535a79547aa403005114597a7e56795a7a95557996765379a4c4557a9476cd547a88cca16903005114577a7e5679587a95557a9676547aa4c4557a9476cd547a88cca16972965479009e63765579a169685579009e63765679a269686d6d6d7567577a519d5779827758797ea988577a577aad6d6d6d68')
 const ADMIN = hexToBin('45f5b9d41dd723141f721c727715c690fedbbbd6')
 const ADMIN_FEE = '0100' // 256 or 2.56% (FIXME: This is bug limit.)
 const DUST_VALUE = BigInt(546)
@@ -50,13 +48,13 @@ let secp256k1
 })()
 
 export default async (
-    _scriptArgs,
-    _baseAsset,
+    _poolArgs,
+    _baseAsset, // NEXA is the default
     _quoteAsset,
     _action,
     _amount,
 ) => {
-    console.log('WISERSWAP (script args):', _scriptArgs)
+    console.log('WISERSWAP (script args):', _poolArgs)
     console.log('WISERSWAP (base asset):', _baseAsset)
     console.log('WISERSWAP (quote asset):', _quoteAsset)
     console.log('WISERSWAP (action):', _action)
@@ -65,24 +63,21 @@ export default async (
     /* Initialize locals.*/
     let adminAddress
     let adminFee
+    let adminSatoshis
     let allTokens
-    let amountBuyer
-    let amountProvider
-    let amountSeller
     let balanceSatoshis
     let balanceTokens
     let baseServiceFee
     let contractAddress
-    let contractChange
-    let contractCoins
     let contractTokens
+    let cProduct
     let lockingScript
     let nullData
-    let payoutAddress
     let payout
-    let providerFee
+    let payoutAddress
+    let payoutSatoshis
     let provider
-    let providerPubKey
+    let providerFee
     let receivers
     let response
     let scriptHash
@@ -93,24 +88,22 @@ export default async (
     let unlockingScript
     let unspentTokens
     let userData
-    let walletChange
     let walletCoins
     let walletTokens
 
-    console.info('\n  Nexa address:', Wallet.address)
-    console.info('\n  WIF', Wallet.wallet.wif)
+    console.info('NEXA ADDRESS', Wallet.address)
 
 //----------------------------------
 
     /* Set locking script. */
-    lockingScript = hexToBin(WISERSWAP_HEX)
-    console.info('\nCONTRACT TEMPLATE', binToHex(lockingScript))
+    lockingScript = WISERSWAP_HEX // FOR DEVELOPMENT PURPOSES ONLY
+    // console.info('CONTRACT TEMPLATE', binToHex(lockingScript))
 
     scriptHash = ripemd160(sha256(lockingScript))
-    console.log('\nTEMPLATE HASH', binToHex(scriptHash))
+    // console.log('TEMPLATE HASH', binToHex(scriptHash))
 
     /* Set Provider public key (hash). */
-    provider = hexToBin(_scriptArgs?.provider)
+    provider = hexToBin(_poolArgs?.provider)
     console.log('PROVIDER HASH', binToHex(provider))
 
     scriptPubKey = new Uint8Array([
@@ -118,7 +111,7 @@ export default async (
         OP.ONE,
         ...encodeDataPush(ADMIN),
     ])
-    console.log('ADMIN HASH', binToHex(ADMIN))
+    // console.log('ADMIN HASH', binToHex(ADMIN))
     // console.log('ADMIN SCRIPT PUBKEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
@@ -136,18 +129,18 @@ export default async (
     adminFee = hexToBin(adminFee)
     adminFee.reverse()
     adminFee = encodeDataPush(adminFee)
-    console.log('ADMIN FEE', binToHex(adminFee))
+    // console.log('ADMIN FEE', binToHex(adminFee))
 
     /* Set Provider public key hash. */
-    payout = hexToBin(_scriptArgs?.payout)
-    console.info('\nPAYOUT HASH', binToHex(payout))
+    payout = hexToBin(_poolArgs?.payout)
+    // console.info('PAYOUT HASH', binToHex(payout))
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
         OP.ONE,
         ...encodeDataPush(payout),
     ])
-    // console.info('\nPAYOUT SCRIPT PUBKEY', binToHex(scriptPubKey))
+    // console.info('PAYOUT SCRIPT PUBKEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
     payoutAddress = encodeAddress(
@@ -157,14 +150,14 @@ export default async (
     )
 
     /* Set provider fee. */
-    providerFee = _scriptArgs?.fee.toString(16)
+    providerFee = _poolArgs?.fee.toString(16)
     if (providerFee.length % 2 === 1) {
         providerFee = '0' + providerFee
     }
     providerFee = hexToBin(providerFee)
     providerFee.reverse()
     providerFee = encodeDataPush(providerFee)
-    console.log('PROVIDER FEE', binToHex(providerFee))
+    // console.log('PROVIDER FEE', binToHex(providerFee))
 
     /* Set base service fee. */
     // NOTE: Default is (DUST) 546 satoshis.
@@ -178,10 +171,10 @@ export default async (
     baseServiceFee = new Uint8Array([ OP.ZERO ])
 
     /* Set trade ceiling. */
-    if (_scriptArgs?.ceiling === 0) {
+    if (_poolArgs?.ceiling === 0) {
         tradeCeiling = new Uint8Array([ OP.ZERO ])
     } else {
-        tradeCeiling = _scriptArgs?.ceiling.toString(16)
+        tradeCeiling = _poolArgs?.ceiling.toString(16)
 
         if (tradeCeiling.length % 2 === 1) {
             tradeCeiling = '0' + tradeCeiling
@@ -191,13 +184,13 @@ export default async (
         tradeCeiling.reverse()
         tradeCeiling = encodeDataPush(tradeCeiling)
     }
-    console.log('TRADE CEILING', binToHex(tradeCeiling))
+    // console.log('TRADE CEILING', binToHex(tradeCeiling))
 
     /* Set trade floor. */
-    if (_scriptArgs?.floor === 0) {
+    if (_poolArgs?.floor === 0) {
         tradeFloor = new Uint8Array([ OP.ZERO ])
     } else {
-        tradeFloor = _scriptArgs?.floor.toString(16)
+        tradeFloor = _poolArgs?.floor.toString(16)
 
         if (tradeFloor.length % 2 === 1) {
             tradeFloor = '0' + tradeFloor
@@ -207,7 +200,7 @@ export default async (
         tradeFloor.reverse()
         tradeFloor = encodeDataPush(tradeFloor)
     }
-    console.log('TRADE FLOOR', binToHex(tradeFloor))
+    // console.log('TRADE FLOOR', binToHex(tradeFloor))
 
     /* Build script public key. */
     scriptPubKey = new Uint8Array([
@@ -222,7 +215,7 @@ export default async (
         ...tradeCeiling, // An optional base (floor) rate, set by the Provider.
         ...tradeFloor, // An optional base (floor) rate, set by the Provider.
     ])
-    console.info('\nTX SCRIPT PUBLIC KEY', binToHex(scriptPubKey))
+    // console.info('TX SCRIPT PUBLIC KEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
     contractAddress = encodeAddress(
@@ -230,45 +223,44 @@ export default async (
         'TEMPLATE',
         scriptPubKey,
     )
-    console.info('\nCONTRACT ADDRESS', contractAddress)
+    console.info('CONTRACT ADDRESS', contractAddress)
 
     /* Set unlocking script. */
     // NOTE: Index of (executed) contract method.
     unlockingScript = new Uint8Array([ OP.ZERO ])
 
-    walletCoins = await getCoins(Wallet.wallet.wif)
-        .catch(err => console.error(err))
-    console.log('\nWALLET COINS', walletCoins)
-
-    contractCoins = await getCoins(Wallet.wallet.wif, scriptPubKey)
-        .catch(err => console.error(err))
-    console.log('\nCONTRACT COINS', contractCoins)
-
+    /* Request contract (coins and) tokens. */
     contractTokens = await getTokens(Wallet.wallet.wif, scriptPubKey)
         .catch(err => console.error(err))
-    // FOR DEV PURPOSES ONLY -- take the LARGEST input
+    // FOR DEV PURPOSES ONLY -- take the LARGEST UTXO
     contractTokens = [contractTokens.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
     // FOR DEV PURPOSES ONLY -- add scripts
     contractTokens[0].locking = lockingScript
     contractTokens[0].unlocking = unlockingScript
-    console.log('\nCONTRACT TOKENS', contractTokens)
+    console.log('CONTRACT ASSETS', contractTokens)
 
+    /* Request wallet coins. */
+    walletCoins = await getCoins(Wallet.wallet.wif)
+        .catch(err => console.error(err))
+    console.log('WALLET COINS', walletCoins)
+
+    /* Request wallet tokens. */
     walletTokens = await getTokens(Wallet.wallet.wif)
         .catch(err => console.error(err))
-    console.log('\nWALLET TOKENS', walletTokens)
+    // console.log('WALLET TOKENS', walletTokens)
 
     /* Filter ONLY swappable tokens. */
     walletTokens = walletTokens.filter(_token => {
         return _token.tokenidHex === contractTokens[0].tokenidHex
     })
-    console.log('FILTERED (WALLET) TOKENS', walletTokens)
+    // console.log('WALLET (FILTERED) TOKENS', walletTokens)
 
     /* Aggregate ALL tokens. */
     allTokens = [
         ...contractTokens,
         ...walletTokens,
     ]
-    console.log('\nALL TOKENS', allTokens)
+    console.log('ALL TOKENS', allTokens)
 
     /* Calculate the total balance of the unspent outputs. */
     // FIXME: Add support for BigInt.
@@ -298,17 +290,28 @@ export default async (
     // baseQuantity = BigInt(_newQuote * 100)
     // console.log('BASE QUANTITY', baseQuantity)
 
-    let cProduct
-
+    /* Calculate constant product. */
     cProduct = contractTokens[0].satoshis * contractTokens[0].tokens
 
-    balanceTokens = (contractTokens[0].tokens - _amount)
-    console.log('BALANCE (tokens):', balanceTokens)
+    if (action === 'SELL') {
+        /* Calculate remaining (tokens) balance requirement. */
+        balanceTokens = (contractTokens[0].tokens - _amount)
+        console.log('CONTRACT BALANCE (tokens):', balanceTokens)
 
-    /* Calculate remaining (satoshis) balance requirement. */
-    // FIXME Adjust precision to account for BigInt truncation.
-    balanceSatoshis = (cProduct / balanceTokens) + BigInt(1)
-    console.log('BALANCE (satoshis):', balanceSatoshis)
+        /* Calculate remaining (satoshis) balance requirement. */
+        // FIXME Adjust precision to account for BigInt truncation.
+        balanceSatoshis = (cProduct / balanceTokens) + BigInt(1)
+        console.log('CONTRACT BALANCE (satoshis):', balanceSatoshis)
+    } else {
+        /* Calculate remaining (satoshis) balance requirement. */
+        balanceSatoshis = (contractTokens[0].satoshis - _amount)
+        console.log('CONTRACT BALANCE (satoshis):', balanceSatoshis)
+
+        /* Calculate remaining (tokens) balance requirement. */
+        // FIXME Adjust precision to account for BigInt truncation.
+        balanceTokens = (cProduct / balanceSatoshis) + BigInt(1)
+        console.log('CONTRACT BALANCE (tokens):', balanceTokens)
+    }
 
     /* Add contract. */
     receivers.push({
@@ -318,13 +321,15 @@ export default async (
         tokens: balanceTokens,
     })
 
-    /* Add token request output. */
-    receivers.push({
-        address: Wallet.address,
-        tokenid: tokenidHex,
-        // tokens: BigInt(_amount),
-        tokens: (unspentTokens - receivers[0].tokens),
-    })
+    /* Validate user is receiving tokens. */
+    if (unspentTokens > receivers[0].tokens) {
+        /* Add token request output. */
+        receivers.push({
+            address: Wallet.address,
+            tokenid: tokenidHex,
+            tokens: (unspentTokens - receivers[0].tokens),
+        })
+    }
 
     /* Handle (token) output (input/output) pairing. */
     if (allTokens.length > 1) {
@@ -346,25 +351,39 @@ export default async (
         }
     }
 
+    /* Calculate admin satoshis. */
+    adminSatoshis = (receivers[0].satoshis * BigInt(256)) / BigInt(10000)
+
+    /* Validate admin satoshis. */
+    if (adminSatoshis < DUST_VALUE) {
+        adminSatoshis = DUST_VALUE
+    }
+
     // NOTE: Administrative fee MUST be 3rd from last output.
     receivers.push({
         address: adminAddress,
-        // satoshis: (receivers[0].satoshis * 300n) / 10000n,
-        satoshis: DUST_VALUE,
+        satoshis: adminSatoshis,
     })
+
+    /* Calculate payout satoshis. */
+    payoutSatoshis = (receivers[0].satoshis * BigInt(256)) / BigInt(10000)
+
+    /* Validate admin satoshis. */
+    if (payoutSatoshis < DUST_VALUE) {
+        payoutSatoshis = DUST_VALUE
+    }
 
     // NOTE: Provider commission MUST be 2nd from last output.
     receivers.push({
         address: payoutAddress,
-        // satoshis: (receivers[0].satoshis * 1000n) / 10000n,
-        satoshis: DUST_VALUE,
+        satoshis: payoutSatoshis,
     })
 
     // FIXME: FOR DEV PURPOSES ONLY
     receivers.push({
         address: Wallet.address,
     })
-    console.log('\n  Receivers:', receivers)
+    console.log('RECEIVERS', receivers)
 
     /* Send UTXO request. */
     response = await sendToken({

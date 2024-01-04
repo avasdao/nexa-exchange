@@ -15,6 +15,20 @@ const ENDPOINT = 'https://nexa.exchange/v1/ticker/quote'
 
 const txHistory = ref(null)
 
+const displayAge = (_timestamp) => {
+    let formatted
+
+    formatted = moment.unix(_timestamp).fromNow()
+
+    /* Use abbreviations. */
+    formatted = formatted.replaceAll('minutes', 'mins')
+    formatted = formatted.replaceAll('minute', 'min')
+    formatted = formatted.replaceAll('hours', 'hrs')
+    formatted = formatted.replaceAll('hour', 'hr')
+
+    return formatted
+}
+
 const init = async () => {
     txHistory.value = []
 
@@ -24,6 +38,16 @@ const init = async () => {
 
     const price = ticker.price
     console.log('$STUDIO PRICE', price)
+
+    txHistory.value.push({
+        txidem: '25b3f270b8015c14c0797f25d7285e20c0d1a32b50db323484171ca7f249038f',
+        quote: {
+            ticker: 'STUDIO',
+            quantity: 710038,
+        },
+        usdValue: 0,
+        timestamp: 1704164063,
+    })
 
     txHistory.value.push({
         txidem: 'ec8694604ff74eb8ca0e43f5c6a343cb26de4bf35c1c25f4b785c06d480a7846',
@@ -36,21 +60,26 @@ const init = async () => {
     })
 
     txHistory.value.push({
-        txidem: '25b3f270b8015c14c0797f25d7285e20c0d1a32b50db323484171ca7f249038f',
+        txidem: '989292006325018ce61186e2191f6264f84c9d2f25827f9353b7dcfad7292464',
         quote: {
             ticker: 'STUDIO',
-            quantity: 710038,
+            quantity: 48757,
         },
         usdValue: 0,
-        timestamp: 1704164063,
+        timestamp: 1704373610,
     })
 
+    /* Add (USD) fiat price to entries. */
     for (let i = 0; i < txHistory.value.length; i++) {
         const usdValue = txHistory.value[i].quote.quantity * price
         console.log('USD VALUE', usdValue)
 
+        /* Set (formatted) value. */
         txHistory.value[i].usdValue = numeral(usdValue).format('$0,0.00')
     }
+
+    /* Reverse history order. */
+    txHistory.value.reverse()
 }
 
 onMounted(() => {
@@ -86,7 +115,7 @@ onMounted(() => {
                     </h3>
 
                     <time datetime="2023-01-23T11:00" class="flex justify-end text-xs sm:text-sm text-gray-500 italic">
-                        {{moment.unix(swap.timestamp).fromNow()}}
+                        {{displayAge(swap.timestamp)}}
                     </time>
                 </NuxtLink>
             </li>
