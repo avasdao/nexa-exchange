@@ -1,16 +1,22 @@
 <script setup>
+
+const props = defineProps({
+    width: Number,
+})
+
 const chartOptions = {
     chart: {
-        id: "vuechart-example",
+        id: 'vuechart-example',
     },
     xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+        categories: [ 'Aug', 'Sept', 'Oct', 'Nov', 'Dec', 'Jan' ],
     },
-};
+}
+
 const series = [
     {
-        name: "series-1",
-        data: [30, 40, 35, 50, 49, 60, 70, 91],
+        name: 'series-1',
+        data: [ 30, 40, 35, 50, 70, 91 ],
     },
 ]
 </script>
@@ -18,8 +24,7 @@ const series = [
 <template>
     <ClientOnly>
         <apexchart
-            class="mx-10"
-            width="500"
+            :width="width"
             type="bar"
             :options="chartOptions"
             :series="series"

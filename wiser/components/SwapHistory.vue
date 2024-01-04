@@ -47,11 +47,11 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="w-full px-3 sm:px-10">
+    <main class="w-full px-2 sm:px-10">
         <ul role="list" class="divide-y divide-amber-300">
 
             <li v-for="swap of txHistory" :key="swap.txidem" class="py-4">
-                <div class="px-3 grid grid-cols-4 gap-x-3 items-center">
+                <div class="px-1 grid grid-cols-4 gap-x-3 items-center">
                     <div class="col-span-2 flex flex-row items-center gap-2">
                         <img src="https://nexa.studio/icon.svg" alt="" class="w-8 h-auto flex-none" />
 
