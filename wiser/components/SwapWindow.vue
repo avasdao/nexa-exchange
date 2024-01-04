@@ -61,7 +61,7 @@ watch(quote, (_newQuote, _oldQuote) => {
 const cProduct = computed(() => {
     /* Validate active pool. */
     if (!activePool.value) {
-        return 0n
+        return BigInt(0)
     }
 
     /* Initialize locals. */
