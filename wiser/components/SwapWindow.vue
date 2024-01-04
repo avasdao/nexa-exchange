@@ -267,8 +267,7 @@ onMounted(() => {
                     </h3>
 
                     <h4 class="text-red-300 text-xs sm:text-sm">
-                        Please do not use this feature to transfer your tokens to an address of a centralized exchange (mexc, coinex...).
-                        <!-- It is not a supported feature. Also, please double-check the address you fill, any tokens sent to the wrong address will be impossible to retrieve. -->
+                        Please DO NOT use this service to transfer your tokens to an address of a centralized exchange (mexc, coinex...).
                     </h4>
 
                     <input

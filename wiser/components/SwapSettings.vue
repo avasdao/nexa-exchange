@@ -25,7 +25,7 @@ const close = () => {
 </script>
 
 <template>
-    <main class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <main class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <!--
         Background backdrop, show/hide based on modal state.
 
