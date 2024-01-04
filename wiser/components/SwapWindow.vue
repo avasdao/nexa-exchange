@@ -230,7 +230,9 @@ onMounted(() => {
                     v-model="quote"
                 />
 
-                <img :src="baseIcon" class="relative -mt-20 w-16 h-auto p-2" />
+                <div class="h-16">
+                    <img :src="baseIcon" class="relative -mt-20 w-16 h-auto p-2" />
+                </div>
             </div>
 
             <div class="-mb-12 z-20 col-span-2 flex flex-row justify-center">
@@ -255,7 +257,9 @@ onMounted(() => {
                         v-model="amount"
                     />
 
-                    <img :src="quoteIcon" class="relative -mt-20 w-16 h-auto p-2" />
+                    <div class="h-16">
+                        <img :src="quoteIcon" class="relative -mt-20 w-16 h-auto p-2" />
+                    </div>
                 </section>
 
                 <section>
@@ -263,8 +267,9 @@ onMounted(() => {
                         Recipient
                     </h3>
 
-                    <h4 class="text-red-300 text-xs">
-                        Please DO NOT send funds to exchange (or custodial) wallet.
+                    <h4 class="text-red-300 text-xs sm:text-sm">
+                        Please do not use this feature to transfer your tokens to an address of a centralized exchange (mexc, coinex...).
+                        <!-- It is not a supported feature. Also, please double-check the address you fill, any tokens sent to the wrong address will be impossible to retrieve. -->
                     </h4>
 
                     <input
@@ -274,11 +279,11 @@ onMounted(() => {
                     />
                 </section>
 
-                <p class="py-3 text-gray-300 text-sm">
-                    When available, liquidity is automagically aggregated to offer you the best sources for prices and preferred rewards.
+                <p class="py-3 text-gray-300 text-xs sm:text-sm">
+                    When available, liquidity is automagically aggregated to offer you the best prices with your preferred rewards.
                 </p>
 
-                <button @click="swap" class="mb-3 px-5 py-3 w-full text-rose-100 font-medium text-3xl bg-rose-400 rounded-lg shadow hover:bg-rose-300">
+                <button @click="swap" class="mb-3 px-5 py-3 w-full text-sky-100 font-medium text-3xl bg-sky-500 rounded-lg shadow hover:bg-sky-400">
                     Make Swap
                 </button>
             </div>
