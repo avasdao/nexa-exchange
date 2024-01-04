@@ -70,10 +70,10 @@ onMounted(() => {
             <li v-for="swap of txHistory" :key="swap.txidem" class="py-4">
                 <Nuxt :to="'https://explorer.nexa.org/tx/' + swap.txidem" target="_blank" class="px-2 grid grid-cols-4 gap-x-3 items-center">
                     <div class="col-span-2 flex flex-row items-center gap-2">
-                        <img src="https://nexa.studio/icon.svg" alt="" class="w-8 h-auto flex-none" />
+                        <img src="https://nexa.studio/icon.svg" alt="" class="w-10 sm:w-12 h-auto flex-none" />
 
-                        <h3 class="flex-auto truncate text-sm font-medium text-gray-400">
-                            <span class="text-lg text-semibold text-gray-600 tracking-widest">
+                        <h3 class="flex flex-col truncate text-xs sm:text-sm font-medium text-gray-400">
+                            <span class="-mb-1 lg:-mb-0 text-lg sm:text-xl text-semibold text-gray-600 tracking-widest">
                                 {{numeral(swap.quote.quantity).format('0,0[.]00')}}
                             </span>
 
@@ -81,11 +81,11 @@ onMounted(() => {
                         </h3>
                     </div>
 
-                    <h3 class="flex truncate text-lg font-bold text-rose-600 justify-center tracking-widest">
+                    <h3 class="flex truncate text-xl sm:text-2xl font-bold text-rose-600 justify-center tracking-widest">
                         {{swap.usdValue}}
                     </h3>
 
-                    <time datetime="2023-01-23T11:00" class="flex justify-end text-xs text-gray-500 italic">
+                    <time datetime="2023-01-23T11:00" class="flex justify-end text-xs sm:text-sm text-gray-500 italic">
                         {{moment.unix(swap.timestamp).fromNow()}}
                     </time>
                 </Nuxt>
