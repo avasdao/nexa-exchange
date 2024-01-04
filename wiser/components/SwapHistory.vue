@@ -68,7 +68,7 @@ onMounted(() => {
                         {{swap.usdValue}}
                     </h3>
 
-                    <time datetime="2023-01-23T11:00" class="flex justify-end text-sm text-gray-500 italic">
+                    <time datetime="2023-01-23T11:00" class="flex justify-end text-xs text-gray-500 italic">
                         {{swap.timeAgo}}
                     </time>
                 </div>

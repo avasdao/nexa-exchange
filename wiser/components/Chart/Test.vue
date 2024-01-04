@@ -4,19 +4,21 @@ const props = defineProps({
     width: Number,
 })
 
+/* Configure chart options. */
 const chartOptions = {
     chart: {
-        id: 'vuechart-example',
+        id: 'wiserswap-example',
     },
     xaxis: {
         categories: [ 'Aug', 'Sept', 'Oct', 'Nov', 'Dec', 'Jan' ],
     },
 }
 
+/* Configure series data. */
 const series = [
     {
-        name: 'series-1',
-        data: [ 30, 40, 35, 50, 70, 91 ],
+        name: 'Trade Volume',
+        data: [ 3, 4, 5, 10, 27, 61 ],
     },
 ]
 </script>

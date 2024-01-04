@@ -92,7 +92,7 @@ const isShowingChartMenu = ref(false)
                 </div>
 
                 <div class="text-amber-800 text-xs font-medium italic text-center">
-                    Real-time chart data may be delayed up to 15 minutes.
+                    Real-time data may be delayed up to 15 minutes.
                 </div>
             </div>
 
