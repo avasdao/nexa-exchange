@@ -47,7 +47,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="w-full px-10">
+    <main class="w-full px-3 sm:px-10">
         <ul role="list" class="divide-y divide-amber-300">
 
             <li v-for="swap of txHistory" :key="swap.txidem" class="py-4">
