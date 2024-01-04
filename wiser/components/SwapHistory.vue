@@ -77,7 +77,7 @@ onMounted(() => {
                                 {{numeral(swap.quote.quantity).format('0,0[.]00')}}
                             </span>
 
-                            ${{swap.quote.ticker}}
+                            {{swap.quote.ticker}}
                         </h3>
                     </div>
 
