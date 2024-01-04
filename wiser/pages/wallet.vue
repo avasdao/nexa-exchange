@@ -15,8 +15,6 @@ const Profile = useProfileStore()
 const Wallet = useWalletStore()
 const System = useSystemStore()
 
-const AVAS = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
-
 const mnemonic = ref(null)
 const tokens = ref(null)
 
@@ -28,23 +26,50 @@ const isShowingSwap = ref(false)
 
 const displayBalance = computed(() => {
     /* Validate asset. */
-    if (!Wallet.asset) {
+    if (!Wallet.asset || !Wallet.asset.amount) {
         return '0.00'
     }
 
+    let decimalValue
+    let bigIntValue
+
+    if (Wallet.asset.group === '0') {
+        decimalValue = Wallet.asset.satoshis * BigInt(1e4)
+    } else {
+        decimalValue = Wallet.asset.amount * BigInt(1e4)
+    }
+
+    if (Wallet.asset.decimal_places > 0) {
+        bigIntValue = decimalValue / BigInt(10**Wallet.asset.decimal_places)
+    } else {
+        bigIntValue = decimalValue
+    }
+
+    return numeral(parseFloat(bigIntValue) / 1e4).format('0,0[.]00[0000]')
+
     /* Initialize locals. */
-    let balance
+    // let amount
+    // let balance
 
-    /* Set balance. */
-    balance = Wallet.asset?.amount || 0.00
+//     if (Wallet.asset?.decimal_places > 0 && Wallet.asset?.group !== '0') {
+//         /* Adjust for decimals. */
+// // FIXME: Preserve decimal precision/accuracy.
+//         amount = Wallet.asset.amount / BigInt(10**Wallet.asset.decimal_places)
 
-    /* Return (formatted) balance. */
-    return numeral(balance).format('0,0[.]00[0000]')
+//         /* Set balance. */
+//         balance = amount || 0.00
+//     } else {
+//         /* Set balance. */
+//         balance = Wallet.asset.amount || 0.00
+//     }
+
+//     /* Return (formatted) balance. */
+//     return numeral(balance).format('0,0[.]00[0000]') + '*'
 })
 
 const displayBalanceUsd = computed(() => {
     /* Validate asset. */
-    if (!Wallet.asset) {
+    if (!Wallet.asset || !Wallet.asset.fiat || !Wallet.asset.fiat.USD) {
         return '0.00'
     }
 
@@ -52,23 +77,10 @@ const displayBalanceUsd = computed(() => {
     let balanceUsd
 
     /* Set balance. */
-    balanceUsd = Wallet.asset?.fiat?.USD || 0.00
+    balanceUsd = Wallet.asset.fiat.USD || 0.00
 
     /* Return formatted value. */
     return numeral(balanceUsd).format('$0,0.00[0000]')
-})
-
-const pendingBalance = computed(() => {
-    return '0.00 NEXA'
-    // if (!Wallet.satoshis) {
-    //     return '0.00 NEXA'
-    // }
-
-    // /* Calculate (NEX) total. */
-    // const nex = (Wallet.satoshis / 100.0)
-
-    // /* Return formatted value. */
-    // return numeral(nex).format('0,0.00') + ' NEXA'
 })
 
 const tokensBalanceUsd = computed(() => {
@@ -103,12 +115,6 @@ const tokensBalanceUsd = computed(() => {
     /* Return (fiat) value. */
     return '~' + numeral(totalUsd).format('$0,0.00')
 })
-
-const importWallet = () => {
-    const response = Wallet.setMnemonic(mnemonic.value)
-    console.log('WALLET', response)
-}
-
 
 /**
  * Set Tab
@@ -174,12 +180,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="p-5">
-        <Loading v-if="Wallet.isLoading" />
+    <Loading v-if="Wallet.isLoading" />
 
-        <WalletSetup v-else-if="!Wallet.isReady" />
+    <WalletSetup v-else-if="!Wallet.isReady" />
 
-        <section v-else>
+    <main v-else class="max-w-6xl mx-auto px-3 py-5 grid grid-cols-1 lg:grid-cols-7 gap-8">
+        <div class="col-span-4">
             <section @click="setTab('assets')" class="cursor-pointer group px-5 py-3 bg-gradient-to-b from-sky-100 to-sky-50 border-t border-x border-sky-400 rounded-t-lg rounded-x-lg shadow-md hover:bg-sky-100">
                 <div class="flex flex-row w-full justify-between items-center mb-1" :class="[ isShowingAssets ? 'visible' : 'hidden' ]">
                     <h3 class="text-base tracking-tight uppercase text-sky-600 font-medium text-center opacity-40 group-hover:opacity-100 group-hover:scale-105 duration-300 ease-in-out">
@@ -277,6 +283,12 @@ onMounted(() => {
                 <WalletHistory v-if="isShowingHistory" :isFullScreen="isFullScreen" />
                 <WalletSwap v-if="isShowingSwap" :isFullScreen="isFullScreen" />
             </div>
+        </div>
+
+        <section class="px-5 py-2 col-span-3 flex flex-col gap-3">
+            <h2 class="text-2xl font-light">
+                Are you ready to start trading?
+            </h2>
 
         </section>
     </main>
