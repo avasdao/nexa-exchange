@@ -293,7 +293,7 @@ export default async (
     /* Calculate constant product. */
     cProduct = contractTokens[0].satoshis * contractTokens[0].tokens
 
-    if (action === 'SELL') {
+    if (_action === 'SELL') {
         /* Calculate remaining (tokens) balance requirement. */
         balanceTokens = (contractTokens[0].tokens - _amount)
         console.log('CONTRACT BALANCE (tokens):', balanceTokens)
@@ -322,6 +322,8 @@ export default async (
     })
 
     /* Validate user is receiving tokens. */
+    // NOTE: We MUST manually handle ALL (token) output + change
+    //       in a single output, as per contract specs.
     if (unspentTokens > receivers[0].tokens) {
         /* Add token request output. */
         receivers.push({
@@ -358,6 +360,7 @@ export default async (
     if (adminSatoshis < DUST_VALUE) {
         adminSatoshis = DUST_VALUE
     }
+    console.log('ADMIN SATOSHIS', adminSatoshis)
 
     // NOTE: Administrative fee MUST be 3rd from last output.
     receivers.push({
@@ -372,6 +375,7 @@ export default async (
     if (payoutSatoshis < DUST_VALUE) {
         payoutSatoshis = DUST_VALUE
     }
+    console.log('PAYOUT SATOSHIS', payoutSatoshis)
 
     // NOTE: Provider commission MUST be 2nd from last output.
     receivers.push({
@@ -384,7 +388,7 @@ export default async (
         address: Wallet.address,
     })
     console.log('RECEIVERS', receivers)
-
+return
     /* Send UTXO request. */
     response = await sendToken({
         coins: walletCoins,

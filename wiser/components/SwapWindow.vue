@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import numeral from 'numeral'
+
 import {
     encodeAddress,
     listUnspent,
 } from '@nexajs/address'
-
 import { hexToBin } from '@nexajs/utils'
 
 /* Define properties. */
@@ -27,23 +28,27 @@ const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b1
 // ALWAYS DECODE FROM CONTRACT ADDRESS
 const DEV_SCRIPT_PUBKEY = hexToBin('0014b3b45264dad11b2ff9fe5879863457e3737832ce0014b2912c4cc61f1b8cbe5c77ebd5eeea2641645f100200011445f5b9d41dd723141f721c727715c690fedbbbd6020001000000')
 
+const action = ref(null)
 const activePool = ref(null)
-const amount = ref(null)
-const quote = ref(null)
+const baseAssetName = ref(null)
+const baseAssetId = ref(null)
+const baseIcon = ref(null)
+const baseQuantity = ref(null)
 const error = ref(null)
+const quoteAssetId = ref(null)
+const quoteAssetName = ref(null)
+const quoteIcon = ref(null)
+const quoteQuantity = ref(null)
 const txidem = ref(null)
 
 const isShowingSettings = ref(false)
 
-const baseIcon = ref(null)
-const quoteIcon = ref(null)
-
-watch(quote, (_newQuote, _oldQuote) => {
-    // console.log('QUOTE CHANGED', _newQuote, _oldQuote)
+watch(baseQuantity, (_newBase, _oldBase) => {
+    console.log('BASE CHANGED', typeof _newBase, _newBase, _oldBase)
     // console.log('CONSTANT PRODUCT', cProduct.value)
 
     /* Initialize locals. */
-    let baseQuantity
+    let baseSatoshis
     let balanceRequired
     let tradeQuantity
 
@@ -52,16 +57,46 @@ watch(quote, (_newQuote, _oldQuote) => {
 
     /* Calculate base quantity. */
     // NOTE: Measured in satoshis.
-    baseQuantity = BigInt(_newQuote * 100)
-    console.log('BASE QUANTITY', baseQuantity)
+    baseSatoshis = _newBase * 100
+    console.log('BASE QUANTITY', baseSatoshis)
 
     /* Calculate remaining balance requirement. */
-    balanceRequired = cProduct.value / (baseQuantity + BigInt(activePool.value.satoshis))
-    console.log('BALANCE REQUIRED', balanceRequired)
-    console.log('POOL BALANCE', BigInt(activePool.value.tokens))
+    balanceRequired = (cProduct.value / (BigInt(baseSatoshis) + activePool.value.satoshis))
+    console.log('BALANCE REQUIRED', typeof balanceRequired, balanceRequired)
+    console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
-    amount.value = BigInt(activePool.value.tokens) - balanceRequired
-    console.log('TRADE AMOUNT', amount.value)
+    // FIXME We need to account for decimals.
+
+    quoteQuantity.value = Number(activePool.value.tokens - balanceRequired)
+    console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
+})
+
+watch(quoteQuantity, (_newQuote, _oldQuote) => {
+    return console.log('QUOTE CHANGED', typeof _newQuote, _newQuote, _oldQuote)
+    // console.log('CONSTANT PRODUCT', cProduct.value)
+
+    /* Initialize locals. */
+    let baseSatoshis
+    let balanceRequired
+    let tradeQuantity
+
+    /* Reset tx idem. */
+    txidem.value = null
+
+    /* Calculate base quantity. */
+    // NOTE: Measured in satoshis.
+    baseSatoshis = _newQuote * 100
+    console.log('BASE QUANTITY', baseSatoshis)
+
+    /* Calculate remaining balance requirement. */
+    balanceRequired = (cProduct.value / (BigInt(baseSatoshis) + activePool.value.satoshis))
+    console.log('BALANCE REQUIRED', typeof balanceRequired, balanceRequired)
+    console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+
+    // FIXME We need to account for decimals.
+
+    baseQuantity.value = Number(activePool.value.tokens - balanceRequired)
+    console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
 })
 
 const cProduct = computed(() => {
@@ -76,10 +111,12 @@ const cProduct = computed(() => {
     let tokens
 
     /* Set satoshis. */
-    satoshis = BigInt(activePool.value.satoshis)
+    satoshis = activePool.value.satoshis
+    console.log('CONSTANT PRODUCT (satoshis):', typeof satoshis, satoshis)
 
     /* Set tokens. */
-    tokens = BigInt(activePool.value.tokens)
+    tokens = activePool.value.tokens
+    console.log('CONSTANT PRODUCT (tokens):', typeof tokens, tokens)
 
     /* Calculate constant product. */
     cProduct = (satoshis * tokens)
@@ -100,34 +137,46 @@ const reverseAssetPair = () => {
     const tempHolder = baseIcon.value
     baseIcon.value = quoteIcon.value
     quoteIcon.value = tempHolder
+
+    /* Flip (trade) action. */
+    if (action.value === 'BUY') {
+        action.value = 'SELL'
+        quoteAssetName.value = 'Nexa'
+    } else {
+        action.value = 'BUY'
+        quoteAssetName.value = 'Studio Time'
+    }
+
 }
 
 const swap = async () => {
     /* Initialize locals. */
-    let action
-    let baseAsset
-    let quoteAsset
+    // let baseAssetId
+    // let baseAssetName
+    let displayAction
+    // let quoteAssetId
+    // let quoteAssetName
     let response
     let txResult
 
     /* Set action. */
-    action = 'BUY'
+    // action = 'BUY'
 
-    /* Set base asset. */
-    baseAsset = '0' // $NEXA is the (default) base asset
+    if (action.value === 'BUY') {
+        displayAction = 'SELL'
+    } else {
+        displayAction = 'BUY'
+    }
 
-    /* Set quote asset. */
-    quoteAsset = STUDIO_ID_HEX // FOR DEVELOPMENT PURPOSES ONLY
-
-    /* Validate swap amount. */
-    if (!amount.value || amount.value === null) {
+    /* Validate swap values. */
+    if (!quoteQuantity.value || quoteQuantity.value === null) {
         return alert(`Oops! You MUST enter a swap amount to continue.`)
     }
 
     /* Confirm on UI. */
-    if (confirm(`Are you sure you want to make this swap?`)) {
+    if (confirm(`Are you sure you want to ${displayAction} ${numeral(quoteQuantity.value).format('0,0.00[00]')} of ${quoteAssetName.value}?`)) {
         response = await Amm
-            .swap(baseAsset, quoteAsset, action, amount.value)
+            .swap(baseAssetId, quoteAssetId, action.value, quoteQuantity.value)
             .catch(err => console.error(err))
         console.log('SWAP RESPONSE', response)
 
@@ -160,11 +209,26 @@ const init = async () => {
     let contractAddress
     let contractUnspent
 
+    /* Set base asset. */
+    baseAssetId.value = '0' // $NEXA is the (default) base asset
+
+    /* Set trade asset name. */
+    baseAssetName.value = 'Nexa'
+
     /* Set base icon. */
     baseIcon.value = 'https://bafkreigyp7nduweqhoszakklsmw6tbafrnti2yr447i6ary5mrwjel7cju.nexa.garden' // nex.svg
 
+    /* Set quote asset. */
+    quoteAssetId.value = STUDIO_ID_HEX // FOR DEVELOPMENT PURPOSES ONLY
+
+    /* Set trade asset name. */
+    quoteAssetName.value = 'Studio Time'
+
     /* Set quote icon. */
     quoteIcon.value = 'https://nexa.studio/icon.svg'
+
+    /* Set action. */
+    action.value = 'SELL'
 
     /* Encode the public key hash into a P2PKH nexa address. */
     contractAddress = encodeAddress(
@@ -227,7 +291,7 @@ onMounted(() => {
                     step="0.01"
                     placeholder="0.00"
                     class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
-                    v-model="quote"
+                    v-model="baseQuantity"
                 />
 
                 <div class="h-16">
@@ -254,7 +318,7 @@ onMounted(() => {
                         step="0.01"
                         placeholder="0.00"
                         class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
-                        v-model="amount"
+                        v-model="quoteQuantity"
                     />
 
                     <div class="h-16">
