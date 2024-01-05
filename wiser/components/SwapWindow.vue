@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import moment from 'moment'
 import numeral from 'numeral'
 
 import {
@@ -28,7 +29,7 @@ const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b1
 // ALWAYS DECODE FROM CONTRACT ADDRESS
 const DEV_SCRIPT_PUBKEY = hexToBin('0014b3b45264dad11b2ff9fe5879863457e3737832ce0014b2912c4cc61f1b8cbe5c77ebd5eeea2641645f100200011445f5b9d41dd723141f721c727715c690fedbbbd6020001000000')
 
-const action = ref(null)
+const activeInput = ref(null)
 const activePool = ref(null)
 const baseAssetName = ref(null)
 const baseAssetId = ref(null)
@@ -43,26 +44,34 @@ const txidem = ref(null)
 
 const isShowingSettings = ref(false)
 
+/* Initialize globals. */
+let action
+
 watch(baseQuantity, (_newBase, _oldBase) => {
     console.log('BASE CHANGED', typeof _newBase, _newBase, _oldBase)
     // console.log('CONSTANT PRODUCT', cProduct.value)
 
+    /* Validate user input. */
+    if (activeInput.value === 'QUOTE') {
+        return
+    }
+
     /* Initialize locals. */
-    let baseSatoshis
+    let baseUnits
     let balanceRequired
-    let tradeQuantity
 
     /* Reset tx idem. */
     txidem.value = null
 
     /* Calculate base quantity. */
     // NOTE: Measured in satoshis.
-    baseSatoshis = _newBase * 100
-    console.log('BASE QUANTITY', baseSatoshis)
+    baseUnits = Math.ceil(_newBase * 100)
+    console.log('BASE UNITS', baseUnits)
 
     /* Calculate remaining balance requirement. */
-    balanceRequired = (cProduct.value / (BigInt(baseSatoshis) + activePool.value.satoshis))
-    console.log('BALANCE REQUIRED', typeof balanceRequired, balanceRequired)
+    balanceRequired = (cProduct.value / (BigInt(baseUnits) + activePool.value.satoshis))
+    console.log('QUOTE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+    console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
     console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
     // FIXME We need to account for decimals.
@@ -72,30 +81,35 @@ watch(baseQuantity, (_newBase, _oldBase) => {
 })
 
 watch(quoteQuantity, (_newQuote, _oldQuote) => {
-    return console.log('QUOTE CHANGED', typeof _newQuote, _newQuote, _oldQuote)
+    console.log('QUOTE CHANGED', typeof _newQuote, _newQuote, _oldQuote)
     // console.log('CONSTANT PRODUCT', cProduct.value)
 
+    /* Validate user input. */
+    if (activeInput.value === 'BASE') {
+        return
+    }
+
     /* Initialize locals. */
-    let baseSatoshis
+    let quoteUnits
     let balanceRequired
-    let tradeQuantity
 
     /* Reset tx idem. */
     txidem.value = null
 
     /* Calculate base quantity. */
     // NOTE: Measured in satoshis.
-    baseSatoshis = _newQuote * 100
-    console.log('BASE QUANTITY', baseSatoshis)
+    quoteUnits = Math.ceil(_newQuote)
+    console.log('QUOTE UNITS', quoteUnits)
 
     /* Calculate remaining balance requirement. */
-    balanceRequired = (cProduct.value / (BigInt(baseSatoshis) + activePool.value.satoshis))
-    console.log('BALANCE REQUIRED', typeof balanceRequired, balanceRequired)
+    balanceRequired = (cProduct.value / (BigInt(quoteUnits) + activePool.value.tokens))
+    console.log('BASE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+    console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
     console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
     // FIXME We need to account for decimals.
 
-    baseQuantity.value = Number(activePool.value.tokens - balanceRequired)
+    baseQuantity.value = Number(activePool.value.satoshis - balanceRequired) / 100.0
     console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
 })
 
@@ -112,11 +126,9 @@ const cProduct = computed(() => {
 
     /* Set satoshis. */
     satoshis = activePool.value.satoshis
-    console.log('CONSTANT PRODUCT (satoshis):', typeof satoshis, satoshis)
 
     /* Set tokens. */
     tokens = activePool.value.tokens
-    console.log('CONSTANT PRODUCT (tokens):', typeof tokens, tokens)
 
     /* Calculate constant product. */
     cProduct = (satoshis * tokens)
@@ -139,11 +151,11 @@ const reverseAssetPair = () => {
     quoteIcon.value = tempHolder
 
     /* Flip (trade) action. */
-    if (action.value === 'BUY') {
-        action.value = 'SELL'
+    if (action === 'BUY') {
+        action = 'SELL'
         quoteAssetName.value = 'Nexa'
     } else {
-        action.value = 'BUY'
+        action = 'BUY'
         quoteAssetName.value = 'Studio Time'
     }
 
@@ -162,7 +174,7 @@ const swap = async () => {
     /* Set action. */
     // action = 'BUY'
 
-    if (action.value === 'BUY') {
+    if (action === 'BUY') {
         displayAction = 'SELL'
     } else {
         displayAction = 'BUY'
@@ -176,7 +188,7 @@ const swap = async () => {
     /* Confirm on UI. */
     if (confirm(`Are you sure you want to ${displayAction} ${numeral(quoteQuantity.value).format('0,0.00[00]')} of ${quoteAssetName.value}?`)) {
         response = await Amm
-            .swap(baseAssetId, quoteAssetId, action.value, quoteQuantity.value)
+            .swap(baseAssetId, quoteAssetId, action, quoteQuantity.value)
             .catch(err => console.error(err))
         console.log('SWAP RESPONSE', response)
 
@@ -228,7 +240,10 @@ const init = async () => {
     quoteIcon.value = 'https://nexa.studio/icon.svg'
 
     /* Set action. */
-    action.value = 'SELL'
+    action = 'SELL'
+
+    /* Set active input. */
+    activeInput.value = 'BASE'
 
     /* Encode the public key hash into a P2PKH nexa address. */
     contractAddress = encodeAddress(
@@ -292,6 +307,7 @@ onMounted(() => {
                     placeholder="0.00"
                     class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
                     v-model="baseQuantity"
+                    @focus="activeInput = 'BASE'"
                 />
 
                 <div class="h-16">
@@ -319,6 +335,7 @@ onMounted(() => {
                         placeholder="0.00"
                         class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
                         v-model="quoteQuantity"
+                        @focus="activeInput = 'QUOTE'"
                     />
 
                     <div class="h-16">
