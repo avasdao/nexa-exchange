@@ -85,10 +85,10 @@ const isShowingChartMenu = ref(false)
 
             <div class="p-3 flex flex-col bg-amber-50 border-2 border-amber-200 rounded-lg sm:rounded-2xl shadow-md">
                 <div class="sm:hidden">
-                    <ChartDemo width="320" />
+                    <ChartDemo :width="320" />
                 </div>
                 <div class="hidden sm:block">
-                    <ChartDemo width="550" />
+                    <ChartDemo :width="550" />
                 </div>
 
                 <div class="-mt-2 text-amber-600 text-xs font-medium italic text-center">
