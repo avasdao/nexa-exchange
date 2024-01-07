@@ -225,10 +225,16 @@ const swap = async () => {
     if (confirm(`WiserSwap is currently in BETA! Slippage is very HIGH due to the currently very low liquidity. Are you sure you want to ${displayAction} ${numeral(quoteQuantity.value).format('0,0.00[00]')} ${quoteAssetName.value} for ${numeral(baseQuantity.value).format('0,0.00[00]')} ${baseAssetName.value}?`)) {
         response = await Amm
             .swap(baseAssetId.value, quoteAssetId.value, quoteQuantity.value)
-            .catch(err => console.error(err))
-        console.log('SWAP RESPONSE', response)
+            .catch(err => {
+                console.error('err', err)
 
-        if (!response) {
+                error.value = err.message
+            })
+        console.log('SWAP RESPONSE', response)
+        console.log('ERROR', typeof error.value, error.value)
+
+        if (!response && error.value) {
+            console.log('FOUND A RESPONSE ERROR')
             return
         }
 
@@ -443,11 +449,15 @@ onMounted(() => {
                 </div>
             </div>
 
-            <section v-if="error" class="my-10">
-                <div>
-                    <h2>Transaction failed!</h2>
+            <section v-if="error" class="col-span-2 mb-3 px-3 py-2 flex flex-col gap-3 border-t-2 border-amber-300">
+                <div class="flex flex-col">
+                    <h2 class="text-sm text-rose-400 font-medium">
+                        Transaction failed!
+                    </h2>
 
-                    <pre>{{JSON.stringify(error, null, 2)}}</pre>
+                    <span class="text-xs text-rose-300 font-bold">
+                        {{JSON.stringify(error, null, 2)}}
+                    </span>
                 </div>
             </section>
         </section>

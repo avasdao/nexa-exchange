@@ -68,14 +68,15 @@ DEV_POOL = pools.find(_pool => {
             /* Request trading post (swap). */
             response = await swap_v1(
                 poolArgs, _baseAsset, _tradeAsset, _amount)
-                .catch(err => {
-                    console.error('ERROR', err)
-                    error = err
-                })
+                // .catch(err => {
+                //     console.error('ERROR', err)
+                //     error = err
+                // })
             console.log('SWAP RESPONSE', response)
 
             /* Return response. */
-            return error || response
+            // return error || response
+            return response
         },
 
     },
