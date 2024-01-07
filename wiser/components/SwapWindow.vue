@@ -63,7 +63,8 @@ watch(baseQuantity, (_newBase, _oldBase) => {
     let baseUnits
     let balanceRequired
 
-    /* Reset tx idem. */
+    /* Reset dislay. */
+    error.value = null
     txidem.value = null
 
     if (baseAssetId.value === '0') {
@@ -112,7 +113,8 @@ watch(quoteQuantity, (_newQuote, _oldQuote) => {
     let quoteUnits
     let balanceRequired
 
-    /* Reset tx idem. */
+    /* Reset display. */
+    error.value = null
     txidem.value = null
 
     if (baseAssetId.value === '0') {
@@ -181,6 +183,7 @@ const closeSettings = () => {
 const reverseAssetPair = () => {
     /* Reset all. */
     activeInput.value = null
+    error.value = null
     txidem.value = null
     baseQuantity.value = null
     quoteQuantity.value = null
@@ -251,6 +254,7 @@ const swap = async () => {
 
                 /* Reset all. */
                 activeInput.value = null
+                error.value = null
                 baseQuantity.value = null
                 quoteQuantity.value = null
 
