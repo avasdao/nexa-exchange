@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import moment from 'moment'
+import JSConfetti from 'js-confetti'
 import numeral from 'numeral'
 
 import {
@@ -46,6 +46,9 @@ const isShowingSettings = ref(false)
 
 /* Initialize globals. */
 let action
+
+/* Initialize confetti. */
+const jsConfetti = new JSConfetti()
 
 watch(baseQuantity, (_newBase, _oldBase) => {
     console.log('BASE CHANGED', typeof _newBase, _newBase, _oldBase)
@@ -246,6 +249,14 @@ const swap = async () => {
                 quoteQuantity.value = null
 
                 // BURST CONFETTI
+                jsConfetti.addConfetti({
+                    // emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
+                    // confettiColors: [
+                    //     '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7',
+                    // ],
+                    // confettiRadius: 6,
+                    confettiNumber: 300,
+                })
             }
         } catch (err) {
             console.error(err)
