@@ -18,7 +18,7 @@ const chartOptions = {
 const series = [
     {
         name: 'Total Trade Value',
-        data: [ 3, 4, 5, 10, 27, 6 ],
+        data: [ 1, 3, 3, 7, 13, 8 ],
     },
 ]
 </script>

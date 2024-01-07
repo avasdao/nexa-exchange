@@ -142,8 +142,10 @@ const closeSettings = () => {
 }
 
 const reverseAssetPair = () => {
-    /* Reset tx idem. */
+    /* Reset all. */
     txidem.value = null
+    baseQuantity.value = null
+    quoteQuantity.value = null
 
     /* Flip asset pair values. */
     const tempHolder = baseIcon.value
@@ -318,7 +320,7 @@ onMounted(() => {
             <div class="-mb-12 z-20 col-span-2 flex flex-row justify-center">
                 <div @click="reverseAssetPair" class="group p-2 bg-amber-100 hover:bg-amber-500 rounded-full cursor-pointer">
                     <svg class="w-6 h-auto text-amber-500 group-hover:text-amber-100" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"></path>
                     </svg>
                 </div>
             </div>
@@ -331,8 +333,8 @@ onMounted(() => {
 
                     <input
                         type="number"
-                        step="0.01"
-                        placeholder="0.00"
+                        step="1"
+                        placeholder="0"
                         class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
                         v-model="quoteQuantity"
                         @focus="activeInput = 'QUOTE'"
@@ -356,6 +358,7 @@ onMounted(() => {
                         type="text"
                         placeholder="Wallet Address"
                         class="px-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-2xl text-indigo-300 focus:outline-none"
+                        disabled
                     />
                 </section>
 
@@ -364,7 +367,7 @@ onMounted(() => {
                 </p>
 
                 <button @click="swap" class="mb-3 px-5 py-3 w-full text-sky-100 font-medium text-3xl bg-sky-500 rounded-lg shadow hover:bg-sky-400">
-                    Make Swap
+                    Begin Swap
                 </button>
             </div>
 
