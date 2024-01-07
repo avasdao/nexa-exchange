@@ -219,9 +219,9 @@ const swap = async () => {
     }
 
     /* Confirm on UI. */
-    if (confirm(`Are you sure you want to ${displayAction} ${numeral(quoteQuantity.value).format('0,0.00[00]')} of ${quoteAssetName.value}?`)) {
+    if (confirm(`WiserSwap is currently in BETA! Slippage is very HIGH due to the currently very low liquidity. Are you sure you want to ${displayAction} ${numeral(quoteQuantity.value).format('0,0.00[00]')} ${quoteAssetName.value} for ${numeral(baseQuantity.value).format('0,0.00[00]')} ${baseAssetName.value}?`)) {
         response = await Amm
-            .swap(baseAssetId, quoteAssetId, action, quoteQuantity.value)
+            .swap(baseAssetId.value, quoteAssetId.value, quoteQuantity.value)
             .catch(err => console.error(err))
         console.log('SWAP RESPONSE', response)
 
@@ -239,6 +239,13 @@ const swap = async () => {
             } else {
                 // alert(txResult.result)
                 txidem.value = txResult.result
+
+                /* Reset all. */
+                activeInput.value = null
+                baseQuantity.value = null
+                quoteQuantity.value = null
+
+                // BURST CONFETTI
             }
         } catch (err) {
             console.error(err)

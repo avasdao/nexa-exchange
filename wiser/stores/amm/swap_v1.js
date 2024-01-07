@@ -51,13 +51,11 @@ export default async (
     _poolArgs,
     _baseAsset, // NEXA is the default
     _quoteAsset,
-    _action,
     _amount,
 ) => {
     console.log('WISERSWAP (script args):', _poolArgs)
     console.log('WISERSWAP (base asset):', _baseAsset)
     console.log('WISERSWAP (quote asset):', _quoteAsset)
-    console.log('WISERSWAP (action):', _action)
     console.log('WISERSWAP (amount):', _amount)
 
     /* Initialize locals.*/
@@ -292,10 +290,10 @@ export default async (
 
     /* Calculate constant product. */
     cProduct = contractTokens[0].satoshis * contractTokens[0].tokens
-
-    if (_action === 'SELL') {
+console.log('_baseAsset === 0', _baseAsset === '0', typeof _baseAsset, _baseAsset)
+    if (_baseAsset === '0') {
         /* Calculate remaining (tokens) balance requirement. */
-        balanceTokens = (contractTokens[0].tokens - _amount)
+        balanceTokens = (contractTokens[0].tokens - BigInt(_amount))
         console.log('CONTRACT BALANCE (tokens):', balanceTokens)
 
         /* Calculate remaining (satoshis) balance requirement. */
@@ -304,7 +302,7 @@ export default async (
         console.log('CONTRACT BALANCE (satoshis):', balanceSatoshis)
     } else {
         /* Calculate remaining (satoshis) balance requirement. */
-        balanceSatoshis = (contractTokens[0].satoshis - _amount)
+        balanceSatoshis = (contractTokens[0].satoshis - BigInt(parseInt(_amount * 100)))
         console.log('CONTRACT BALANCE (satoshis):', balanceSatoshis)
 
         /* Calculate remaining (tokens) balance requirement. */
@@ -388,7 +386,7 @@ export default async (
         address: Wallet.address,
     })
     console.log('RECEIVERS', receivers)
-return
+
     /* Send UTXO request. */
     response = await sendToken({
         coins: walletCoins,
