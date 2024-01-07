@@ -63,21 +63,37 @@ watch(baseQuantity, (_newBase, _oldBase) => {
     /* Reset tx idem. */
     txidem.value = null
 
-    /* Calculate base quantity. */
-    // NOTE: Measured in satoshis.
-    baseUnits = Math.ceil(_newBase * 100)
-    console.log('BASE UNITS', baseUnits)
+    if (baseAssetId.value === '0') {
+        /* Calculate base quantity. */
+        // NOTE: Measured in satoshis.
+        baseUnits = Math.ceil(_newBase * 100)
+        console.log('BASE UNITS', baseUnits)
 
-    /* Calculate remaining balance requirement. */
-    balanceRequired = (cProduct.value / (BigInt(baseUnits) + activePool.value.satoshis))
-    console.log('QUOTE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
-    console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
-    console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+        /* Calculate remaining balance requirement. */
+        balanceRequired = (cProduct.value / (BigInt(baseUnits) + activePool.value.satoshis))
+        console.log('QUOTE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+        console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
+        console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
-    // FIXME We need to account for decimals.
+        // FIXME We need to account for decimals.
 
-    quoteQuantity.value = Number(activePool.value.tokens - balanceRequired)
-    console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
+        quoteQuantity.value = Number(activePool.value.tokens - balanceRequired)
+        console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
+    } else {
+        baseUnits = Math.ceil(_newBase)
+        console.log('BASE UNITS', baseUnits)
+
+        /* Calculate remaining balance requirement. */
+        balanceRequired = (cProduct.value / (BigInt(baseUnits) + activePool.value.tokens))
+        console.log('QUOTE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+        console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
+        console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+
+        // FIXME We need to account for decimals.
+
+        quoteQuantity.value = Number(activePool.value.satoshis - balanceRequired) / 100.0
+        console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
+    }
 })
 
 watch(quoteQuantity, (_newQuote, _oldQuote) => {
@@ -96,21 +112,39 @@ watch(quoteQuantity, (_newQuote, _oldQuote) => {
     /* Reset tx idem. */
     txidem.value = null
 
-    /* Calculate base quantity. */
-    // NOTE: Measured in satoshis.
-    quoteUnits = Math.ceil(_newQuote)
-    console.log('QUOTE UNITS', quoteUnits)
+    if (baseAssetId.value === '0') {
+        /* Calculate base quantity. */
+        // NOTE: Measured in satoshis.
+        quoteUnits = Math.ceil(_newQuote)
+        console.log('QUOTE UNITS', quoteUnits)
 
-    /* Calculate remaining balance requirement. */
-    balanceRequired = (cProduct.value / (BigInt(quoteUnits) + activePool.value.tokens))
-    console.log('BASE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
-    console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
-    console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+        /* Calculate remaining balance requirement. */
+        balanceRequired = (cProduct.value / (BigInt(quoteUnits) + activePool.value.tokens))
+        console.log('BASE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+        console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
+        console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
-    // FIXME We need to account for decimals.
+        // FIXME We need to account for decimals.
 
-    baseQuantity.value = Number(activePool.value.satoshis - balanceRequired) / 100.0
-    console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
+        baseQuantity.value = Number(activePool.value.satoshis - balanceRequired) / 100.0
+        console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
+    } else {
+        /* Calculate base quantity. */
+        // NOTE: Measured in satoshis.
+        quoteUnits = Math.ceil(_newQuote * 100)
+        console.log('QUOTE UNITS', quoteUnits)
+
+        /* Calculate remaining balance requirement. */
+        balanceRequired = (cProduct.value / (BigInt(quoteUnits) + activePool.value.satoshis))
+        console.log('BASE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+        console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
+        console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+
+        // FIXME We need to account for decimals.
+
+        baseQuantity.value = Number(activePool.value.tokens - balanceRequired)
+        console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
+    }
 })
 
 const cProduct = computed(() => {
@@ -143,38 +177,35 @@ const closeSettings = () => {
 
 const reverseAssetPair = () => {
     /* Reset all. */
+    activeInput.value = null
     txidem.value = null
     baseQuantity.value = null
     quoteQuantity.value = null
 
+    /* Initialize locals. */
+    let tempHolder
+
+    /* Flip asset id values. */
+    tempHolder = baseAssetId.value
+    baseAssetId.value = quoteAssetId.value
+    quoteAssetId.value = tempHolder
+
+    /* Flip asset name values. */
+    tempHolder = baseAssetName.value
+    baseAssetName.value = quoteAssetName.value
+    quoteAssetName.value = tempHolder
+
     /* Flip asset pair values. */
-    const tempHolder = baseIcon.value
+    tempHolder = baseIcon.value
     baseIcon.value = quoteIcon.value
     quoteIcon.value = tempHolder
-
-    /* Flip (trade) action. */
-    if (action === 'BUY') {
-        action = 'SELL'
-        quoteAssetName.value = 'Nexa'
-    } else {
-        action = 'BUY'
-        quoteAssetName.value = 'Studio Time'
-    }
-
 }
 
 const swap = async () => {
     /* Initialize locals. */
-    // let baseAssetId
-    // let baseAssetName
     let displayAction
-    // let quoteAssetId
-    // let quoteAssetName
     let response
     let txResult
-
-    /* Set action. */
-    // action = 'BUY'
 
     if (action === 'BUY') {
         displayAction = 'SELL'
