@@ -442,6 +442,14 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
+
+            <section v-if="error" class="my-10">
+                <div>
+                    <h2>Transaction failed!</h2>
+
+                    <pre>{{JSON.stringify(error, null, 2)}}</pre>
+                </div>
+            </section>
         </section>
     </main>
 
