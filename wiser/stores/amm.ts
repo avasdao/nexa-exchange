@@ -49,6 +49,10 @@ export const useAmmStore = defineStore('amm', {
                 .catch(err => console.error(err))
             console.log('POOLS', pools)
 
+            if (!pools || pools.length === 0) {
+                return alert(`Oops! There are NO pools currently available for that trade.\n\n(source: ${apiEndpoint}/pools)`)
+            }
+
 // FIXME FOR DEVELOPMENT PURPOSES ONLY
 DEV_POOL = pools.find(_pool => {
     return _pool.id === 'ec799b01-f3af-449e-88d1-f7b05e14376f'
