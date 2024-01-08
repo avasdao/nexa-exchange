@@ -90,6 +90,7 @@ onMounted(() => {
         <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
             instant asset swaps from Trustless &amp; Permissionless liquidity providers
         </h3>
+        <pre>{{ runtimeConfig }}</pre>
     </header>
 
     <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-4">
