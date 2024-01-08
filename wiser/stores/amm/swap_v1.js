@@ -354,7 +354,7 @@ export default async (
     }
 
     /* Calculate transaction value. */
-    txValue = (receivers[0].satoshis - contractTokens[0].satoshis)
+    txValue = Math.abs(receivers[0].satoshis - contractTokens[0].satoshis)
     console.log('TX VALUE', txValue)
 
     /* Calculate admin satoshis. */
