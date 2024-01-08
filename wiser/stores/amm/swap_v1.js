@@ -354,7 +354,11 @@ export default async (
     }
 
     /* Calculate transaction value. */
-    txValue = Math.abs(receivers[0].satoshis - contractTokens[0].satoshis)
+    if (receivers[0].satoshis > contractTokens[0].satoshis) {
+        txValue = (receivers[0].satoshis - contractTokens[0].satoshis)
+    } else {
+        txValue = (contractTokens[0].satoshis - receivers[0].satoshis)
+    }
     console.log('TX VALUE', txValue)
 
     /* Calculate admin satoshis. */
