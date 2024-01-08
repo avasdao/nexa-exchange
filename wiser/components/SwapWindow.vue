@@ -27,7 +27,7 @@ const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b1
 
 // TEMP USE FOR DEV PURPOSES ONLY
 // ALWAYS DECODE FROM CONTRACT ADDRESS
-const DEV_SCRIPT_PUBKEY = hexToBin('0014b3b45264dad11b2ff9fe5879863457e3737832ce0014b2912c4cc61f1b8cbe5c77ebd5eeea2641645f100200011445f5b9d41dd723141f721c727715c690fedbbbd6020001000000')
+const DEV_SCRIPT_PUBKEY = hexToBin('0014d77c5faaf175ada810c45660eacbd54ac8bdcb240014b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10022c011445f5b9d41dd723141f721c727715c690fedbbbd60000')
 
 const activeInput = ref(null)
 const activePool = ref(null)
@@ -319,8 +319,15 @@ const init = async () => {
     )
     console.info('\nCONTRACT ADDRESS', contractAddress)
 
+    /* Request unspent assets. */
     contractUnspent = await listUnspent(contractAddress)
         .catch(err => console.error(err))
+
+    /* Filter tokens. */
+    contractUnspent = contractUnspent.filter(_unspent => {
+        return _unspent.hasToken
+    })
+
     // FOR DEV PURPOSES ONLY -- take the LARGEST input
     contractUnspent = [contractUnspent.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
     // FOR DEV PURPOSES ONLY -- add scripts
