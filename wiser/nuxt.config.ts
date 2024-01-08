@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     pwa: {
         manifest: {
             name: 'WiserSwap',
-            short_name: 'WiserSwap'
+            short_name: 'WiserSwap',
             description: `Swap your Nexa assets.`,
             lang: 'en',
             theme_color: '#6a5acd',
