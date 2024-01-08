@@ -220,6 +220,11 @@ const swap = async () => {
     }
 
     /* Validate swap values. */
+    if (!Wallet.address) {
+        return alert(`Oops! You MUST create a wallet to continue.`)
+    }
+
+    /* Validate swap values. */
     if (!quoteQuantity.value || quoteQuantity.value === null) {
         return alert(`Oops! You MUST enter a swap amount to continue.`)
     }
