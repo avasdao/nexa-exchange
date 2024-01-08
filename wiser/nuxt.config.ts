@@ -45,7 +45,7 @@ export default defineNuxtConfig({
     // FIXME
     runtimeConfig: {
         public: {
-            API_ENDPOINT: process.env.API_ENDPOINT,
+            API_ENDPOINT: 'THIS-IS-A-SAMPLE-ENDPOINT',
         },
     },
 
