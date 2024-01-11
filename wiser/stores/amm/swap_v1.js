@@ -270,8 +270,9 @@ export default async (
     console.log('UNSPENT TOKENS', unspentTokens)
 
     userData = [
-        'WiserSwap v1',
-        'I/O Pairing',
+        // 'WiserSwap v1',
+        // 'I/O Pairing',
+        'SWAP',
     ]
 
     /* Initialize hex data. */
@@ -334,6 +335,7 @@ export default async (
     }
 
     /* Handle (token) output (input/output) pairing. */
+// FIXME: Handle `oversize-op-return` error.
     if (allTokens.length > 1) {
         // NOTE: Add output pairs for ALL "additional" token inputs.
         for (let i = 1; i < allTokens.length; i++) {
@@ -344,6 +346,7 @@ export default async (
     }
 
     /* Handle (coin) output (input/output) pairing. */
+// FIXME: Handle `oversize-op-return` error.
     if (walletCoins.length > 1) {
         // NOTE: Add output pairs for ALL "additional" coin inputs.
         for (let i = 1; i < walletCoins.length; i++) {
