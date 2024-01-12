@@ -1,11 +1,4 @@
 <script setup lang="ts">
-useHead({
-    title: `Swap — WiserSwap`,
-    meta: [
-        { name: 'description', content: `Nexa Studio makes building your next BIG idea effortless.` }
-    ],
-})
-
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
@@ -21,12 +14,45 @@ const assetid = ref(null)
 assetid.value = route?.params.assetid
 console.log('ASSET ID', assetid.value)
 
+const tokenid = ref(null)
+const tokenidHex = ref(null)
+
 const isShowingChartMenu = ref(false)
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+const init = async () => {
+    let pageTitle
+
+    // TODO Detect full token id (or hex).
+
+    switch(assetid.value) {
+    case 'AVAS':
+        pageTitle = `Ava's Cash`
+        tokenid.value = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
+        tokenidHex.value = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
+        break
+    case 'NXL':
+        pageTitle = `Nexa Exchange Loyalty`
+        tokenid.value = 'nexa:tzs4e8n7dqtsyk0axx7zvcgt2snzt3t7z07ued0nu89hlvp6ggqqqdrypc4ea'
+        tokenidHex.value = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000'
+        break
+    case 'STUDIO':
+        pageTitle = `Studio Time + Collection`
+        tokenid.value = 'nexa:tztnyazksgqpkphrx2m2fgxapllufqmuwp6k07xtlc8k4xcjpqqqq99lxywr8'
+        tokenidHex.value = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
+        break
+    }
+
+    useHead({
+    title: `${pageTitle} — WiserSwap`,
+    meta: [
+        { name: 'description', content: `WiserSwap offers instant Nexa token trading.` }
+    ],
+})
+}
+
+onMounted(() => {
+    init()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')

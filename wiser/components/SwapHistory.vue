@@ -3,16 +3,18 @@
 import moment from 'moment'
 import numeral from 'numeral'
 
-/* Define properties. */
-// https://vuejs.org/guide/components/props.html#props-declaration
-const props = defineProps({
-    data: {
-        type: [Object],
-    },
-})
+import {
+    getAddressTokenHistory,
+    getTransaction,
+} from '@nexajs/rostrum'
 
 const ENDPOINT = 'https://nexa.exchange/v1/ticker/quote'
 
+const STUDIO_POOL_ADDR = 'nexa:nprqq9xh03064ut44k5pp3zkvr4vh422ez7ukfqqzjefztzvcc03hr97t3m7h40wagnyzezlzqpzcqg5gh6mn4qa6u33g8mjr3e8w9wxjrldhw7kqqqq47nsfsmf'
+
+const listDisplay = ref(null)
+const tokenid = ref(null)
+const tokenidHex = ref(null)
 const txHistory = ref(null)
 
 const displayAge = (_timestamp) => {
@@ -30,56 +32,81 @@ const displayAge = (_timestamp) => {
 }
 
 const init = async () => {
+    /* Initialize locals. */
+    let history
+    let input
+    let output
+    let price
+    let satoshisIn
+    let satoshisOut
+    let ticker
+    let tokenid
+    let tokenidHex
+    let tokensIn
+    let tokensOut
+    let transaction
+    let usdValue
+
+    /* Set list display. */
+    listDisplay.value = 5
+
+    tokenidHex = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000' // STUDIO
+
+    ticker = await $fetch(`${ENDPOINT}/${tokenidHex}`)
+        .catch(err => console.error(err))
+    console.log('TICKER', ticker)
+
+    price = ticker.price
+    console.log('PRICE', price)
+
+    history = await getAddressTokenHistory(STUDIO_POOL_ADDR)
+        .catch(err => console.error(err))
+
+    /* Select the most recent (transactions). */
+    history = history.transactions.reverse().slice(0, 20)
+    // console.log('CONTRACT HISTORY', history)
+
+    /* Initailize transaction history. */
     txHistory.value = []
 
-    const ticker = await $fetch(`${ENDPOINT}/9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000`)
-        .catch(err => console.error(err))
-    console.log('$STUDIO TICKER', ticker)
+    history.forEach(async _tx => {
+        transaction = await getTransaction(_tx.tx_hash)
+        // console.log('TRANSACTION', _tx.tx_hash, transaction)
 
-    const price = ticker.price
-    console.log('$STUDIO PRICE', price)
+        input = transaction.vin[0]
+        // console.log('TX INPUT', input)
 
-    txHistory.value.push({
-        txidem: '25b3f270b8015c14c0797f25d7285e20c0d1a32b50db323484171ca7f249038f',
-        quote: {
-            ticker: 'STUDIO',
-            quantity: 710038,
-        },
-        usdValue: 0,
-        timestamp: 1704164063,
+        satoshisIn = input.value_satoshi
+        // console.log('TX INPUT (satoshis):', satoshisIn)
+
+        tokensIn = input.groupQuantity
+        // console.log('TX INPUT (tokens):', tokensIn)
+
+        output = transaction.vout[0]
+        // console.log('TX OUTPUT', output)
+
+        satoshisOut = output.value_satoshi
+        // console.log('TX OUTPUT (satoshis):', satoshisOut)
+
+        tokensOut = output.scriptPubKey.groupQuantity
+        // console.log('TX OUTPUT (tokens):', tokensOut)
+
+        /* Calculate USD value. */
+        usdValue = Math.abs(tokensOut - tokensIn) * price
+        // usdValue = (tokensOut - tokensIn) * price
+        usdValue = numeral(usdValue).format('$0,0.00')
+
+        txHistory.value.push({
+            txidem: transaction.txidem,
+            quote: {
+                ticker: 'STUDIO',
+                quantity: (tokensOut - tokensIn),
+            },
+            usdValue,
+            timestamp: transaction.time,
+        })
+
     })
-
-    txHistory.value.push({
-        txidem: 'ec8694604ff74eb8ca0e43f5c6a343cb26de4bf35c1c25f4b785c06d480a7846',
-        quote: {
-            ticker: 'STUDIO',
-            quantity: 100542,
-        },
-        usdValue: 0,
-        timestamp: 1704346054,
-    })
-
-    txHistory.value.push({
-        txidem: '989292006325018ce61186e2191f6264f84c9d2f25827f9353b7dcfad7292464',
-        quote: {
-            ticker: 'STUDIO',
-            quantity: 48757,
-        },
-        usdValue: 0,
-        timestamp: 1704373610,
-    })
-
-    /* Add (USD) fiat price to entries. */
-    for (let i = 0; i < txHistory.value.length; i++) {
-        const usdValue = txHistory.value[i].quote.quantity * price
-        console.log('USD VALUE', usdValue)
-
-        /* Set (formatted) value. */
-        txHistory.value[i].usdValue = numeral(usdValue).format('$0,0.00')
-    }
-
-    /* Reverse history order. */
-    txHistory.value.reverse()
 }
 
 onMounted(() => {
@@ -94,16 +121,16 @@ onMounted(() => {
 
 <template>
     <main class="w-full px-3 sm:px-10">
-        <ul role="list" class="divide-y divide-amber-300">
+        <ul v-if="txHistory" role="list" class="divide-y divide-amber-300">
 
-            <li v-for="swap of txHistory" :key="swap.txidem" class="py-3">
+            <li v-for="swap of txHistory.slice(0, listDisplay)" :key="swap.txidem" class="py-3">
                 <NuxtLink :to="'https://explorer.nexa.org/tx/' + swap.txidem" target="_blank" class="px-3 py-2 grid grid-cols-4 gap-x-3 items-center border border-transparent rounded hover:bg-amber-50 hover:border-amber-200">
                     <div class="col-span-2 flex flex-row items-center gap-2">
                         <img src="https://nexa.studio/icon.svg" alt="" class="w-10 sm:w-12 h-auto flex-none" />
 
                         <h3 class="flex flex-col truncate text-xs sm:text-sm font-medium text-gray-400">
                             <span class="-mb-1 lg:-mb-0 text-lg sm:text-xl text-semibold text-gray-600 tracking-widest">
-                                {{numeral(swap.quote.quantity).format('0,0[.]00')}}
+                                {{numeral(Math.abs(swap.quote.quantity)).format('0,0[.]00')}}
                             </span>
 
                             {{swap.quote.ticker}}
@@ -121,5 +148,12 @@ onMounted(() => {
             </li>
 
         </ul>
+
+        <div v-if="txHistory && listDisplay < 20" class="flex justify-end">
+            <button @click="listDisplay = listDisplay + 5" class="px-3 py-1 bg-amber-200 rounded-lg shadow text-base text-amber-800 font-medium border-2 border-amber-400 tracking-wider hover:bg-amber-300">
+                show (5) more...
+            </button>
+        </div>
+
     </main>
 </template>

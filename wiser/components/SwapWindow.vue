@@ -8,19 +8,20 @@ import {
 } from '@nexajs/address'
 import { hexToBin } from '@nexajs/utils'
 
-/* Define properties. */
-// https://vuejs.org/guide/components/props.html#props-declaration
-const props = defineProps({
-    data: {
-        type: [Object],
-    },
-})
-
 /* Initialize stores. */
 import { useAmmStore } from '@/stores/amm'
 import { useWalletStore } from '@/stores/wallet'
 const Amm = useAmmStore()
 const Wallet = useWalletStore()
+
+/* Initialize route. */
+const route = useRoute()
+
+/* Initialize asset id. */
+const assetid = ref(null)
+
+/* Set (route) path. */
+assetid.value = route?.params.assetid
 
 /* Set constants. */
 const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
@@ -40,6 +41,9 @@ const quoteAssetId = ref(null)
 const quoteAssetName = ref(null)
 const quoteIcon = ref(null)
 const quoteQuantity = ref(null)
+
+const tokenid = ref(null)
+const tokenidHex = ref(null)
 const txidem = ref(null)
 
 const isShowingSettings = ref(false)
@@ -286,6 +290,29 @@ const init = async () => {
     /* Initialize locals. */
     let contractAddress
     let contractUnspent
+
+
+    // TODO Detect full token id (or hex).
+
+    switch(assetid.value) {
+    case 'AVAS':
+        // pageTitle = `Ava's Cash`
+        tokenid.value = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
+        tokenidHex.value = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
+        break
+    case 'NXL':
+        // pageTitle = `Nexa Exchange Loyalty`
+        tokenid.value = 'nexa:tzs4e8n7dqtsyk0axx7zvcgt2snzt3t7z07ued0nu89hlvp6ggqqqdrypc4ea'
+        tokenidHex.value = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000'
+        break
+    case 'STUDIO':
+        // pageTitle = `Studio Time + Collection`
+        tokenid.value = 'nexa:tztnyazksgqpkphrx2m2fgxapllufqmuwp6k07xtlc8k4xcjpqqqq99lxywr8'
+        tokenidHex.value = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
+        break
+    }
+
+
 
     /* Set base asset. */
     baseAssetId.value = '0' // $NEXA is the (default) base asset
