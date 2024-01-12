@@ -33,7 +33,7 @@ const importWallet = () => {
 <template>
     <main class="flex flex-col gap-5">
         <p class="px-3 py-2 bg-yellow-100 text-base font-medium border-2 border-yellow-200 rounded-lg shadow-md">
-            Welcome to your Causes wallet.
+            Welcome to your WiserSwap wallet.
             Click the button below to create a new wallet and begin your journey.
         </p>
 
@@ -44,7 +44,7 @@ const importWallet = () => {
         <hr />
 
         <p class="px-3 py-2 bg-yellow-100 text-base font-medium border-2 border-yellow-200 rounded-lg shadow-md">
-            Import your existing wallet into Causes Cash
+            Import your existing wallet into WiserSwap
         </p>
 
         <textarea
