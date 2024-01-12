@@ -1,18 +1,19 @@
 <script setup>
-const plantationid = ref(null)
-const plantation = ref(null)
-const jsonDoc = ref(null)
-
 /* Initialize route. */
 const route = useRoute()
 // console.log('ROUTE', route)
+
+/* Initialize plantation id. */
+const plantationid = ref(null)
 
 /* Set (route) path. */
 plantationid.value = route?.params.plantationid
 // console.log('PLANTATION ID', plantationid.value)
 
+const plantation = ref(null)
 const plantationDoc = ref(null)
 const isShowingGallery = ref(false)
+const jsonDoc = ref(null)
 
 const plantationName = computed(() => {
     return plantation.value?.name || ''

@@ -10,6 +10,17 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
+/* Initialize route. */
+const route = useRoute()
+// console.log('ROUTE', route)
+
+/* Initialize asset id. */
+const assetid = ref(null)
+
+/* Set (route) path. */
+assetid.value = route?.params.assetid
+console.log('ASSET ID', assetid.value)
+
 const isShowingChartMenu = ref(false)
 
 // onMounted(() => {
