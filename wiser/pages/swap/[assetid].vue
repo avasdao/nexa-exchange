@@ -5,47 +5,45 @@ const System = useSystemStore()
 
 /* Initialize route. */
 const route = useRoute()
-// console.log('ROUTE', route)
-
-/* Initialize asset id. */
-const assetid = ref(null)
-
-/* Set (route) path. */
-assetid.value = route?.params.assetid
-console.log('ASSET ID', assetid.value)
-
-const tokenid = ref(null)
-const tokenidHex = ref(null)
 
 const isShowingChartMenu = ref(false)
 
 const init = async () => {
-    let pageTitle
+    /* Initialize locals. */
+    let assetid
+    let assetDescription
+    let assetTitle
+
+    /* Set (route) path. */
+    assetid = route?.params.assetid
+    console.log('ASSET ID', assetid)
 
     // TODO Detect full token id (or hex).
 
-    switch(assetid.value) {
+    /* Handle asset id. */
+    switch(assetid) {
     case 'AVAS':
-        pageTitle = `Ava's Cash`
-        tokenid.value = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
-        tokenidHex.value = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
+        assetTitle = `Ava's Cash`
+        assetDescription = `WiserSwap offers instant Nexa token trading.`
         break
     case 'NXL':
-        pageTitle = `Nexa Exchange Loyalty`
-        tokenid.value = 'nexa:tzs4e8n7dqtsyk0axx7zvcgt2snzt3t7z07ued0nu89hlvp6ggqqqdrypc4ea'
-        tokenidHex.value = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000'
+        assetTitle = `Nexa Exchange Loyalty`
+        assetDescription = `WiserSwap offers instant Nexa token trading.`
         break
     case 'STUDIO':
-        pageTitle = `Studio Time + Collection`
-        tokenid.value = 'nexa:tztnyazksgqpkphrx2m2fgxapllufqmuwp6k07xtlc8k4xcjpqqqq99lxywr8'
-        tokenidHex.value = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
+        assetTitle = `Studio Time + Collection`
+        assetDescription = `WiserSwap offers instant Nexa token trading.`
         break
     }
 
+    // TODO Retrieve token description from on-chain registration.
+    //      MAKE SURE ALL REQUESTS ARE NON-BLOCKING!
+
+    /* Set page metadata. */
     useHead({
-    title: `${pageTitle} — WiserSwap`,
+    title: `${assetTitle} — WiserSwap`,
     meta: [
-        { name: 'description', content: `WiserSwap offers instant Nexa token trading.` }
+        { name: 'description', content: assetDescription }
     ],
 })
 }

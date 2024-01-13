@@ -46,6 +46,7 @@ const tokenid = ref(null)
 const tokenidHex = ref(null)
 const txidem = ref(null)
 
+const isShowingChooser = ref(false)
 const isShowingSettings = ref(false)
 
 /* Initialize globals. */
@@ -179,6 +180,10 @@ const cProduct = computed(() => {
     /* Return constant product. */
     return cProduct
 })
+
+const closeChooser = () => {
+    isShowingChooser.value = false
+}
 
 const closeSettings = () => {
     isShowingSettings.value = false
@@ -330,7 +335,8 @@ const init = async () => {
     quoteAssetName.value = 'Studio Time'
 
     /* Set quote icon. */
-    quoteIcon.value = 'https://nexa.studio/icon.svg'
+    // quoteIcon.value = 'https://nexa.studio/icon.svg'
+    quoteIcon.value = 'https://nexa.exchange/nxl.svg'
 
     /* Set action. */
     action = 'SELL'
@@ -410,7 +416,7 @@ onMounted(() => {
                     @focus="activeInput = 'BASE'"
                 />
 
-                <div class="h-16">
+                <div class="h-16 cursor-pointer" @click="isShowingChooser = true">
                     <img :src="baseIcon" class="relative -mt-20 w-16 h-auto p-2" />
                 </div>
             </div>
@@ -438,7 +444,7 @@ onMounted(() => {
                         @focus="activeInput = 'QUOTE'"
                     />
 
-                    <div class="h-16">
+                    <div class="h-16 cursor-pointer" @click="isShowingChooser = true">
                         <img :src="quoteIcon" class="relative -mt-20 w-16 h-auto p-2" />
                     </div>
                 </section>
@@ -505,6 +511,11 @@ onMounted(() => {
             </section>
         </section>
     </main>
+
+    <ChooseAsset
+        v-if="isShowingChooser"
+        @close="closeChooser"
+    />
 
     <SwapSettings
         v-if="isShowingSettings"
