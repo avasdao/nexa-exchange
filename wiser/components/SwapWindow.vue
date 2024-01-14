@@ -23,9 +23,6 @@ const assetid = ref(null)
 /* Set (route) path. */
 assetid.value = route?.params.assetid
 
-/* Set constants. */
-const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
-
 // TEMP USE FOR DEV PURPOSES ONLY
 // ALWAYS DECODE FROM CONTRACT ADDRESS
 const DEV_SCRIPT_PUBKEY = hexToBin('0014d77c5faaf175ada810c45660eacbd54ac8bdcb240014b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10022c011445f5b9d41dd723141f721c727715c690fedbbbd60000')
@@ -41,9 +38,6 @@ const quoteAssetId = ref(null)
 const quoteAssetName = ref(null)
 const quoteIcon = ref(null)
 const quoteQuantity = ref(null)
-
-const tokenid = ref(null)
-const tokenidHex = ref(null)
 const txidem = ref(null)
 
 const isShowingChooser = ref(false)
@@ -56,7 +50,7 @@ let action
 const jsConfetti = new JSConfetti()
 
 watch(baseQuantity, (_newBase, _oldBase) => {
-    console.log('BASE CHANGED', typeof _newBase, _newBase, _oldBase)
+    // console.log('BASE CHANGED', typeof _newBase, _newBase, _oldBase)
     // console.log('CONSTANT PRODUCT', cProduct.value)
 
     /* Validate user input. */
@@ -76,37 +70,37 @@ watch(baseQuantity, (_newBase, _oldBase) => {
         /* Calculate base quantity. */
         // NOTE: Measured in satoshis.
         baseUnits = Math.ceil(_newBase * 100)
-        console.log('BASE UNITS', baseUnits)
+        // console.log('BASE UNITS', baseUnits)
 
         /* Calculate remaining balance requirement. */
         balanceRequired = (cProduct.value / (BigInt(baseUnits) + activePool.value.satoshis))
-        console.log('QUOTE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
-        console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
-        console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+        // console.log('QUOTE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+        // console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
+        // console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
         // FIXME We need to account for decimals.
 
         quoteQuantity.value = Number(activePool.value.tokens - balanceRequired)
-        console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
+        // console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
     } else {
         baseUnits = Math.ceil(_newBase)
-        console.log('BASE UNITS', baseUnits)
+        // console.log('BASE UNITS', baseUnits)
 
         /* Calculate remaining balance requirement. */
         balanceRequired = (cProduct.value / (BigInt(baseUnits) + activePool.value.tokens))
-        console.log('QUOTE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
-        console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
-        console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+        // console.log('QUOTE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+        // console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
+        // console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
         // FIXME We need to account for decimals.
 
         quoteQuantity.value = Number(activePool.value.satoshis - balanceRequired) / 100.0
-        console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
+        // console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
     }
 })
 
 watch(quoteQuantity, (_newQuote, _oldQuote) => {
-    console.log('QUOTE CHANGED', typeof _newQuote, _newQuote, _oldQuote)
+    // console.log('QUOTE CHANGED', typeof _newQuote, _newQuote, _oldQuote)
     // console.log('CONSTANT PRODUCT', cProduct.value)
 
     /* Validate user input. */
@@ -126,34 +120,34 @@ watch(quoteQuantity, (_newQuote, _oldQuote) => {
         /* Calculate base quantity. */
         // NOTE: Measured in satoshis.
         quoteUnits = Math.ceil(_newQuote)
-        console.log('QUOTE UNITS', quoteUnits)
+        // console.log('QUOTE UNITS', quoteUnits)
 
         /* Calculate remaining balance requirement. */
         balanceRequired = (cProduct.value / (BigInt(quoteUnits) + activePool.value.tokens))
-        console.log('BASE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
-        console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
-        console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+        // console.log('BASE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+        // console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
+        // console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
         // FIXME We need to account for decimals.
 
         baseQuantity.value = Number(activePool.value.satoshis - balanceRequired) / 100.0
-        console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
+        // console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
     } else {
         /* Calculate base quantity. */
         // NOTE: Measured in satoshis.
         quoteUnits = Math.ceil(_newQuote * 100)
-        console.log('QUOTE UNITS', quoteUnits)
+        // console.log('QUOTE UNITS', quoteUnits)
 
         /* Calculate remaining balance requirement. */
         balanceRequired = (cProduct.value / (BigInt(quoteUnits) + activePool.value.satoshis))
-        console.log('BASE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
-        console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
-        console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
+        // console.log('BASE UNITS REQUIRED', typeof balanceRequired, balanceRequired)
+        // console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
+        // console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
         // FIXME We need to account for decimals.
 
         baseQuantity.value = Number(activePool.value.tokens - balanceRequired)
-        console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
+        // console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
     }
 })
 
@@ -296,28 +290,25 @@ const init = async () => {
     let contractAddress
     let contractUnspent
 
-
     // TODO Detect full token id (or hex).
 
     switch(assetid.value) {
     case 'AVAS':
-        // pageTitle = `Ava's Cash`
-        tokenid.value = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
-        tokenidHex.value = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
+        quoteAssetName.value = `Ava's Cash`
+        quoteIcon.value = 'https://avas.cash/icon.svg'
+        quoteAssetId.value = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
         break
     case 'NXL':
-        // pageTitle = `Nexa Exchange Loyalty`
-        tokenid.value = 'nexa:tzs4e8n7dqtsyk0axx7zvcgt2snzt3t7z07ued0nu89hlvp6ggqqqdrypc4ea'
-        tokenidHex.value = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000'
+        quoteAssetName.value = `Nexa Exchange Loyalty`
+        quoteIcon.value = 'https://nexa.exchange/nxl.svg'
+        quoteAssetId.value = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000'
         break
     case 'STUDIO':
-        // pageTitle = `Studio Time + Collection`
-        tokenid.value = 'nexa:tztnyazksgqpkphrx2m2fgxapllufqmuwp6k07xtlc8k4xcjpqqqq99lxywr8'
-        tokenidHex.value = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
+        quoteAssetName.value = `Studio Time`
+        quoteIcon.value = 'https://nexa.studio/icon.svg'
+        quoteAssetId.value = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
         break
     }
-
-
 
     /* Set base asset. */
     baseAssetId.value = '0' // $NEXA is the (default) base asset
@@ -327,16 +318,6 @@ const init = async () => {
 
     /* Set base icon. */
     baseIcon.value = 'https://bafkreigyp7nduweqhoszakklsmw6tbafrnti2yr447i6ary5mrwjel7cju.nexa.garden' // nex.svg
-
-    /* Set quote asset. */
-    quoteAssetId.value = STUDIO_ID_HEX // FOR DEVELOPMENT PURPOSES ONLY
-
-    /* Set trade asset name. */
-    quoteAssetName.value = 'Studio Time'
-
-    /* Set quote icon. */
-    // quoteIcon.value = 'https://nexa.studio/icon.svg'
-    quoteIcon.value = 'https://nexa.exchange/nxl.svg'
 
     /* Set action. */
     action = 'SELL'
@@ -348,23 +329,29 @@ const init = async () => {
     contractAddress = encodeAddress(
         'nexa',
         'TEMPLATE',
-        DEV_SCRIPT_PUBKEY,
+        DEV_SCRIPT_PUBKEY, // FIXME FOR DEV PURPOSES ONLY
     )
     console.info('\nCONTRACT ADDRESS', contractAddress)
 
     /* Request unspent assets. */
     contractUnspent = await listUnspent(contractAddress)
         .catch(err => console.error(err))
+    console.log('\nCONTRACT UNSPENT (all):', contractUnspent)
 
     /* Filter tokens. */
     contractUnspent = contractUnspent.filter(_unspent => {
         return _unspent.hasToken
     })
 
+    /* Filter by "active" token. */
+    contractUnspent = contractUnspent.filter(_unspent => {
+        return _unspent.tokenidHex === quoteAssetId.value
+    })
+
     // FOR DEV PURPOSES ONLY -- take the LARGEST input
     contractUnspent = [contractUnspent.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
     // FOR DEV PURPOSES ONLY -- add scripts
-    console.log('\nCONTRACT UNSPENT', contractUnspent)
+    console.log('\nCONTRACT UNSPENT (final):', contractUnspent)
 
     activePool.value = contractUnspent[0]
     console.log('ACTIVE POOL', activePool.value)

@@ -34,7 +34,7 @@ import { useWalletStore } from '@/stores/wallet'
 const Wallet = useWalletStore()
 
 /* Set constants. */
-const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
+// const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
 const WISERSWAP_HEX = hexToBin('6c6c6c6c6c5579009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f75816868787c955279cc537acd517f7c76010087636d00677f77517f7c76010087636d00677f7581686878547a94905279527995547aa269c4c353939d02220202102752530164030051145b7a7e56797b95547996765679a4c4547a9476cd547a88cca16903005114587a7e557a587a95547a9676557aa4c4557a9476cd547a88cca16972965379009e63765479a169685479009e63765579a269686d6d6d67557a519d5579827756797ea98871ad6d6d68')
 const ADMIN = hexToBin('45f5b9d41dd723141f721c727715c690fedbbbd6')
 // const ADMIN_FEE = '0100' // 256 or 2.56% (FIXME: This is bug limit.)
@@ -56,13 +56,14 @@ export default async (
     console.log('WISERSWAP (script args):', _poolArgs)
     console.log('WISERSWAP (base asset):', _baseAsset)
     console.log('WISERSWAP (quote asset):', _quoteAsset)
-    console.log('WISERSWAP (amount):', _amount)
+    console.log('WISERSWAP (amount):', typeof _amount, _amount)
 
     /* Initialize locals.*/
     let adminAddress
     let adminFee
     let adminSatoshis
     let allTokens
+    let amount
     let balanceSatoshis
     let balanceTokens
     let baseServiceFee
@@ -70,6 +71,8 @@ export default async (
     let contractTokens
     let cProduct
     let lockingScript
+    let multiplier
+    let numDecimals
     let nullData
     let payout
     let payoutAddress
@@ -91,6 +94,34 @@ export default async (
     let walletTokens
 
     console.info('NEXA ADDRESS', Wallet.address)
+
+    /* Set token id. */
+    tokenidHex = _quoteAsset
+
+    /* Calculate amount (incl. decimals). */
+    switch(_quoteAsset) {
+    case '0':
+        numDecimals = 2
+        break
+    case '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000': // AVAS
+        numDecimals = 8
+        break
+    case 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000': // NXL
+        numDecimals = 4
+        break
+    case '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000': // STUDIO
+        numDecimals = 0
+        break
+    }
+    console.log('NUM DECIMALS', numDecimals)
+
+    /* Calculate (decimal) multiplier.*/
+    multiplier = 10 ** numDecimals
+
+    /* Calculate (satoshis) amount. */
+    // TODO Convert to BigInt.
+    amount = BigInt(_amount * multiplier)
+    console.log('AMOUNT', typeof amount, amount)
 
 //----------------------------------
 
@@ -231,12 +262,19 @@ export default async (
     /* Request contract (coins and) tokens. */
     contractTokens = await getTokens(Wallet.wallet.wif, scriptPubKey)
         .catch(err => console.error(err))
+    console.log('CONTRACT ASSETS (all):', contractTokens)
+
+    /* Filter by "active" token. */
+    contractTokens = contractTokens.filter(_unspent => {
+        return _unspent.tokenidHex === tokenidHex
+    })
+
     // FOR DEV PURPOSES ONLY -- take the LARGEST UTXO
     contractTokens = [contractTokens.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
     // FOR DEV PURPOSES ONLY -- add scripts
     contractTokens[0].locking = lockingScript
     contractTokens[0].unlocking = unlockingScript
-    console.log('CONTRACT ASSETS', contractTokens)
+    console.log('CONTRACT ASSETS (final):', contractTokens)
 
     /* Request wallet coins. */
     walletCoins = await getCoins(Wallet.wallet.wif)
@@ -250,7 +288,7 @@ export default async (
 
     /* Filter ONLY swappable tokens. */
     walletTokens = walletTokens.filter(_token => {
-        return _token.tokenidHex === contractTokens[0].tokenidHex
+        return _token.tokenidHex === tokenidHex
     })
     // console.log('WALLET (FILTERED) TOKENS', walletTokens)
 
@@ -282,9 +320,6 @@ export default async (
     /* Initialize receivers. */
     receivers = []
 
-    /* Set token id. */
-    tokenidHex = STUDIO_ID_HEX
-
     /* Calculate base quantity. */
     // NOTE: Measured in satoshis.
     // baseQuantity = BigInt(_newQuote * 100)
@@ -292,11 +327,11 @@ export default async (
 
     /* Calculate constant product. */
     cProduct = contractTokens[0].satoshis * contractTokens[0].tokens
-    // console.log('_baseAsset === 0', _baseAsset === '0', typeof _baseAsset, _baseAsset)
+    // console.log('CONSTANT PRODUCT', cProduct)
 
     if (_baseAsset === '0') {
         /* Calculate remaining (tokens) balance requirement. */
-        balanceTokens = (contractTokens[0].tokens - BigInt(_amount))
+        balanceTokens = (contractTokens[0].tokens - amount)
         console.log('CONTRACT BALANCE (tokens):', balanceTokens)
 
         /* Calculate remaining (satoshis) balance requirement. */
@@ -305,7 +340,7 @@ export default async (
         console.log('CONTRACT BALANCE (satoshis):', balanceSatoshis)
     } else {
         /* Calculate remaining (satoshis) balance requirement. */
-        balanceSatoshis = (contractTokens[0].satoshis - BigInt(parseInt(_amount * 100)))
+        balanceSatoshis = (contractTokens[0].satoshis - amount)
         console.log('CONTRACT BALANCE (satoshis):', balanceSatoshis)
 
         /* Calculate remaining (tokens) balance requirement. */
@@ -399,7 +434,7 @@ export default async (
         address: Wallet.address,
     })
     console.log('RECEIVERS', receivers)
-
+return
     /* Send UTXO request. */
     response = await sendToken({
         coins: walletCoins,
