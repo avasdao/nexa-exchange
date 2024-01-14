@@ -22,10 +22,6 @@ const System = useSystemStore()
 </script>
 
 <template>
-    <main>
-
-    </main>
-
     <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-5">
         <Settings />
     </main>
