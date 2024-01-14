@@ -286,9 +286,9 @@ onMounted(() => {
         </div>
 
         <section class="px-5 py-2 col-span-3 flex flex-col gap-3">
-            <h2 class="text-2xl font-light">
-                Are you ready to start trading?
-            </h2>
+
+
+            Trading Summary Coming Soon...
 
         </section>
     </main>

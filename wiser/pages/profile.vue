@@ -22,11 +22,11 @@ const System = useSystemStore()
 </script>
 
 <template>
-    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-5">
-        <h1 class="text-5xl font-medium">
-            Wiser Profile
-        </h1>
+    <main>
 
+    </main>
+
+    <main class="max-w-6xl mx-auto px-3 py-5 flex flex-col gap-5">
         <Settings />
     </main>
 </template>
