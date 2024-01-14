@@ -64,8 +64,8 @@ export default async (
     let adminSatoshis
     let allTokens
     let amount
-    let balanceSatoshis
-    let balanceTokens
+    let outputSatoshis
+    let outputTokens
     let baseServiceFee
     let contractAddress
     let contractTokens
@@ -96,7 +96,11 @@ export default async (
     console.info('NEXA ADDRESS', Wallet.address)
 
     /* Set token id. */
-    tokenidHex = _quoteAsset
+    if (_baseAsset === '0') {
+        tokenidHex = _quoteAsset
+    } else {
+        tokenidHex = _baseAsset
+    }
 
     /* Calculate amount (incl. decimals). */
     switch(_quoteAsset) {
@@ -118,9 +122,12 @@ export default async (
     /* Calculate (decimal) multiplier.*/
     multiplier = 10 ** numDecimals
 
-    /* Calculate (satoshis) amount. */
-    // TODO Convert to BigInt.
-    amount = BigInt(_amount * multiplier)
+    /* Calculate amount. */
+    // FIXME Add supprot for BigInt multiplier.
+    amount = parseInt(_amount * multiplier)
+
+    /* Convert amount (format). */
+    amount = BigInt(amount)
     console.log('AMOUNT', typeof amount, amount)
 
 //----------------------------------
@@ -264,6 +271,8 @@ export default async (
         .catch(err => console.error(err))
     console.log('CONTRACT ASSETS (all):', contractTokens)
 
+    console.log('TOKEN ID', tokenidHex)
+
     /* Filter by "active" token. */
     contractTokens = contractTokens.filter(_unspent => {
         return _unspent.tokenidHex === tokenidHex
@@ -271,6 +280,7 @@ export default async (
 
     // FOR DEV PURPOSES ONLY -- take the LARGEST UTXO
     contractTokens = [contractTokens.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
+
     // FOR DEV PURPOSES ONLY -- add scripts
     contractTokens[0].locking = lockingScript
     contractTokens[0].unlocking = unlockingScript
@@ -331,30 +341,30 @@ export default async (
 
     if (_baseAsset === '0') {
         /* Calculate remaining (tokens) balance requirement. */
-        balanceTokens = (contractTokens[0].tokens - amount)
-        console.log('CONTRACT BALANCE (tokens):', balanceTokens)
+        outputTokens = (contractTokens[0].tokens - amount)
+        console.log('CONTRACT BALANCE (tokens):', outputTokens)
 
         /* Calculate remaining (satoshis) balance requirement. */
         // FIXME Adjust precision to account for BigInt truncation.
-        balanceSatoshis = (cProduct / balanceTokens) + BigInt(1)
-        console.log('CONTRACT BALANCE (satoshis):', balanceSatoshis)
+        outputSatoshis = (cProduct / outputTokens) + BigInt(1)
+        console.log('CONTRACT BALANCE (satoshis):', outputSatoshis)
     } else {
         /* Calculate remaining (satoshis) balance requirement. */
-        balanceSatoshis = (contractTokens[0].satoshis - amount)
-        console.log('CONTRACT BALANCE (satoshis):', balanceSatoshis)
+        outputSatoshis = (contractTokens[0].satoshis - amount)
+        console.log('CONTRACT BALANCE (satoshis):', outputSatoshis)
 
         /* Calculate remaining (tokens) balance requirement. */
         // FIXME Adjust precision to account for BigInt truncation.
-        balanceTokens = (cProduct / balanceSatoshis) + BigInt(1)
-        console.log('CONTRACT BALANCE (tokens):', balanceTokens)
+        outputTokens = (cProduct / outputSatoshis) + BigInt(1)
+        console.log('CONTRACT BALANCE (tokens):', outputTokens)
     }
 
     /* Add contract. */
     receivers.push({
         address: contractAddress,
-        satoshis: balanceSatoshis,
+        satoshis: outputSatoshis,
         tokenid: tokenidHex,
-        tokens: balanceTokens,
+        tokens: outputTokens,
     })
 
     /* Validate user is receiving tokens. */
@@ -434,7 +444,7 @@ export default async (
         address: Wallet.address,
     })
     console.log('RECEIVERS', receivers)
-return
+// return
     /* Send UTXO request. */
     response = await sendToken({
         coins: walletCoins,

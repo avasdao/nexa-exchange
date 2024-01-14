@@ -29,22 +29,34 @@ const DEV_SCRIPT_PUBKEY = hexToBin('0014d77c5faaf175ada810c45660eacbd54ac8bdcb24
 
 const activeInput = ref(null)
 const activePool = ref(null)
-const baseAssetName = ref(null)
-const baseAssetId = ref(null)
+
+const baseName = ref(null)
+const baseTokenidHex = ref(null)
 const baseIcon = ref(null)
+const baseDecimals = ref(null)
 const baseQuantity = ref(null)
+const baseStep = ref(null)
+const basePlaceholder = ref(null)
+
 const error = ref(null)
-const quoteAssetId = ref(null)
-const quoteAssetName = ref(null)
+
+const quoteName = ref(null)
+const quoteTokenidHex = ref(null)
 const quoteIcon = ref(null)
+const quoteDecimals = ref(null)
 const quoteQuantity = ref(null)
+const quoteStep = ref(null)
+const quotePlaceholder = ref(null)
+
 const txidem = ref(null)
 
 const isShowingChooser = ref(false)
 const isShowingSettings = ref(false)
+const isSwapping = ref(false)
 
 /* Initialize globals. */
 let action
+let multiplier
 
 /* Initialize confetti. */
 const jsConfetti = new JSConfetti()
@@ -54,7 +66,11 @@ watch(baseQuantity, (_newBase, _oldBase) => {
     // console.log('CONSTANT PRODUCT', cProduct.value)
 
     /* Validate user input. */
-    if (activeInput.value === 'QUOTE') {
+    if (
+        _newBase === null ||
+        _newBase === '' ||
+        activeInput.value === 'QUOTE'
+    ) {
         return
     }
 
@@ -66,10 +82,14 @@ watch(baseQuantity, (_newBase, _oldBase) => {
     error.value = null
     txidem.value = null
 
-    if (baseAssetId.value === '0') {
+    if (baseTokenidHex.value === '0') {
+        /* Calculate (decimal) multiplier.*/
+        // FIXME Add supprot for BigInt multiplier.
+        multiplier = 10 ** baseDecimals.value
+
         /* Calculate base quantity. */
         // NOTE: Measured in satoshis.
-        baseUnits = Math.ceil(_newBase * 100)
+        baseUnits = Math.ceil(_newBase * multiplier)
         // console.log('BASE UNITS', baseUnits)
 
         /* Calculate remaining balance requirement. */
@@ -78,12 +98,17 @@ watch(baseQuantity, (_newBase, _oldBase) => {
         // console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
         // console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
-        // FIXME We need to account for decimals.
+        /* Calculate (decimal) multiplier.*/
+        multiplier = 10 ** quoteDecimals.value
 
-        quoteQuantity.value = Number(activePool.value.tokens - balanceRequired)
+        quoteQuantity.value = Number(activePool.value.tokens - balanceRequired) / multiplier
         // console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
     } else {
-        baseUnits = Math.ceil(_newBase)
+        /* Calculate (decimal) multiplier.*/
+        // FIXME Add supprot for BigInt multiplier.
+        multiplier = 10 ** baseDecimals.value
+
+        baseUnits = Math.ceil(_newBase * multiplier)
         // console.log('BASE UNITS', baseUnits)
 
         /* Calculate remaining balance requirement. */
@@ -92,9 +117,10 @@ watch(baseQuantity, (_newBase, _oldBase) => {
         // console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
         // console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
-        // FIXME We need to account for decimals.
+        /* Calculate (decimal) multiplier.*/
+        multiplier = 10 ** quoteDecimals.value
 
-        quoteQuantity.value = Number(activePool.value.satoshis - balanceRequired) / 100.0
+        quoteQuantity.value = Number(activePool.value.satoshis - balanceRequired) / multiplier
         // console.log('TRADE QUOTE', typeof quoteQuantity.value, quoteQuantity.value)
     }
 })
@@ -104,7 +130,11 @@ watch(quoteQuantity, (_newQuote, _oldQuote) => {
     // console.log('CONSTANT PRODUCT', cProduct.value)
 
     /* Validate user input. */
-    if (activeInput.value === 'BASE') {
+    if (
+        _newQuote === null ||
+        _newQuote === '' ||
+        activeInput.value === 'BASE'
+    ) {
         return
     }
 
@@ -116,10 +146,14 @@ watch(quoteQuantity, (_newQuote, _oldQuote) => {
     error.value = null
     txidem.value = null
 
-    if (baseAssetId.value === '0') {
+    if (baseTokenidHex.value === '0') {
+        /* Calculate (decimal) multiplier.*/
+        // FIXME Add supprot for BigInt multiplier.
+        multiplier = 10 ** quoteDecimals.value
+
         /* Calculate base quantity. */
         // NOTE: Measured in satoshis.
-        quoteUnits = Math.ceil(_newQuote)
+        quoteUnits = Math.ceil(_newQuote * multiplier)
         // console.log('QUOTE UNITS', quoteUnits)
 
         /* Calculate remaining balance requirement. */
@@ -128,11 +162,16 @@ watch(quoteQuantity, (_newQuote, _oldQuote) => {
         // console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
         // console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
-        // FIXME We need to account for decimals.
+        /* Calculate (decimal) multiplier.*/
+        multiplier = 10 ** baseDecimals.value
 
-        baseQuantity.value = Number(activePool.value.satoshis - balanceRequired) / 100.0
+        baseQuantity.value = Number(activePool.value.satoshis - balanceRequired) / multiplier
         // console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
     } else {
+        /* Calculate (decimal) multiplier.*/
+        // FIXME Add supprot for BigInt multiplier.
+        multiplier = 10 ** quoteDecimals.value
+
         /* Calculate base quantity. */
         // NOTE: Measured in satoshis.
         quoteUnits = Math.ceil(_newQuote * 100)
@@ -144,9 +183,10 @@ watch(quoteQuantity, (_newQuote, _oldQuote) => {
         // console.log('POOL COIN BALANCE', typeof activePool.value.satoshis, activePool.value.satoshis)
         // console.log('POOL TOKEN BALANCE', typeof activePool.value.tokens, activePool.value.tokens)
 
-        // FIXME We need to account for decimals.
+        /* Calculate (decimal) multiplier.*/
+        multiplier = 10 ** baseDecimals.value
 
-        baseQuantity.value = Number(activePool.value.tokens - balanceRequired)
+        baseQuantity.value = Number(activePool.value.tokens - balanceRequired) / multiplier
         // console.log('TRADE BASE', typeof baseQuantity.value, baseQuantity.value)
     }
 })
@@ -186,28 +226,43 @@ const closeSettings = () => {
 const reverseAssetPair = () => {
     /* Reset all. */
     activeInput.value = null
-    error.value = null
-    txidem.value = null
     baseQuantity.value = null
+    error.value = null
     quoteQuantity.value = null
+    txidem.value = null
 
     /* Initialize locals. */
     let tempHolder
 
-    /* Flip asset id values. */
-    tempHolder = baseAssetId.value
-    baseAssetId.value = quoteAssetId.value
-    quoteAssetId.value = tempHolder
-
     /* Flip asset name values. */
-    tempHolder = baseAssetName.value
-    baseAssetName.value = quoteAssetName.value
-    quoteAssetName.value = tempHolder
+    tempHolder = baseName.value
+    baseName.value = quoteName.value
+    quoteName.value = tempHolder
 
-    /* Flip asset pair values. */
+    /* Flip asset id values. */
+    tempHolder = baseTokenidHex.value
+    baseTokenidHex.value = quoteTokenidHex.value
+    quoteTokenidHex.value = tempHolder
+
+    /* Flip asset icon values. */
     tempHolder = baseIcon.value
     baseIcon.value = quoteIcon.value
     quoteIcon.value = tempHolder
+
+    /* Flip asset decimals values. */
+    tempHolder = baseDecimals.value
+    baseDecimals.value = quoteDecimals.value
+    quoteDecimals.value = tempHolder
+
+    /* Flip asset step values. */
+    tempHolder = baseStep.value
+    baseStep.value = quoteStep.value
+    quoteStep.value = tempHolder
+
+    /* Flip asset placeholder values. */
+    tempHolder = basePlaceholder.value
+    basePlaceholder.value = quotePlaceholder.value
+    quotePlaceholder.value = tempHolder
 }
 
 const swap = async () => {
@@ -233,9 +288,12 @@ const swap = async () => {
     }
 
     /* Confirm on UI. */
-    if (confirm(`WiserSwap is currently in BETA! Slippage is very HIGH due to the currently very low liquidity. Are you sure you want to ${displayAction} ${numeral(quoteQuantity.value).format('0,0.00[00]')} ${quoteAssetName.value} for ${numeral(baseQuantity.value).format('0,0.00[00]')} ${baseAssetName.value}?`)) {
+    if (confirm(`WiserSwap is currently in BETA! Slippage is very HIGH due to the currently very low liquidity. Are you sure you want to ${displayAction} ${numeral(quoteQuantity.value).format('0,0.00[00]')} ${quoteName.value} for ${numeral(baseQuantity.value).format('0,0.00[00]')} ${baseName.value}?`)) {
+        /* Set flag. */
+        isSwapping.value = true
+
         response = await Amm
-            .swap(baseAssetId.value, quoteAssetId.value, quoteQuantity.value)
+            .swap(baseTokenidHex.value, quoteTokenidHex.value, quoteQuantity.value)
             .catch(err => {
                 console.error('err', err)
 
@@ -243,6 +301,9 @@ const swap = async () => {
             })
         console.log('SWAP RESPONSE', response)
         console.log('ERROR', typeof error.value, error.value)
+
+        /* Set flag. */
+        isSwapping.value = false
 
         if (!response && error.value) {
             console.log('FOUND A RESPONSE ERROR')
@@ -290,34 +351,55 @@ const init = async () => {
     let contractAddress
     let contractUnspent
 
+    /* Set trade asset name. */
+    baseName.value = 'Nexa'
+
+    /* Set (default) base asset. */
+    baseTokenidHex.value = '0' // Nexa is the (default) base asset.
+
+    /* Set base icon. */
+    baseIcon.value = 'https://bafkreigyp7nduweqhoszakklsmw6tbafrnti2yr447i6ary5mrwjel7cju.nexa.garden' // nex.svg
+
+    /* Set base decimals. */
+    baseDecimals.value = 2 // Nexa has 2 decimals.
+
+    /* Set (default) base asset. */
+    baseStep.value = '0.01'
+
+    /* Set (default) base asset. */
+    basePlaceholder.value = '0.00'
+
     // TODO Detect full token id (or hex).
 
     switch(assetid.value) {
     case 'AVAS':
-        quoteAssetName.value = `Ava's Cash`
+        quoteName.value = `Ava's Cash`
+        quoteTokenidHex.value = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
         quoteIcon.value = 'https://avas.cash/icon.svg'
-        quoteAssetId.value = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
+        quoteDecimals.value = 8
+
+        quoteStep.value = '0.00000001'
+        quotePlaceholder.value = '0.00000000'
         break
     case 'NXL':
-        quoteAssetName.value = `Nexa Exchange Loyalty`
+        quoteName.value = `Nexa Exchange Loyalty`
+        quoteTokenidHex.value = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000'
         quoteIcon.value = 'https://nexa.exchange/nxl.svg'
-        quoteAssetId.value = 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000'
+        quoteDecimals.value = 4
+
+        quoteStep.value = '0.0001'
+        quotePlaceholder.value = '0.0000'
         break
     case 'STUDIO':
-        quoteAssetName.value = `Studio Time`
+        quoteName.value = `Studio Time`
+        quoteTokenidHex.value = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
         quoteIcon.value = 'https://nexa.studio/icon.svg'
-        quoteAssetId.value = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
+        quoteDecimals.value = 0
+
+        quoteStep.value = '1'
+        quotePlaceholder.value = '0'
         break
     }
-
-    /* Set base asset. */
-    baseAssetId.value = '0' // $NEXA is the (default) base asset
-
-    /* Set trade asset name. */
-    baseAssetName.value = 'Nexa'
-
-    /* Set base icon. */
-    baseIcon.value = 'https://bafkreigyp7nduweqhoszakklsmw6tbafrnti2yr447i6ary5mrwjel7cju.nexa.garden' // nex.svg
 
     /* Set action. */
     action = 'SELL'
@@ -345,14 +427,14 @@ const init = async () => {
 
     /* Filter by "active" token. */
     contractUnspent = contractUnspent.filter(_unspent => {
-        return _unspent.tokenidHex === quoteAssetId.value
+        return _unspent.tokenidHex === quoteTokenidHex.value
     })
 
     // FOR DEV PURPOSES ONLY -- take the LARGEST input
     contractUnspent = [contractUnspent.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
-    // FOR DEV PURPOSES ONLY -- add scripts
     console.log('\nCONTRACT UNSPENT (final):', contractUnspent)
 
+    /* Set active pool. */
     activePool.value = contractUnspent[0]
     console.log('ACTIVE POOL', activePool.value)
 }
@@ -378,7 +460,7 @@ onMounted(() => {
                 </h1>
 
                 <h3 class="text-sm text-amber-700 font-light tracking-wide">
-                    Instantly buy or sell tokens at superior prices
+                    Instantly buy or sell tokens in community-owned liquidity pools
                 </h3>
             </section>
 
@@ -396,8 +478,8 @@ onMounted(() => {
 
                 <input
                     type="number"
-                    step="0.01"
-                    placeholder="0.00"
+                    :step="baseStep"
+                    :placeholder="basePlaceholder"
                     class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
                     v-model="baseQuantity"
                     @focus="activeInput = 'BASE'"
@@ -424,8 +506,8 @@ onMounted(() => {
 
                     <input
                         type="number"
-                        step="1"
-                        placeholder="0"
+                        :step="quoteStep"
+                        :placeholder="quotePlaceholder"
                         class="pl-20 pr-2 py-2 bg-transparent border-b-2 border-indigo-300 w-full text-6xl text-indigo-300 focus:outline-none"
                         v-model="quoteQuantity"
                         @focus="activeInput = 'QUOTE'"
@@ -457,7 +539,7 @@ onMounted(() => {
                     When available, liquidity is automagically aggregated to offer you the best prices with your preferred rewards.
                 </p>
 
-                <button @click="swap" class="mb-3 px-5 py-3 w-full text-sky-100 font-medium text-3xl bg-sky-500 rounded-lg shadow hover:bg-sky-400">
+                <button :disabled="isSwapping" @click="swap" class="mb-3 px-5 py-3 w-full text-sky-100 bg-sky-500 font-medium text-3xl rounded-lg shadow" :class="[ isSwapping ? 'opacity-50 cursor-not-allowed' : 'hover:bg-sky-400' ]">
                     Begin Swap
                 </button>
             </div>
