@@ -55,7 +55,7 @@ export const useAmmStore = defineStore('amm', {
 
 // FIXME FOR DEVELOPMENT PURPOSES ONLY
 DEV_POOL = pools.find(_pool => {
-    return _pool.id === 'ec799b01-f3af-449e-88d1-f7b05e14376f'
+    return _pool.id === 'nprqq9xh03064ut44k5pp3zkvr4vh422ez7ukfqqzjefztzvcc03hr97t3m7h40wagnyzezlzqpzcqg5gh6mn4qa6u33g8mjr3e8w9wxjrldhw7kqqqq47nsfsmf'
 })
 
             /* Set (pool) script arguments. */
