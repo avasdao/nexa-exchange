@@ -88,17 +88,17 @@ const init = async () => {
 
     ticker = await $fetch(`${ENDPOINT}/${tokenidHex}`)
         .catch(err => console.error(err))
-    console.log('TICKER', ticker)
+    // console.log('TICKER', ticker)
 
     price = ticker.price
-    console.log('PRICE', price)
+    // console.log('PRICE', price)
 
     history = await getAddressTokenHistory(DEV_POOL_ADDR)
         .catch(err => console.error(err))
 
     /* Select the most recent (transactions). */
     history = history.transactions.reverse().slice(0, MAX_HISTORY_SEARCH)
-    console.log('CONTRACT HISTORY', history)
+    // console.log('CONTRACT HISTORY', history)
 
     /* Initailize transaction history. */
     txHistory.value = []
@@ -111,11 +111,11 @@ const init = async () => {
         }
 
         transaction = await getTransaction(_tx.tx_hash)
-        console.log('TRANSACTION', _tx.tx_hash, transaction)
+        // console.log('TRANSACTION', _tx.tx_hash, transaction)
 
         /* Set transaction token id. */
         txTokenidHex = transaction?.vout[0].scriptPubKey.token_id_hex
-        console.log('HISTORY TOKEN ID', txTokenidHex)
+        // console.log('HISTORY TOKEN ID', txTokenidHex)
 
         /* Validate token id. */
         if (txTokenidHex !== tokenidHex) {
