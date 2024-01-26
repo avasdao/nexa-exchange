@@ -61,7 +61,7 @@
                             Make a Swap
                         </NuxtLink>
 
-                        <a href="javascript://" class="w-full sm:w-fit text-2xl font-semibold leading-6 text-gray-900">
+                        <a href="https://docs.nexa.exchange/" target="_blank" class="w-full sm:w-fit text-2xl font-semibold leading-6 text-gray-900">
                             Learn more <span aria-hidden="true">→</span>
                         </a>
                     </div>
