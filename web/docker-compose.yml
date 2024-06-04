@@ -6,9 +6,9 @@ services:
     image: exchange
     container_name: exchange
     restart: unless-stopped
-    network_mode: 'host'
-    # ports:
-    #   - '127.0.0.1:3000:3000'
+    # network_mode: 'host'
+    ports:
+      - '127.0.0.1:3000:3000'
     environment:
       - TELR_API_ENDPOINT=${TELR_API_ENDPOINT} # change this to match your system's ENV
       - TELR_API_KEY=${TELR_API_KEY} # change this to match your system's ENV
