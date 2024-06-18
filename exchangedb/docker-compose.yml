@@ -1,10 +1,8 @@
-version: '3.7'
-
 services:
   couchdb:
     image: couchdb
     container_name: couchdb
-    restart: always
+    restart: unless-stopped
     ports:
       - '127.0.0.1:5984:5984'
       - '127.0.0.1:4369:4369'
@@ -25,7 +23,7 @@ services:
     build: .
     image: exchangedb
     container_name: exchangedb
-    restart: always
+    restart: unless-stopped
     network_mode: 'host'
     # ports:
     #   - '127.0.0.1:3000:3000'
