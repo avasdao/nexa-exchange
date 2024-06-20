@@ -182,7 +182,7 @@ onMounted(() => {
 <template>
     <Loading v-if="Wallet.isLoading" />
 
-    <WalletSetup v-else-if="!Wallet.isReady" />
+    <WalletSetup v-else-if="!Wallet.isReady" class="px-3" />
 
     <main v-else class="max-w-6xl mx-auto px-3 py-5 grid grid-cols-1 lg:grid-cols-7 gap-8">
         <div class="col-span-4">
@@ -288,6 +288,7 @@ onMounted(() => {
         <section class="px-5 py-2 col-span-3 flex flex-col gap-3">
 
             My WiserSwap Summary
+
 
         </section>
     </main>
