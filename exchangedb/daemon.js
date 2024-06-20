@@ -14,6 +14,14 @@ const target = CMC_API_ENDPOINT + `?symbol=NEXA` // ID = 23380
 
 const UPDATE_INTERVAL = 3e5 // default: 5 minutes
 
+/* Import helpers. */
+import decodeRawTransaction from './utils/decodeRawTransaction.js'
+import getBlock from './utils/getBlock.js'
+import getBlockchainInfo from './utils/getBlockchainInfo.js'
+
+/* Import indexers. */
+import wiserswapsIndexer from './indexer/wiserswaps.js'
+
 /* Initialize ticker. */
 let ticker
 
@@ -64,4 +72,32 @@ setInterval(update, UPDATE_INTERVAL)
 /* Perform an update immediately (at startup). */
 update()
 
+/* Initialize locals. */
+let blockchainInfo
+
+const manageWiserswaps = async () => {
+    await wiserswapsIndexer(blockchainInfo.blocks)
+    setTimeout(manageWiserswaps, 1000)
+}
+
 console.info('\n\n  Starting Nexa Exchange Database daemon...\n')
+
+;(async () => {
+    /* Initialize locals. */
+    // let decoded
+    // let msg
+    // let sock
+    // let topic
+    let updatedSystem
+
+    /* Request Blockchain information. */
+    blockchainInfo = await getBlockchainInfo()
+    console.log('BLOCKCHAIN INFO', blockchainInfo)
+
+    if (!blockchainInfo.blocks) {
+        throw new Error('Oops! No blockchain info received.')
+    }
+
+    /* Start (sync) database indexers. */
+    manageWiserswaps()
+})()
