@@ -6,7 +6,7 @@ export default defineNuxtConfig({
         head: {
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
-            title: 'WiserSwap',
+            title: 'WiserSwap — Nexa Automated Market Maker (AMM)',
             meta: [
                 { name: 'description', content: 'Swap your Nexa assets.' },
             ],
@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     /* Progressive Web Application Settings */
     pwa: {
         manifest: {
-            name: 'WiserSwap',
+            name: 'WiserSwap — Nexa Automated Market Maker (AMM)',
             short_name: 'WiserSwap',
             description: `Swap your Nexa assets.`,
             lang: 'en',
@@ -31,7 +31,7 @@ export default defineNuxtConfig({
             // useWebmanifestExtension: false,
         },
         meta: {
-            name: 'WiserSwap',
+            name: 'WiserSwap — Nexa Automated Market Maker (AMM)',
             description: `Swap your Nexa assets.`,
             author: `Nexa Exchange DAO`,
         },

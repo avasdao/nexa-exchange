@@ -81,7 +81,7 @@
                         <path fill="#343E4E" d="M16 59c0-23.748 19.252-43 43-43h246c23.748 0 43 19.252 43 43v615c0 23.196-18.804 42-42 42H58c-23.196 0-42-18.804-42-42V59Z" />
                         <foreignObject width="316" height="684" transform="translate(24 24)" clip-path="url(#2ade4387-9c63-4fc4-b754-10e687a0d332)">
                             <NuxtLink to="/plantation/058b0f52-4cd7-46d1-bb9b-8549fac3a5b0">
-                                <img src="https://bafkreihputlaavngkmkxw322erdkblddscbxeyl6kxgbndveogbsq6yhwe.nexa.garden" alt="Cannabis and Moonshine Plantation" />
+                                <img src="~/assets/screenshots/nxy-iphone.png" alt="Featured Assets Slideshow" />
                             </NuxtLink>
                         </foreignObject>
                     </svg>
