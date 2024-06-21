@@ -6,7 +6,7 @@ import PouchDB from 'pouchdb'
 const systemDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/system`)
 
 /* Import handlers. */
-import handleTradingPost from '../handlers/wiserswap.js'
+import handleTradingPost from '../handlers/tradingPost.js'
 
 /* Import helpers. */
 import getBlock from '../utils/getBlock.js'
