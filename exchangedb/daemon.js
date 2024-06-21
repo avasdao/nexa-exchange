@@ -23,6 +23,8 @@ import getBlock from './utils/getBlock.js'
 import getBlockchainInfo from './utils/getBlockchainInfo.js'
 
 /* Import indexers. */
+import hodlsIndexer from './indexer/hodls.js'
+import stakehousesIndexer from './indexer/stakehouses.js'
 import tradingPostsIndexer from './indexer/tradingPosts.js'
 import wiserSwapsIndexer from './indexer/wiserSwaps.js'
 
@@ -85,6 +87,16 @@ setInterval(async () => {
     console.log('UPDATE: BLOCKCHAIN INFO', blockchainInfo)
 }, BLOCKCHAIN_UPDATE_INTERVAL)
 
+const manageHodls = async () => {
+    await hodlsIndexer(blockchainInfo.blocks)
+    setTimeout(manageHodls, 1000)
+}
+
+const manageStakehouses = async () => {
+    await stakehousesIndexer(blockchainInfo.blocks)
+    setTimeout(manageStakehouses, 1000)
+}
+
 const manageTradingPosts = async () => {
     await tradingPostsIndexer(blockchainInfo.blocks)
     setTimeout(manageTradingPosts, 1000)
@@ -114,6 +126,8 @@ console.info('\n\n  Starting Nexa Exchange Database daemon...\n')
     }
 
     /* Start (sync) database indexers. */
+    manageHodls()
+    manageStakehouses()
     manageTradingPosts()
     manageWiserSwaps()
 })()

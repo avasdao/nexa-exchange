@@ -3,7 +3,7 @@ import moment from 'moment'
 import PouchDB from 'pouchdb'
 
 /* Initialize databases. */
-const wiserswapsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/wiserswaps`)
+const stakehousesDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/stakehouses`)
 const transactionsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/transactions`)
 
 /* Initialize constants. */
@@ -57,7 +57,7 @@ export default async (_transaction) => {
         // console.log('SCRIPT HASH', scriptHash)
 
         // NOTE: Attepmt to (1st) retrieve "existing" transaction data.
-        existingTx = await wiserswapsDb
+        existingTx = await stakehousesDb
             .get(txidem)
             .catch(err => console.error(err))
         // console.log('EXISTING TX', existingTx)
@@ -82,7 +82,7 @@ export default async (_transaction) => {
         // console.log('NEW UPDATED', newUpdatedTx)
 
         /* Add transaction to database. */
-        result = await wiserswapsDb
+        result = await stakehousesDb
             .put(newUpdatedTx)
             .catch(err => {
                 console.error(err)
