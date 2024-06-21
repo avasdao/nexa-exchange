@@ -6,7 +6,7 @@ import PouchDB from 'pouchdb'
 const systemDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/system`)
 
 /* Import handlers. */
-import handleWiserswap from '../handlers/wiserswap.js'
+import handleWiserSwap from '../handlers/wiserswap.js'
 
 /* Import helpers. */
 import getBlock from '../utils/getBlock.js'
@@ -30,7 +30,7 @@ export default async (_curHeight = 0) => {
 
     /* Request scripts index. */
     systemIdx = await systemDb
-        .get('idxWiserswaps')
+        .get('idxWiserSwaps')
         .catch(err => console.error(err))
     // console.log('SYSTEM', systemIdx)
 
@@ -59,14 +59,14 @@ export default async (_curHeight = 0) => {
                         })
                     // console.log(`TRANSACTION [${txidem}]`, tx)
 
-                    /* Handle Wiserswap transactions. */
-                    await handleWiserswap(tx)
+                    /* Handle WiserSwap transactions. */
+                    await handleWiserSwap(tx)
                 }
             }
 
             /* Retrieve (latest) System status. */
             updatedSystem = await systemDb
-                .get('idxWiserswaps')
+                .get('idxWiserSwaps')
                 .catch(err => console.error(err))
             // console.log('UPDATED SYSTEM', updatedSystem)
 

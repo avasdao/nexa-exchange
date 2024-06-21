@@ -23,7 +23,8 @@ import getBlock from './utils/getBlock.js'
 import getBlockchainInfo from './utils/getBlockchainInfo.js'
 
 /* Import indexers. */
-import wiserswapsIndexer from './indexer/wiserswaps.js'
+import tradingPostsIndexer from './indexer/tradingPosts.js'
+import wiserSwapsIndexer from './indexer/wiserSwaps.js'
 
 /* Initialize ticker. */
 let ticker
@@ -84,9 +85,14 @@ setInterval(async () => {
     console.log('UPDATE: BLOCKCHAIN INFO', blockchainInfo)
 }, BLOCKCHAIN_UPDATE_INTERVAL)
 
-const manageWiserswaps = async () => {
-    await wiserswapsIndexer(blockchainInfo.blocks)
-    setTimeout(manageWiserswaps, 1000)
+const manageTradingPosts = async () => {
+    await wiserSwapsIndexer(blockchainInfo.blocks)
+    setTimeout(manageTradingPosts, 1000)
+}
+
+const manageWiserSwaps = async () => {
+    await wiserSwapsIndexer(blockchainInfo.blocks)
+    setTimeout(manageWiserSwaps, 1000)
 }
 
 console.info('\n\n  Starting Nexa Exchange Database daemon...\n')
@@ -108,5 +114,6 @@ console.info('\n\n  Starting Nexa Exchange Database daemon...\n')
     }
 
     /* Start (sync) database indexers. */
-    manageWiserswaps()
+    manageTradingPosts()
+    manageWiserSwaps()
 })()
