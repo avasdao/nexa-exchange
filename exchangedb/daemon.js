@@ -86,7 +86,7 @@ setInterval(async () => {
 }, BLOCKCHAIN_UPDATE_INTERVAL)
 
 const manageTradingPosts = async () => {
-    await wiserSwapsIndexer(blockchainInfo.blocks)
+    await tradingPostsIndexer(blockchainInfo.blocks)
     setTimeout(manageTradingPosts, 1000)
 }
 
