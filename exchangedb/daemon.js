@@ -4,6 +4,7 @@ import moment from 'moment'
 import PouchDB from 'pouchdb'
 import { v4 as uuidv4 } from 'uuid'
 
+/* Import environment variables. */
 const CMC_API_KEY = process.env.CMC_API_KEY
 
 /* Set endpoint. */
@@ -12,7 +13,9 @@ const CMC_API_ENDPOINT = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/qu
 /* Set (request) target. */
 const target = CMC_API_ENDPOINT + `?symbol=NEXA` // ID = 23380
 
+/* Initialize constants. */
 const UPDATE_INTERVAL = 3e5 // default: 5 minutes
+const BLOCKCHAIN_UPDATE_INTERVAL = 6e4 // default: 1 minute
 
 /* Import helpers. */
 import decodeRawTransaction from './utils/decodeRawTransaction.js'
