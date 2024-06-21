@@ -75,6 +75,12 @@ update()
 /* Initialize locals. */
 let blockchainInfo
 
+setInterval(async () => {
+    /* Request Blockchain information. */
+    blockchainInfo = await getBlockchainInfo()
+    console.log('UPDATE: BLOCKCHAIN INFO', blockchainInfo)
+}, BLOCKCHAIN_UPDATE_INTERVAL)
+
 const manageWiserswaps = async () => {
     await wiserswapsIndexer(blockchainInfo.blocks)
     setTimeout(manageWiserswaps, 1000)
