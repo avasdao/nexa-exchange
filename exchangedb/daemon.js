@@ -73,7 +73,7 @@ const update = async () => {
 }
 
 /* Start (Update) interval. */
-// setInterval(update, UPDATE_INTERVAL)
+setInterval(update, UPDATE_INTERVAL)
 
 /* Perform an update immediately (at startup). */
 update()
