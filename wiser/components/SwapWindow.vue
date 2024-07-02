@@ -358,7 +358,8 @@ const init = async () => {
     baseTokenidHex.value = '0' // Nexa is the (default) base asset.
 
     /* Set base icon. */
-    baseIcon.value = 'https://bafkreigyp7nduweqhoszakklsmw6tbafrnti2yr447i6ary5mrwjel7cju.nexa.garden' // nex.svg
+    // baseIcon.value = 'https://bafkreigyp7nduweqhoszakklsmw6tbafrnti2yr447i6ary5mrwjel7cju.nexa.garden' // nex.svg
+    baseIcon.value = 'https://i.ibb.co/59mHSRb/logo.png' // nex.png
 
     /* Set base decimals. */
     baseDecimals.value = 2 // Nexa has 2 decimals.

@@ -55,9 +55,9 @@ export const useProfileStore = defineStore('profile', {
     }),
 
     getters: {
-        challenge(_state) {
-            return _state._session?.challenge || null
-        },
+        // challenge(_state) {
+        //     return _state._session?.challenge || null
+        // },
 
         session(_state) {
             return _state._session || null
@@ -69,40 +69,40 @@ export const useProfileStore = defineStore('profile', {
     },
 
     actions: {
-        async init() {
-            console.log('PROFILE (session):', this.session)
+        // async init() {
+        //     console.log('PROFILE (session):', this.session)
 
-            /* Initialize locals. */
-            let target
-            let session
+        //     /* Initialize locals. */
+        //     let target
+        //     let session
 
-            /* Validate authorization elements. */
-            // NOTE: Reset legacy session details.
-            if (this.sessionid && !this.challenge) {
-                /* Delete (browser) session. */
-                this.deleteSession()
+        //     /* Validate authorization elements. */
+        //     // NOTE: Reset legacy session details.
+        //     if (this.sessionid && !this.challenge) {
+        //         /* Delete (browser) session. */
+        //         this.deleteSession()
 
-                /* Re-call initialization. */
-                return setTimeout(this.init, POLLING_FREQUENCY)
-            }
+        //         /* Re-call initialization. */
+        //         return setTimeout(this.init, POLLING_FREQUENCY)
+        //     }
 
-            /* Set (request) target. */
-            // target = runtimeConfig.public.API_ENDPOINT + 'session'
-            target = API_ENDPOINT + 'session'
-            console.log('TARGET', target)
+        //     /* Set (request) target. */
+        //     // target = runtimeConfig.public.API_ENDPOINT + 'session'
+        //     target = API_ENDPOINT + 'session'
+        //     console.log('TARGET', target)
 
-            /* Manage session. */
-            session = await $fetch(target, {
-                method: 'POST',
-                body: {
-                    sessionid: this.sessionid,
-                },
-            })
-            console.log('GLOBAL SESSION', session)
+        //     /* Manage session. */
+        //     session = await $fetch(target, {
+        //         method: 'POST',
+        //         body: {
+        //             sessionid: this.sessionid,
+        //         },
+        //     })
+        //     console.log('GLOBAL SESSION', session)
 
-            /* Save session. */
-            this.saveSession(session)
-        },
+        //     /* Save session. */
+        //     this.saveSession(session)
+        // },
 
         deleteSession() {
             /* Set session. */

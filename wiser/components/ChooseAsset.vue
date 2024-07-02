@@ -62,6 +62,14 @@ const closer = () => {
                             </span>
                         </NuxtLink>
 
+                        <NuxtLink to="/swap/NXY" class="p-3 flex flex-col items-center gap-2 border-2 border-transparent rounded-lg hover:bg-amber-100 hover:border-amber-300">
+                            <img src="https://nxy.cash/icon.svg" class="w-20 h-auto" />
+
+                            <span class="font-medium tracking-wider">
+                                $NXY
+                            </span>
+                        </NuxtLink>
+
                         <NuxtLink to="/swap/STUDIO" class="p-3 flex flex-col items-center gap-2 border-2 border-transparent rounded-lg hover:bg-amber-100 hover:border-amber-300">
                             <img src="https://nexa.studio/icon.svg" class="w-20 h-auto" />
 

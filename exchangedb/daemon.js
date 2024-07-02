@@ -121,7 +121,7 @@ console.info('\n\n  Starting Nexa Exchange Database daemon...\n')
     blockchainInfo = await getBlockchainInfo()
     console.log('BLOCKCHAIN INFO', blockchainInfo)
 
-    if (!blockchainInfo.blocks) {
+    if (!blockchainInfo?.blocks) {
         throw new Error('Oops! No blockchain info received.')
     }
 

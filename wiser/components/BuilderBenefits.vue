@@ -34,12 +34,19 @@ const props = defineProps({
                 </div>
 
                 <img
-                    src="https://bafybeihrwaxhbovf7t4gyajkiu5nlz3vu64xtpjsu3xbpzn4azxk5ughma.nexa.garden"
+                    src="https://i.ibb.co/zm9wDHg/wiserswap-app-screenshot.jpg"
                     alt="NFT gallery screenshot"
                     class="relative -z-20 min-w-full max-w-xl rounded-xl shadow-xl ring-1 ring-white/10 lg:row-span-4 lg:w-[64rem] lg:max-w-none"
                     width="2432"
                     height="1442"
                 />
+                <!-- <img
+                    src="https://bafybeihrwaxhbovf7t4gyajkiu5nlz3vu64xtpjsu3xbpzn4azxk5ughma.nexa.garden"
+                    alt="NFT gallery screenshot"
+                    class="relative -z-20 min-w-full max-w-xl rounded-xl shadow-xl ring-1 ring-white/10 lg:row-span-4 lg:w-[64rem] lg:max-w-none"
+                    width="2432"
+                    height="1442"
+                /> -->
 
                 <div class="max-w-xl lg:row-start-3 lg:mt-10 lg:max-w-md lg:border-t lg:border-white/10 lg:pt-10">
                     <dl class="max-w-xl space-y-8 text-base leading-7 text-gray-300 lg:max-w-none">
