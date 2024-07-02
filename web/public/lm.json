@@ -1,0 +1,13 @@
+[{
+  "ticker": "LM",
+  "name": "Loan Manager",
+  "summary": "TBD",
+  "description": "TBD",
+  "legal": "Permits the holder unrestricted access to fully manage one (1) Nexa Exchange loan center until the Manager's license expiration date.",
+  "creator": "Ava's DAO",
+  "contact": { "address": "3455 Peachtree Rd NE, Suite #500, Atlanta, GA 30326", "email": "support@avasdao.org", "twitter.com": "@AvasDAO" },
+  "icon": "/lm.svg",
+  "category": "NFT"
+},
+""
+]
