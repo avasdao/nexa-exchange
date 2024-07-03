@@ -1,6 +1,6 @@
 ## Base ########################################################################
 # Use a larger node image to do the build for native deps (e.g., gcc, python)
-FROM node:21.2-alpine as base
+FROM node:21.2-alpine AS base
 
 # Reduce npm log spam and colour during install within Docker
 ENV NPM_CONFIG_LOGLEVEL=warn
@@ -13,7 +13,7 @@ COPY --chown=node:node . /home/node/app/
 
 ## Development #################################################################
 # Define a development target that installs devDeps and runs in dev mode
-FROM base as development
+FROM base AS development
 WORKDIR /home/node/app
 # Install (not ci) with dependencies, and for Linux vs. Linux Musl (which we use for -alpine)
 RUN npm install
@@ -26,7 +26,7 @@ CMD ["npm", "start"]
 
 ## Production ##################################################################
 # Also define a production target which doesn't use devDeps
-FROM base as production
+FROM base AS production
 WORKDIR /home/node/app
 COPY --chown=node:node --from=development /home/node/app/node_modules /home/node/app/node_modules
 # Build the Docusaurus app
@@ -34,7 +34,7 @@ RUN npm run build
 
 ## Deploy ######################################################################
 # Use a stable nginx image
-FROM nginx:1.24-alpine as deploy
+FROM nginx:1.24-alpine AS deploy
 WORKDIR /home/node/app
 # Copy what we've installed/built from production
 # COPY --chown=node:node --from=production /home/node/app/build /usr/share/nginx/html/
