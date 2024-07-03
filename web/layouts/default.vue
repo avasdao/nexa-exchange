@@ -36,8 +36,8 @@ watch(System.$state, (_state) => {
 
 <template>
     <main class="min-h-full">
-        <AppHeader />
+        <Header />
         <slot />
-        <AppFooter />
+        <Footer />
     </main>
 </template>

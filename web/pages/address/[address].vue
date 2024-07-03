@@ -190,17 +190,10 @@ onMounted(() => {
 //     console.log('Before Unmount!')
 //     // Now is the time to perform all cleanup operations.
 // })
-
 </script>
 
 <template>
     <main class="max-w-7xl mx-auto py-5">
-        <!-- <div class="mx-3 my-0 sm:my-5">
-            <h1 class="text-2xl sm:text-4xl font-medium truncate">
-                {{address}}
-            </h1>
-        </div> -->
-
         <section class="my-3 px-3 flex flex-col sm:flex-row gap-3">
             <div class="min-w-0 flex-1">
                 <label for="receiving-address" class="sr-only">Receiving address</label>
@@ -275,8 +268,5 @@ onMounted(() => {
             </section>
 
         </div>
-
     </main>
-
-    <AppFooter />
 </template>
