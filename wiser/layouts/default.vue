@@ -6,6 +6,9 @@ useHead({
     ],
 })
 
+/* Initialize runtime config. */
+const runtimeConfig = useRuntimeConfig()
+
 /* Initialize stores. */
 import { useProfileStore } from '@/stores/profile'
 import { useSystemStore } from '@/stores/system'
@@ -76,6 +79,10 @@ onMounted(async () => {
 
     /* Initialize wallet. */
     Wallet.init()
+
+    console.log('API_ENDPOINT', runtimeConfig?.public?.API_ENDPOINT)
+    console.log('API_ENDPOINT_RAW', runtimeConfig?.public?.API_ENDPOINT_RAW)
+    console.log('API_ENDPOINT_NUXT', runtimeConfig?.public?.API_ENDPOINT_NUXT)
 })
 
 // onBeforeUnmount(() => {
@@ -92,3 +99,20 @@ onMounted(async () => {
         <slot />
     </div>
 </template>
+
+<style>
+.max-lines-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.max-lines-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+            line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+</style>

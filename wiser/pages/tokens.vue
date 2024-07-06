@@ -12,7 +12,6 @@ useHead({
 
 /* Initialize runtime config. */
 const runtimeConfig = useRuntimeConfig()
-// console.log('RUNTIME CONFIG', runtimeConfig)
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
@@ -21,17 +20,19 @@ const System = useSystemStore()
 const tokens = ref(null)
 
 const init = async () => {
-    console.log('endpoint', runtimeConfig?.public?.API_ENDPOINT)
-    console.log('endpoint-raw', runtimeConfig?.public?.API_ENDPOINT_RAW)
-    console.log('endpoint-nuxt', runtimeConfig?.public?.API_ENDPOINT_NUXT)
-    console.log('endpoint-test', runtimeConfig?.public?.API_ENDPOINT_TEST)
-    const assets = await $fetch(runtimeConfig?.public?.API_ENDPOINT + '/assets')
+    let assets
+
+    assets = await $fetch(runtimeConfig?.public?.API_ENDPOINT + '/assets')
     // tokens.value = await $fetch('/api/tokens')
         .catch(err => console.error(err))
     console.log('ASSETS', assets)
 
-    tokens.value = assets.filter(_asset => {
+    assets = assets.filter(_asset => {
         return typeof _asset.ticker !== 'undefined'
+    })
+
+    tokens.value = assets.sort((_a, _b) => {
+        return (_a.rank || 100) - (_b.rank || 100)
     })
 }
 
@@ -152,7 +153,7 @@ onMounted(() => {
                                             {{token.name}}
                                         </div>
 
-                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider">
+                                        <p class="mt-1 text-gray-600 text-xs italic leading-5 tracking-wider max-lines-3">
                                             {{token?.summary}}
                                         </p>
 

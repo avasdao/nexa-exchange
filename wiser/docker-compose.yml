@@ -13,4 +13,3 @@ services:
         max-size: '10m'
     environment:
       - NUXT_ENV_API_ENDPOINT=${API_ENDPOINT}
-      - NUXT_ENV_API_ENDPOINT_TEST=API_TEST_ENDPOINT
