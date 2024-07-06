@@ -45,7 +45,8 @@ export default defineNuxtConfig({
     // FIXME
     runtimeConfig: {
         public: {
-            API_ENDPOINT: process.env.API_ENDPOINT,
+            API_ENDPOINT: 'https://nexa.exchange/v1',
+            API_ENDPOINT_TEST: process.env.API_ENDPOINT,
         },
     },
 
