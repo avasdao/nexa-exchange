@@ -84,7 +84,7 @@ onMounted(() => {
                             <h1 class="test__title text-3xl font-bold mb-3">{{asset.title}}</h1>
 
                             <!-- <p class="test__author font-sm font-light">by {{asset.author}}</p> -->
-                            <p class="test__author font-sm font-light">by {{asset?.providers[0]}}</p>
+                            <p class="test__author font-sm font-light">by {{asset?.owner}}</p>
                         </div>
 
                         <div class="mt-auto">
