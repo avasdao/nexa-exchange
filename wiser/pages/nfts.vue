@@ -20,12 +20,12 @@ const init = async () => {
     /* Initialize locals. */
     let assets
 
-    assets = await $fetch(runtimeConfig?.public?.API_ENDPOINT + '/assets')
+    assets = await $fetch(runtimeConfig?.public?.API_ENDPOINT + '/nfts')
         .catch(err => console.error(err))
     console.log('ASSETS', assets)
 
     assets = assets.filter(_asset => {
-        return typeof _asset.ticker !== 'undefined'
+        return typeof _asset.imgUrl !== 'undefined'
     })
 
     nfts.value = assets.sort((_a, _b) => {
@@ -84,7 +84,7 @@ onMounted(() => {
                             <h1 class="test__title text-3xl font-bold mb-3">{{asset.title}}</h1>
 
                             <!-- <p class="test__author font-sm font-light">by {{asset.author}}</p> -->
-                            <p class="test__author font-sm font-light">by {{asset.providers[0]}}</p>
+                            <p class="test__author font-sm font-light">by {{asset?.providers[0]}}</p>
                         </div>
 
                         <div class="mt-auto">
