@@ -68,7 +68,7 @@ const System = useSystemStore()
 
                 <div class="ml-3">
                     <p class="text-2xl font-medium text-rose-700">
-                        NOTE: System MEX has been moved to <NuxtLink to="/_price" class="text-3xl font-bold">/_mex</NuxtLink>
+                        NOTE: System MEX has been moved to <NuxtLink to="/_mex" class="text-3xl font-bold">/_mex</NuxtLink>
                     </p>
                 </div>
             </div>
@@ -88,7 +88,7 @@ const System = useSystemStore()
 
                 <div class="ml-3">
                     <p class="text-2xl font-medium text-rose-700">
-                        NOTE: System NEX has been moved to <NuxtLink to="/_price" class="text-3xl font-bold">/_nex</NuxtLink>
+                        NOTE: System NEX has been moved to <NuxtLink to="/_nex" class="text-3xl font-bold">/_nex</NuxtLink>
                     </p>
                 </div>
             </div>

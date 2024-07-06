@@ -48,7 +48,7 @@ const System = useSystemStore()
 
                 <div class="ml-3">
                     <p class="text-2xl font-medium text-rose-700">
-                        NOTE: System MCAP has been moved to <NuxtLink to="/_price" class="text-3xl font-bold">/_mcap</NuxtLink>
+                        NOTE: System MCAP has been moved to <NuxtLink to="/_mcap" class="text-3xl font-bold">/_mcap</NuxtLink>
                     </p>
                 </div>
             </div>
