@@ -12,4 +12,5 @@ services:
         max-file: '5'
         max-size: '10m'
     environment:
-      - API_ENDPOINT=${API_ENDPOINT}
+      - NUXT_ENV_API_ENDPOINT=${API_ENDPOINT}
+      - NUXT_ENV_API_ENDPOINT_TEST=API_TEST_ENDPOINT
