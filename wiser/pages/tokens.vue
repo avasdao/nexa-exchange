@@ -22,7 +22,8 @@ const tokens = ref(null)
 
 const init = async () => {
     console.log('endpoint', runtimeConfig?.public?.API_ENDPOINT)
-    console.log('endpoint-test', runtimeConfig?.public?.API_ENDPOINT_TEST)
+    console.log('endpoint-raw', runtimeConfig?.public?.API_ENDPOINT_RAW)
+    console.log('endpoint-nuxt', runtimeConfig?.public?.API_ENDPOINT_NUXT)
     const assets = await $fetch(runtimeConfig?.public?.API_ENDPOINT + '/assets')
     // tokens.value = await $fetch('/api/tokens')
         .catch(err => console.error(err))
