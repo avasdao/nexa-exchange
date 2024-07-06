@@ -10,6 +10,10 @@ useHead({
     ],
 })
 
+/* Initialize runtime config. */
+const runtimeConfig = useRuntimeConfig()
+// console.log('RUNTIME CONFIG', runtimeConfig)
+
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
@@ -17,9 +21,15 @@ const System = useSystemStore()
 const tokens = ref(null)
 
 const init = async () => {
-    tokens.value = await $fetch('/api/tokens')
+    console.log('endpoint', runtimeConfig?.public?.API_ENDPOINT)
+    const assets = await $fetch(runtimeConfig?.public?.API_ENDPOINT + '/assets')
+    // tokens.value = await $fetch('/api/tokens')
         .catch(err => console.error(err))
-    console.log('TOKENS', tokens.value)
+    console.log('ASSETS', assets)
+
+    tokens.value = assets.filter(_asset => {
+        return typeof _asset.ticker !== 'undefined'
+    })
 }
 
 const displayPrice = (_token) => {
@@ -51,9 +61,9 @@ const displayGenesis = (_token) => {
     let genesis
 
     if (
-        _token?.genesis.blocktime === 0 ||
-        _token?.genesis.blocktime === null ||
-        typeof _token?.genesis.blocktime === 'undefined'
+        _token?.genesis?.blocktime === 0 ||
+        _token?.genesis?.blocktime === null ||
+        typeof _token?.genesis?.blocktime === 'undefined'
     ) {
         return 'n/a'
     } else {
@@ -132,7 +142,7 @@ onMounted(() => {
                         <tr v-for="token of tokens" :key="token.id" class="border-b border-gray-200">
                             <td class="max-w-0 py-5 pl-4 pr-3 text-lg sm:pl-0">
                                 <div class="flex flex-row gap-3">
-                                    <img :src="token.iconUrl" class="h-16 w-auto" />
+                                    <img :src="token.icon" class="h-16 w-auto" />
 
                                     <section>
                                         <div class="font-medium text-gray-900 text-2xl tracking-wider">
