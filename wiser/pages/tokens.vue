@@ -20,10 +20,10 @@ const System = useSystemStore()
 const tokens = ref(null)
 
 const init = async () => {
+    /* Initialize locals. */
     let assets
 
     assets = await $fetch(runtimeConfig?.public?.API_ENDPOINT + '/assets')
-    // tokens.value = await $fetch('/api/tokens')
         .catch(err => console.error(err))
     console.log('ASSETS', assets)
 

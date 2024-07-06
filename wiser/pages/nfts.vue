@@ -6,6 +6,9 @@ useHead({
     ],
 })
 
+/* Initialize runtime config. */
+const runtimeConfig = useRuntimeConfig()
+
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
@@ -14,80 +17,20 @@ const assets = ref(null)
 const nfts = ref(null)
 
 const init = async () => {
-    assets.value = []
+    /* Initialize locals. */
+    let assets
 
-    nfts.value = await $fetch('/api/nfts')
+    assets = await $fetch(runtimeConfig?.public?.API_ENDPOINT + '/assets')
         .catch(err => console.error(err))
-    console.log('NFTS', nfts.value)
+    console.log('ASSETS', assets)
 
-    assets.value.push({
-        id: 'cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb9000094e7b2d83551ed3bbb60c68e7bde443e4c9a701496fe0e664986b0e8ac60b9b9',
-        owner: 'Endo',
-        title: 'Ape #4',
-        imgUrl: 'https://niftyart.cash/nftyc/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb9000094e7b2d83551ed3bbb60c68e7bde443e4c9a701496fe0e664986b0e8ac60b9b9/cardf.jpeg',
-        providers: [
-            'NiftyArt'
-        ],
-        createdAt: 12345,
+    assets = assets.filter(_asset => {
+        return typeof _asset.ticker !== 'undefined'
     })
 
-    assets.value.push({
-        id: 'cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb90000753b0856df158855654ce94ec505d94ac640926760a469f81e6ea22a864c73a8',
-        owner: 'Endo',
-        title: 'Ape #4',
-        imgUrl: 'https://niftyart.cash/nftyc/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb90000753b0856df158855654ce94ec505d94ac640926760a469f81e6ea22a864c73a8/cardf.jpeg',
-        providers: [
-            'NiftyArt'
-        ],
-        createdAt: 12345,
+    nfts.value = assets.sort((_a, _b) => {
+        return (_a.rank || 100) - (_b.rank || 100)
     })
-
-    assets.value.push({
-        id: 'cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb90000f23416cf81246c0915663e03fd453046b421e059a573707bb9e84cc1613a40e8',
-        owner: 'Endo',
-        title: 'Ape #4',
-        imgUrl: 'https://niftyart.cash/nftyc/cacf3d958161a925c28a970d3c40deec1a3fe06796fe1b4a7b68f377cdb90000f23416cf81246c0915663e03fd453046b421e059a573707bb9e84cc1613a40e8/cardf.jpeg',
-        providers: [
-            'NiftyArt'
-        ],
-        createdAt: 12345,
-    })
-
-    assets.value.push({
-        id: 'stub',
-        owner: 'Master Builder',
-        title: 'Just Testing',
-        imgUrl: 'https://source.unsplash.com/random/2',
-        providers: [
-            'NiftyArt'
-        ],
-        createdAt: 12345,
-    })
-
-    assets.value.push({
-        id: 'stub',
-        owner: 'Student Builder',
-        title: 'More Testing',
-        imgUrl: 'https://source.unsplash.com/random/3',
-        providers: [
-            'NiftyArt'
-        ],
-        createdAt: 12345,
-    })
-
-    for (let i = 5; i < 20; i++) {
-        assets.value.push({
-            id: 'stub',
-            owner: 'Unsplash',
-            title: 'Simple Placeholder',
-            imgUrl: 'https://source.unsplash.com/random/' + i,
-            providers: [
-                'NiftyArt'
-            ],
-            createdAt: 12345,
-        })
-
-    }
 }
 
 onMounted(() => {
@@ -130,15 +73,18 @@ onMounted(() => {
         <section class="columns-2 md:columns-3 lg:columns-4">
             <div v-for="asset of nfts" :key="asset.id" class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
                 <NuxtLink :to="'https://niftyart.cash/buy/' + asset.id" target="_blank">
-                    <img class="w-full rounded-md" :src="asset.media?.cardf">
+                    <!-- <img class="w-full rounded-md" :src="asset.media?.cardf"> -->
+                    <img class="w-full rounded-md" :src="asset.imgUrl">
 
                     <div class="test__body absolute inset-0 p-8 text-white flex flex-col">
                         <div class="relative">
                             <!-- <a class="test__link absolute inset-0" target="_blank" href="/"></a> -->
 
-                            <h1 class="test__title text-3xl font-bold mb-3">{{asset.name}}</h1>
+                            <!-- <h1 class="test__title text-3xl font-bold mb-3">{{asset.name}}</h1> -->
+                            <h1 class="test__title text-3xl font-bold mb-3">{{asset.title}}</h1>
 
-                            <p class="test__author font-sm font-light">by {{asset.author}}</p>
+                            <!-- <p class="test__author font-sm font-light">by {{asset.author}}</p> -->
+                            <p class="test__author font-sm font-light">by {{asset.providers[0]}}</p>
                         </div>
 
                         <div class="mt-auto">

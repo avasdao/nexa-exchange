@@ -2,11 +2,11 @@
 import PouchDB from 'pouchdb'
 
 /* Initialize databases. */
-const assetsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/assets`)
+const nftsDb = new PouchDB(`http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@127.0.0.1:5984/nfts`)
 
 export default defineEventHandler(async (event) => {
     /* Initialize locals. */
-    let assets
+    let nfts
     let query
     let response
 
@@ -16,13 +16,13 @@ export default defineEventHandler(async (event) => {
     /* Set session id. */
     // sessionid = query?.sid
 
-    /* Request (all) assets. */
-    // response = await assetsDb
+    /* Request (all) nfts. */
+    // response = await nftsDb
     //     .query('api/isGroup', {
     //         include_docs: true,
     //     })
     //     .catch(err => console.error(err))
-    response = await assetsDb
+    response = await nftsDb
         .allDocs({
             include_docs: true,
         })
@@ -34,8 +34,8 @@ export default defineEventHandler(async (event) => {
         return []
     }
 
-    /* Parse assets. */
-    assets = response.rows.map(_asset => {
+    /* Parse nfts. */
+    nfts = response.rows.map(_asset => {
         /* Create asset. */
         const asset = {
             id: _asset.id,
@@ -52,6 +52,6 @@ export default defineEventHandler(async (event) => {
         return asset
     })
 
-    /* Return assets. */
-    return assets
+    /* Return nfts. */
+    return nfts
 })
