@@ -11,7 +11,7 @@ const props = defineProps({
 })
 
 /* Set API endpoint. */
-const API_ENDPOINT = 'https://nexa.exchange/ticker'
+const API_ENDPOINT = 'https://nexa.exchange/_ticker'
 
 const isShowingMenu = ref(false)
 

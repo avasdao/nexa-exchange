@@ -3,7 +3,7 @@
 import numeral from 'numeral'
 
 /* Set API endpoint. */
-const API_ENDPOINT = 'https://nexa.exchange/ticker'
+const API_ENDPOINT = 'https://nexa.exchange/_ticker'
 
 /* Set app URL. */
 const APP_URL = 'https://app.nexa.exchange'
@@ -62,7 +62,7 @@ const launchApp = () => {
 }
 
 const updateTicker = async () => {
-    ticker.value = await $fetch('/ticker')
+    ticker.value = await $fetch('/_ticker')
         .catch(err => console.error(err))
     // console.info('Latest ticker:', ticker.value)
 

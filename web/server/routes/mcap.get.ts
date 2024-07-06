@@ -15,7 +15,7 @@ interface Currency {
 
 export default defineEventHandler(async (event) => {
     /* Request ticker (from our own API). */
-    const ticker: Ticker = await $fetch('/ticker')
+    const ticker: Ticker = await $fetch('/_ticker')
 
     /* Set market cap. */
     const mcap: number = ticker?.quote?.USD?.marketCap

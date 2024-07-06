@@ -6,7 +6,7 @@ import numeral from 'numeral'
 const ticker = ref(null)
 
 /* Request ticker. */
-ticker.value = await $fetch('/ticker')
+ticker.value = await $fetch('/_ticker')
     .catch(err => console.error(err))
 
 </script>
