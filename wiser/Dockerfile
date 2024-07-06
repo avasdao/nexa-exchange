@@ -7,7 +7,7 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package.json /usr/src/app/package.json
 RUN yarn install --silent
 
-ENV API_ENDPOINT $API_ENDPOINT
+ARG API_ENDPOINT=$API_ENDPOINT
 
 COPY . /usr/src/app
 RUN yarn run build
