@@ -46,7 +46,8 @@ onMounted(() => {
 <template>
     <header class="py-8 flex flex-col gap-3 justify-center items-center bg-gradient-to-b from-sky-700 to-sky-900 border-y-2 border-amber-300 shadow">
         <h1 class="text-6xl font-light text-sky-100 tracking-wider">
-            NFTs <span class="font-thin text-amber-300">&amp;</span> SFTs
+            <!-- NFTs <span class="font-thin text-amber-300">&amp;</span> SFTs -->
+            Collectibles
         </h1>
 
         <h3 class="flex flex-col justify-center items-center text-xl font-light text-sky-200 italic">
