@@ -64,7 +64,7 @@ const launchApp = () => {
 const updateTicker = async () => {
     ticker.value = await $fetch('/_ticker')
         .catch(err => console.error(err))
-    // console.info('Latest ticker:', ticker.value)
+    console.info('Latest ticker:', ticker.value)
 
     const price = (ticker.value?.quote.USD.price * 1000000) || 'n/a'
     // console.log('PRICE', price)
@@ -96,7 +96,7 @@ updateTicker()
         <div class="pointer-events-none absolute inset-0 z-30 shadow" aria-hidden="true"></div>
 
         <div class="relative z-20">
-            <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 sm:py-4 md:justify-start md:space-x-10 lg:px-8">
+            <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 sm:py-4 lg:justify-start lg:space-x-10 lg:px-8">
                 <div>
                     <NuxtLink to="/" class="flex">
                         <span class="sr-only">Nexa Exchange</span>
@@ -104,40 +104,42 @@ updateTicker()
                     </NuxtLink>
                 </div>
 
-                <NuxtLink to="/markets" class="lg:hidden">
-                    <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium group">
-                        mNEXA/USD
-                        <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">
-                            {{displayQuote}}
-                        </span>
-                    </h2>
-
-                    <div class="flex justify-end">
-                        <span class="text-yellow-400 font-medium text-sm text-xl">
-                            <span class="">
-                                {{priceChg24h}}
+                <ClientOnly>
+                    <NuxtLink to="/markets" class="lg:hidden">
+                        <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium group">
+                            mNEXA/USD
+                            <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">
+                                {{displayQuote}}
                             </span>
+                        </h2>
 
-                            <svg v-if="ticker?.quote.USD.pctChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                            </svg>
-                            <svg v-else class="inline w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
-                            </svg>
+                        <div class="flex justify-end">
+                            <span class="text-yellow-400 font-medium text-sm text-xl">
+                                <span class="">
+                                    {{priceChg24h}}
+                                </span>
 
-                            <span class="mx-1 text-yellow-700">
-                                &bullet; &bullet;
+                                <svg v-if="ticker?.quote.USD.pctChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                </svg>
+                                <svg v-else class="inline w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
+                                </svg>
+
+                                <span class="mx-1 text-yellow-700">
+                                    &bullet; &bullet;
+                                </span>
+
+                                <span class="">
+                                    {{vol24h}}
+                                </span>
                             </span>
+                        </div>
+                    </NuxtLink>
+                </ClientOnly>
 
-                            <span class="">
-                                {{vol24h}}
-                            </span>
-                        </span>
-                    </div>
-                </NuxtLink>
-
-                <div class="-my-2 md:hidden">
-                    <a href="https://app.nexa.exchange" target="_blank"
+                <div class="-my-2 lg:hidden">
+                    <NuxtLink to="https://app.nexa.exchange" target="_blank"
                         class="inline-flex items-center justify-center rounded-md bg-sky-100 p-2 hover:bg-sky-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500"
                         aria-expanded="false"
                     >
@@ -145,10 +147,10 @@ updateTicker()
                         <svg class="w-8 h-auto text-sky-700 font-extrabold" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9"></path>
                         </svg>
-                    </a>
+                    </NuxtLink>
                 </div>
 
-                <div class="hidden md:flex md:flex-1 md:items-center md:justify-between">
+                <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
                     <nav class="flex space-x-10">
 
                         <a href="https://docs.nexa.exchange" target="_blank" class="py-1 text-base font-medium text-gray-100 hover:text-yellow-300">
@@ -158,43 +160,45 @@ updateTicker()
                     </nav>
 
                     <div class="flex items-center md:ml-12">
-                        <NuxtLink to="/markets">
-                            <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium group">
-                               mNEXA/USD
-                               <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">
-                                {{displayQuote}}
-                            </span>
-                            </h2>
-
-                            <div class="flex justify-end">
-                                <!-- <span class="text-yellow-400 font-medium text-xs">
-                                    <span class="">+1.28%</span>
-                                    <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                                    <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
-                                    <span class="">2.31M</span>
-                                </span> -->
-                                <span class="text-yellow-400 font-medium text-sm sm:text-xl">
-                                    <span class="">
-                                        {{priceChg24h}}
-                                    </span>
-
-                                    <svg v-if="ticker?.quote.USD.pctChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-                                    </svg>
-                                    <svg v-else class="inline w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
-                                    </svg>
-
-                                    <span class="mx-1 text-yellow-700">
-                                        &bullet; &bullet;
-                                    </span>
-
-                                    <span class="">
-                                        {{vol24h}}
-                                    </span>
+                        <ClientOnly>
+                            <NuxtLink to="/markets">
+                                <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium group">
+                                mNEXA/USD
+                                <span class="ml-2 text-3xl text-yellow-500 group-hover:text-yellow-400">
+                                    {{displayQuote}}
                                 </span>
-                            </div>
-                        </NuxtLink>
+                                </h2>
+
+                                <div class="flex justify-end">
+                                    <!-- <span class="text-yellow-400 font-medium text-xs">
+                                        <span class="">+1.28%</span>
+                                        <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                        <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
+                                        <span class="">2.31M</span>
+                                    </span> -->
+                                    <span class="text-yellow-400 font-medium text-sm sm:text-xl">
+                                        <span class="">
+                                            {{priceChg24h}}
+                                        </span>
+
+                                        <svg v-if="ticker?.quote.USD.pctChg24h > 0" class="inline w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                        </svg>
+                                        <svg v-else class="inline w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
+                                        </svg>
+
+                                        <span class="mx-1 text-yellow-700">
+                                            &bullet; &bullet;
+                                        </span>
+
+                                        <span class="">
+                                            {{vol24h}}
+                                        </span>
+                                    </span>
+                                </div>
+                            </NuxtLink>
+                        </ClientOnly>
 
                         <a href="https://app.nexa.exchange" target="_blank" class="ml-8 inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
                             Launch App
