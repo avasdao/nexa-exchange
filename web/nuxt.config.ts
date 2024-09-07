@@ -38,4 +38,7 @@ export default defineNuxtConfig({
         /* Disable server-side rendering for Admin area. */
         '/admin/**': { ssr: false },
     },
+
+    /* Set compatibility date. */
+    compatibilityDate: '2024-07-04',
 })
