@@ -126,8 +126,8 @@ console.info('\n\n  Starting Nexa Exchange Database daemon...\n')
     }
 
     /* Start (sync) database indexers. */
-    manageHodls()
-    manageStakehouses()
-    manageTradingPosts()
-    manageWiserSwaps()
+    // manageHodls()
+    // manageStakehouses()
+    // manageTradingPosts()
+    // manageWiserSwaps()
 })()
