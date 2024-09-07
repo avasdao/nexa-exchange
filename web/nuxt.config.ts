@@ -33,10 +33,11 @@ export default defineNuxtConfig({
     routeRules: {
         /* Add CORS headers to root. */
         // NOTE: We need this to make <token>.json available to web apps.
-        '/**': { cors: true },
+        // '/**': { cors: true },
+        '/**': { cors: true, ssr: false },
 
         /* Disable server-side rendering for Admin area. */
-        '/admin/**': { ssr: false },
+        // '/admin/**': { ssr: false },
     },
 
     /* Set compatibility date. */
