@@ -1,37 +1,26 @@
 /* Import (test) modules. */
 import { encodeAddress } from '@nexajs/address'
-
 import {
     ripemd160,
     sha256,
 } from '@nexajs/crypto'
-
-/* Import library modules. */
 import { getCoins } from '@nexajs/purse'
-
-/* Import (individual) modules. */
 import {
     encodeDataPush,
     encodeNullData,
     OP,
 } from '@nexajs/script'
-
 import {
     getTokens,
     sendToken,
 } from '@nexajs/token'
-
 import {
     binToHex,
     hexToBin,
 } from '@nexajs/utils'
 
-/* Libauth helpers. */
-import { instantiateSecp256k1 } from '@bitauth/libauth'
-
 /* Initialize stores. */
 import { useWalletStore } from '@/stores/wallet'
-const Wallet = useWalletStore()
 
 /* Set constants. */
 // const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
@@ -39,13 +28,6 @@ const WISERSWAP_HEX = hexToBin('6c6c6c6c6c5579009c63c076cd01217f517f7c817f775279
 const ADMIN = hexToBin('45f5b9d41dd723141f721c727715c690fedbbbd6')
 // const ADMIN_FEE = '0100' // 256 or 2.56% (FIXME: This is bug limit.)
 const DUST_VALUE = BigInt(546)
-
-let secp256k1
-
-;(async () => {
-    /* Instantiate Libauth crypto interfaces. */
-    secp256k1 = await instantiateSecp256k1()
-})()
 
 export default async (
     _poolArgs,
@@ -57,6 +39,9 @@ export default async (
     console.log('WISERSWAP (base asset):', _baseAsset)
     console.log('WISERSWAP (quote asset):', _quoteAsset)
     console.log('WISERSWAP (amount):', typeof _amount, _amount)
+
+    /* Initialize wallet (store). */
+    const Wallet = useWalletStore()
 
     /* Initialize locals.*/
     let adminAddress

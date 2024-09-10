@@ -1,12 +1,11 @@
 <script setup>
 /* Import modules. */
 import moment from 'moment'
+import { getSender } from '@nexajs/address'
 import {
     getAddressHistory,
     getTransaction,
 } from '@nexajs/rostrum'
-
-import getSender from './history/getSender.js'
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'

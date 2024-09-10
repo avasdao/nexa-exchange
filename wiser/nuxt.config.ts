@@ -72,4 +72,7 @@ export default defineNuxtConfig({
         // NOTE: Allows for IPFS (hosting) + Web-based (rendering).
         '/**': { ssr: false },
     },
+
+    /* Set compatibility date. */
+    compatibilityDate: '2024-09-10',
 })

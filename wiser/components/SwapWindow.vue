@@ -391,6 +391,15 @@ const init = async () => {
         quoteStep.value = '0.0001'
         quotePlaceholder.value = '0.0000'
         break
+    case 'NXY':
+        quoteName.value = `Nxy Social`
+        quoteTokenidHex.value = '5f2456fa44a88c4a831a4b7d1b1f34176a29a3f28845af639eb9b1c88dd40000'
+        quoteIcon.value = 'https://nxy.cash/icon.svg'
+        quoteDecimals.value = 2
+
+        quoteStep.value = '0.01'
+        quotePlaceholder.value = '0.00'
+        break
     case 'STUDIO':
         quoteName.value = `Studio Time`
         quoteTokenidHex.value = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
@@ -414,12 +423,12 @@ const init = async () => {
         'TEMPLATE',
         DEV_SCRIPT_PUBKEY, // FIXME FOR DEV PURPOSES ONLY
     )
-    console.info('\nCONTRACT ADDRESS', contractAddress)
+    console.info('CONTRACT ADDRESS', contractAddress)
 
     /* Request unspent assets. */
     contractUnspent = await listUnspent(contractAddress)
         .catch(err => console.error(err))
-    console.log('\nCONTRACT UNSPENT (all):', contractUnspent)
+    console.log('CONTRACT UNSPENT (all):', contractUnspent)
 
     /* Filter tokens. */
     contractUnspent = contractUnspent.filter(_unspent => {
@@ -433,7 +442,7 @@ const init = async () => {
 
     // FOR DEV PURPOSES ONLY -- take the LARGEST input
     contractUnspent = [contractUnspent.sort((a, b) => Number(b.tokens) - Number(a.tokens))[0]]
-    console.log('\nCONTRACT UNSPENT (final):', contractUnspent)
+    console.log('CONTRACT UNSPENT (final):', contractUnspent)
 
     /* Set active pool. */
     activePool.value = contractUnspent[0]

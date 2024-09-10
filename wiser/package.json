@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-wiser",
-  "version": "24.7.5",
+  "version": "24.9.10",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -10,15 +10,15 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@pinia/nuxt": "0.4.7",
+    "@pinia/nuxt": "0.5.4",
     "apexcharts": "3.44.0",
     "chart.js": "4.4.0",
     "js-confetti": "0.12.0",
     "moment": "2.29.4",
-    "nexajs": "24.6.24",
+    "nexajs": "24.9.5",
     "numeral": "2.0.6",
-    "nuxt": "3.7.4",
-    "pinia": "2.0.32",
+    "nuxt": "3.12.4",
+    "pinia": "2.2.2",
     "pouchdb": "8.0.1",
     "qr-scanner": "1.4.2",
     "qrcode": "1.5.3",
@@ -28,8 +28,7 @@
   },
   "devDependencies": {
     "@kevinmarrec/nuxt-pwa": "0.17.0",
-    "@nuxtjs/i18n": "8.0.0-rc.2",
-    "@nuxtjs/tailwindcss": "6.4.1",
-    "postcss-custom-properties": "13.3.10"
+    "@nuxtjs/i18n": "8.3.3",
+    "@nuxtjs/tailwindcss": "6.4.1"
   }
 }
