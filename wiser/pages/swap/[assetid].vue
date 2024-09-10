@@ -30,6 +30,10 @@ const init = async () => {
         assetTitle = `Nexa Exchange Loyalty`
         assetDescription = `WiserSwap offers instant Nexa token trading.`
         break
+    case 'NXY':
+        assetTitle = `Nxy Social`
+        assetDescription = `WiserSwap offers instant Nexa token trading.`
+        break
     case 'STUDIO':
         assetTitle = `Studio Time + Collection`
         assetDescription = `WiserSwap offers instant Nexa token trading.`

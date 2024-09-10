@@ -18,6 +18,8 @@ export default defineEventHandler(async (event) => {
             console.error(err)
             error = err
         })
+    console.log('RESPONSE', response)
+    console.log('ERROR', error)
 
     /* Validate response. */
     if (response) {
@@ -26,5 +28,6 @@ export default defineEventHandler(async (event) => {
     }
 
     /* Return error. */
-    return error
+    setResponseStatus(event, 404, 'Session was NOT found!')
+    return `Session [ ${sessionid} ] was NOT found!`
 })

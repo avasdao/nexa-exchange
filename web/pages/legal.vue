@@ -57,14 +57,14 @@ const System = useSystemStore()
                 AML/KYC Policy covers the following matters:
             </p>
 
-            <p>
+            <div>
                 <ol>
                     <li>Verification procedures</li>
                     <li>Compliance Officer</li>
                     <li>Monitoring transactions</li>
                     <li>Risk assessment</li>
                 </ol>
-            </p>
+            </div>
         </section>
 
         <section class="flex flex-col gap-5">
