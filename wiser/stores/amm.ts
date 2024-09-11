@@ -42,10 +42,15 @@ export const useAmmStore = defineStore('amm', {
             let poolArgs
             let pools
             let response
-            let DEV_POOL
+            let target
+let DEV_POOL
+
+            /* Set target. */
+            target = `${apiEndpoint}/pools/${_baseAsset}`
+            console.log('TARGET', target)
 
             /* Request pools. */
-            pools = await $fetch(`${apiEndpoint}/pools`)
+            pools = await $fetch(target)
                 .catch(err => console.error(err))
             console.log('POOLS', pools)
 
@@ -55,19 +60,22 @@ export const useAmmStore = defineStore('amm', {
 
 // FIXME FOR DEVELOPMENT PURPOSES ONLY
 DEV_POOL = pools.find(_pool => {
-    return _pool.id === 'nprqq9xh03064ut44k5pp3zkvr4vh422ez7ukfqqzjefztzvcc03hr97t3m7h40wagnyzezlzqpzcqg5gh6mn4qa6u33g8mjr3e8w9wxjrldhw7kqqqq47nsfsmf'
+    return _pool.id === '0014d77c5faaf175ada810c45660eacbd54ac8bdcb240014b2912c4cc61f1b8cbe5c77ebd5eeea2641645f10022c011445f5b9d41dd723141f721c727715c690fedbbbd60000'
 })
+console.log('DEV POOL', DEV_POOL)
 
             /* Set (pool) script arguments. */
             // poolArgs = pools[0].poolArgs
             poolArgs = {
-                provider: DEV_POOL.providerid,
-                payout: DEV_POOL.providerid,
-                fee: DEV_POOL.fee,
-                base: DEV_POOL.base,
-                ceiling: DEV_POOL.ceiling,
-                floor: DEV_POOL.floor,
+                admin: DEV_POOL.scriptArgs.admin,
+                adminFee: DEV_POOL.scriptArgs.adminFee,
+                provider: DEV_POOL.scriptArgs.providerPubkey,
+                providerFee: DEV_POOL.scriptArgs.providerFee,
+                payout: DEV_POOL.scriptArgs.payout,
+                ceiling: DEV_POOL.scriptArgs.ceiling,
+                floor: DEV_POOL.scriptArgs.floor,
             }
+            console.log('POOL ARGS', poolArgs)
 
             /* Request trading post (swap). */
             response = await swap_v1(

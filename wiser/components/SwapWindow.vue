@@ -50,6 +50,7 @@ const quotePlaceholder = ref(null)
 
 const txidem = ref(null)
 
+const isReady = ref(false)
 const isShowingChooser = ref(false)
 const isShowingSettings = ref(false)
 const isSwapping = ref(false)
@@ -81,6 +82,11 @@ watch(baseQuantity, (_newBase, _oldBase) => {
     /* Reset dislay. */
     error.value = null
     txidem.value = null
+
+    /* Validate active pool. */
+    if (!activePool.value?.satoshis || !activePool.value?.tokens) {
+        return console.error('Active Pool values are missing!', activePool.value)
+    }
 
     if (baseTokenidHex.value === '0') {
         /* Calculate (decimal) multiplier.*/
@@ -145,6 +151,11 @@ watch(quoteQuantity, (_newQuote, _oldQuote) => {
     /* Reset display. */
     error.value = null
     txidem.value = null
+
+    /* Validate active pool. */
+    if (!activePool.value?.satoshis || !activePool.value?.tokens) {
+        return console.error('Active Pool values are missing!', activePool.value)
+    }
 
     if (baseTokenidHex.value === '0') {
         /* Calculate (decimal) multiplier.*/
@@ -447,6 +458,10 @@ const init = async () => {
     /* Set active pool. */
     activePool.value = contractUnspent[0]
     console.log('ACTIVE POOL', activePool.value)
+
+// FIXME Block the UI until window is READY!
+    /* Set flag. */
+    isReady.value = true
 }
 
 onMounted(() => {

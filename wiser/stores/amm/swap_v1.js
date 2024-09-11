@@ -4,6 +4,7 @@ import {
     ripemd160,
     sha256,
 } from '@nexajs/crypto'
+import { broadcast } from '@nexajs/provider'
 import { getCoins } from '@nexajs/purse'
 import {
     encodeDataPush,
@@ -11,8 +12,9 @@ import {
     OP,
 } from '@nexajs/script'
 import {
+    buildTokens,
     getTokens,
-    sendToken,
+    sendTokens,
 } from '@nexajs/token'
 import {
     binToHex,
@@ -25,7 +27,7 @@ import { useWalletStore } from '@/stores/wallet'
 /* Set constants. */
 // const STUDIO_ID_HEX = '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000'
 const WISERSWAP_HEX = hexToBin('6c6c6c6c6c5579009c63c076cd01217f517f7c817f775279c701217f517f7c817f77537a7b888876c678c7517f7c76010087636d00677f77517f7c76010087636d00677f75816868787c955279cc537acd517f7c76010087636d00677f77517f7c76010087636d00677f7581686878547a94905279527995547aa269c4c353939d02220202102752530164030051145b7a7e56797b95547996765679a4c4547a9476cd547a88cca16903005114587a7e557a587a95547a9676557aa4c4557a9476cd547a88cca16972965379009e63765479a169685479009e63765579a269686d6d6d67557a519d5579827756797ea98871ad6d6d68')
-const ADMIN = hexToBin('45f5b9d41dd723141f721c727715c690fedbbbd6')
+// const ADMIN = hexToBin('45f5b9d41dd723141f721c727715c690fedbbbd6')
 // const ADMIN_FEE = '0100' // 256 or 2.56% (FIXME: This is bug limit.)
 const DUST_VALUE = BigInt(546)
 
@@ -44,6 +46,7 @@ export default async (
     const Wallet = useWalletStore()
 
     /* Initialize locals.*/
+    let admin
     let adminAddress
     let adminFee
     let adminSatoshis
@@ -98,6 +101,9 @@ export default async (
     case 'a15c9e7e68170259fd31bc26610b542625c57e13fdccb5f3e1cb7fb03a420000': // NXL
         numDecimals = 4
         break
+    case '5f2456fa44a88c4a831a4b7d1b1f34176a29a3f28845af639eb9b1c88dd40000': // NXY
+        numDecimals = 2
+        break
     case '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000': // STUDIO
         numDecimals = 0
         break
@@ -124,16 +130,16 @@ export default async (
     scriptHash = ripemd160(sha256(lockingScript))
     // console.log('TEMPLATE HASH', binToHex(scriptHash))
 
-    /* Set Provider public key (hash). */
-    provider = hexToBin(_poolArgs?.provider)
-    console.log('PROVIDER HASH', binToHex(provider))
+    /* Set Admin public key (hash). */
+    admin = hexToBin(_poolArgs?.admin)
+    console.log('ADMIN HASH', binToHex(admin))
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
         OP.ONE,
-        ...encodeDataPush(ADMIN),
+        ...encodeDataPush(admin),
     ])
-    // console.log('ADMIN HASH', binToHex(ADMIN))
+    // console.log('ADMIN HASH', binToHex(admin))
     // console.log('ADMIN SCRIPT PUBKEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
@@ -155,7 +161,7 @@ export default async (
 
     /* Set Provider public key hash. */
     payout = hexToBin(_poolArgs?.payout)
-    // console.info('PAYOUT HASH', binToHex(payout))
+    console.info('PAYOUT HASH', binToHex(payout))
 
     scriptPubKey = new Uint8Array([
         OP.ZERO,
@@ -172,14 +178,15 @@ export default async (
     )
 
     /* Set provider fee. */
-    providerFee = _poolArgs?.fee.toString(16)
+    providerFee = _poolArgs?.providerFee.toString(16)
+    console.log('PROVIDER FEE-1', providerFee)
     if (providerFee.length % 2 === 1) {
         providerFee = '0' + providerFee
     }
     providerFee = hexToBin(providerFee)
     providerFee.reverse()
     providerFee = encodeDataPush(providerFee)
-    // console.log('PROVIDER FEE', binToHex(providerFee))
+    console.log('PROVIDER FEE-2', binToHex(providerFee))
 
     /* Set base service fee. */
     // NOTE: Default is (DUST) 546 satoshis.
@@ -229,15 +236,15 @@ export default async (
         OP.ZERO, // groupid or empty stack item
         ...encodeDataPush(scriptHash), // script hash
         OP.ZERO, // arguments hash or empty stack item
-        ...encodeDataPush(provider), // The Providers' public key.
+        ...encodeDataPush(payout), // Payout public key (designated by Provider).
         ...providerFee, // The rate of exchange, charged by the Provider. (measured in <satoshis> per asset)
-        ...encodeDataPush(ADMIN), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
+        ...encodeDataPush(admin), // An optional 3rd-party (specified by the Provider) used to facilitate the tranaction.
         // ...adminFee, // The platform fee charged by the Administration. (measured in <satoshis> per asset)
         // ...baseServiceFee, // The base service fee. (specified in satoshis)
         ...tradeCeiling, // An optional base (floor) rate, set by the Provider.
         ...tradeFloor, // An optional base (floor) rate, set by the Provider.
     ])
-    // console.info('TX SCRIPT PUBLIC KEY', binToHex(scriptPubKey))
+    console.info('TX SCRIPT PUBLIC KEY', binToHex(scriptPubKey))
 
     /* Encode the public key hash into a P2PKH nexa address. */
     contractAddress = encodeAddress(
@@ -429,14 +436,22 @@ export default async (
         address: Wallet.address,
     })
     console.log('RECEIVERS', receivers)
-// return
+
     /* Send UTXO request. */
-    response = await sendToken({
+    response = await buildTokens({
         coins: walletCoins,
         tokens: allTokens,
         receivers,
     })
-    // console.log('Send UTXO (response):', response)
+    console.log('Build UTXO (response)', response.raw)
+
+    /* Validate transaction bytecode. */
+    if (response.raw) {
+        response = await broadcast(response.raw)
+        console.log('BROADCAST (response)', response)
+    } else {
+        response = 'Transaction build ERROR!'
+    }
 
     /* Return transaction result. */
     return response

@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
 
     /* Set path URL. */
     const path = event.context.params.path
-    console.log('PATH', path)
+    // console.log('PATH', path)
 
     /* Validate path. */
     if (path.startsWith('ticker/price') || path.startsWith('ticker/quote')) {
