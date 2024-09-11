@@ -107,6 +107,9 @@ export default async (
     case '9732745682001b06e332b6a4a0dd0fffc4837c707567f8cbfe0f6a9b12080000': // STUDIO
         numDecimals = 0
         break
+    case 'a535ef8ceae8135121ad7bc70712e02d56d8c2a3964877f5cc5dbdf16f390000': // AGNAR
+        numDecimals = 2
+        break
     }
     console.log('NUM DECIMALS', numDecimals)
 

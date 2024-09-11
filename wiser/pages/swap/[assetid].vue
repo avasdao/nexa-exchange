@@ -38,6 +38,10 @@ const init = async () => {
         assetTitle = `Studio Time + Collection`
         assetDescription = `WiserSwap offers instant Nexa token trading.`
         break
+    case 'AGNAR':
+        assetTitle = `AGNAR & Fierce UTXO Kingdom`
+        assetDescription = `WiserSwap offers instant Nexa token trading.`
+        break
     }
 
     // TODO Retrieve token description from on-chain registration.

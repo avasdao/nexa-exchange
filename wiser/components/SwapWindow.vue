@@ -420,6 +420,15 @@ const init = async () => {
         quoteStep.value = '1'
         quotePlaceholder.value = '0'
         break
+    case 'AGNAR':
+        quoteName.value = `AGNAR & Fierce UTXO Kingdom`
+        quoteTokenidHex.value = 'a535ef8ceae8135121ad7bc70712e02d56d8c2a3964877f5cc5dbdf16f390000'
+        quoteIcon.value = 'https://agnar.pages.dev/img/agnar.png'
+        quoteDecimals.value = 2
+
+        quoteStep.value = '0.01'
+        quotePlaceholder.value = '0.00'
+        break
     }
 
     /* Set action. */

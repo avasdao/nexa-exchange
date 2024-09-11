@@ -53,7 +53,7 @@ const closer = () => {
                         </div>
                     </div>
 
-                    <div class="mt-3 flex flex-row gap-4 justify-around">
+                    <div class="mt-3 grid grid-cols-3 gap-4 justify-around">
                         <NuxtLink to="/swap/NXL" class="p-3 flex flex-col items-center gap-2 border-2 border-transparent rounded-lg hover:bg-amber-100 hover:border-amber-300">
                             <img src="https://nexa.exchange/nxl.svg" class="w-20 h-auto" />
 
@@ -75,6 +75,14 @@ const closer = () => {
 
                             <span class="font-medium tracking-wider">
                                 $STUDIO
+                            </span>
+                        </NuxtLink>
+
+                        <NuxtLink to="/swap/AGNAR" class="p-3 flex flex-col items-center gap-2 border-2 border-transparent rounded-lg hover:bg-amber-100 hover:border-amber-300">
+                            <img src="https://agnar.pages.dev/img/agnar.png" class="w-20 h-auto" />
+
+                            <span class="font-medium tracking-wider">
+                                $AGNAR
                             </span>
                         </NuxtLink>
                     </div>
