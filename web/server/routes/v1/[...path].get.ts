@@ -21,6 +21,30 @@ export default defineEventHandler(async (event) => {
         // console.log('EXCHANGE RESPONSE', response)
     }
 
+    /* Validate path. */
+    if (path.startsWith('pool/')) {
+        // console.log(process.env.TELR_API_ENDPOINT + `exchange/${path}`)
+        response = await $fetch(process.env.TELR_API_ENDPOINT + `exchange/${path}`)
+            .catch(err => console.error(err))
+        // console.log('EXCHANGE RESPONSE', response)
+    }
+
+    /* Validate path. */
+    if (path.startsWith('pools/')) {
+        // console.log(process.env.TELR_API_ENDPOINT + `exchange/${path}`)
+        response = await $fetch(process.env.TELR_API_ENDPOINT + `exchange/${path}`)
+            .catch(err => console.error(err))
+        // console.log('EXCHANGE RESPONSE', response)
+    }
+
+    /* Validate path. */
+    if (path.startsWith('session/')) {
+        // console.log(process.env.TELR_API_ENDPOINT + `exchange/${path}`)
+        response = await $fetch(process.env.TELR_API_ENDPOINT + `exchange/${path}`)
+            .catch(err => console.error(err))
+        // console.log('EXCHANGE RESPONSE', response)
+    }
+
     /* Validate response. */
     if (response) {
         return response
