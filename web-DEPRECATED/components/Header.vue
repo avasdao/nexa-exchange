@@ -104,7 +104,7 @@ updateTicker()
                     </NuxtLink>
                 </div>
 
-                <ClientOnly>
+                <!-- <ClientOnly>
                     <NuxtLink to="/markets" class="lg:hidden">
                         <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium group">
                             mNEXA/USD
@@ -148,7 +148,7 @@ updateTicker()
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9"></path>
                         </svg>
                     </NuxtLink>
-                </div>
+                </div> -->
 
                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
                     <nav class="flex space-x-10">

@@ -1,6 +1,6 @@
 <template>
-    <WelcomeView />
-    <SpotlightView />
+    <WelcomeView class="py-10" />
+    <!-- <SpotlightView /> -->
 </template>
 
 <script>
