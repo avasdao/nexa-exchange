@@ -1,4 +1,6 @@
-![Nexa Exchange banner](assets/banner.png)
+# !! THIS REPOSITORY HAS BEEN DEPRECATED !!
+
+![Nexa Exchange banner](assets-DEPRECATED/banner.png)
 
 <h3 align="center">
 <a href="javascript://">Guide</a> <span>&vert;</span>

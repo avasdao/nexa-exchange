@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-web",
-  "version": "24.7.31",
+  "version": "24.11.18",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -11,6 +11,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/tailwindcss": "6.2.0",
     "@pinia/nuxt": "0.4.7",
     "crypto-js": "4.1.1",
     "gravatar": "1.8.2",
@@ -22,10 +23,10 @@
     "pinia": "2.0.32",
     "pouchdb": "8.0.1",
     "qrcode": "1.5.1",
+    "typescript": "5.6.3",
     "uuid": "9.0.0"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "6.2.0",
     "@types/node": "18.14.2",
     "@types/pouchdb": "6.4.0",
     "@types/uuid": "9.0.1"
