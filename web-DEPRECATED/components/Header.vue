@@ -153,14 +153,14 @@ updateTicker()
                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
                     <nav class="flex space-x-10">
 
-                        <a href="https://docs.nexa.exchange" target="_blank" class="py-1 text-base font-medium text-gray-100 hover:text-yellow-300">
+                        <!-- <a href="https://docs.nexa.exchange" target="_blank" class="py-1 text-base font-medium text-gray-100 hover:text-yellow-300">
                             Read The Docs
-                        </a>
+                        </a> -->
 
                     </nav>
 
                     <div class="flex items-center md:ml-12">
-                        <ClientOnly>
+                        <!-- <ClientOnly>
                             <NuxtLink to="/markets">
                                 <h2 class="flex flex-row items-center text-yellow-700 hover:text-yellow-600 font-medium group">
                                 mNEXA/USD
@@ -170,12 +170,6 @@ updateTicker()
                                 </h2>
 
                                 <div class="flex justify-end">
-                                    <!-- <span class="text-yellow-400 font-medium text-xs">
-                                        <span class="">+1.28%</span>
-                                        <svg class="inline w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                                        <span class="mx-1 text-yellow-700">&bullet; &bullet;</span>
-                                        <span class="">2.31M</span>
-                                    </span> -->
                                     <span class="text-yellow-400 font-medium text-sm sm:text-xl">
                                         <span class="">
                                             {{priceChg24h}}
@@ -202,7 +196,7 @@ updateTicker()
 
                         <a href="https://app.nexa.exchange" target="_blank" class="ml-8 inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
                             Launch App
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
