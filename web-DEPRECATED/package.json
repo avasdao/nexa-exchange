@@ -1,6 +1,6 @@
 {
   "name": "nexa-exchange-web",
-  "version": "24.11.18",
+  "version": "25.1.13",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -30,5 +30,9 @@
     "@types/node": "18.14.2",
     "@types/pouchdb": "6.4.0",
     "@types/uuid": "9.0.1"
+  },
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=21.0.0"
   }
 }
